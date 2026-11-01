@@ -11,8 +11,10 @@ Requirements: Node ≥ 20.19 (developed on Node 24), npm.
 ```bash
 npm install
 cp .env.example .env.local      # optional; defaults are safe
-npm run dev                     # http://localhost:3000
+npm run dev                     # http://localhost:3000 (or http://127.0.0.1:3000)
 ```
+
+> **Page looks static under `npm run dev` (no 3D, no animations)?** Next 16's dev server rejects dev requests from hostnames it doesn't trust, and the page then never hydrates (it falls back to the static images). `localhost` and `127.0.0.1` are allowed; for anything else — e.g. your LAN IP when testing from a phone — add the hostname to `allowedDevOrigins` in `next.config.ts`, or use a production build (`npm run build && npm start`), which has no such check.
 
 Production build:
 

@@ -32,6 +32,10 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Dev server only: Next 16 rejects dev requests (incl. the HMR socket) from hosts other than
+  // `localhost`, which leaves the page un-hydrated — no 3D, no client interactivity — when it is
+  // opened as http://127.0.0.1:3000. Add a LAN hostname here to test `next dev` from a phone.
+  allowedDevOrigins: ['127.0.0.1'],
   images: {
     formats: ['image/avif', 'image/webp'],
   },
