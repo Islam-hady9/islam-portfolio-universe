@@ -123,6 +123,53 @@ test.describe('webgl experience (GPU)', () => {
     );
   });
 
+  test('intro reel: the world stops rendering while the film plays, and resumes after', async ({ page }) => {
+    // Count WebGL draw calls from every context on the page.
+    await page.addInitScript(() => {
+      const w = window as unknown as { __draws: number };
+      w.__draws = 0;
+      for (const proto of [WebGLRenderingContext.prototype, WebGL2RenderingContext.prototype]) {
+        for (const name of ['drawArrays', 'drawElements', 'drawArraysInstanced', 'drawElementsInstanced']) {
+          const orig = (proto as unknown as Record<string, ((...a: unknown[]) => unknown) | undefined>)[name];
+          if (!orig) continue;
+          (proto as unknown as Record<string, unknown>)[name] = function (this: unknown, ...args: unknown[]) {
+            w.__draws++;
+            return orig.apply(this, args);
+          };
+        }
+      }
+    });
+    const draws = () => page.evaluate(() => (window as unknown as { __draws: number }).__draws);
+    const drawsOver = async (ms: number) => {
+      const a = await draws();
+      await page.waitForTimeout(ms);
+      return (await draws()) - a;
+    };
+    await gotoHome(page, 'quality=balanced');
+    await expect
+      .poll(() => page.evaluate(() => window.__IU__?.state().webgl), { timeout: 30_000 })
+      .toBe('ready');
+    await scrollToSection(page, 'identity');
+    expect(await drawsOver(1000)).toBeGreaterThan(50);
+
+    const trigger = page.locator('[data-action="identity-reel"]');
+    await expect(page.locator('dialog')).toHaveCount(1, { timeout: 15_000 });
+    await trigger.click();
+    await expect
+      .poll(() => page.locator('dialog video').evaluate((v: HTMLVideoElement) => v.currentTime), {
+        timeout: 15_000,
+      })
+      .toBeGreaterThan(1);
+    expect(await page.evaluate(() => window.__IU__?.state().mediaOverlay)).toBe(true);
+    await page.waitForTimeout(300);
+    expect(await drawsOver(1500)).toBe(0);
+
+    await page.keyboard.press('Escape');
+    await expect(page.locator('dialog')).not.toHaveAttribute('open', '');
+    await expect.poll(() => drawsOver(600), { timeout: 5000 }).toBeGreaterThan(20);
+    expect(await page.evaluate(() => window.__IU__?.state().webgl)).toBe('ready');
+  });
+
   test('frame-rate profile per station (recorded, not asserted against a guess)', async ({ page }) => {
     // Pinned tiers (explicit preference disables the runtime governor), measured serially
     // after the intro has finished, so the numbers describe steady-state rendering.
