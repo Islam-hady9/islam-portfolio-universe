@@ -107,12 +107,79 @@
   }
 }
 
+/* ───────────── With portrait (home): statement + pillars | person ───────────── */
+
+.grid[data-with-portrait] {
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.58fr);
+  grid-template-areas:
+    'statement portrait'
+    'pillars portrait';
+  align-items: start;
+  column-gap: clamp(2.5rem, 6.5vw, 7rem);
+  row-gap: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+.grid[data-with-portrait] .statementCol {
+  grid-area: statement;
+  align-self: end;
+}
+
+.portraitCol {
+  grid-area: portrait;
+  /* Top-anchored: the statement's line-split reveal can change row 1's height by a few
+     pixels, and a centred portrait would move with it. */
+  align-self: start;
+  width: 100%;
+  max-width: 30rem;
+  justify-self: end;
+}
+
+.grid[data-with-portrait] .pillars {
+  grid-area: pillars;
+}
+
+.grid[data-with-portrait] .pillar {
+  padding: 0.25rem clamp(0.9rem, 1.7vw, 1.75rem);
+}
+
+.grid[data-with-portrait] .pillar:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+@media (max-width: 1099px) {
+  .grid[data-with-portrait] {
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.7fr);
+    grid-template-areas:
+      'statement portrait'
+      'pillars pillars';
+  }
+  .grid[data-with-portrait] .statementCol {
+    align-self: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .grid[data-with-portrait] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'statement'
+      'portrait'
+      'pillars';
+  }
+  .portraitCol {
+    justify-self: center;
+    max-width: 26rem;
+  }
+}
+
 @media (max-width: 640px) {
   .pillars {
     grid-template-columns: minmax(0, 1fr);
     gap: 1.75rem;
   }
-  .pillar {
+  .pillar,
+  .grid[data-with-portrait] .pillar {
     border-left: 0;
     border-top: 1px solid var(--line);
     padding: 1.5rem 0 0;

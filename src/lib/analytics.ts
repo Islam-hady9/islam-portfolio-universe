@@ -14,7 +14,9 @@ export type AnalyticsEvent =
   | 'webgl_context_lost'
   | 'webgl_failure'
   | 'scene_error'
-  | 'assistant_demo_query';
+  | 'assistant_demo_query'
+  | 'reel_open'
+  | 'reel_complete';
 
 export function track(event: AnalyticsEvent, props: Record<string, string | number | boolean> = {}) {
   if (typeof window === 'undefined') return;

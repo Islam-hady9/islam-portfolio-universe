@@ -6,11 +6,17 @@ import {
   getCareer,
   getContentMode,
   getHomeCopy,
+  getMedia,
   getPrinciples,
   getProfileExtras,
   getSite,
 } from '@/content';
 import { collectUnverified } from '@/content/gate';
+// Shared media components first, in the same order as on the home page, so both routes share
+// one CSS order and the bundler can keep merging their stylesheets (no extra render-blocking chunk).
+import { IntroReelHost } from '@/components/media/IntroReelHost';
+import { IntroReelTrigger } from '@/components/media/IntroReelTrigger';
+import { PersonalPortrait } from '@/components/media/PersonalPortrait';
 import { PageHero } from '@/components/layout/PageHero';
 import { IdentitySection } from '@/components/scenes/IdentitySection';
 import { JourneySection } from '@/components/scenes/JourneySection';
@@ -20,6 +26,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { StatusTag } from '@/components/ui/StatusTag';
 import { ButtonLink } from '@/components/ui/Button';
 import { routes } from '@/lib/routes';
+import { formatDuration, reelAsset, reelView, spokenDuration } from '@/lib/media';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -41,6 +48,8 @@ export default function AboutPage() {
   const extras = getProfileExtras();
   const mode = getContentMode();
   const pending = collectUnverified(content);
+  const media = getMedia();
+  const reel = reelAsset();
   const extraGroups: [string, typeof extras.education][] = [
     ['Education', extras.education],
     ['Research', extras.research],
@@ -53,7 +62,25 @@ export default function AboutPage() {
         eyebrow="ABOUT"
         title={site.name}
         lead={site.extendedStatement}
-        aside={<p className={styles.role}>{site.roleLabel}</p>}
+        aside={
+          <PersonalPortrait
+            variant="hero"
+            priority
+            className={styles.portrait}
+            alt={media.portrait.alt}
+            eyebrow={site.roleLabel}
+            sizes="(max-width: 767px) 92vw, 27vw"
+            action={
+              <IntroReelTrigger
+                variant="overlay"
+                label={media.introReel.ctaLabel}
+                duration={formatDuration(reel.duration)}
+                spokenDuration={spokenDuration(reel.duration)}
+                dataAction="about-reel"
+              />
+            }
+          />
+        }
       >
         <ButtonLink href={routes.projects} icon="layers">
           View projects
@@ -190,6 +217,7 @@ export default function AboutPage() {
           and rendered in real time; there are no stock images or third-party models.
         </p>
       </section>
+      <IntroReelHost reel={reelView(media.introReel)} />
     </>
   );
 }

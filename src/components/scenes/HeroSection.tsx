@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { HomeCopy, SiteIdentity } from '@/content/schema';
 import { ButtonLink } from '@/components/ui/Button';
 import { routes } from '@/lib/routes';
@@ -9,7 +10,16 @@ import styles from './HeroSection.module.css';
  * rendered by the shared canvas (right ~55%). Entrance is CSS-driven (no JS dependency,
  * fast LCP) and gated on html[data-motion='full'] / html[data-intro].
  */
-export function HeroSection({ site, copy }: { site: SiteIdentity; copy: HomeCopy['hero'] }) {
+export function HeroSection({
+  site,
+  copy,
+  reel,
+}: {
+  site: SiteIdentity;
+  copy: HomeCopy['hero'];
+  /** Optional intro-reel trigger: a quiet human entry point under the CTAs. */
+  reel?: ReactNode;
+}) {
   return (
     <section id="top" data-section="hero" className={styles.hero} aria-labelledby="hero-title">
       <SceneArt scene="hero" label={copy.artDescription} className={styles.art} />
@@ -74,6 +84,11 @@ export function HeroSection({ site, copy }: { site: SiteIdentity; copy: HomeCopy
               </ButtonLink>
             </span>
           </div>
+          {reel ? (
+            <div className={styles.reel} style={{ ['--d' as string]: 980 }}>
+              {reel}
+            </div>
+          ) : null}
           <p id="hero-cv-note" className="sr-only">
             {copy.ctaResumeDeferredNote}
           </p>

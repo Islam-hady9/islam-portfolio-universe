@@ -36,6 +36,8 @@ interface ExperienceState {
   hoveredNode: string | null;
   focusCapability: string | null;
   portal: PortalTransition | null;
+  /** A full-screen media overlay (the intro reel player) covers the world: rendering pauses. */
+  mediaOverlay: boolean;
   sceneStates: Record<string, SceneState>;
   setQualityPreference: (p: QualityPreference) => void;
   setDetectedTier: (tier: QualityTier, reason: string, webglAvailable: boolean) => void;
@@ -48,6 +50,7 @@ interface ExperienceState {
   setHoveredNode: (id: string | null) => void;
   setFocusCapability: (id: string | null) => void;
   setPortal: (p: PortalTransition | null) => void;
+  setMediaOverlay: (open: boolean) => void;
   setSceneStates: (s: Record<string, SceneState>) => void;
 }
 
@@ -65,6 +68,7 @@ export const useExperience = create<ExperienceState>((set) => ({
   hoveredNode: null,
   focusCapability: null,
   portal: null,
+  mediaOverlay: false,
   sceneStates: {},
   setQualityPreference: (qualityPreference) => set({ qualityPreference }),
   setDetectedTier: (detectedTier, tierReason, webglAvailable) =>
@@ -78,5 +82,6 @@ export const useExperience = create<ExperienceState>((set) => ({
   setHoveredNode: (hoveredNode) => set({ hoveredNode }),
   setFocusCapability: (focusCapability) => set({ focusCapability }),
   setPortal: (portal) => set({ portal }),
+  setMediaOverlay: (mediaOverlay) => set({ mediaOverlay }),
   setSceneStates: (sceneStates) => set({ sceneStates }),
 }));

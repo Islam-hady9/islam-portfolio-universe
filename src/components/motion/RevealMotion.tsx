@@ -19,6 +19,7 @@ function idle(timeout: number): Promise<void> {
  *   [data-reveal="lines"]   masked line reveal (SplitText), 70 ms stagger
  *   [data-reveal="fade"]    rise + fade + de-blur
  *   [data-reveal="stagger"] children [data-reveal-item] cascade at 60 ms
+ *   [data-reveal="mask"]    framed media opens from an inset mask while [data-reveal-media] settles
  * Progressive enhancement: content is visible in SSR HTML; only elements still below the
  * fold when this runs are faded and revealed once. Opacity only — never visibility:hidden —
  * so unrevealed links stay focusable (focusing scrolls them in and triggers the reveal).
@@ -102,6 +103,36 @@ export function RevealMotion() {
             clearProps: 'transform',
             scrollTrigger: { trigger: group, start: 'top 86%', once: true },
           });
+        });
+
+        main.querySelectorAll<HTMLElement>('[data-reveal="mask"]').forEach((el) => {
+          if (!belowFold(el)) return;
+          const media = el.querySelector<HTMLElement>('[data-reveal-media]');
+          const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 86%', once: true } });
+          tl.fromTo(
+            el,
+            { clipPath: 'inset(12% 9% 12% 9% round 28px)', opacity: 0 },
+            {
+              clipPath: 'inset(0% 0% 0% 0% round 0px)',
+              opacity: 1,
+              duration: MOTION.duration.settle,
+              ease: MOTION.ease.enter,
+              clearProps: 'clipPath,opacity',
+            },
+          );
+          if (media) {
+            tl.fromTo(
+              media,
+              { scale: 1.12 },
+              {
+                scale: 1,
+                duration: MOTION.duration.settle * 1.3,
+                ease: MOTION.ease.enter,
+                clearProps: 'transform',
+              },
+              0,
+            );
+          }
         });
       });
 

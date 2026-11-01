@@ -1,0 +1,182 @@
+.portrait {
+  position: relative;
+  margin: 0;
+  isolation: isolate;
+}
+
+/* A single hairline orbit behind the frame — the universe's ring language around the person.
+   Geometry keeps the rotated ellipse's box inside the frame's right edge (its right side is
+   masked out anyway), so the decoration can never widen the page. */
+.portrait::before {
+  content: '';
+  position: absolute;
+  inset: -7% 15% -5% -26%;
+  z-index: -1;
+  border-radius: 50%;
+  border: 1px solid rgb(var(--silver-rgb) / 0.1);
+  rotate: -12deg;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(100deg, #000 0%, #000 34%, transparent 62%);
+  mask-image: linear-gradient(100deg, #000 0%, #000 34%, transparent 62%);
+}
+
+.portrait::after {
+  content: '';
+  position: absolute;
+  left: -22%;
+  top: 34%;
+  z-index: -1;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 10px 2px rgb(var(--mint-rgb) / 0.55);
+  pointer-events: none;
+}
+
+.frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  background: #0d0b09;
+  box-shadow:
+    0 0 0 1px rgb(var(--silver-rgb) / 0.13),
+    0 40px 90px -36px rgb(0 0 0 / 0.95),
+    0 0 70px -22px rgb(222 158 88 / 0.26);
+}
+
+/* Blurred low-res stand-in (a few hundred bytes, inlined) until the photograph arrives. */
+.lqip {
+  position: absolute;
+  inset: -16px;
+  background: var(--lqip) center / cover no-repeat;
+  filter: blur(18px);
+}
+
+.img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 48% 30%;
+  transition:
+    transform 1400ms var(--ease-out),
+    opacity 600ms ease;
+}
+
+html[data-motion='full'] .frame:hover .img {
+  transform: scale(1.03);
+}
+
+/* Grade: caption scrim, vignette and a cool rim on the shadow side (teal against lamp-amber). */
+.grade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgb(6 7 10 / 0) 50%, rgb(6 7 10 / 0.42) 72%, rgb(6 7 10 / 0.86) 100%),
+    radial-gradient(120% 92% at 56% 30%, transparent 56%, rgb(3 4 6 / 0.5) 100%),
+    linear-gradient(90deg, rgb(var(--mint-rgb) / 0.09), transparent 30%);
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.13;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1.4 -0.2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Viewfinder corner marks. */
+.corners {
+  --c: rgb(var(--silver-rgb) / 0.38);
+  position: absolute;
+  inset: 14px;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--c), var(--c)) top left / 16px 1px,
+    linear-gradient(var(--c), var(--c)) top left / 1px 16px,
+    linear-gradient(var(--c), var(--c)) top right / 16px 1px,
+    linear-gradient(var(--c), var(--c)) top right / 1px 16px,
+    linear-gradient(var(--c), var(--c)) bottom left / 16px 1px,
+    linear-gradient(var(--c), var(--c)) bottom left / 1px 16px,
+    linear-gradient(var(--c), var(--c)) bottom right / 16px 1px,
+    linear-gradient(var(--c), var(--c)) bottom right / 1px 16px;
+  background-repeat: no-repeat;
+}
+
+/* The spotlight sheen/border (global [data-spotlight]) rides above the photograph. */
+.frame[data-spotlight]::before {
+  z-index: 3;
+}
+
+.frame[data-spotlight]::after {
+  z-index: 4;
+  border-radius: inherit;
+}
+
+.dock {
+  /* Inside the viewfinder corner marks (14px inset + 16px arms). */
+  --inset: clamp(30px, 8%, 36px);
+  position: absolute;
+  left: var(--inset);
+  right: var(--inset);
+  bottom: var(--inset);
+  z-index: 5;
+  display: flex;
+}
+
+.caption {
+  position: absolute;
+  left: clamp(32px, 8.4%, 38px);
+  right: clamp(32px, 8.4%, 38px);
+  bottom: clamp(32px, 8.4%, 38px);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono-stack);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  line-height: 1.5;
+  color: rgb(var(--silver-rgb) / 0.82);
+  pointer-events: none;
+}
+
+/* With a docked control, the caption sits just above it. */
+.caption[data-docked] {
+  bottom: calc(clamp(30px, 8%, 36px) + 64px);
+}
+
+.signal {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 8px rgb(var(--mint-rgb) / 0.8);
+}
+
+@media (pointer: coarse) {
+  .caption[data-docked] {
+    bottom: calc(clamp(30px, 8%, 36px) + 68px);
+  }
+}
+
+@media (max-width: 767px) {
+  .portrait::before,
+  .portrait::after {
+    display: none;
+  }
+  .frame {
+    border-radius: var(--r-lg);
+  }
+}

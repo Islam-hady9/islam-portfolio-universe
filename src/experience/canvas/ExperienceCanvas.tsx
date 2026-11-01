@@ -25,6 +25,9 @@ import { ContextGuard, Diagnostics, IntroDirector, PerformanceGovernor, ReadySig
 export default function ExperienceCanvas({ tier }: { tier: QualityTier }) {
   const pathname = usePathname() ?? '/';
   const reduced = useExperience((s) => s.reducedMotion);
+  // While a full-screen media overlay covers the world, stop the render loop: the GPU is left
+  // to video decoding and the last frame stays on screen under the overlay's backdrop.
+  const covered = useExperience((s) => s.mediaOverlay);
   const cfg = TIER_CONFIG[(tier === 'static' ? 'lite' : tier) as RenderTier];
   const pixelRatio = useMemo(
     () => Math.min(typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1, cfg.dpr[1]),
@@ -38,7 +41,7 @@ export default function ExperienceCanvas({ tier }: { tier: QualityTier }) {
       dpr={cfg.dpr}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance', stencil: false }}
       camera={{ fov: 34, near: 0.1, far: 1400, position: [0, 0.3, 21] }}
-      frameloop={reduced ? 'demand' : 'always'}
+      frameloop={reduced || covered ? 'demand' : 'always'}
       onCreated={({ gl }) => {
         gl.setClearColor('#06070a', 1);
         // Per-program log checks cost a sync GPU round-trip; keep them for development only.

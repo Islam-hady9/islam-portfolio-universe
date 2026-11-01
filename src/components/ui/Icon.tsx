@@ -148,6 +148,32 @@ const paths: Record<IconName, React.ReactNode> = {
       <path d="M12 12h.01M12 2v3.5M12 18.5V22M2 12h3.5M18.5 12H22" />
     </>
   ),
+  captions: (
+    <>
+      <rect x="3" y="5.5" width="18" height="13" rx="2.5" />
+      <path d="M10.6 10.3a2.1 2.1 0 1 0 0 3.4M17 10.3a2.1 2.1 0 1 0 0 3.4" />
+    </>
+  ),
+  collapse: (
+    <path d="M9 4v3.5A1.5 1.5 0 0 1 7.5 9H4m11-5v3.5A1.5 1.5 0 0 0 16.5 9H20m0 6h-3.5a1.5 1.5 0 0 0-1.5 1.5V20M4 15h3.5A1.5 1.5 0 0 1 9 16.5V20" />
+  ),
+  expand: (
+    <path d="M4 9V5.5A1.5 1.5 0 0 1 5.5 4H9m6 0h3.5A1.5 1.5 0 0 1 20 5.5V9m0 6v3.5a1.5 1.5 0 0 1-1.5 1.5H15m-6 0H5.5A1.5 1.5 0 0 1 4 18.5V15" />
+  ),
+  pause: <path d="M8.5 5.5v13M15.5 5.5v13" />,
+  replay: <path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v4h4" />,
+  volume: (
+    <>
+      <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4v-5Z" />
+      <path d="M15.5 9.2a4 4 0 0 1 0 5.6M18 6.7a7.5 7.5 0 0 1 0 10.6" />
+    </>
+  ),
+  'volume-off': (
+    <>
+      <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4v-5Z" />
+      <path d="m16 9.5 5 5m0-5-5 5" />
+    </>
+  ),
 };
 
 export interface IconProps extends Omit<SVGProps<SVGSVGElement>, 'children'> {

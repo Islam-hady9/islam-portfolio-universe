@@ -1,0 +1,193 @@
+.trigger {
+  position: relative;
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  will-change: transform;
+}
+
+.text {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.label {
+  font-family: var(--font-display-stack);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1.15;
+}
+
+.meta {
+  font-family: var(--font-mono-stack);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ───────────── Chip (hero): poster crop + label, a quiet secondary action ───────────── */
+
+.chip .inner {
+  padding: 6px 18px 6px 6px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgb(12 15 20 / 0.42);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
+  transition:
+    border-color var(--d-hover) var(--ease-out),
+    background-color var(--d-hover) var(--ease-out);
+}
+
+.chip:hover .inner {
+  border-color: rgb(var(--mint-rgb) / 0.34);
+  background: rgb(16 20 27 / 0.62);
+}
+
+.thumb {
+  position: relative;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 11px;
+  overflow: hidden;
+  /* Warm stand-in matching the reel's lamp-lit palette until the crop arrives. */
+  background: radial-gradient(70% 70% at 40% 35%, rgb(214 150 82 / 0.32), transparent 70%), #120e0b;
+  box-shadow: 0 0 0 1px rgb(var(--silver-rgb) / 0.16);
+}
+
+.thumbImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 900ms var(--ease-out);
+}
+
+html[data-motion='full'] .chip:hover .thumbImg {
+  transform: scale(1.08);
+}
+
+.badge {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  padding-left: 1px;
+  border-radius: 50%;
+  color: var(--text-on-mint);
+  background: var(--mint);
+  box-shadow: 0 0 12px rgb(var(--mint-rgb) / 0.55);
+}
+
+.chip .meta {
+  color: var(--text-secondary);
+}
+
+.metaExtra {
+  color: var(--text-muted);
+}
+
+/* ───────────── Overlay (portrait): glass pill over the photo's lower scrim ───────────── */
+
+.overlay .inner {
+  gap: 12px;
+  padding: 7px 18px 7px 7px;
+  border-radius: var(--r-pill);
+  border: 1px solid rgb(var(--silver-rgb) / 0.2);
+  background: rgb(8 10 14 / 0.5);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  backdrop-filter: blur(14px) saturate(130%);
+  box-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.7);
+  transition:
+    border-color var(--d-hover) var(--ease-out),
+    background-color var(--d-hover) var(--ease-out);
+}
+
+.overlay:hover .inner {
+  border-color: rgb(var(--mint-rgb) / 0.45);
+  background: rgb(10 13 18 / 0.66);
+}
+
+.disc {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  padding-left: 2px;
+  border-radius: 50%;
+  color: var(--text-on-mint);
+  background: var(--mint);
+  box-shadow:
+    0 0 0 4px rgb(var(--mint-rgb) / 0.16),
+    0 0 18px rgb(var(--mint-rgb) / 0.45);
+}
+
+/* A slow, single pulse ring — the only ambient motion on the portrait. */
+html[data-motion='full'] .disc::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgb(var(--mint-rgb) / 0.6);
+  animation: reel-pulse 3.2s var(--ease-out) infinite;
+}
+
+@keyframes reel-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  70%,
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+.overlay .label {
+  font-size: 0.875rem;
+}
+
+.overlay .meta {
+  color: rgb(var(--silver-rgb) / 0.75);
+}
+
+.trigger:focus-visible {
+  outline: none;
+}
+
+.trigger:focus-visible .inner {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+}
+
+@media (pointer: coarse) {
+  .chip .inner {
+    min-height: 64px;
+  }
+  .overlay .inner {
+    min-height: 52px;
+  }
+}

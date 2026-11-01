@@ -5,12 +5,18 @@ import {
   getCareer,
   getFeaturedProjects,
   getHomeCopy,
+  getMedia,
   getPrinciples,
   getSite,
   getSocialLinks,
   getUniverseNodes,
 } from '@/content';
 import { buildSourceIndex } from '@/lib/assistant/source-index';
+import { formatDuration, reelAsset, reelView, spokenDuration } from '@/lib/media';
+// Shared media components first, in the same order as on /about (one CSS order for both routes).
+import { IntroReelHost } from '@/components/media/IntroReelHost';
+import { IntroReelTrigger } from '@/components/media/IntroReelTrigger';
+import { PersonalPortrait } from '@/components/media/PersonalPortrait';
 import { Prelude } from '@/components/scenes/Prelude';
 import { HeroSection } from '@/components/scenes/HeroSection';
 import { IdentitySection } from '@/components/scenes/IdentitySection';
@@ -27,11 +33,41 @@ import { HomeMotion } from '@/components/motion/HomeMotion';
 export default function HomePage() {
   const site = getSite();
   const home = getHomeCopy();
+  const media = getMedia();
+  const reel = reelAsset();
+  const reelLabels = {
+    label: media.introReel.ctaLabel,
+    duration: formatDuration(reel.duration),
+    spokenDuration: spokenDuration(reel.duration),
+  };
   return (
     <>
       <Prelude name={site.displayName} />
-      <HeroSection site={site} copy={home.hero} />
-      <IdentitySection site={site} />
+      <HeroSection
+        site={site}
+        copy={home.hero}
+        reel={
+          <IntroReelTrigger
+            {...reelLabels}
+            variant="chip"
+            meta={media.introReel.eyebrow}
+            thumbnail={{ src: reel.thumbnail.src, sources: reel.thumbnail.sources }}
+            dataAction="hero-reel"
+          />
+        }
+      />
+      <IdentitySection
+        site={site}
+        portrait={
+          <PersonalPortrait
+            variant="band"
+            alt={media.portrait.alt}
+            eyebrow={media.portrait.eyebrow}
+            sizes="(max-width: 767px) 92vw, (max-width: 1099px) 34vw, 32vw"
+            action={<IntroReelTrigger {...reelLabels} variant="overlay" dataAction="identity-reel" />}
+          />
+        }
+      />
       <UniverseSection copy={home.universe} nodes={getUniverseNodes()} />
       <ProjectsSection copy={home.projects} projects={getFeaturedProjects()} />
       <PhilosophySection copy={home.philosophy} principles={getPrinciples()} />
@@ -44,6 +80,7 @@ export default function HomePage() {
       />
       <ContactSection copy={home.contact} social={getSocialLinks()} />
       <HomeMotion />
+      <IntroReelHost reel={reelView(media.introReel)} />
     </>
   );
 }

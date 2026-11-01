@@ -2,12 +2,16 @@
   padding: calc(var(--section-pad) * 0.7) 0;
 }
 
-.role {
-  font-family: var(--font-display-stack);
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.28em;
-  color: var(--mint);
+.portrait {
+  width: clamp(15rem, 27vw, 24rem);
+}
+
+@media (max-width: 767px) {
+  /* The hero aside is shrink-to-fit: size from the viewport, never from a percentage. */
+  .portrait {
+    width: min(26rem, calc(100vw - 2 * var(--gutter)));
+    margin-top: 0.5rem;
+  }
 }
 
 .extras {

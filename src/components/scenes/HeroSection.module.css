@@ -144,6 +144,11 @@
   display: inline-flex;
 }
 
+.reel {
+  display: flex;
+  margin-top: clamp(1.1rem, 2vw, 1.6rem);
+}
+
 /* Scroll cue */
 .scrollCue {
   position: absolute;
@@ -192,7 +197,8 @@ html[data-motion='full'] .eyebrow,
 html[data-motion='full'] .role,
 html[data-motion='full'] .lead,
 html[data-motion='full'] .body,
-html[data-motion='full'] .cta {
+html[data-motion='full'] .cta,
+html[data-motion='full'] .reel {
   animation: hero-rise 900ms var(--ease-out) both;
   animation-delay: calc(var(--d, 0) * 1ms + 120ms);
 }
@@ -217,6 +223,7 @@ html[data-intro='playing'] .role,
 html[data-intro='playing'] .lead,
 html[data-intro='playing'] .body,
 html[data-intro='playing'] .cta,
+html[data-intro='playing'] .reel,
 html[data-intro='playing'] .lineInner,
 html[data-intro='playing'] .rule {
   animation-play-state: paused;
