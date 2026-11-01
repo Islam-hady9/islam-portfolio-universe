@@ -1,5 +1,6 @@
 .art {
   pointer-events: none;
+  overflow: hidden;
 }
 
 .poster {
