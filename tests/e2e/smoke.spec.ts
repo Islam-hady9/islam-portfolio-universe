@@ -4,6 +4,9 @@ import { ROUTES, gotoHome, trackErrors } from './helpers';
 /** Cross-browser smoke (Chromium desktop/mobile, Firefox, WebKit). */
 test.describe('smoke', () => {
   test('all routes render their h1 without runtime errors', async ({ page }) => {
+    // Ten navigations, each waiting for network idle (deferred posters load after first paint):
+    // Firefox/WebKit under a parallel full run need more than the default 45 s budget.
+    test.setTimeout(90_000);
     const errors = trackErrors(page);
     for (const route of ROUTES) {
       // Let link prefetches finish before leaving: WebKit reports prefetches cancelled by a
@@ -12,7 +15,11 @@ test.describe('smoke', () => {
       expect(res?.status(), route).toBe(200);
       await expect(page.locator('h1'), route).toHaveCount(1);
     }
-    expect(errors).toEqual([]);
+    // WebKit reports RSC prefetches aborted by a hard page.goto as "access control checks"
+    // rejections — a test-harness artifact (client-side navigation never aborts them this way).
+    // Only that exact pattern is excluded; any other error fails the test.
+    const prefetchAborts = /\?_rsc=\S+ due to access control checks/;
+    expect(errors.filter((e) => !prefetchAborts.test(e))).toEqual([]);
   });
 
   test('primary journey: home → project → contact', async ({ page }) => {

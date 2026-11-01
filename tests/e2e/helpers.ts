@@ -10,9 +10,27 @@ export async function gotoHome(page: Page, query = '') {
 
 /**
  * Waits until every image intersecting the viewport has loaded and decoded, so screenshots never
- * race the poster art (lazy images below the fold are ignored).
+ * race the poster art (lazy images below the fold are ignored). Deferred posters (DeferredImg)
+ * receive their src only after first paint, so first wait for every visible image to have one.
  */
 export async function viewportImagesDecoded(page: Page) {
+  await page.waitForFunction(
+    () =>
+      [...document.images]
+        .filter((img) => {
+          const r = img.getBoundingClientRect();
+          return (
+            r.width > 0 &&
+            r.height > 0 &&
+            r.bottom > 0 &&
+            r.top < window.innerHeight &&
+            !img.closest('noscript')
+          );
+        })
+        .every((img) => !!img.getAttribute('src') && img.complete),
+    null,
+    { timeout: 10_000 },
+  );
   await page.evaluate(async () => {
     const visible = [...document.images].filter((img) => {
       const r = img.getBoundingClientRect();
