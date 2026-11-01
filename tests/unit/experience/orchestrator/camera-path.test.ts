@@ -9,6 +9,8 @@ import {
   catmullRom,
   evaluatePath,
   groundLayerVisible,
+  journeyMoonFor,
+  WORLD,
   lerpVec,
   solveGroundCrossing,
   transitVeil,
@@ -241,5 +243,29 @@ describe('ground crossings (the camera is never seen passing through terrain)', 
         expect(transitVeil(tr.full, GROUND_TRANSITS[aspect])).toBe(1);
       }
     }
+  });
+});
+
+describe('journeyMoonFor', () => {
+  const pose = HOME_STATIONS.find((st) => st.id === 'experience')!.wide;
+  const ndcX = (aspect: number) => {
+    const [x, , z] = journeyMoonFor(aspect);
+    const depth = pose.position[2] - z;
+    return (x - pose.position[0]) / (depth * Math.tan((pose.fov * Math.PI) / 360) * aspect);
+  };
+
+  it('keeps the approved 16:10 placement', () => {
+    expect(journeyMoonFor(1.6)).toEqual(WORLD.journey.moon.map((v) => expect.closeTo(v, 9)));
+  });
+
+  it('holds the same horizontal screen position at 4:3, 16:9 and ultrawide', () => {
+    const reference = ndcX(1.6);
+    expect(reference).toBeGreaterThan(0.85);
+    expect(reference).toBeLessThan(1);
+    for (const aspect of [4 / 3, 16 / 9, 21 / 9]) expect(ndcX(aspect)).toBeCloseTo(reference, 9);
+  });
+
+  it('leaves portrait framing untouched', () => {
+    expect(journeyMoonFor(390 / 844)).toEqual(WORLD.journey.moon);
   });
 });

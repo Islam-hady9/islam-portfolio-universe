@@ -29,6 +29,7 @@ export function CapabilitiesSection({
               className={styles.panel}
               data-capability={g.id}
               data-reveal-item=""
+              data-spotlight=""
             >
               <div className={styles.head}>
                 <span className={styles.icon} aria-hidden="true">

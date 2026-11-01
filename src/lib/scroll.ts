@@ -1,6 +1,7 @@
 'use client';
 
 import { useExperience } from '@/state/experience-store';
+import { MOTION } from './motion';
 
 type Gsap = typeof import('gsap').default;
 type Tween = ReturnType<Gsap['to']>;
@@ -63,12 +64,15 @@ export function travelToSection(
     done();
     return true;
   }
-  const duration = Math.min(1.8, Math.max(0.9, distance / 2600 + 0.6));
+  const duration = Math.min(
+    MOTION.duration.travelMax,
+    Math.max(MOTION.duration.travelMin, distance / 2600 + 0.6),
+  );
   void loadGsap().then((gsap) => {
     if (myId !== travelId) return; // superseded by a newer travel request
     activeTween = gsap.to(window, {
       duration,
-      ease: 'power3.inOut',
+      ease: MOTION.ease.travel,
       scrollTo: { y: top, autoKill: true },
       onComplete: done,
       onInterrupt: () => {

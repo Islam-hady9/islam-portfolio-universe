@@ -260,3 +260,18 @@ export function groundLayerVisible(id: GroundLayerId, s: number, aspect: AspectC
   const c = GROUND_TRANSITS[aspect][id].crossing;
   return !(Number.isFinite(c) && s > c + LAYER_HIDE_AFTER);
 }
+
+/**
+ * Journey moon for the current viewport aspect: keeps the approved 16:10 screen position (right
+ * frame edge, below the right-aligned subtitle) at every wide aspect — at a fixed world x it fell
+ * out of frame at 4:3 and drifted toward the copy at 16:9. Portrait keeps the default (off-frame).
+ */
+export function journeyMoonFor(aspect: number): Vec3 {
+  const base = WORLD.journey.moon;
+  if (aspect < 0.9) return base;
+  const pose = HOME_STATIONS.find((s) => s.id === 'experience')!.wide;
+  const depth = pose.position[2] - base[2];
+  const halfHeight = depth * Math.tan((pose.fov * Math.PI) / 360);
+  const ndcX = (base[0] - pose.position[0]) / (halfHeight * 1.6); // calibrated at 16:10
+  return [pose.position[0] + ndcX * halfHeight * aspect, base[1], base[2]];
+}

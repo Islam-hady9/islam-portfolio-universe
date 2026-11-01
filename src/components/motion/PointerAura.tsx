@@ -87,6 +87,13 @@ export function PointerAura() {
         magnetOffset.x = Math.max(-1, Math.min(1, dx)) * 6;
         magnetOffset.y = Math.max(-1, Math.min(1, dy)) * 4;
       }
+      // Spotlight surfaces: a soft highlight and border glow track the pointer inside the card.
+      const spot = (e.target as Element | null)?.closest?.('[data-spotlight]') as HTMLElement | null;
+      if (spot) {
+        const r = spot.getBoundingClientRect();
+        spot.style.setProperty('--sx', `${(e.clientX - r.left).toFixed(0)}px`);
+        spot.style.setProperty('--sy', `${(e.clientY - r.top).toFixed(0)}px`);
+      }
       aura.dataset.hot = (e.target as Element | null)?.closest?.('a, button, [role="button"], input, label')
         ? 'true'
         : 'false';

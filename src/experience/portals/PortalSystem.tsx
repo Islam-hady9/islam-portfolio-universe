@@ -29,6 +29,7 @@ import { MovidWorld } from './worlds/MovidWorld';
 import { AtsWorld } from './worlds/AtsWorld';
 import { LifeAtlasWorld } from './worlds/LifeAtlasWorld';
 import { useExperience } from '@/state/experience-store';
+import { MOTION } from '@/lib/motion';
 
 type WorldId = 'tibyn' | 'movid' | 'ats' | 'lifeatlas';
 const WORLD_IDS: WorldId[] = ['tibyn', 'movid', 'ats', 'lifeatlas'];
@@ -218,10 +219,17 @@ export function PortalSystem({ cfg }: { cfg: TierConfig }) {
       });
       tl.to(
         state.rect,
-        { x: 0, y: 0, w: window.innerWidth, h: window.innerHeight, duration: 0.82, ease: 'power3.inOut' },
+        {
+          x: 0,
+          y: 0,
+          w: window.innerWidth,
+          h: window.innerHeight,
+          duration: MOTION.duration.portal,
+          ease: MOTION.ease.travel,
+        },
         0,
       );
-      tl.to(state, { radius: 0, depth: 1, duration: 0.82, ease: 'power3.inOut' }, 0);
+      tl.to(state, { radius: 0, depth: 1, duration: MOTION.duration.portal, ease: MOTION.ease.travel }, 0);
     });
     return () => registerPortalTransition(null);
   }, []);
@@ -385,10 +393,15 @@ export function PortalSystem({ cfg }: { cfg: TierConfig }) {
             y: hr.top,
             w: hr.width,
             h: hr.height,
-            duration: 0.6,
-            ease: 'power2.out',
+            duration: MOTION.duration.portalSettle,
+            ease: MOTION.ease.release,
           });
-          gsap.to(portal, { depth: 0.25, duration: 0.6, ease: 'power2.out', onComplete: endTransition });
+          gsap.to(portal, {
+            depth: 0.25,
+            duration: MOTION.duration.portalSettle,
+            ease: MOTION.ease.release,
+            onComplete: endTransition,
+          });
         } else if (now - portal.startedAt > 3000) {
           endTransition();
         }

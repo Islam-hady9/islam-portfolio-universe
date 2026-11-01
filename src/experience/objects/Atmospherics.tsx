@@ -117,7 +117,7 @@ export function Aurora({
           uniform float uTime; uniform vec3 uA; uniform vec3 uB; uniform float uStrength; varying vec2 vUv;
           ${NOISE_GLSL}
           void main(){
-            float folds = iu_fbm3(vec3(vUv.x * 5.0, vUv.y * 0.6, uTime * 0.04));
+            float folds = iu_fbm3_lo(vec3(vUv.x * 5.0, vUv.y * 0.6, uTime * 0.04));
             float curtain = smoothstep(0.0, 0.25, vUv.y) * smoothstep(1.0, 0.25, vUv.y);
             float rays = 0.6 + 0.4 * sin(vUv.x * 60.0 + folds * 12.0);
             float edge = smoothstep(0.0, 0.18, vUv.x) * smoothstep(1.0, 0.82, vUv.x);

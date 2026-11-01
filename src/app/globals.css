@@ -116,6 +116,9 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-padding-top: calc(var(--header-h) + 12px);
+  /* Reserve the scrollbar gutter from the first (streamed) paint: classic scrollbars would
+     otherwise appear mid-load and shift every vw-sized box (measured CLS 0.23 on desktop). */
+  scrollbar-gutter: stable;
   background: var(--bg-void);
 }
 
@@ -260,5 +263,50 @@ html:not([data-motion='full']) *::after {
 @media (prefers-reduced-motion: reduce) {
   html:not([data-motion='full']) {
     scroll-behavior: auto;
+  }
+}
+
+/* Pointer spotlight (philosophy + capability cards; PointerAura sets --sx/--sy): a soft inner
+   sheen and a border glow that follow the pointer — the same language as the project cards. */
+[data-spotlight] {
+  position: relative;
+}
+[data-spotlight]::before,
+[data-spotlight]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 360ms var(--ease-out);
+}
+[data-spotlight]::before {
+  background: radial-gradient(
+    300px circle at var(--sx, 50%) var(--sy, 0%),
+    rgb(255 255 255 / 0.055),
+    transparent 62%
+  );
+}
+[data-spotlight]::after {
+  padding: 1px;
+  background: radial-gradient(
+    220px circle at var(--sx, 50%) var(--sy, 0%),
+    rgb(var(--mint-rgb) / 0.55),
+    transparent 70%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-spotlight]:hover::before,
+  [data-spotlight]:hover::after {
+    opacity: 1;
   }
 }

@@ -3,8 +3,10 @@
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import {
+  DoubleSide,
   InstancedBufferAttribute,
   InstancedMesh,
+  Matrix4,
   MeshStandardMaterial,
   Object3D,
   PlaneGeometry,
@@ -21,6 +23,7 @@ const COLS = 9;
 /** MOViD Studio — cinematic multi-screen editing theatre (violet). */
 export function MovidWorld() {
   const screensRef = useRef<InstancedMesh>(null);
+  const reflectRef = useRef<InstancedMesh>(null);
   const count = ROWS * COLS;
 
   const geometry = useMemo(() => {
@@ -34,12 +37,19 @@ export function MovidWorld() {
 
   const mats = useMemo(() => {
     const screen = new ShaderMaterial({
-      uniforms: { uTime: { value: 0 }, uHover: { value: 0 } },
+      uniforms: { uTime: { value: 0 }, uHover: { value: 0 }, uReflect: { value: 0 } },
       vertexShader: /* glsl */ `
-        attribute float aSeed; varying vec2 vUv; varying float vSeed;
-        void main(){ vUv = uv; vSeed = aSeed; gl_Position = projectionMatrix * viewMatrix * modelMatrix * instanceMatrix * vec4(position,1.0); }`,
+        attribute float aSeed; varying vec2 vUv; varying float vSeed; varying float vDepth; varying float vWorldY;
+        void main(){
+          vUv = uv; vSeed = aSeed;
+          vec4 w = modelMatrix * instanceMatrix * vec4(position, 1.0);
+          vec4 mv = viewMatrix * w;
+          vDepth = -mv.z; vWorldY = w.y;
+          gl_Position = projectionMatrix * mv;
+        }`,
       fragmentShader: /* glsl */ `
-        uniform float uTime; uniform float uHover; varying vec2 vUv; varying float vSeed;
+        uniform float uTime; uniform float uHover; uniform float uReflect;
+        varying vec2 vUv; varying float vSeed; varying float vDepth; varying float vWorldY;
         ${NOISE_GLSL}
         void main(){
           vec2 uv = vUv;
@@ -65,14 +75,17 @@ export function MovidWorld() {
           float frame = 1.0 - step(0.015, min(min(uv.x, 1.0 - uv.x), min(uv.y, 1.0 - uv.y)));
           col = col * scan * (0.3 + 0.7 * vig) * (0.72 + uHover * 0.45);
           col += vec3(0.25, 0.22, 0.4) * frame;
+          // Depth: screens further round the arc recede; the floor mirror fades below the horizon.
+          col *= mix(1.0, 0.48, smoothstep(7.5, 13.0, vDepth));
+          if (uReflect > 0.5) col *= 0.2 * smoothstep(-5.5, -0.2, vWorldY);
           gl_FragColor = vec4(col, 1.0);
         }`,
     });
     const hero = new ShaderMaterial({
-      uniforms: { uTime: { value: 0 }, uHover: { value: 0 } },
-      vertexShader: /* glsl */ `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
+      uniforms: { uTime: { value: 0 }, uHover: { value: 0 }, uReflect: { value: 0 } },
+      vertexShader: /* glsl */ `varying vec2 vUv; varying float vWorldY; void main(){ vUv = uv; vec4 w = modelMatrix * vec4(position,1.0); vWorldY = w.y; gl_Position = projectionMatrix * viewMatrix * w; }`,
       fragmentShader: /* glsl */ `
-        uniform float uTime; uniform float uHover; varying vec2 vUv;
+        uniform float uTime; uniform float uHover; uniform float uReflect; varying vec2 vUv; varying float vWorldY;
         ${NOISE_GLSL}
         float tri(vec2 p){ // play triangle SDF-ish
           p -= vec2(0.5);
@@ -82,7 +95,7 @@ export function MovidWorld() {
         }
         void main(){
           vec2 uv = vUv;
-          vec3 bg = mix(vec3(0.06, 0.04, 0.16), vec3(0.22, 0.12, 0.42), iu_fbm3(vec3(uv * 2.5, uTime * 0.1)));
+          vec3 bg = mix(vec3(0.06, 0.04, 0.16), vec3(0.22, 0.12, 0.42), iu_fbm3_lo(vec3(uv * 2.5, uTime * 0.1)));
           float d = tri(uv);
           float play = smoothstep(0.01, -0.01, d);
           float glow = exp(-max(d, 0.0) * 18.0);
@@ -90,6 +103,7 @@ export function MovidWorld() {
           vec3 col = bg * 0.7 + vec3(0.62, 0.52, 1.0) * (play * 1.5 + glow * 0.45) * pulse;
           float frame = 1.0 - step(0.012, min(min(uv.x, 1.0 - uv.x), min(uv.y, 1.0 - uv.y)));
           col += vec3(0.5, 0.45, 0.9) * frame * 0.6;
+          if (uReflect > 0.5) col *= 0.22 * smoothstep(-4.5, -0.2, vWorldY);
           gl_FragColor = vec4(col, 1.0);
         }`,
     });
@@ -102,19 +116,33 @@ export function MovidWorld() {
           float d = length(vW.xz - vec2(0.0, -5.0));
           vec3 col = vec3(0.16, 0.1, 0.36) * exp(-d * 0.26) * 0.32;
           float grid = (1.0 - smoothstep(0.0, 0.03, abs(fract(vW.x * 0.8) - 0.5) - 0.47)) * 0.018 * exp(-d * 0.15);
-          gl_FragColor = vec4(col + grid, 1.0);
+          // Polished floor: dark tint over the mirrored wall, opaque far away.
+          float a = mix(0.62, 1.0, smoothstep(6.0, 14.0, d));
+          gl_FragColor = vec4((col + grid) * a, a);
         }`,
+      transparent: true,
+      depthWrite: false,
     });
     const figure = new MeshStandardMaterial({ color: '#030305', roughness: 0.9 });
-    return { screen, hero, floor, figure, haze: glowMaterial('#8b7cff', 0.2, 2.2) };
+    // Same side on originals and mirrors → one shader program each (mirrors flip winding).
+    screen.side = DoubleSide;
+    hero.side = DoubleSide;
+    const screenMirror = screen.clone();
+    screenMirror.uniforms = { ...screen.uniforms, uReflect: { value: 1 } };
+    const heroMirror = hero.clone();
+    heroMirror.uniforms = { ...hero.uniforms, uReflect: { value: 1 } };
+    return { screen, hero, screenMirror, heroMirror, floor, figure, haze: glowMaterial('#8b7cff', 0.2, 2.2) };
   }, []);
 
   const figureGeometry = useMemo(() => buildExplorerGeometry(), []);
 
   useLayoutEffect(() => {
     const m = screensRef.current;
+    const reflect = reflectRef.current;
     if (!m) return;
     const o = new Object3D();
+    const flipY = new Matrix4().makeScale(1, -1, 1);
+    const mirror = new Matrix4();
     const radius = 9;
     const span = Math.PI * 0.7;
     let i = 0;
@@ -128,10 +156,14 @@ export function MovidWorld() {
         const w = center ? 0.01 : 1.9;
         o.scale.set(w, center ? 0.01 : 1.15, 1);
         o.updateMatrix();
-        m.setMatrixAt(i++, o.matrix);
+        m.setMatrixAt(i, o.matrix);
+        mirror.copy(o.matrix).premultiply(flipY);
+        reflect?.setMatrixAt(i, mirror);
+        i++;
       }
     }
     m.instanceMatrix.needsUpdate = true;
+    if (reflect) reflect.instanceMatrix.needsUpdate = true;
   }, []);
 
   useEffect(
@@ -157,7 +189,11 @@ export function MovidWorld() {
     <>
       <color attach="background" args={['#05040c']} />
       <instancedMesh ref={screensRef} args={[geometry, mats.screen, count]} frustumCulled={false} />
+      <instancedMesh ref={reflectRef} args={[geometry, mats.screenMirror, count]} frustumCulled={false} />
       <mesh material={mats.hero} position={[0, 2.95, -9.6]}>
+        <planeGeometry args={[3.6, 2.1]} />
+      </mesh>
+      <mesh material={mats.heroMirror} position={[0, -2.95, -9.6]} scale={[1, -1, 1]}>
         <planeGeometry args={[3.6, 2.1]} />
       </mesh>
       <mesh material={mats.floor} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -4]}>

@@ -13,6 +13,7 @@ import {
   LineSegments,
   Mesh,
   ShaderMaterial,
+  SphereGeometry,
   Vector3,
 } from 'three';
 import type { TierConfig } from '../quality/tiers';
@@ -21,7 +22,9 @@ import { frame } from '../orchestrator/frame-state';
 import { registerNodeApproach } from '../orchestrator/transitions';
 import { ORBIT_TRACKS, UNIVERSE_LAYOUT, type NodeId } from '../universe-layout';
 import { useExperience } from '@/state/experience-store';
+import { MOTION } from '@/lib/motion';
 import { Galaxy } from '../objects/Galaxy';
+import { NOISE_GLSL } from '../shaders/noise';
 
 const ACCENT: Record<NodeId, string> = {
   'ai-systems': '#52c7ea',
@@ -144,7 +147,8 @@ export function UniverseStation({ cfg, pixelRatio }: { cfg: TierConfig; pixelRat
         void main(){
           float hi = 1.0 - step(0.5, abs(vI - uHiIndex));
           float flow = smoothstep(0.0, 0.35, fract(vT * 3.0 - uTime * 0.35));
-          float a = (0.05 + 0.12 * flow + hi * (0.25 + 0.5 * flow)) * uFade * smoothstep(0.0, 0.25, vT);
+          float packet = smoothstep(0.9, 1.0, fract(vT - uTime * 0.3 + vI * 0.137)) * smoothstep(0.05, 0.3, vT);
+          float a = (0.05 + 0.12 * flow + hi * (0.25 + 0.5 * flow) + packet * (0.4 + hi * 0.6)) * uFade * smoothstep(0.0, 0.25, vT);
           vec3 c = mix(vec3(0.6, 0.65, 0.9), vec3(0.5, 1.0, 0.85), hi);
           gl_FragColor = vec4(c * a * 1.6, a);
         }`,
@@ -169,17 +173,22 @@ export function UniverseStation({ cfg, pixelRatio }: { cfg: TierConfig; pixelRat
     const out: Record<string, ShaderMaterial> = {};
     for (const id of NODE_IDS) {
       out[id] = new ShaderMaterial({
-        uniforms: { uColor: { value: new Color(ACCENT[id]) }, uIntensity: { value: 1 } },
+        uniforms: {
+          uColor: { value: new Color(ACCENT[id]) },
+          uIntensity: { value: 1 },
+          uRipple: { value: 0 },
+        },
         vertexShader: /* glsl */ `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
         fragmentShader: /* glsl */ `
-          uniform vec3 uColor; uniform float uIntensity; varying vec2 vUv;
+          uniform vec3 uColor; uniform float uIntensity; uniform float uRipple; varying vec2 vUv;
           void main(){
             float d = length(vUv - 0.5) * 2.0;
             float core = smoothstep(0.22, 0.0, d);
             float halo = exp(-d * d * 7.0);
             float ring = smoothstep(0.05, 0.0, abs(d - 0.62)) * 0.5;
-            vec3 c = uColor * (halo * 1.6 + ring) + vec3(1.0) * core * 3.0;
-            float a = clamp(halo + core + ring, 0.0, 1.0) * uIntensity;
+            float ripple = smoothstep(0.05, 0.0, abs(d - uRipple * 0.97)) * (1.0 - uRipple) * step(0.001, uRipple) * 1.6;
+            vec3 c = uColor * (halo * 1.4 + ring + ripple) + vec3(1.0) * core * 0.9;
+            float a = clamp(halo + core * 0.4 + ring + ripple, 0.0, 1.0) * uIntensity;
             gl_FragColor = vec4(c * uIntensity, a);
           }`,
         transparent: true,
@@ -191,6 +200,49 @@ export function UniverseStation({ cfg, pixelRatio }: { cfg: TierConfig; pixelRat
     return out;
   }, []);
 
+  // Destination worldlets: small lit bodies (light from the galactic core) so every node is an
+  // object in space with depth and parallax, not just a glow sprite.
+  const worldlets = useMemo(() => {
+    const geometry = new SphereGeometry(1, 32, 24);
+    const mats: Record<string, ShaderMaterial> = {};
+    NODE_IDS.forEach((id, i) => {
+      mats[id] = new ShaderMaterial({
+        uniforms: {
+          uColor: { value: new Color(ACCENT[id]) },
+          uLight: { value: new Vector3(0, 0, 1) },
+          uHover: { value: 0 },
+          uFade: { value: 0 },
+          uSeed: { value: i * 1.73 },
+        },
+        vertexShader: /* glsl */ `
+          varying vec3 vN; varying vec3 vView; varying vec3 vObj;
+          void main(){
+            vObj = position;
+            vec4 wp = modelMatrix * vec4(position, 1.0);
+            vN = normalize(mat3(modelMatrix) * normal);
+            vView = normalize(cameraPosition - wp.xyz);
+            gl_Position = projectionMatrix * viewMatrix * wp;
+          }`,
+        fragmentShader: /* glsl */ `
+          uniform vec3 uColor; uniform vec3 uLight; uniform float uHover; uniform float uFade; uniform float uSeed;
+          varying vec3 vN; varying vec3 vView; varying vec3 vObj;
+          ${NOISE_GLSL}
+          void main(){
+            vec3 n = normalize(vN);
+            float fres = pow(1.0 - max(dot(n, normalize(vView)), 0.0), 2.4);
+            float lit = max(dot(n, normalize(uLight)), 0.0);
+            float terrain = iu_fbm3_lo(vObj * 2.2 + uSeed);
+            vec3 body = mix(vec3(0.03, 0.035, 0.05), uColor * 0.32, smoothstep(0.35, 0.75, terrain));
+            vec3 col = body * (0.18 + 1.1 * lit) + uColor * fres * (0.9 + uHover * 1.4);
+            gl_FragColor = vec4(col * uFade, 1.0);
+          }`,
+      });
+    });
+    return { geometry, mats };
+  }, []);
+  const worldletRefs = useRef<Record<string, Mesh | null>>({});
+  const selected = useRef<{ id: string; t0: number } | null>(null);
+
   useEffect(
     () => () => {
       tracks.forEach((t) => {
@@ -200,8 +252,10 @@ export function UniverseStation({ cfg, pixelRatio }: { cfg: TierConfig; pixelRat
       links.g.dispose();
       links.m.dispose();
       Object.values(markerMats).forEach((m) => m.dispose());
+      worldlets.geometry.dispose();
+      Object.values(worldlets.mats).forEach((m) => m.dispose());
     },
-    [tracks, links, markerMats],
+    [tracks, links, markerMats, worldlets],
   );
 
   // DOM bridge: switch the node list into live mode while this station is mounted (desktop only).
@@ -228,6 +282,7 @@ export function UniverseStation({ cfg, pixelRatio }: { cfg: TierConfig; pixelRat
     registerNodeApproach((nodeId, done) => {
       const p = plane.current;
       if (!p || !(nodeId in UNIVERSE_LAYOUT)) return done();
+      selected.current = { id: nodeId, t0: frame.time };
       const world = p.localToWorld(nodeLocal(nodeId as NodeId, frame.time));
       frame.approach.x = world.x;
       frame.approach.y = world.y;
@@ -235,11 +290,16 @@ export function UniverseStation({ cfg, pixelRatio }: { cfg: TierConfig; pixelRat
       gsap.killTweensOf(frame.approach);
       gsap.to(frame.approach, {
         weight: 1,
-        duration: 0.72,
-        ease: 'power2.in',
+        duration: MOTION.duration.commit,
+        ease: MOTION.ease.commit,
         onComplete: () => {
           done();
-          gsap.to(frame.approach, { weight: 0, duration: 1.1, ease: 'power2.out', delay: 0.05 });
+          gsap.to(frame.approach, {
+            weight: 0,
+            duration: MOTION.duration.settle,
+            ease: MOTION.ease.release,
+            delay: 0.05,
+          });
         },
       });
     });
@@ -306,6 +366,25 @@ export function UniverseStation({ cfg, pixelRatio }: { cfg: TierConfig; pixelRat
         const target = isHov ? 1.7 : 1;
         m.scale.setScalar(m.scale.x + (target - m.scale.x) * 0.15);
         markerMats[id]!.uniforms.uIntensity!.value = p * (isHov ? 1.6 : 1);
+        const sel = selected.current;
+        const ripple = sel && sel.id === id ? Math.min(1, (t - sel.t0) / 0.9) : 0;
+        markerMats[id]!.uniforms.uRipple!.value = ripple >= 1 ? 0 : ripple;
+      }
+      const w = worldletRefs.current[id];
+      if (w) {
+        w.position.copy(local);
+        const target = isHov ? 0.19 : 0.13;
+        w.scale.setScalar(w.scale.x + (target - w.scale.x) * 0.15);
+        w.rotation.y = t * 0.25 + i;
+        const u = worldlets.mats[id]!.uniforms;
+        u.uFade!.value = p;
+        u.uHover!.value += ((isHov ? 1 : 0) - (u.uHover!.value as number)) * 0.15;
+        // Light from the galactic core: direction from this node toward the plane origin.
+        (u.uLight!.value as Vector3)
+          .copy(local)
+          .negate()
+          .applyQuaternion(plane.current!.quaternion)
+          .normalize();
       }
       // Project to screen for the DOM link.
       const el = items.get(id);
@@ -335,6 +414,17 @@ export function UniverseStation({ cfg, pixelRatio }: { cfg: TierConfig; pixelRat
           <primitive key={i} object={obj} />
         ))}
         <primitive object={lineObjects.links} />
+        {NODE_IDS.map((id) => (
+          <mesh
+            key={`w-${id}`}
+            ref={(el) => {
+              worldletRefs.current[id] = el;
+            }}
+            geometry={worldlets.geometry}
+            material={worldlets.mats[id]}
+            scale={0.13}
+          />
+        ))}
         {NODE_IDS.map((id) => (
           <mesh
             key={id}

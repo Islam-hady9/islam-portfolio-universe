@@ -89,7 +89,7 @@ export function Planet({
             float a = uTime * uRot;
             vec3 p = vec3(cos(a) * vLocal.x - sin(a) * vLocal.z, vLocal.y, sin(a) * vLocal.x + cos(a) * vLocal.z);
             float bands = sin(p.y * 9.0 + iu_fbm3(p * 2.2 + uSeed) * 4.0) * 0.5 + 0.5;
-            float detail = iu_fbm3(p * 5.0 + uSeed * 3.1);
+            float detail = iu_fbm3_lo(p * 5.0 + uSeed * 3.1);
             vec3 col = mix(uA, uB, smoothstep(0.25, 0.85, bands * 0.55 + detail * 0.6));
             vec3 n = normalize(vWorldN);
             float ndl = dot(n, uLight);

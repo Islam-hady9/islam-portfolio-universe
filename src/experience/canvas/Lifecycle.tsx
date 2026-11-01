@@ -202,6 +202,8 @@ export function Diagnostics() {
       };
       const id = window.setInterval(apply, 50);
       (window as unknown as { __IU_DEBUG__: unknown }).__IU_DEBUG__ = {
+        /** Read-only scene handle for visual bisection in QA (only with ?debug=1). */
+        scene,
         names: () => {
           const n: string[] = [];
           scene.traverse((o) => o.name && n.push(o.name));

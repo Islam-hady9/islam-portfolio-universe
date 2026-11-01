@@ -53,11 +53,15 @@ export function Sky() {
             float lobe = smoothstep(0.35, 0.95, dot(d, normalize(vec3(0.62, 0.48, -0.62))));
             float n = iu_fbm3(d * 3.1 + vec3(0.0, 0.0, uTime * 0.004));
             float wisps = smoothstep(0.42, 0.85, n) * lobe;
-            col += uViolet * wisps * 0.16 * uNebula;
-            col += uTeal * smoothstep(0.55, 0.9, iu_fbm3(d * 5.3 + 7.0)) * lobe * 0.06 * uNebula;
+            // Two-tone nebula: violet wisps plus teal billows (reference palette), kept dim behind copy.
+            // (A thin teal 'fringe' band on low fbm values was removed: it exposed a lattice-cell seam
+            // of the value noise as a hard-edged disc at the universe station.)
+            col += uViolet * wisps * 0.13 * uNebula;
+            col += uTeal * smoothstep(0.55, 0.9, iu_fbm3_lo(d * 5.3 + 7.0)) * lobe * 0.09 * uNebula;
             // Faint galactic band.
-            float band = exp(-pow(dot(d, normalize(vec3(0.25, 0.9, 0.35))) * 3.4, 2.0));
-            col += vec3(0.55, 0.6, 0.75) * band * smoothstep(0.35, 0.75, iu_fbm3(d * 6.0)) * 0.035;
+            float bx = dot(d, normalize(vec3(0.25, 0.9, 0.35))) * 3.4; // x*x: pow() of a negative base is undefined in GLSL
+            float band = exp(-bx * bx);
+            col += vec3(0.55, 0.6, 0.75) * band * smoothstep(0.35, 0.75, iu_fbm3_lo(d * 6.0)) * 0.035;
             // Lower teal haze near the horizon (atmospheric depth).
             col += uTeal * smoothstep(0.1, -0.35, d.y) * 0.025;
             gl_FragColor = vec4(col, 1.0);

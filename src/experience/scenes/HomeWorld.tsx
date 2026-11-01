@@ -1,10 +1,10 @@
 'use client';
 
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useMemo, useRef, type ReactNode } from 'react';
 import type { Group } from 'three';
 import type { TierConfig } from '../quality/tiers';
-import { WORLD, groundLayerVisible, type GroundLayerId } from '../orchestrator/camera-path';
+import { WORLD, groundLayerVisible, journeyMoonFor, type GroundLayerId } from '../orchestrator/camera-path';
 import { frame } from '../orchestrator/frame-state';
 import { OrbitalCore } from '../objects/core/OrbitalCore';
 import { Planet } from '../objects/Planet';
@@ -87,6 +87,11 @@ export function HomeWorld({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: nu
     };
     return { hero, journey, portal, horizon };
   }, [seg]);
+  const size = useThree((s) => s.size);
+  const moonPosition = useMemo(
+    () => journeyMoonFor(size.width / Math.max(1, size.height)),
+    [size.width, size.height],
+  );
 
   const p = WORLD.portal;
   return (
@@ -152,7 +157,7 @@ export function HomeWorld({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: nu
           color="#06080b"
         />
         <Planet
-          position={WORLD.journey.moon}
+          position={moonPosition}
           radius={6}
           lightDir={[-0.9, 0.25, 0.45]}
           surfaceA="#10161c"

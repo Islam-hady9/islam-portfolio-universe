@@ -29,7 +29,7 @@ export function skyDome(
         vec3 col = mix(uHorizon, uTop, smoothstep(-0.05, 0.6, d.y));
         float g = pow(max(dot(d, normalize(uGlowDir)), 0.0), 16.0);
         col += uGlow * g * uGlowStrength;
-        col += uGlow * smoothstep(0.55, 0.9, iu_fbm3(d * 4.0)) * smoothstep(0.0, 0.5, d.y) * 0.05;
+        col += uGlow * smoothstep(0.55, 0.9, iu_fbm3_lo(d * 4.0)) * smoothstep(0.0, 0.5, d.y) * 0.05;
         gl_FragColor = vec4(col, 1.0);
       }`,
   });
