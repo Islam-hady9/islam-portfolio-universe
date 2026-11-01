@@ -16,22 +16,34 @@ import { checkQuestion } from './safety';
  * an honest out-of-scope reply. No model, no network, no storage, no simulated "typing".
  */
 
-function tokenize(text: string): string[] {
-  return text
+/**
+ * Lower-cases and strips punctuation to single spaces, keeping characters that matter inside
+ * technical terms ("next.js", "c++", "c#", "multi-agent") but dropping sentence punctuation
+ * such as a trailing full stop.
+ */
+export function normalizeText(text: string): string {
+  return ` ${text
     .toLowerCase()
     .replace(/[’']/g, '')
-    .split(/[^a-z0-9.+#-]+/)
-    .filter(Boolean);
+    .replace(/[^a-z0-9.+#-]+/g, ' ')
+    .replace(/[.\-]+(?=\s|$)/g, ' ')
+    .replace(/(^|\s)[.\-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()} `;
+}
+
+function tokenize(text: string): string[] {
+  return normalizeText(text).trim().split(' ').filter(Boolean);
 }
 
 export function scoreEntry(entry: AIKnowledgeEntry, question: string): number {
-  const q = ` ${question.toLowerCase().replace(/[’']/g, '')} `;
+  const q = normalizeText(question);
   const tokens = new Set(tokenize(question));
   let score = 0;
   for (const kw of entry.keywords) {
-    const k = kw.toLowerCase();
+    const k = normalizeText(kw).trim();
     if (k.includes(' ')) {
-      if (q.includes(` ${k} `) || q.includes(` ${k}?`) || q.includes(` ${k}.`)) score += 3;
+      if (q.includes(` ${k} `)) score += 3;
     } else if (tokens.has(k)) {
       score += k.length > 4 ? 2 : 1.5;
     }

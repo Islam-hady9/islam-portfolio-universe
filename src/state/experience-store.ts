@@ -31,6 +31,8 @@ export interface PortalTransition {
 interface ExperienceState {
   qualityPreference: QualityPreference;
   detectedTier: QualityTier | null;
+  /** Whether the browser can create any WebGL context (independent of tier policy). */
+  webglAvailable: boolean;
   tier: QualityTier;
   tierReason: string;
   motionPreference: MotionPreference;
@@ -43,7 +45,7 @@ interface ExperienceState {
   portal: PortalTransition | null;
   sceneStates: Record<string, SceneState>;
   setQualityPreference: (p: QualityPreference) => void;
-  setDetectedTier: (tier: QualityTier, reason: string) => void;
+  setDetectedTier: (tier: QualityTier, reason: string, webglAvailable: boolean) => void;
   setTier: (tier: QualityTier, reason: string) => void;
   setMotionPreference: (p: MotionPreference) => void;
   setReducedMotion: (r: boolean) => void;
@@ -59,6 +61,7 @@ interface ExperienceState {
 export const useExperience = create<ExperienceState>((set) => ({
   qualityPreference: 'auto',
   detectedTier: null,
+  webglAvailable: true,
   tier: 'balanced',
   tierReason: 'initial',
   motionPreference: 'system',
@@ -71,7 +74,7 @@ export const useExperience = create<ExperienceState>((set) => ({
   portal: null,
   sceneStates: {},
   setQualityPreference: (qualityPreference) => set({ qualityPreference }),
-  setDetectedTier: (detectedTier, tierReason) => set({ detectedTier, tierReason }),
+  setDetectedTier: (detectedTier, tierReason, webglAvailable) => set({ detectedTier, tierReason, webglAvailable }),
   setTier: (tier, tierReason) => set({ tier, tierReason }),
   setMotionPreference: (motionPreference) => set({ motionPreference }),
   setReducedMotion: (reducedMotion) => set({ reducedMotion }),

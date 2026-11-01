@@ -18,7 +18,6 @@ import {
   MeshPhysicalMaterial,
   MeshStandardMaterial,
   Object3D,
-  PointLight,
   Quaternion,
   ShaderMaterial,
   TorusGeometry,
@@ -158,7 +157,6 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
   const ringMeshes = useRef<(Mesh | null)[]>([]);
   const shellRef = useRef<InstancedMesh>(null);
   const fragRef = useRef<InstancedMesh>(null);
-  const lightRef = useRef<PointLight>(null);
   const circuitRef = useRef<Group>(null);
   const glowRef = useRef<Mesh>(null);
 
@@ -321,7 +319,10 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
     const heroP = frame.presence[0] ?? 0;
     const visible = frame.route === 'home' && frame.s < 2.4;
     if (root.current) root.current.visible = visible;
-    if (!visible) return;
+    if (!visible) {
+      frame.coreEnergy = 0;
+      return;
+    }
 
     // Intro progression (owned here; read by the camera rig).
     const unfold = easeInOut(Math.min(1, frame.intro * 1.15));
@@ -338,7 +339,7 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
     circuitMat.uniforms.uIntensity!.value = 0.9 * energy;
     sparks.m.uniforms.uTime!.value = t;
     sparks.m.uniforms.uFade!.value = ignite * recede;
-    if (lightRef.current) lightRef.current.intensity = 34 * energy;
+    frame.coreEnergy = energy;
 
     // Gimbal: tilts unfold from a common plane; each ring spins at its own rate.
     rings.forEach((r, i) => {
@@ -384,9 +385,7 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
 
   return (
     <group ref={root}>
-      <pointLight ref={lightRef} color="#52c7ea" intensity={0} distance={7.5} decay={2} />
-
-      <group ref={ringsRoot}>
+      <group ref={ringsRoot} name="core-rings">
         {rings.map((r, i) => (
           <group
             key={i}
@@ -408,11 +407,11 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
         ))}
       </group>
 
-      <instancedMesh ref={shellRef} args={[undefined, undefined, plates.length]} material={mats.gunmetal}>
+      <instancedMesh ref={shellRef} name="core-shell" args={[undefined, undefined, plates.length]} material={mats.gunmetal}>
         <boxGeometry args={[1, 1, 1]} />
       </instancedMesh>
 
-      <mesh material={emitter}>
+      <mesh material={emitter} name="core-emitter">
         <sphereGeometry args={[0.6, 64, 48]} />
       </mesh>
       <mesh>
@@ -422,12 +421,12 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
       <group ref={circuitRef}>
         <lineSegments geometry={circuitry} material={circuitMat} />
       </group>
-      <mesh ref={glowRef} material={glow} renderOrder={5}>
+      <mesh ref={glowRef} material={glow} renderOrder={5} name="core-glow">
         <planeGeometry args={[4.4, 4.4]} />
       </mesh>
 
-      <instancedMesh ref={fragRef} args={[shard, mats.gunmetal, fragments.length]} frustumCulled={false} />
-      <points geometry={sparks.g} material={sparks.m} frustumCulled={false} />
+      <instancedMesh ref={fragRef} name="core-fragments" args={[shard, mats.gunmetal, fragments.length]} frustumCulled={false} />
+      <points name="core-sparks" geometry={sparks.g} material={sparks.m} frustumCulled={false} />
       <CopperSeeds material={mats.copper} />
     </group>
   );

@@ -32,8 +32,17 @@ export const iconNameSchema = z.enum(ICON_NAMES);
 export const accentSchema = z.enum(['mint', 'cyan', 'violet', 'blue']);
 export type Accent = z.infer<typeof accentSchema>;
 
-/** Internal href: "/route", "/#anchor" or "#anchor". External links live in SocialLink. */
-export const internalHrefSchema = z.string().regex(/^(\/[a-z0-9\-/]*)?(#[a-z0-9-]+)?$/i, 'internal href');
+/**
+ * Internal href: "/route", "/#anchor" or "#anchor" — never empty and never protocol-relative
+ * ("//host" would leave the site). External links live in SocialLink.
+ */
+export const internalHrefSchema = z
+  .string()
+  .min(1)
+  .regex(/^(?:\/(?!\/)[a-z0-9\-/]*)?(?:#[a-z0-9-]+)?$/i, 'internal href');
+
+/** Public profile/resource URLs: https only (rejects javascript:, data:, http:). */
+export const httpsUrlSchema = z.url({ protocol: /^https$/ });
 
 // ───────────────────────── Site identity ─────────────────────────
 
@@ -235,7 +244,7 @@ const profileItem = z.object({
   organization: z.string().nullable(),
   period: z.string().nullable(),
   summary: z.string().nullable(),
-  href: z.url().nullable(),
+  href: httpsUrlSchema.nullable(),
   verification: verificationSchema,
 });
 export const profileExtrasSchema = z.object({
@@ -251,7 +260,7 @@ export type ProfileExtras = z.infer<typeof profileExtrasSchema>;
 export const socialLinkSchema = z.object({
   id: z.enum(['linkedin', 'github', 'email', 'x', 'website']),
   label: z.string(),
-  url: z.url().nullable(),
+  url: httpsUrlSchema.nullable(),
   icon: iconNameSchema,
   unavailableMessage: z.string(),
   verification: verificationSchema,

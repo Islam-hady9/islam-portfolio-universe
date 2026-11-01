@@ -42,8 +42,9 @@
 
 .stage {
   position: relative;
+  width: 100%;
+  min-width: 0;
   aspect-ratio: 16 / 9.5;
-  min-height: 380px;
 }
 
 .art {
@@ -53,7 +54,7 @@
 
 @media (max-width: 1023px) {
   .layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .stage {
     aspect-ratio: 16 / 11;

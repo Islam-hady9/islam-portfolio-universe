@@ -10,6 +10,7 @@ import { CameraRig } from '../rigs/CameraRig';
 import { SceneEnvironment } from '../scenes/SceneEnvironment';
 import { HomeWorld } from '../scenes/HomeWorld';
 import { DeepSpaceWorld } from '../scenes/DeepSpaceWorld';
+import { WorldLights } from '../scenes/WorldLights';
 import { Sky } from '../objects/Sky';
 import { Starfield } from '../objects/Starfield';
 import { PortalSystem } from '../portals/PortalSystem';
@@ -46,6 +47,7 @@ export default function ExperienceCanvas({ tier }: { tier: QualityTier }) {
       <Orchestrator />
       <CameraRig />
       <SceneEnvironment />
+      <WorldLights />
       <Sky />
       <Starfield count={cfg.stars} pixelRatio={pixelRatio} />
       {home ? <HomeWorld cfg={cfg} pixelRatio={pixelRatio} /> : <DeepSpaceWorld cfg={cfg} pixelRatio={pixelRatio} />}
@@ -54,7 +56,7 @@ export default function ExperienceCanvas({ tier }: { tier: QualityTier }) {
       <RenderPipeline cfg={cfg} />
       <ContextGuard />
       <PerformanceGovernor tier={tier} />
-      <ReadySignal worldKey={home ? 'home' : 'inner'} />
+      <ReadySignal worldKey={home ? 'home' : 'inner'} linearTarget={cfg.bloom} />
       <Diagnostics />
     </Canvas>
   );

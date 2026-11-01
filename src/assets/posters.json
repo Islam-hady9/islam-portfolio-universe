@@ -1,1 +1,72 @@
-{}
+{
+  "case-ats": {
+    "src": "/images/posters/case-ats.webp",
+    "width": 1600,
+    "height": 780
+  },
+  "case-lifeatlas": {
+    "src": "/images/posters/case-lifeatlas.webp",
+    "width": 1600,
+    "height": 780
+  },
+  "case-movid": {
+    "src": "/images/posters/case-movid.webp",
+    "width": 1600,
+    "height": 780
+  },
+  "case-tibyn": {
+    "src": "/images/posters/case-tibyn.webp",
+    "width": 1600,
+    "height": 780
+  },
+  "deep-space": {
+    "src": "/images/posters/deep-space.webp",
+    "width": 1400,
+    "height": 875
+  },
+  "hero": {
+    "src": "/images/posters/hero.webp",
+    "width": 1100,
+    "height": 1109
+  },
+  "horizon": {
+    "src": "/images/posters/horizon.webp",
+    "width": 1600,
+    "height": 1000
+  },
+  "journey": {
+    "src": "/images/posters/journey.webp",
+    "width": 1600,
+    "height": 1000
+  },
+  "portal": {
+    "src": "/images/posters/portal.webp",
+    "width": 900,
+    "height": 1250
+  },
+  "project-ats": {
+    "src": "/images/posters/project-ats.webp",
+    "width": 652,
+    "height": 680
+  },
+  "project-lifeatlas": {
+    "src": "/images/posters/project-lifeatlas.webp",
+    "width": 652,
+    "height": 680
+  },
+  "project-movid": {
+    "src": "/images/posters/project-movid.webp",
+    "width": 652,
+    "height": 680
+  },
+  "project-tibyn": {
+    "src": "/images/posters/project-tibyn.webp",
+    "width": 652,
+    "height": 680
+  },
+  "universe": {
+    "src": "/images/posters/universe.webp",
+    "width": 1100,
+    "height": 652
+  }
+}

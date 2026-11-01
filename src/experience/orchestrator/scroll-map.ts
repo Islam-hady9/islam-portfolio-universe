@@ -18,10 +18,18 @@ export function computeAnchors(sections: SectionBox[], viewportH: number, maxScr
     const centred = s.top + s.height / 2 - viewportH / 2;
     return Math.min(maxScroll, Math.max(0, centred));
   });
-  if (raw.length) raw[raw.length - 1] = Math.max(raw[raw.length - 1]!, Math.min(maxScroll, raw[raw.length - 1]!));
-  // Enforce strictly increasing anchors (degenerate layouts, e.g. very tall viewports).
+  // Enforce strictly increasing anchors (degenerate layouts, e.g. short trailing sections that
+  // all clamp to maxScroll) without pushing any anchor past the scrollable range: walk back
+  // from the end so the final station is always reachable at the bottom of the page.
   for (let i = 1; i < raw.length; i++) {
     if (raw[i]! <= raw[i - 1]!) raw[i] = raw[i - 1]! + 1;
+  }
+  const n = raw.length;
+  if (n > 1 && raw[n - 1]! > maxScroll && maxScroll >= n - 1) {
+    raw[n - 1] = maxScroll;
+    for (let i = n - 2; i > 0; i--) {
+      if (raw[i]! >= raw[i + 1]!) raw[i] = raw[i + 1]! - 1;
+    }
   }
   return raw;
 }

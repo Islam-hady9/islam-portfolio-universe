@@ -15,7 +15,9 @@ export function Dust({
   pixelRatio,
   color = '#9fd8e6',
   stationIndex,
+  name,
 }: {
+  name?: string;
   count: number;
   center: [number, number, number];
   size: [number, number, number];
@@ -80,7 +82,7 @@ export function Dust({
     if (stationIndex !== undefined) m.uniforms.uFade!.value = 0.3 + 0.7 * (frame.presence[stationIndex] ?? 0);
   });
 
-  return <points geometry={g} material={m} position={center} frustumCulled={false} />;
+  return <points name={name} geometry={g} material={m} position={center} frustumCulled={false} />;
 }
 
 /** Aurora curtain at a horizon: vertical gradient with animated noise folds. */

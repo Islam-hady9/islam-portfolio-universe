@@ -14,11 +14,12 @@ export function Footer() {
     <footer className={styles.footer}>
       <div className={`container ${styles.grid}`}>
         <div className={styles.brand}>
-          <Link href={routes.home} className={styles.brandLink} aria-label={`${site.displayName} — home`}>
+          <Link href={routes.home} className={styles.brandLink}>
             <BrandMark size={34} gradientId="bm-footer" />
             <span>
               <span className={styles.name}>{site.displayName}</span>
               <span className={styles.role}>{site.roleLabel}</span>
+              <span className="sr-only"> — home</span>
             </span>
           </Link>
         </div>

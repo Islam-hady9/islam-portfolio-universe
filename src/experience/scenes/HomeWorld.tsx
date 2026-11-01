@@ -81,6 +81,7 @@ export function HomeWorld({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: nu
       <StationGate from={0} to={1.7}>
         <OrbitalCore cfg={cfg} pixelRatio={pixelRatio} />
         <Planet
+          name="hero-planet"
           position={WORLD.heroPlanet.position}
           radius={WORLD.heroPlanet.radius}
           lightDir={[-0.85, 0.3, 0.25]}
@@ -91,8 +92,8 @@ export function HomeWorld({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: nu
           seed={2}
           fadeStation={0}
         />
-        <Terrain shape={shapes.hero} position={[0, WORLD.heroGroundY - 1.2, -26]} rimStrength={0.42} color="#06080b" />
-        <Dust count={cfg.dust} center={[0, 0, -2]} size={[26, 14, 20]} pixelRatio={pixelRatio} stationIndex={0} />
+        <Terrain name="hero-terrain" shape={shapes.hero} position={[0, WORLD.heroGroundY - 1.2, -26]} rimStrength={0.42} color="#06080b" />
+        <Dust name="hero-dust" count={cfg.dust} center={[0, 0, -2]} size={[26, 14, 20]} pixelRatio={pixelRatio} stationIndex={0} />
       </StationGate>
 
       {/* S3 universe (+ S2/S4 transitions) */}
@@ -133,7 +134,6 @@ export function HomeWorld({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: nu
       <StationGate from={6.3} to={7.8}>
         <group position={p.center}>
           <RingPortal radius={p.radius} stationIndex={7} intensity={0.62} />
-          <pointLight position={[0, 0, 2.5]} color="#52c7ea" intensity={90} distance={22} decay={2} />
         </group>
         <Explorer position={[p.center[0] + 0.7, p.groundY + 0.6, p.center[2] + 5.4]} scale={1} />
         <Terrain shape={shapes.portal} position={[p.center[0] + 1.6, p.groundY, p.center[2] - 8]} rimStrength={0.7} rimColor="#5fd3ef" />

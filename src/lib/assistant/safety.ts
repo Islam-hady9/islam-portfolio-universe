@@ -15,10 +15,12 @@ export const SAFETY_POLICY: SafetyPolicy = {
     /you are now (?!an? assistant)/i,
     /\bjailbreak\b|\bDAN mode\b/i,
   ],
+  // Requests for personal data about the owner — not product topics ("password reset flows",
+  // "phone apps") and not the public contact channel ("email address" → contact answer).
   privateDataPatterns: [
-    /\b(home )?address\b/i,
-    /\bphone( number)?\b|\bmobile number\b/i,
-    /\b(salary|income|bank|password|passport|national id|ssn)\b/i,
+    /\b(home|street|postal|mailing|physical) address\b|\bwhere (do|does) (you|he) live\b/i,
+    /\b(phone|mobile|cell)\b(?!\s*-?\s*(apps?|applications?|ui|screens?|layouts?|design|games?|versions?|views?|frameworks?|development)\b)/i,
+    /\b(your|his) (salary|income|bank|password|passport)\b|\bbank (details|account|info|information|card)\b|\b(national id|ssn|social security)\b/i,
   ],
 };
 

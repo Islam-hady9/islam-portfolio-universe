@@ -42,6 +42,8 @@ export const frame = {
   /** 0..1 dip used to mask large anchor jumps and reduced-motion cuts. */
   veil: 0,
   approach: { weight: 0, x: 0, y: 0, z: 0 },
+  /** Core emitter energy (written by OrbitalCore, read by WorldLights). */
+  coreEnergy: 0,
   portal: null as PortalTransitionState | null,
   stats: { fps: 60, frameMs: 16.7, samples: 0 },
 };

@@ -152,7 +152,7 @@
 
 @media (max-width: 1023px) {
   .row {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
   }
   .rowCategory,
   .rowTitle,
@@ -170,6 +170,6 @@
 
 @media (max-width: 699px) {
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }

@@ -78,7 +78,7 @@ export function Sky() {
   });
 
   return (
-    <mesh ref={ref} material={material} renderOrder={-1000} frustumCulled={false}>
+    <mesh ref={ref} name="sky" material={material} renderOrder={-1000} frustumCulled={false}>
       <sphereGeometry args={[500, 48, 32]} />
     </mesh>
   );

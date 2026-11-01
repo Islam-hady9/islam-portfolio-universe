@@ -133,8 +133,8 @@ export function Starfield({ count, pixelRatio }: { count: number; pixelRatio: nu
 
   return (
     <>
-      <points ref={shellRef} geometry={shell} material={shellMat} frustumCulled={false} renderOrder={-900} />
-      <points geometry={volume} material={volMat} frustumCulled={false} renderOrder={-800} />
+      <points ref={shellRef} name="stars-shell" geometry={shell} material={shellMat} frustumCulled={false} renderOrder={-900} />
+      <points name="stars-volume" geometry={volume} material={volMat} frustumCulled={false} renderOrder={-800} />
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { BufferGeometry, IcosahedronGeometry, LatheGeometry, Vector2 } from 'three';
-import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { mergeGeometries, mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { mulberry32 } from '../../math/noise';
 
 /**
@@ -42,17 +42,26 @@ export function buildChannelRing(
   return merged;
 }
 
-/** Irregular low-poly shard for orbiting debris. Deterministic. */
+/**
+ * Irregular low-poly shard for orbiting debris. Deterministic. Corners are welded before
+ * displacement so the solid stays closed, then un-welded for faceted (flat) normals.
+ */
 export function buildShard(seed: number): BufferGeometry {
-  const g = new IcosahedronGeometry(1, 0);
+  const base = new IcosahedronGeometry(1, 0);
+  base.deleteAttribute('normal');
+  base.deleteAttribute('uv');
+  const welded = mergeVertices(base, 1e-4);
+  base.dispose();
   const rand = mulberry32(seed);
-  const pos = g.attributes.position!;
+  const pos = welded.attributes.position!;
   for (let i = 0; i < pos.count; i++) {
     const k = 0.6 + rand() * 0.75;
     pos.setXYZ(i, pos.getX(i) * k, pos.getY(i) * (0.5 + rand() * 0.6) * k, pos.getZ(i) * k);
   }
-  g.computeVertexNormals();
-  return g;
+  const faceted = welded.toNonIndexed();
+  welded.dispose();
+  faceted.computeVertexNormals();
+  return faceted;
 }
 
 export interface PlateSpec {

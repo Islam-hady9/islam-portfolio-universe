@@ -10,7 +10,9 @@ import { useExperience } from '@/state/experience-store';
  *   [data-reveal="fade"]    rise + fade + de-blur
  *   [data-reveal="stagger"] children [data-reveal-item] cascade at 60 ms
  * Progressive enhancement: content is visible in SSR HTML; only elements still below the
- * fold when this runs are hidden and revealed once. Reduced motion reverts everything.
+ * fold when this runs are faded and revealed once. Opacity only — never visibility:hidden —
+ * so unrevealed links stay focusable (focusing scrolls them in and triggers the reveal).
+ * Reduced motion reverts everything.
  */
 export function RevealMotion() {
   const pathname = usePathname();
@@ -62,7 +64,7 @@ export function RevealMotion() {
           if (!belowFold(el)) return;
           gsap.from(el, {
             y: 18,
-            autoAlpha: 0,
+            opacity: 0,
             filter: 'blur(6px)',
             duration: 0.8,
             ease: 'power3.out',
@@ -77,7 +79,7 @@ export function RevealMotion() {
           if (!hidden.length) return;
           gsap.from(hidden, {
             y: 30,
-            autoAlpha: 0,
+            opacity: 0,
             scale: 0.985,
             duration: 0.85,
             ease: 'power3.out',

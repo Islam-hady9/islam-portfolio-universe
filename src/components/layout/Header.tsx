@@ -39,9 +39,10 @@ export function Header({ displayName, roleLabel }: { displayName: string; roleLa
   return (
     <header className={styles.header} data-scrolled={scrolled || undefined} data-menu-open={menuOpen || undefined}>
       <div className={styles.bar}>
-        <Link href={routes.home} className={styles.brand} aria-label={`${displayName} — home`}>
+        <Link href={routes.home} className={styles.brand}>
           <BrandMark gradientId="bm-header" />
           <span className={styles.brandName}>{displayName}</span>
+          <span className="sr-only"> — home</span>
         </Link>
 
         <nav className={styles.nav} aria-label="Primary">

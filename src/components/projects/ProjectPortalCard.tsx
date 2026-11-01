@@ -38,8 +38,8 @@ export function ProjectPortalCard({
   useEffect(() => {
     const el = mediaRef.current;
     if (!el) return;
-    return registerPortalTrack({ slug: project.slug, el, kind: 'card' });
-  }, [project.slug]);
+    return registerPortalTrack({ slug: project.slug, world: project.world, el, kind: 'card' });
+  }, [project.slug, project.world]);
 
   const setPointer = (e: React.PointerEvent) => {
     const card = cardRef.current;

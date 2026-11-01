@@ -10,6 +10,8 @@ export interface PortalPointer {
 
 export interface PortalTrack {
   slug: string;
+  /** Which procedural world renders here (tibyn | movid | ats | lifeatlas). */
+  world: string;
   el: HTMLElement;
   /** "card" renders only while engaged; "hero" renders whenever on screen. */
   kind: 'card' | 'hero';

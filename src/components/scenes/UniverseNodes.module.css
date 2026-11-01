@@ -54,15 +54,6 @@
   opacity: 1;
 }
 
-.link {
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: block;
-  color: var(--text-primary);
-  outline: none;
-}
-
 .marker {
   position: absolute;
   left: -7px;
@@ -100,6 +91,8 @@
   position: absolute;
   left: 0;
   top: 0;
+  color: var(--text-primary);
+  outline: none;
   display: grid;
   gap: 0;
   min-width: 128px;
@@ -181,7 +174,7 @@
 }
 
 .node[data-hovered] .pill,
-.link:focus-visible .pill {
+.pill:focus-visible {
   border-color: rgb(var(--accent-rgb) / 0.75);
   background: rgb(14 18 24 / 0.9);
   box-shadow:
@@ -191,30 +184,30 @@
 }
 
 .node[data-hovered] .teaser,
-.link:focus-visible .teaser {
+.pill:focus-visible .teaser {
   max-height: 4.5em;
   opacity: 1;
   margin-top: 6px;
 }
 
 .node[data-hovered] .go,
-.link:focus-visible .go {
+.pill:focus-visible .go {
   opacity: 1;
   transform: none;
 }
 
 .node[data-hovered] .marker,
-.link:focus-visible .marker {
+.node:focus-within .marker {
   transform: scale(1.35);
 }
 
 .node[data-hovered] .marker::after,
-.link:focus-visible .marker::after {
+.node:focus-within .marker::after {
   opacity: 1;
   transform: scale(1);
 }
 
-.link:focus-visible .pill {
+.pill:focus-visible {
   outline: 2px solid var(--mint);
   outline-offset: 3px;
 }
@@ -249,9 +242,6 @@ html[data-motion='full'] .marker {
     transform: none !important;
     opacity: 1 !important;
     pointer-events: auto !important;
-  }
-  .link {
-    position: static;
   }
   .marker {
     display: none;

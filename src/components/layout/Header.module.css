@@ -169,7 +169,7 @@
 
 @media (max-width: 960px) {
   .bar {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
   }
   .nav {
     display: none;
@@ -185,5 +185,21 @@
   }
   .brandName {
     font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .bar {
+    gap: 10px;
+  }
+  .brand {
+    gap: 8px;
+  }
+  .brandName {
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+  }
+  .actions {
+    gap: 6px;
   }
 }

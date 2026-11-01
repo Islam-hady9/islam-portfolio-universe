@@ -19,13 +19,13 @@ export function CaseStudyHero({ project, caseStudy }: { project: ProjectSummary;
   useEffect(() => {
     const el = artRef.current;
     if (!el) return;
-    return registerPortalTrack({ slug: project.slug, el, kind: 'hero' });
-  }, [project.slug]);
+    return registerPortalTrack({ slug: project.slug, world: project.world, el, kind: 'hero' });
+  }, [project.slug, project.world]);
 
   return (
     <header className={styles.hero} data-accent={project.accent} data-case-study-hero={project.slug}>
       <div ref={artRef} className={styles.art} data-portal-track={project.slug}>
-        <ProjectPoster world={project.world} alt={project.posterAlt} priority />
+        <ProjectPoster world={project.world} alt={project.posterAlt} priority variant="hero" />
       </div>
       <div className={styles.shade} aria-hidden="true" />
       <div className={`container ${styles.inner}`}>

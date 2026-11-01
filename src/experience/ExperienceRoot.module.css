@@ -20,3 +20,9 @@
 :global(html:not([data-motion='full'])) .layer canvas {
   transition: none;
 }
+
+/* Portal expansion draws the entering world above the page on a transparent canvas. */
+:global(html[data-portal='active']) .layer {
+  z-index: var(--z-transition);
+  background: transparent;
+}

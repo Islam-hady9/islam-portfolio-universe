@@ -25,10 +25,10 @@ export function HomeMotion() {
         if (!copy || !hero) return;
         gsap.fromTo(
           copy,
-          { y: 0, autoAlpha: 1 },
+          { y: 0, opacity: 1 },
           {
             y: -70,
-            autoAlpha: 0.15,
+            opacity: 0.15,
             ease: 'none',
             scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom 25%', scrub: 0.4 },
           },

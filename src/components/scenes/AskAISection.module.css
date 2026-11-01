@@ -83,7 +83,7 @@
     background: linear-gradient(180deg, transparent 0%, rgb(6 7 10 / 0.55) 34%, rgb(6 7 10 / 0.8) 100%);
   }
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .portalSpace {
     grid-row: auto;

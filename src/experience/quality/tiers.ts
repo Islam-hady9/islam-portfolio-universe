@@ -122,10 +122,15 @@ export function detectTier(s: DeviceSignals): TierDecision {
   return { tier: 'balanced', reason: 'unknown GPU — balanced default' };
 }
 
-export function resolveTier(preference: QualityPreference, detected: QualityTier): QualityTier {
+export function resolveTier(
+  preference: QualityPreference,
+  detected: QualityTier,
+  webglAvailable: boolean = detected !== 'static',
+): QualityTier {
   if (preference === 'auto') return detected;
-  // A user may always choose a lighter tier; heavier tiers than WebGL allows are capped.
-  if (detected === 'static' && preference !== 'static') return 'static';
+  // A user may always choose any tier the browser can run; without WebGL, 3D tiers are capped.
+  // (A software renderer is "static" by policy, but an explicit user choice is honoured.)
+  if (!webglAvailable && preference !== 'static') return 'static';
   return preference;
 }
 
@@ -138,7 +143,8 @@ export const GOVERNOR = {
   sampleSeconds: 3,
   warmupSeconds: 2.5,
   min: { ultra: 42, balanced: 32, lite: 20 } as Record<RenderTier, number>,
-  maxDowngrades: 2,
+  /** ultra → balanced → lite → static at most. */
+  maxDowngrades: 3,
 } as const;
 
 export function shouldDowngrade(tier: QualityTier, avgFps: number): boolean {

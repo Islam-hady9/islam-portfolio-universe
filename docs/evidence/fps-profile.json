@@ -1,0 +1,108 @@
+{
+  "date": "2026-11-01T10:14:58.907Z",
+  "method": "Headless Chromium (new headless, ANGLE D3D11) on the real GPU, 1440x900 @1x DPR, one page at a time, tier pinned via ?quality=, 4 s settle after ready, 1.5 s per station before a 2.5 s rAF sample. Headless frames are not vsync-capped.",
+  "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "autoDetectedTier": "balanced",
+  "rows": [
+    {
+      "station": "top",
+      "tier": "balanced",
+      "fps": 157,
+      "p95": 8.4,
+      "max": 8.5,
+      "drawCalls": 38,
+      "triangles": 73003,
+      "programs": 44
+    },
+    {
+      "station": "universe",
+      "tier": "balanced",
+      "fps": 171,
+      "p95": 8.4,
+      "max": 8.5,
+      "drawCalls": 34,
+      "triangles": 3009,
+      "programs": 50
+    },
+    {
+      "station": "experience",
+      "tier": "balanced",
+      "fps": 150,
+      "p95": 8.4,
+      "max": 12.6,
+      "drawCalls": 25,
+      "triangles": 47491,
+      "programs": 51
+    },
+    {
+      "station": "ask-ai",
+      "tier": "balanced",
+      "fps": 142,
+      "p95": 8.4,
+      "max": 16.7,
+      "drawCalls": 26,
+      "triangles": 24221,
+      "programs": 53
+    },
+    {
+      "station": "contact",
+      "tier": "balanced",
+      "fps": 128,
+      "p95": 8.5,
+      "max": 12.7,
+      "drawCalls": 24,
+      "triangles": 53835,
+      "programs": 53
+    },
+    {
+      "station": "top",
+      "tier": "ultra",
+      "fps": 103,
+      "p95": 12.6,
+      "max": 12.6,
+      "drawCalls": 38,
+      "triangles": 106883,
+      "programs": 45
+    },
+    {
+      "station": "universe",
+      "tier": "ultra",
+      "fps": 114,
+      "p95": 12.5,
+      "max": 12.7,
+      "drawCalls": 34,
+      "triangles": 3009,
+      "programs": 51
+    },
+    {
+      "station": "experience",
+      "tier": "ultra",
+      "fps": 107,
+      "p95": 12.5,
+      "max": 12.7,
+      "drawCalls": 26,
+      "triangles": 78851,
+      "programs": 53
+    },
+    {
+      "station": "ask-ai",
+      "tier": "ultra",
+      "fps": 112,
+      "p95": 12.5,
+      "max": 12.6,
+      "drawCalls": 26,
+      "triangles": 46205,
+      "programs": 55
+    },
+    {
+      "station": "contact",
+      "tier": "ultra",
+      "fps": 102,
+      "p95": 12.6,
+      "max": 16.7,
+      "drawCalls": 24,
+      "triangles": 82035,
+      "programs": 55
+    }
+  ]
+}

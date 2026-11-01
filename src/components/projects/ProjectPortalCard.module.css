@@ -7,6 +7,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  width: 100%;
+  min-width: 0;
   aspect-ratio: 1 / 1.04;
   min-height: 320px;
   border-radius: var(--r-lg);
@@ -90,7 +92,12 @@
   overflow: hidden;
 }
 
-/* While the live portal is rendering behind this window, the poster fades away. */
+/* While the live portal is rendering behind this window, the poster fades away and the
+   card's own tinted background clears so the world is seen at full brightness. */
+:global(html[data-webgl='ready']) .card[data-portal-live] {
+  background: transparent;
+}
+
 :global(html[data-webgl='ready']) .card[data-portal-live] .media > * {
   opacity: 0;
   transition: opacity 420ms var(--ease-out);

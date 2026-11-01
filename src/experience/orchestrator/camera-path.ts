@@ -90,7 +90,7 @@ export const HOME_STATIONS: Station[] = [
     // Low camera looking up at the core: horizon lands near 80% height (reference composition).
     id: 'hero',
     section: 'top',
-    wide: P([0, -2.5, 15.2], [0, 0.25, 0], 34, [0.165, 0.03]),
+    wide: P([0, -2.5, 15.2], [0, 0.25, 0], 34, [0.185, 0.03]),
     portrait: P([0, -2.2, 21], [0, 0.6, 0], 42, [0, 0.21]),
     drift: [0, 0, 0],
   },

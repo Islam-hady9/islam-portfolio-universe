@@ -22,22 +22,25 @@ export function ExperienceRoot() {
   const [idle, setIdle] = useState(false);
   const [generation, setGeneration] = useState(0);
 
+  const webglAvailable = useExperience((s) => s.webglAvailable);
+
   // Capability detection once per session (cached).
   useEffect(() => {
-    const d = detectTier(gatherDeviceSignals());
-    useExperience.getState().setDetectedTier(d.tier, d.reason);
+    const signals = gatherDeviceSignals();
+    const d = detectTier(signals);
+    useExperience.getState().setDetectedTier(d.tier, d.reason, signals.webgl1 || signals.webgl2);
   }, []);
 
   // Preference × detection → effective tier.
   useEffect(() => {
     if (!detected) return;
-    const t = resolveTier(preference, detected);
+    const t = resolveTier(preference, detected, webglAvailable);
     const s = useExperience.getState();
     s.setTier(t, preference === 'auto' ? s.tierReason : `user preference (${preference})`);
     document.documentElement.setAttribute('data-quality', t);
     if (t === 'static') s.setWebGL('disabled');
     else if (s.webgl === 'disabled') s.setWebGL('pending');
-  }, [preference, detected]);
+  }, [preference, detected, webglAvailable]);
 
   // Mount the canvas after first paint + idle, so the DOM is interactive first.
   useEffect(() => {

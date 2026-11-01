@@ -61,7 +61,9 @@ export function Terrain({
   rimColor = '#7fb8c9',
   rimStrength = 0.55,
   color = '#0b0e12',
+  name,
 }: {
+  name?: string;
   shape: TerrainShape;
   position: [number, number, number];
   rimColor?: string;
@@ -103,5 +105,5 @@ export function Terrain({
     [geometry, material],
   );
 
-  return <mesh geometry={geometry} material={material} position={position} receiveShadow={false} />;
+  return <mesh name={name} geometry={geometry} material={material} position={position} receiveShadow={false} />;
 }

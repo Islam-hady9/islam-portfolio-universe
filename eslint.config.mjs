@@ -16,6 +16,15 @@ const config = [
     ],
   },
   {
+    // WebGL layer: mutating three.js objects (uniforms, matrices, camera) inside useFrame is the
+    // idiomatic React Three Fiber pattern. These React-Compiler-oriented rules assume hook
+    // results are immutable; the compiler is not used here. Scoped to src/experience only.
+    files: ['src/experience/**/*.{ts,tsx}'],
+    rules: {
+      'react-hooks/immutability': 'off',
+    },
+  },
+  {
     rules: {
       // R3F JSX uses three.js props that the DOM-oriented rule does not know.
       'react/no-unknown-property': 'off',

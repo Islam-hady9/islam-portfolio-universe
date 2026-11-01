@@ -2,7 +2,7 @@
 
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
-import type { Object3D } from 'three';
+import { HalfFloatType, WebGLRenderTarget, type Object3D } from 'three';
 import { useExperience } from '@/state/experience-store';
 import { registerFrameHooks } from '@/lib/test-hooks';
 import { track } from '@/lib/analytics';
@@ -51,43 +51,58 @@ export function ContextGuard() {
 
 /**
  * Pre-compiles every program (including hidden stations) with KHR_parallel_shader_compile when
- * available, then reports "ready" after the first real frame. Prevents first-visit hitches
- * when travelling between stations.
+ * available, then reports "ready". Runs only once the environment map exists (drei renders it
+ * on the first frames): programs compiled without the env map would be recompiled with it
+ * later — exactly the travel hitch this is meant to prevent.
  */
-export function ReadySignal({ worldKey }: { worldKey: string }) {
+export function ReadySignal({ worldKey, linearTarget }: { worldKey: string; linearTarget: boolean }) {
   const gl = useThree((s) => s.gl);
   const scene = useThree((s) => s.scene);
   const camera = useThree((s) => s.camera);
-  const phase = useRef<'compiling' | 'armed' | 'done'>('compiling');
+  const phase = useRef<'waiting' | 'compiling' | 'armed' | 'done'>('waiting');
+  const frames = useRef(0);
+  const generation = useRef(0);
 
   useEffect(() => {
-    let cancelled = false;
-    phase.current = 'compiling';
-    const hidden: Object3D[] = [];
-    scene.traverse((o) => {
-      if (!o.visible) {
-        hidden.push(o);
-        o.visible = true;
-      }
-    });
-    let pending: Promise<unknown>;
-    try {
-      pending = gl.compileAsync(scene, camera);
-    } catch (err) {
-      pending = Promise.reject(err);
-    }
-    hidden.forEach((o) => (o.visible = false));
-    pending
-      .catch(() => undefined)
-      .then(() => {
-        if (!cancelled) phase.current = 'armed';
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [gl, scene, camera, worldKey]);
+    phase.current = 'waiting';
+    frames.current = 0;
+    generation.current++;
+  }, [worldKey]);
 
   useFrame(() => {
+    if (phase.current === 'waiting') {
+      frames.current++;
+      if (!scene.environment && frames.current < 30) return;
+      phase.current = 'compiling';
+      const gen = generation.current;
+      const hidden: Object3D[] = [];
+      scene.traverse((o) => {
+        if (!o.visible) {
+          hidden.push(o);
+          o.visible = true;
+        }
+      });
+      // Program variants depend on the bound target's colour space: with the bloom composer the
+      // scene renders into a linear HDR target, so compile against one (else the default FB).
+      const prevTarget = gl.getRenderTarget();
+      const rt = linearTarget ? new WebGLRenderTarget(4, 4, { type: HalfFloatType }) : null;
+      if (rt) gl.setRenderTarget(rt);
+      let pending: Promise<unknown>;
+      try {
+        pending = gl.compileAsync(scene, camera);
+      } catch (err) {
+        pending = Promise.reject(err);
+      }
+      gl.setRenderTarget(prevTarget);
+      rt?.dispose();
+      hidden.forEach((o) => (o.visible = false));
+      pending
+        .catch(() => undefined)
+        .then(() => {
+          if (gen === generation.current) phase.current = 'armed';
+        });
+      return;
+    }
     if (phase.current !== 'armed') return;
     phase.current = 'done';
     const s = useExperience.getState();
@@ -138,7 +153,7 @@ export function PerformanceGovernor({ tier }: { tier: QualityTier }) {
     const fps = a.frames / a.time;
     a.time = 0;
     a.frames = 0;
-    if (a.downgrades < GOVERNOR.maxDowngrades + 1 && shouldDowngrade(tier, fps)) {
+    if (a.downgrades < GOVERNOR.maxDowngrades && shouldDowngrade(tier, fps)) {
       a.downgrades++;
       a.warm = 0;
       const next = stepDown(tier);
@@ -154,10 +169,36 @@ export function PerformanceGovernor({ tier }: { tier: QualityTier }) {
 /** Read-only diagnostics for Playwright and manual QA (renderer.info, path state). */
 export function Diagnostics() {
   const gl = useThree((s) => s.gl);
+  const scene = useThree((s) => s.scene);
   // Count every pass of a frame (composer + portals), not just the last render call.
   useFrame(() => gl.info.reset(), -3);
   useEffect(() => {
     gl.info.autoReset = false;
+    // Profiling aid, only with ?debug=1: hide/show named objects to attribute frame cost.
+    if (new URLSearchParams(window.location.search).get('debug') === '1') {
+      const forced = new Set<string>();
+      const apply = () => {
+        scene.traverse((o) => {
+          if (o.name && forced.has(o.name)) o.visible = false;
+        });
+      };
+      const id = window.setInterval(apply, 50);
+      (window as unknown as { __IU_DEBUG__: unknown }).__IU_DEBUG__ = {
+        names: () => {
+          const n: string[] = [];
+          scene.traverse((o) => o.name && n.push(o.name));
+          return n;
+        },
+        hide: (name: string) => forced.add(name),
+        show: (name: string) => {
+          forced.delete(name);
+          scene.traverse((o) => {
+            if (o.name === name) o.visible = true;
+          });
+        },
+        stop: () => window.clearInterval(id),
+      };
+    }
     registerFrameHooks({
       frame: () => ({
         s: Number(frame.s.toFixed(3)),
@@ -177,6 +218,6 @@ export function Diagnostics() {
         portal: frame.portal ? { slug: frame.portal.slug, phase: frame.portal.phase } : null,
       }),
     });
-  }, [gl]);
+  }, [gl, scene]);
   return null;
 }

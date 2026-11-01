@@ -69,21 +69,24 @@ export function AppRuntime() {
     return () => io.disconnect();
   }, [pathname]);
 
-  // In-page anchor travel on "/" (header links, CTAs, universe nodes) — one delegated handler.
+  // In-page anchor travel on "/" (header/footer/menu links, CTAs) — one delegated handler.
+  // Capture phase: runs before React's root listener, so next/link sees defaultPrevented and
+  // stands down, while the link's own onClick (e.g. closing the mobile menu) still runs.
+  // Only home sections are handled; other hashes (e.g. the skip link) stay native.
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       const a = (e.target as Element | null)?.closest?.('a[href]') as HTMLAnchorElement | null;
-      if (!a || a.target === '_blank') return;
-      const href = a.getAttribute('href') ?? '';
-      const id = homeAnchorOf(href);
+      if (!a || a.target === '_blank' || a.closest('[data-own-nav]')) return;
+      const id = homeAnchorOf(a.getAttribute('href') ?? '');
       if (!id || window.location.pathname !== '/') return;
-      if (!document.getElementById(id)) return;
+      const target = document.getElementById(id);
+      if (!target?.hasAttribute('data-section')) return;
       e.preventDefault();
       travelToSection(id);
     };
-    document.addEventListener('click', onClick);
-    return () => document.removeEventListener('click', onClick);
+    document.addEventListener('click', onClick, true);
+    return () => document.removeEventListener('click', onClick, true);
   }, []);
 
   // Landing on "/#anchor" (deep link or cross-route nav): ensure correct offset + focus.

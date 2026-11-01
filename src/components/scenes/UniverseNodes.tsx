@@ -76,25 +76,24 @@ export function UniverseNodes({ nodes }: { nodes: UniverseNode[] }) {
               data-hovered={hovered === n.id || undefined}
               style={{ ['--x' as string]: `${layout.staticPos[0]}%`, ['--y' as string]: `${layout.staticPos[1]}%` }}
             >
+              <span className={styles.marker} aria-hidden="true" />
               <a
                 href={n.href}
-                className={styles.link}
+                className={styles.pill}
                 onClick={(e) => onClick(e, n)}
                 onPointerEnter={() => setHovered(n.id)}
                 onPointerLeave={() => setHovered(null)}
                 onFocus={() => onFocus(n.id)}
                 onBlur={() => setHovered(null)}
                 data-action="universe-node"
+                data-own-nav=""
               >
-                <span className={styles.marker} aria-hidden="true" />
-                <span className={styles.pill}>
-                  <span className={styles.labelRow}>
-                    <Icon name={n.icon} size={17} className={styles.icon} />
-                    <span className={styles.label}>{n.label}</span>
-                    <Icon name="arrow-up-right" size={14} className={styles.go} />
-                  </span>
-                  <span className={styles.teaser}>{n.teaser}</span>
+                <span className={styles.labelRow}>
+                  <Icon name={n.icon} size={17} className={styles.icon} />
+                  <span className={styles.label}>{n.label}</span>
+                  <Icon name="arrow-up-right" size={14} className={styles.go} />
                 </span>
+                <span className={styles.teaser}>{n.teaser}</span>
               </a>
             </li>
           );

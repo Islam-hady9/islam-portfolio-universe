@@ -20,6 +20,7 @@ interface PlanetProps {
   segments?: number;
   /** Dim to a dark silhouette when this station is not in view (avoids popping/clutter). */
   fadeStation?: number;
+  name?: string;
 }
 
 /**
@@ -38,6 +39,7 @@ export function Planet({
   rotationSpeed = 0.004,
   segments = 96,
   fadeStation,
+  name,
 }: PlanetProps) {
   const [lx, ly, lz] = lightDir;
   const light = useMemo(() => new Vector3(lx, ly, lz).normalize(), [lx, ly, lz]);
@@ -168,7 +170,7 @@ export function Planet({
   });
 
   return (
-    <group position={position}>
+    <group position={position} name={name}>
       <mesh material={surface}>
         <sphereGeometry args={[radius, segments, Math.round(segments * 0.66)]} />
       </mesh>

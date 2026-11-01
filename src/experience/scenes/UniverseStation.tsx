@@ -92,7 +92,9 @@ export function UniverseStation({ cfg, pixelRatio }: { cfg: TierConfig; pixelRat
   const camera = useThree((s) => s.camera);
   const hovered = useExperience((s) => s.hoveredNode);
   const hoveredRef = useRef<string | null>(null);
-  hoveredRef.current = hovered;
+  useEffect(() => {
+    hoveredRef.current = hovered;
+  }, [hovered]);
 
   const tracks = useMemo(
     () =>

@@ -6,8 +6,19 @@ import styles from './ProjectPoster.module.css';
  * Static artwork for a project world: a poster rendered from the live mini-world when
  * available, otherwise distinct procedural CSS art (spec §3.5: four visual languages).
  */
-export function ProjectPoster({ world, alt, priority = false }: { world: ProjectWorld; alt: string; priority?: boolean }) {
-  const poster = posterFor(`project-${world}`);
+export function ProjectPoster({
+  world,
+  alt,
+  priority = false,
+  variant = 'card',
+}: {
+  world: ProjectWorld;
+  alt: string;
+  priority?: boolean;
+  /** "hero" uses the wide case-study framing when available. */
+  variant?: 'card' | 'hero';
+}) {
+  const poster = (variant === 'hero' ? posterFor(`case-${world}`) : null) ?? posterFor(`project-${world}`);
   return (
     <div className={`${styles.poster} ${styles[world]}`} data-project-poster={world}>
       {poster ? (
