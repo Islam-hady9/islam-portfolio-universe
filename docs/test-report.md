@@ -1,5 +1,7 @@
 # Test Report — The Intelligence Universe
 
+> **Update — Personal Media Integration (2026-11-01):** portrait + intro reel, see [`docs/personal-media-integration/README.md`](personal-media-integration/README.md) — 527 unit/component tests, 92 E2E (Chromium desktop/mobile, Firefox, WebKit) ×2 with 0 failures, 4 GPU; interleaved Lighthouse before/after (home mobile LCP 3.12 → 3.26 s, /about mobile LCP 1.06 → 3.13 s, CLS 0, zero video bytes before the player opens).
+>
 > **Update — Cinematic Polish V2:** current results are in [`docs/cinematic-polish-v2/TEST-RESULTS.md`](cinematic-polish-v2/TEST-RESULTS.md) and [`PERFORMANCE-REPORT.md`](cinematic-polish-v2/PERFORMANCE-REPORT.md) (478 unit tests, 58 E2E ×2, 4 GPU, soak; mobile LCP 3.1 s / 2.8–2.9 s). The sections below record the previous phase.
 
 Spec §13.3. Every number below was produced by a command in this file, on the environment below, against the **final production build** of branch `feat/intelligence-universe` on 2026-11-01. Nothing is estimated.

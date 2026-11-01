@@ -1,6 +1,6 @@
 # Asset Manifest
 
-Spec §3.5 / IU-018. Every shipped asset, its origin and licence. No stock imagery, third-party models, HDRIs or logos-as-art are used. The machine-readable copy lives in `src/content/data/attributions.json` and is rendered on `/about#colophon`.
+Spec §3.5 / IU-018. Every shipped asset, its origin and licence. No stock imagery, third-party models, HDRIs or logos-as-art are used; the only photographic media are the owner's own portrait and reel. The machine-readable copy lives in `src/content/data/attributions.json` and is rendered on `/about#colophon`.
 
 | Asset | Location | Origin | Licence | Optimisation |
 |---|---|---|---|---|
@@ -14,6 +14,10 @@ Spec §3.5 / IU-018. Every shipped asset, its origin and licence. No stock image
 | GitHub / LinkedIn marks | `src/components/ui/Icon.tsx` | Simplified original renderings | Trademarks of their owners; used only to label links to the owner's profiles (nominative use) | inline SVG |
 | Brand mark / favicon | `src/components/layout/BrandMark.tsx`, `src/app/icon.svg` | Original | Original | SVG |
 | Social card | `src/app/opengraph-image.tsx` | Generated at build (next/og) from brand tokens | Original | 1200×630 PNG |
+| Owner portrait | `public/media/photo/portrait-{480,720,960,1112}.{avif,webp}`, `portrait-{720,1112}.jpg` | Owner-supplied photograph (2026-11-01); original kept locally in git-ignored `media-src/` | The owner's own photograph, supplied for this site | `scripts/media/process-media.py`: fresh pixel buffers (no EXIF/GPS/XMP/ICC), no retouching; AVIF q72 (16–52 KB) / WebP q82 / JPEG q84 fallback; 24 px blurred placeholder inlined |
+| Owner intro reel | `public/media/video/intro-reel-1080.mp4` (remux, 7.3 MB), `intro-reel-720.mp4` (H.264 CRF 23 + AAC 128 k, 2.9 MB) | Owner-supplied 35 s vertical reel (2026-11-01); the source file indicates generative AI video tools (disclosed in the player, owner to confirm) | The owner's own video, supplied for this site | 1080p copied without re-encoding; 720p re-encoded (x264 slow, aq-mode 3 for dark scenes); `+faststart`; all container metadata removed; served poster-first, only after the player opens |
+| Reel poster + thumbnail | `public/media/posters/intro-reel-{540,1080}.{avif,webp}`, `-540.jpg`; `public/media/thumbnails/intro-reel-{112,168}.{avif,webp}` | Frames of the owner's reel (poster 3.8 s, thumbnail crop 5.0 s) | As the reel | AVIF/WebP, 1–25 KB |
+| Reel captions | `/media/captions/intro-reel.en.vtt` (static route) | Generated at build from the transcript cues in `src/content/data/media.json` (local Whisper transcription, owner to confirm) | As the reel | WebVTT, prerendered |
 | Approved reference | `docs/intelligence_universe_master/APPROVED_HOMEPAGE_REFERENCE.png` | Owner-supplied design reference | Not shipped (docs only) | — |
 
 ## Regenerating posters
@@ -25,3 +29,11 @@ npm run capture:posters -- http://localhost:3100 --only=journey   # or just the 
 npm run capture:encode                                        # crops, WebP, srcset variants, src/assets/posters.json
 ```
 Re-run after changing a scene so fallbacks keep matching the live 3D (raw captures stay in the git-ignored `.evidence-tmp/posters/`).
+
+## Regenerating the personal media
+
+```bash
+# originals (not committed): media-src/portrait.jpeg, media-src/intro-reel.mp4
+npm run media:process        # or: python scripts/media/process-media.py --photo <file> --video <file>
+```
+Writes `public/media/**` and `src/assets/media.json`. Poster time, thumbnail crop, widths and qualities live in `scripts/media/media.config.json`. Requires ffmpeg/ffprobe (libx264, aac) and Pillow with AVIF.

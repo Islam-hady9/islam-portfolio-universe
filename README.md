@@ -39,10 +39,11 @@ Useful URL flags: `?quality=ultra|balanced|lite|static` (force a tier), `?intro=
 | `npm run content:validate`                                                        | Validates all content JSON against the zod contracts                                                            |
 | `npm run content:gate [-- --strict]`                                              | Lists records still pending verification; fails in `VERIFIED_PUBLIC` mode                                       |
 | `npm run capture:posters -- <url> [--only=journey]` then `npm run capture:encode` | Re-render fallback posters from the live scenes                                                                 |
+| `npm run media:process`                                                           | Owner portrait + intro reel (`media-src/`, git-ignored) → `public/media/**` + `src/assets/media.json`           |
 | `npm run qa:stations -- <url> <out> --gpu` / `npm run qa:record -- <url>`         | Station screenshots / motion recordings on the GPU                                                              |
 | `npm run check`                                                                   | typecheck + lint + test + build                                                                                 |
 
-More QA tools: `scripts/qa/transitions.mjs` (3D between stations), `scripts/qa/core-evidence.mjs` (hero core close-ups + motion strip), `scripts/qa/soak.mjs` (long-session memory + scroll/route stress), `scripts/perf/long-tasks.mjs` (load-time main-thread blocking), `scripts/perf/gl-stalls.mjs` (per-program shader-compile stalls), `scripts/perf/cpu-profile.mjs` (main-thread CPU profile), `scripts/qa/montage.py` (evidence contact sheets). `npm run perf:lighthouse -- <url> --runs=3` keeps the median run.
+More QA tools: `scripts/qa/transitions.mjs` (3D between stations), `scripts/qa/core-evidence.mjs` (hero core close-ups + motion strip), `scripts/qa/soak.mjs` (long-session memory + scroll/route stress), `scripts/perf/long-tasks.mjs` (load-time main-thread blocking), `scripts/perf/gl-stalls.mjs` (per-program shader-compile stalls), `scripts/perf/cpu-profile.mjs` (main-thread CPU profile), `scripts/qa/montage.py` (evidence contact sheets), `scripts/qa/media-evidence.mjs` (portrait + reel player evidence and checks). `npm run perf:lighthouse -- <url> --runs=3` keeps the median run; `--only=<profiles>` and `--out=<dir>` run comparisons without touching committed evidence (`mobile-static-about` is opt-in).
 
 ## Architecture
 
@@ -53,6 +54,7 @@ More QA tools: `scripts/qa/transitions.mjs` (3D between stations), `scripts/qa/c
 - **Portals.** Four procedural project worlds render into render targets and are composited into tracked card/hero rectangles; a card expands into its case study across the route change.
 - **Adaptive quality.** Capability detection → `ultra / balanced / lite / static`, a runtime FPS governor, and a user override in the settings panel. Software renderers and reduced-motion users get posters rendered from the live scenes.
 - **Content is data.** `src/content/data/*.json`, validated by zod; every record carries a verification status. A publication gate blocks public builds that still contain placeholders.
+- **Personal media.** The owner's portrait and intro reel are processed by `scripts/media/` (metadata stripped, responsive AVIF/WebP, H.264 variants), described in `src/content/data/media.json` (alt text, transcript, AI-provenance flag behind the publication gate) and played in an accessible, lazily loaded `<dialog>` player with captions generated from the same transcript.
 - **Honest assistant.** `src/lib/assistant/` holds typed contracts, a safety policy and a deterministic demo provider; `src/app/api/assistant` is the server boundary for a future grounded provider (secrets server-side only).
 
 ```
@@ -75,6 +77,7 @@ docs/               plan, decisions, acceptance matrix, test report, readiness, 
 - [`docs/release-readiness.md`](docs/release-readiness.md) — verdict and launch checklist
 - [`docs/content-population.md`](docs/content-population.md) — CV/content hand-off guide
 - [`docs/asset-manifest.md`](docs/asset-manifest.md) — asset provenance and licences
+- [`docs/personal-media-integration/`](docs/personal-media-integration/README.md) — portrait + intro reel: placement, handling, measured impact, tests
 
 The authoritative product spec and approved visual reference live in `docs/intelligence_universe_master/`.
 

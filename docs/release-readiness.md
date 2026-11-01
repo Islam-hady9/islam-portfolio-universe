@@ -2,6 +2,8 @@
 
 Spec §13.3 / §14. Branch `feat/intelligence-universe`, 2026-11-01. Evidence: `docs/test-report.md`, `docs/acceptance-matrix.md`, `docs/evidence/`.
 
+> **Update — Personal Media Integration (2026-11-01):** the owner's portrait and intro reel are integrated (identity band, hero chip, /about, accessible reel player); verdict unchanged. Two new `placeholder` records (reel transcript, AI disclosure) await the owner's confirmation before any public build. A pre-existing defect found here — a WebGL renderer failure replaced the whole page with the global error screen — is fixed (`CanvasBoundary`). See [`docs/personal-media-integration/README.md`](personal-media-integration/README.md).
+>
 > **Update — Cinematic Polish V2 (closed 2026-11-01):** verdict unchanged — **CONDITIONAL GO** for CV population, **not** a GO for public deployment. Measured: mobile LCP 3.1 s (home) / 2.8–2.9 s (case study), CLS 0, GPU 143–171 fps balanced, soak clean. See [`docs/cinematic-polish-v2/CLOSURE-REPORT.md`](cinematic-polish-v2/CLOSURE-REPORT.md).
 
 ## Verdict for the next phase (G7 — CV population): **CONDITIONAL GO**

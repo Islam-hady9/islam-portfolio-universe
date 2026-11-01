@@ -19,6 +19,7 @@ All content is JSON in `src/content/data/`, validated by zod (`src/content/schem
 | `social.json`, `contact.json` | links, email, availability, resume URL | LinkedIn/email/resume `null`; GitHub derived from the repo remote (`placeholder`) |
 | `assistant.json` | sample prompts + knowledge entries for the demo | Composed from the fixtures above |
 | `attributions.json` | asset provenance | Complete |
+| `media.json` | `MediaContent` — portrait description, reel labels, transcript cues + on-screen description, AI-provenance flag | Portrait and reel `owner_verified` (owner-supplied files); **transcript and AI disclosure `placeholder`** until confirmed (see below) |
 
 Every record carries `verification: { status, source, note? }` with `status` ∈ `placeholder | owner_verified | public_verified`.
 
@@ -37,6 +38,14 @@ Every record carries `verification: { status, source, note? }` with `status` ∈
    Update `tests/unit/content/factual-safety.test.ts` where a rule was intentionally about sample data (e.g. career entries will now have organisations).
 6. **Regenerate posters/OG** if names changed; re-run E2E (`npx playwright test`) to catch layout regressions from longer text.
 7. **Publish** only with explicit approval: `NEXT_PUBLIC_CONTENT_MODE=VERIFIED_PUBLIC` and `NEXT_PUBLIC_SITE_URL=https://…`. The build **fails** if any placeholder remains (`src/content/gate.ts`), and only then are pages indexable (robots, sitemap, canonical, JSON-LD `sameAs`).
+
+## Personal media (portrait + intro reel)
+- **To confirm** in `media.json`, then set each `verification.status` to `owner_verified`:
+  - the narration in `introReel.transcript.cues`, including the spelling of the name in the last line (the reel's own card reads "Abdelhady"; the site uses "Abd-Elhady");
+  - the claims quoted in `transcript.visuals` (the reel's title card says "AI Engineer · Technical Lead", the site's role is "AI Full-Stack Engineer"; the TIBYN card says "aquaculture SaaS · live"; the stack card lists NestJS, Kubernetes and AWS);
+  - `introReel.provenance` — keep `aiGenerated: true` with its label if generative video tools were used (the source file's name is a generation prompt), or set it to `false`.
+- Captions (`/media/captions/intro-reel.en.vtt`) and the player's transcript update from the same cues automatically.
+- Replacing the photo or the reel: drop the new originals into `media-src/` and run `npm run media:process` (see `docs/asset-manifest.md`), then re-run the E2E media spec.
 
 ## What changes automatically when content changes
 - Cards, case-study sections (empty sections collapse into an "In preparation" panel), journey timeline (sample tags disappear when entries are verified), contact channels (live links appear when URLs exist), resume page (offers the download once a verified `resume.url` exists), JSON-LD, sitemap.
