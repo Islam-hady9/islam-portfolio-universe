@@ -44,6 +44,7 @@ node scripts/qa/record.mjs http://localhost:3300 docs/evidence/video            
 |---|---|
 | Typecheck (`tsc --noEmit`, strict) | ✅ exit 0 |
 | Lint (`eslint .`, next core-web-vitals + typescript) | ✅ exit 0, 0 problems |
+| Format (`prettier --check .`) | ✅ exit 0 (formatting-only commit `c33a8e1`, re-verified with typecheck, lint, unit, build, 58 E2E and 3 functional GPU tests) |
 | Unit + component (Vitest) | ✅ **24 files, 473 tests passed**, 0 skipped |
 | Content validation / gate | ✅ valid; gate lists 42 placeholder records and exits 1 when `NEXT_PUBLIC_CONTENT_MODE=VERIFIED_PUBLIC` (by design) |
 | Production build | ✅ 15 routes (static/SSG) + `/api/assistant` (dynamic) |
@@ -140,4 +141,3 @@ Draw calls 21–38, triangles 3k–107k, shader programs constant at 49–51 acr
 - Real phones were not available; mobile behaviour was verified with Chromium device emulation (Pixel 7) and Lighthouse simulation only.
 - WebGL on Firefox/WebKit was exercised only in their software paths (static tier) in this environment.
 - At 4:3 the journey moon now sits just outside the frame (decorative; the station still has terrain and aurora).
-- `npm run format:check` passes only after the formatting-only commit that follows the feature commit (see git log).
