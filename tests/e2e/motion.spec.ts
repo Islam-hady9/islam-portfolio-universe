@@ -103,4 +103,33 @@ test.describe('motion, intro and fallbacks (IU-010, IU-011, IU-014, IU-022)', ()
       .poll(() => page.evaluate(() => window.__IU__?.state().webgl), { timeout: 30_000 })
       .toBe('ready');
   });
+
+  test('a renderer that cannot initialise falls back to posters instead of taking the page down', async ({
+    page,
+  }) => {
+    test.slow();
+    const errors = trackErrors(page);
+    // What a GPU process that lost its context hands back: three.js throws while creating the
+    // renderer (seen in WebKit under load). Before CanvasBoundary this replaced the whole page.
+    await page.addInitScript(() => {
+      for (const proto of [WebGLRenderingContext.prototype, WebGL2RenderingContext.prototype]) {
+        proto.getShaderPrecisionFormat = function () {
+          return null;
+        } as unknown as typeof proto.getShaderPrecisionFormat;
+      }
+    });
+    await gotoHome(page, 'quality=lite');
+    await expect
+      .poll(() => page.evaluate(() => window.__IU__?.state().webgl), { timeout: 30_000 })
+      .toBe('failed');
+    await expect(page.locator('html')).toHaveAttribute('data-webgl', 'failed');
+    await expect(page.locator('#hero-title')).toBeVisible();
+    await expect(page.locator('[data-scene-art="hero"]')).toBeVisible();
+    // Neither the route error nor the global error screen ("Something went wrong.") appears.
+    await expect(page.getByText(/Something went (off course|wrong)/)).toHaveCount(0);
+    await page.locator('[data-action="hero-talk"]').click();
+    await expect(page).toHaveURL(/#contact$/);
+    // three.js and React report the contained failure; nothing else may error.
+    expect(errors.filter((e) => !/getShaderPrecisionFormat|WebGLRenderer|precision/i.test(e))).toEqual([]);
+  });
 });

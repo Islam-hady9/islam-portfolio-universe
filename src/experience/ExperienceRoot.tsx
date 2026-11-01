@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useExperience } from '@/state/experience-store';
 import { gatherDeviceSignals } from './quality/detect';
 import { detectTier, resolveTier } from './quality/tiers';
+import { CanvasBoundary } from './CanvasBoundary';
 import styles from './ExperienceRoot.module.css';
 
 /**
@@ -116,7 +117,11 @@ export function ExperienceRoot() {
 
   return (
     <div className={styles.layer} aria-hidden="true" data-testid="experience-layer">
-      {shouldMount ? <ExperienceCanvas key={`${generation}`} tier={tier} /> : null}
+      {shouldMount ? (
+        <CanvasBoundary key={`${generation}`}>
+          <ExperienceCanvas tier={tier} />
+        </CanvasBoundary>
+      ) : null}
     </div>
   );
 }
