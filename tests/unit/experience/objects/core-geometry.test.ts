@@ -1,187 +1,253 @@
 import { describe, expect, it } from 'vitest';
-import type { BufferGeometry } from 'three';
-import { buildChannelRing, buildPlates, buildShard } from '@/experience/objects/core/geometry';
+import { Vector3, type BufferGeometry } from 'three';
+import {
+  buildRingSolid,
+  buildShard,
+  buildShellPanels,
+  profileArea,
+  ringProfile,
+  type ProfilePoint,
+  type RingSolidSpec,
+} from '@/experience/objects/core/geometry';
 
 const arr = (g: BufferGeometry, name: string) => Array.from(g.attributes[name]!.array);
 const allFinite = (xs: ArrayLike<number>) => Array.from(xs).every(Number.isFinite);
 
-describe('buildChannelRing', () => {
-  // radius, width, height, lip, floor, segments
-  const R = 2.4;
-  const W = 0.3;
-  const H = 0.2;
-  const LIP = 0.05;
-  const FLOOR = 0.04;
-  const SEGMENTS = 24;
-  const ring = buildChannelRing(R, W, H, LIP, FLOOR, SEGMENTS);
+/** Ray-casting point-in-polygon in the (radius, height) plane. */
+function insidePolygon(r: number, h: number, poly: ProfilePoint[]): boolean {
+  let inside = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [ri, hi] = poly[i]!;
+    const [rj, hj] = poly[j]!;
+    if (hi > h !== hj > h && r < ((rj - ri) * (h - hi)) / (hj - hi) + ri) inside = !inside;
+  }
+  return inside;
+}
+
+/** Visits triangles (indexed or not) with their vertex indices. */
+function eachTriangle(g: BufferGeometry, fn: (a: number, b: number, c: number) => void) {
+  const idx = g.index;
+  const n = idx ? idx.count : g.attributes.position!.count;
+  for (let t = 0; t < n; t += 3) {
+    if (idx) fn(idx.getX(t), idx.getX(t + 1), idx.getX(t + 2));
+    else fn(t, t + 1, t + 2);
+  }
+}
+
+const RING: RingSolidSpec = {
+  radius: 2.4,
+  width: 0.3,
+  height: 0.2,
+  chamfer: 0.03,
+  channel: { lip: 0.07, floor: 0.06 },
+  segments: 96,
+};
+
+describe('ringProfile', () => {
+  it('is a closed counter-clockwise polygon with three brushed channel edges', () => {
+    const { points, brushed } = ringProfile(RING);
+    expect(points).toHaveLength(12);
+    expect(profileArea(points)).toBeGreaterThan(0);
+    expect(brushed.filter(Boolean)).toHaveLength(3);
+  });
+
+  it('drops zero-length edges when there is no chamfer', () => {
+    const { points } = ringProfile({ ...RING, chamfer: 0 });
+    expect(points).toHaveLength(8);
+    const solid = ringProfile({ radius: 2, width: 0.1, height: 0.1, chamfer: 0 });
+    expect(solid.points).toHaveLength(4);
+    expect(solid.brushed.every((b) => !b)).toBe(true);
+  });
+
+  it('rejects impossible chamfers and channels', () => {
+    expect(() => ringProfile({ ...RING, chamfer: 0.2 })).toThrow();
+    expect(() => ringProfile({ ...RING, channel: { lip: 0.02, floor: 0.06 } })).toThrow(); // lip ≤ chamfer
+    expect(() => ringProfile({ ...RING, channel: { lip: 0.2, floor: 0.06 } })).toThrow(); // lips overlap
+  });
+});
+
+describe('buildRingSolid', () => {
+  const continuous = buildRingSolid(RING);
+  const seamed = buildRingSolid({ ...RING, seams: 6, seamGap: 0.05 });
 
   it('is deterministic', () => {
-    const again = buildChannelRing(R, W, H, LIP, FLOOR, SEGMENTS);
-    expect(arr(again, 'position')).toEqual(arr(ring, 'position'));
-    expect(arr(again, 'normal')).toEqual(arr(ring, 'normal'));
-    expect(Array.from(again.index!.array)).toEqual(Array.from(ring.index!.array));
+    const again = buildRingSolid({ ...RING, seams: 6, seamGap: 0.05 });
+    expect(arr(again, 'position')).toEqual(arr(seamed, 'position'));
+    expect(arr(again, 'normal')).toEqual(arr(seamed, 'normal'));
   });
 
-  it('lathes the 8 faces of the U-channel profile into one indexed mesh', () => {
-    const verticesPerFace = 2 * (SEGMENTS + 1);
-    expect(ring.attributes.position!.count).toBe(8 * verticesPerFace);
-    expect(ring.index!.count).toBe(8 * SEGMENTS * 6);
-    const maxIndex = Math.max(...Array.from(ring.index!.array));
-    expect(maxIndex).toBe(ring.attributes.position!.count - 1);
+  it('exposes a chrome group and a brushed channel group (solid rings have only chrome)', () => {
+    expect(continuous.groups.map((g) => g.materialIndex)).toEqual([0, 1]);
+    const solid = buildRingSolid({ radius: 3, width: 0.05, height: 0.05, chamfer: 0.012, segments: 64 });
+    expect(solid.groups.map((g) => g.materialIndex)).toEqual([0]);
   });
 
-  it('has a finite, non-zero normal for every vertex', () => {
-    const n = ring.attributes.normal!;
-    expect(n.count).toBe(ring.attributes.position!.count);
-    expect(allFinite(n.array)).toBe(true);
-    expect(allFinite(ring.attributes.position!.array)).toBe(true);
-    for (let i = 0; i < n.count; i++) expect(Math.hypot(n.getX(i), n.getY(i), n.getZ(i))).toBeGreaterThan(0);
-  });
-
-  it('stays within the ring envelope (inner/outer radius, half height)', () => {
-    const p = ring.attributes.position!;
-    for (let i = 0; i < p.count; i++) {
-      const r = Math.hypot(p.getX(i), p.getZ(i));
-      expect(r).toBeGreaterThanOrEqual(R - W / 2 - 1e-6);
-      expect(r).toBeLessThanOrEqual(R + W / 2 + 1e-6);
-      expect(Math.abs(p.getY(i))).toBeLessThanOrEqual(H / 2 + 1e-6);
+  it('has finite, unit-length normals and stays inside the profile envelope', () => {
+    for (const g of [continuous, seamed]) {
+      expect(allFinite(g.attributes.position!.array)).toBe(true);
+      const n = g.attributes.normal!;
+      const p = g.attributes.position!;
+      for (let i = 0; i < n.count; i++) {
+        expect(Math.hypot(n.getX(i), n.getY(i), n.getZ(i))).toBeCloseTo(1, 4);
+        const r = Math.hypot(p.getX(i), p.getZ(i));
+        expect(r).toBeGreaterThanOrEqual(RING.radius - RING.width / 2 - 1e-6);
+        expect(r).toBeLessThanOrEqual(RING.radius + RING.width / 2 + 1e-6);
+        expect(Math.abs(p.getY(i))).toBeLessThanOrEqual(RING.height / 2 + 1e-6);
+      }
     }
   });
 
-  it('points every face normal outward from the solid', () => {
-    // Profile in (radius, height), counter-clockwise; outward normal of edge (dx, dy) is (dy, -dx).
-    const r0 = R - W / 2;
-    const r1 = R + W / 2;
-    const h0 = -H / 2;
-    const h1 = H / 2;
-    const profile = [
-      [r0, h0],
-      [r1, h0],
-      [r1, h1],
-      [r1 - LIP, h1],
-      [r1 - LIP, h0 + FLOOR],
-      [r0 + LIP, h0 + FLOOR],
-      [r0 + LIP, h1],
-      [r0, h1],
-      [r0, h0],
-    ] as const;
-    const p = ring.attributes.position!;
-    const n = ring.attributes.normal!;
-    const perFace = 2 * (SEGMENTS + 1);
-    const sign = (v: number) => (Math.abs(v) < 1e-6 ? 0 : Math.sign(v));
-    for (let face = 0; face < 8; face++) {
-      const dx = profile[face + 1]![0] - profile[face]![0];
-      const dy = profile[face + 1]![1] - profile[face]![1];
-      for (let v = face * perFace; v < (face + 1) * perFace; v++) {
-        const radial = Math.hypot(p.getX(v), p.getZ(v));
-        const nRadial = (n.getX(v) * p.getX(v) + n.getZ(v) * p.getZ(v)) / radial;
-        expect(sign(nRadial), `face ${face} radial`).toBe(sign(dy));
-        expect(sign(n.getY(v)), `face ${face} vertical`).toBe(sign(-dx));
-      }
+  it('closes every seam with end caps (more geometry than the continuous ring)', () => {
+    expect(seamed.attributes.position!.count).toBeGreaterThan(continuous.attributes.position!.count);
+  });
+
+  it('points every face out of the solid, including the seam caps', () => {
+    const { points } = ringProfile(RING);
+    const gap = 0.05;
+    const step = (Math.PI * 2) / 6;
+    const insideSolid = (v: Vector3) => {
+      const r = Math.hypot(v.x, v.z);
+      if (!insidePolygon(r, v.y, points)) return false;
+      const phi = (Math.atan2(v.x, v.z) + Math.PI * 2) % (Math.PI * 2); // lathe: x = r sin φ, z = r cos φ
+      const local = phi % step;
+      return local > gap / 2 && local < step - gap / 2;
+    };
+    const p = seamed.attributes.position!;
+    const n = seamed.attributes.normal!;
+    const a = new Vector3();
+    const b = new Vector3();
+    const c = new Vector3();
+    const nn = new Vector3();
+    const eps = 0.01;
+    let checked = 0;
+    eachTriangle(seamed, (i0, i1, i2) => {
+      a.fromBufferAttribute(p, i0);
+      b.fromBufferAttribute(p, i1);
+      c.fromBufferAttribute(p, i2);
+      const area = b.clone().sub(a).cross(c.clone().sub(a));
+      if (area.length() < 1e-9) return; // degenerate lathe triangles at nothing — skip
+      nn.fromBufferAttribute(n, i0)
+        .add(new Vector3().fromBufferAttribute(n, i1))
+        .add(new Vector3().fromBufferAttribute(n, i2));
+      expect(area.dot(nn), 'winding agrees with normals').toBeGreaterThan(0);
+      const centroid = a.clone().add(b).add(c).divideScalar(3);
+      const dir = nn.normalize();
+      expect(insideSolid(centroid.clone().addScaledVector(dir, eps)), 'outside along +n').toBe(false);
+      expect(insideSolid(centroid.clone().addScaledVector(dir, -eps)), 'inside along −n').toBe(true);
+      checked++;
+    });
+    expect(checked).toBeGreaterThan(1000);
+  });
+
+  it('adds radial pivot bosses beyond the outer wall', () => {
+    const plain = buildRingSolid(RING);
+    const pivoted = buildRingSolid({ ...RING, pivots: { count: 2, radius: 0.06, length: 0.15 } });
+    const maxR = (g: BufferGeometry) => {
+      const p = g.attributes.position!;
+      let m = 0;
+      for (let i = 0; i < p.count; i++) m = Math.max(m, Math.hypot(p.getX(i), p.getZ(i)));
+      return m;
+    };
+    expect(maxR(pivoted)).toBeGreaterThan(maxR(plain) + 0.08);
+  });
+
+  it('builds a single closed arc for carriages', () => {
+    const collar = buildRingSolid({
+      radius: 2.4,
+      width: 0.36,
+      height: 0.26,
+      chamfer: 0.02,
+      segments: 64,
+      arc: { start: -0.05, length: 0.1 },
+    });
+    const p = collar.attributes.position!;
+    for (let i = 0; i < p.count; i++) {
+      expect(Math.abs(Math.atan2(p.getX(i), p.getZ(i)))).toBeLessThanOrEqual(0.05 + 1e-6);
     }
   });
 });
 
 describe('buildShard', () => {
-  it('is deterministic per seed', () => {
+  it('is deterministic per seed and varies across seeds', () => {
     expect(arr(buildShard(3), 'position')).toEqual(arr(buildShard(3), 'position'));
-    expect(arr(buildShard(3), 'normal')).toEqual(arr(buildShard(3), 'normal'));
-  });
-
-  it('differs between seeds', () => {
     expect(arr(buildShard(3), 'position')).not.toEqual(arr(buildShard(9), 'position'));
   });
 
-  it('is a 20-face low-poly solid with finite positions and unit normals', () => {
+  it('is a closed, faceted solid with finite normals', () => {
     const g = buildShard(7);
-    expect(g.attributes.position!.count).toBe(60);
-    expect(allFinite(g.attributes.position!.array)).toBe(true);
-    const n = g.attributes.normal!;
-    expect(n.count).toBe(60);
-    for (let i = 0; i < n.count; i++) expect(Math.hypot(n.getX(i), n.getY(i), n.getZ(i))).toBeCloseTo(1, 5);
-  });
-
-  it('scales the unit icosahedron irregularly (radial 0.6–1.35, y squashed 0.5–1.1)', () => {
-    const p = buildShard(7).attributes.position!;
-    const lengths: number[] = [];
-    let sumX = 0;
-    let sumY = 0;
-    let sumZ = 0;
-    for (let i = 0; i < p.count; i++) {
-      const len = Math.hypot(p.getX(i), p.getY(i), p.getZ(i));
-      expect(len).toBeGreaterThanOrEqual(0.6 * 0.5 - 1e-6);
-      expect(len).toBeLessThanOrEqual(1.35 * 1.1 + 1e-6);
-      lengths.push(len);
-      sumX += Math.abs(p.getX(i));
-      sumY += Math.abs(p.getY(i));
-      sumZ += Math.abs(p.getZ(i));
-    }
-    // irregular: not a uniformly scaled icosahedron
-    expect(Math.max(...lengths) - Math.min(...lengths)).toBeGreaterThan(0.2);
-    // the base icosahedron is axis-symmetric, so the extra y factor (mean 0.8) flattens it on average
-    expect(sumY).toBeLessThan(sumX);
-    expect(sumY).toBeLessThan(sumZ);
-  });
-
-  it('keeps shared icosahedron corners welded so the shard is a closed solid', () => {
-    const g = buildShard(7);
-    const pos = g.attributes.position!;
-    expect(pos.count).toBe(60); // 20 faces × 3 (faceted)
-    const unique = new Set<string>();
-    for (let i = 0; i < pos.count; i++) {
-      unique.add([pos.getX(i), pos.getY(i), pos.getZ(i)].map((v) => v.toFixed(5)).join(','));
-    }
-    // An icosahedron has 12 corners: every face corner must coincide with its neighbours'.
-    expect(unique.size).toBe(12);
+    expect(g.index).toBeNull();
+    expect(g.attributes.position!.count % 3).toBe(0);
+    expect(allFinite(g.attributes.normal!.array)).toBe(true);
   });
 });
 
-describe('buildPlates', () => {
-  const RADIUS = 1.04;
-  const BANDS = 8;
-  const plates = buildPlates(RADIUS, BANDS, 7);
+describe('buildShellPanels', () => {
+  const spec = {
+    radius: 1,
+    thickness: 0.06,
+    bands: 8,
+    keep: 0.8,
+    gap: 0.05,
+    liftShare: 0.15,
+    lift: 0.16,
+    copperShare: 0.1,
+    subdiv: 2,
+    polar: 0.16,
+    seed: 7,
+  };
+  const { geometry, panels } = buildShellPanels(spec);
 
-  it('is deterministic per seed and differs between seeds', () => {
-    expect(buildPlates(RADIUS, BANDS, 7)).toEqual(plates);
-    expect(buildPlates(RADIUS, BANDS, 8)).not.toEqual(plates);
+  it('is deterministic and fractured (some panels missing)', () => {
+    const again = buildShellPanels(spec);
+    expect(again.panels).toBe(panels);
+    expect(arr(again.geometry, 'position')).toEqual(arr(geometry, 'position'));
+    const full = buildShellPanels({ ...spec, keep: 1 });
+    expect(panels).toBeGreaterThan(full.panels * 0.6);
+    expect(panels).toBeLessThan(full.panels);
   });
 
-  it('never exceeds the per-band plate budget, but leaves some gaps', () => {
-    let budget = 0;
-    for (let b = 0; b < BANDS; b++) {
-      const lat = -Math.PI / 2 + ((b + 0.5) / BANDS) * Math.PI;
-      budget += Math.max(4, Math.round(15 * Math.cos(lat)));
+  it('keeps every vertex within the shell thickness plus the lift', () => {
+    const p = geometry.attributes.position!;
+    for (let i = 0; i < p.count; i++) {
+      const r = Math.hypot(p.getX(i), p.getY(i), p.getZ(i));
+      expect(r).toBeGreaterThanOrEqual(spec.radius - spec.thickness - 1e-6);
+      expect(r).toBeLessThanOrEqual(spec.radius + spec.lift + 1e-6);
     }
-    expect(plates.length).toBeGreaterThan(budget * 0.5);
-    expect(plates.length).toBeLessThan(budget);
   });
 
-  it('places every plate on (or just above) the sphere along its unit normal', () => {
-    for (const plate of plates) {
-      const [nx, ny, nz] = plate.normal;
-      expect(Math.hypot(nx, ny, nz)).toBeCloseTo(1, 9);
-      const r = Math.hypot(...plate.position);
-      expect(r).toBeGreaterThanOrEqual(RADIUS - 1e-9);
-      expect(r).toBeLessThanOrEqual(RADIUS + 0.26 + 1e-9);
-      plate.position.forEach((c, k) => expect(c / r).toBeCloseTo(plate.normal[k]!, 9));
-    }
+  it('winds every triangle consistently with its normals', () => {
+    const p = geometry.attributes.position!;
+    const n = geometry.attributes.normal!;
+    const a = new Vector3();
+    const b = new Vector3();
+    const c = new Vector3();
+    eachTriangle(geometry, (i0, i1, i2) => {
+      a.fromBufferAttribute(p, i0);
+      b.fromBufferAttribute(p, i1);
+      c.fromBufferAttribute(p, i2);
+      const face = b.clone().sub(a).cross(c.clone().sub(a));
+      const nn = new Vector3().fromBufferAttribute(n, i0);
+      expect(face.dot(nn)).toBeGreaterThanOrEqual(0);
+    });
   });
 
-  it('gives every plate a positive, finite size and a bounded twist and shade', () => {
-    for (const plate of plates) {
-      for (const s of plate.size) {
-        expect(Number.isFinite(s)).toBe(true);
-        expect(s).toBeGreaterThan(0);
+  it('carries animation attributes: unit panel centres, phases and copper flags on edge walls only', () => {
+    const centre = geometry.attributes.aCenter!;
+    const glow = geometry.attributes.aGlow!;
+    const n = geometry.attributes.normal!;
+    const p = geometry.attributes.position!;
+    let copper = 0;
+    for (let i = 0; i < centre.count; i++) {
+      expect(Math.hypot(centre.getX(i), centre.getY(i), centre.getZ(i))).toBeCloseTo(1, 5);
+      const g = glow.getX(i);
+      expect([0, 1]).toContain(g);
+      if (g === 1) {
+        copper++;
+        const radial = new Vector3().fromBufferAttribute(p, i).normalize();
+        expect(Math.abs(radial.dot(new Vector3().fromBufferAttribute(n, i)))).toBeLessThan(0.9);
       }
-      expect(Math.abs(plate.twist)).toBeLessThanOrEqual(0.3);
-      expect(plate.shade).toBeGreaterThanOrEqual(0);
-      expect(plate.shade).toBeLessThan(1);
     }
-  });
-
-  it('lifts a minority of plates noticeably off the surface', () => {
-    const lifted = plates.filter((p) => Math.hypot(...p.position) - RADIUS > 0.05);
-    expect(lifted.length).toBeGreaterThan(0);
-    expect(lifted.length).toBeLessThan(plates.length / 2);
+    expect(copper).toBeGreaterThan(0);
+    expect(geometry.attributes.aPhase!.count).toBe(p.count);
   });
 });

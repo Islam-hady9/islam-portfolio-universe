@@ -214,6 +214,7 @@ describe('TIER_CONFIG', () => {
     'sparks',
     'terrainSegments',
     'portalMaxSize',
+    'coreDetail',
   ] as const;
 
   it.each(numeric)('never increases %s on lighter tiers', (key) => {

@@ -23,10 +23,12 @@ export interface TierConfig {
   livePortals: boolean;
   /** Ultra-subtle capability data streams (spec S6: high tier only). */
   dataStreams: boolean;
-  /** MeshPhysicalMaterial clearcoat on chrome; Standard otherwise. */
+  /** MeshPhysicalMaterial clearcoat/anisotropy on the core (ultra only: heavy cold shader compiles). */
   physicalMaterials: boolean;
   /** Maximum FBO edge for portal renders. */
   portalMaxSize: number;
+  /** Hero core detail: 2 = seams, carriages, ticks, outer shell; 1 = lighter; 0 = essentials. */
+  coreDetail: number;
 }
 
 export const TIER_CONFIG: Record<RenderTier, TierConfig> = {
@@ -44,6 +46,7 @@ export const TIER_CONFIG: Record<RenderTier, TierConfig> = {
     dataStreams: true,
     physicalMaterials: true,
     portalMaxSize: 1600,
+    coreDetail: 2,
   },
   balanced: {
     dpr: [1, 1.5],
@@ -57,8 +60,9 @@ export const TIER_CONFIG: Record<RenderTier, TierConfig> = {
     terrainSegments: 150,
     livePortals: true,
     dataStreams: false,
-    physicalMaterials: true,
+    physicalMaterials: false,
     portalMaxSize: 1100,
+    coreDetail: 1,
   },
   lite: {
     dpr: [1, 1.25],
@@ -74,6 +78,7 @@ export const TIER_CONFIG: Record<RenderTier, TierConfig> = {
     dataStreams: false,
     physicalMaterials: false,
     portalMaxSize: 800,
+    coreDetail: 0,
   },
 };
 
