@@ -35,7 +35,8 @@ for name in sorted(os.listdir(SRC)):
         if im.width > vw * 1.15:
             v = im.resize((vw, round(im.height * vw / im.width)), Image.LANCZOS)
             vout = os.path.join(DST, f'{key}-{vw}.webp')
-            v.save(vout, 'WEBP', quality=74, method=6)
+            # Phone-sized variants sit on the mobile LCP path: slightly lower quality, ~20% fewer bytes.
+            v.save(vout, 'WEBP', quality=66, method=6)
             variants.append(f'/images/posters/{key}-{vw}.webp {vw}w')
     if variants:
         entry['srcSet'] = ', '.join(variants + [f"/images/posters/{key}.webp {im.width}w"])

@@ -1,5 +1,6 @@
 import { preload } from 'react-dom';
 import { posterFor, type PosterScene } from '@/lib/posters';
+import { DeferredImg } from '@/components/ui/DeferredImg';
 import styles from './SceneArt.module.css';
 
 /** Rendered width of each scene's art box, for responsive poster selection. */
@@ -44,7 +45,7 @@ export function SceneArt({
       data-scene-art={scene}
     >
       <div className={`${styles.poster} ${styles[scene] ?? ''}`} aria-hidden="true">
-        {poster ? (
+        {poster && scene === 'hero' ? (
           // eslint-disable-next-line @next/next/no-img-element -- static poster, sized by CSS; next/image adds no value for a decorative fallback layer
           <img
             className={styles.img}
@@ -54,9 +55,22 @@ export function SceneArt({
             alt=""
             width={poster.width}
             height={poster.height}
-            loading={scene === 'hero' ? 'eager' : 'lazy'}
+            loading="eager"
             decoding="async"
-            fetchPriority={scene === 'hero' ? 'high' : 'low'}
+            fetchPriority="high"
+          />
+        ) : poster ? (
+          // Below the fold: requested after first paint so it never competes with the LCP image.
+          <DeferredImg
+            className={styles.img}
+            src={poster.src}
+            srcSet={poster.srcSet}
+            sizes={poster.srcSet ? SIZES[scene] : undefined}
+            alt=""
+            width={poster.width}
+            height={poster.height}
+            decoding="async"
+            fetchPriority="low"
           />
         ) : null}
       </div>

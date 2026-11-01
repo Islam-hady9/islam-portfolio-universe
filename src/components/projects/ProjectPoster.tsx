@@ -1,5 +1,7 @@
 import type { ProjectWorld } from '@/content/schema';
+import { preload } from 'react-dom';
 import { posterFor } from '@/lib/posters';
+import { DeferredImg } from '@/components/ui/DeferredImg';
 import styles from './ProjectPoster.module.css';
 
 /**
@@ -19,26 +21,47 @@ export function ProjectPoster({
   variant?: 'card' | 'hero';
 }) {
   const poster = (variant === 'hero' ? posterFor(`case-${world}`) : null) ?? posterFor(`project-${world}`);
+  const sizes = poster?.srcSet
+    ? variant === 'hero'
+      ? '100vw'
+      : '(max-width: 599px) 100vw, (max-width: 1199px) 50vw, 25vw'
+    : undefined;
+  // The case-study hero poster is that page's LCP element: fetch it with the document.
+  if (priority && poster) {
+    preload(poster.src, {
+      as: 'image',
+      fetchPriority: 'high',
+      imageSrcSet: poster.srcSet,
+      imageSizes: sizes,
+    });
+  }
   return (
     <div className={`${styles.poster} ${styles[world]}`} data-project-poster={world}>
-      {poster ? (
+      {poster && priority ? (
         // eslint-disable-next-line @next/next/no-img-element -- pre-optimised poster rendered from the site's own scene
         <img
           className={styles.img}
           src={poster.src}
           srcSet={poster.srcSet}
-          sizes={
-            poster.srcSet
-              ? variant === 'hero'
-                ? '100vw'
-                : '(max-width: 599px) 100vw, (max-width: 1199px) 50vw, 25vw'
-              : undefined
-          }
+          sizes={sizes}
           width={poster.width}
           height={poster.height}
           alt={alt}
-          loading={priority ? 'eager' : 'lazy'}
+          loading="eager"
           decoding="async"
+          fetchPriority="high"
+        />
+      ) : poster ? (
+        <DeferredImg
+          className={styles.img}
+          src={poster.src}
+          srcSet={poster.srcSet}
+          sizes={sizes}
+          width={poster.width}
+          height={poster.height}
+          alt={alt}
+          decoding="async"
+          fetchPriority="low"
         />
       ) : (
         <span role="img" aria-label={alt} className={styles.art}>

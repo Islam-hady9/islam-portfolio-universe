@@ -2,6 +2,8 @@
 
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+import { afterFirstPaint } from '@/lib/after-load';
+import { MOTION } from '@/lib/motion';
 import { useExperience } from '@/state/experience-store';
 
 /** Resolves in an idle slot (or after `timeout` ms) so setup work never blocks first input. */
@@ -32,6 +34,10 @@ export function RevealMotion() {
     let revert: (() => void) | null = null;
 
     (async () => {
+      // Never before first paint: the chunks and ScrollTrigger's layout reads are the largest
+      // main-thread cost on mobile, and the content is fully visible without them.
+      await afterFirstPaint();
+      if (disposed) return;
       const [{ default: gsap }, { ScrollTrigger }, { SplitText }] = await Promise.all([
         import('gsap'),
         import('gsap/ScrollTrigger'),
@@ -60,9 +66,9 @@ export function RevealMotion() {
               return gsap.from(self.lines, {
                 yPercent: 108,
                 rotate: 1.5,
-                duration: 0.95,
-                ease: 'expo.out',
-                stagger: 0.07,
+                duration: MOTION.duration.lines,
+                ease: MOTION.ease.enter,
+                stagger: MOTION.stagger.lines,
                 scrollTrigger: { trigger: el, start: 'top 88%', once: true },
               });
             },
@@ -75,8 +81,8 @@ export function RevealMotion() {
             y: 18,
             opacity: 0,
             filter: 'blur(6px)',
-            duration: 0.8,
-            ease: 'power3.out',
+            duration: MOTION.duration.reveal,
+            ease: MOTION.ease.enterSoft,
             clearProps: 'filter',
             scrollTrigger: { trigger: el, start: 'top 90%', once: true },
           });
@@ -90,9 +96,9 @@ export function RevealMotion() {
             y: 30,
             opacity: 0,
             scale: 0.985,
-            duration: 0.85,
-            ease: 'power3.out',
-            stagger: 0.06,
+            duration: MOTION.duration.reveal,
+            ease: MOTION.ease.enterSoft,
+            stagger: MOTION.stagger.items,
             clearProps: 'transform',
             scrollTrigger: { trigger: group, start: 'top 86%', once: true },
           });

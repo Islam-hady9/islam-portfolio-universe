@@ -2,25 +2,25 @@
   "case-ats": {
     "src": "/images/posters/case-ats.webp",
     "width": 1600,
-    "height": 780,
+    "height": 787,
     "srcSet": "/images/posters/case-ats-480.webp 480w, /images/posters/case-ats-800.webp 800w, /images/posters/case-ats.webp 1600w"
   },
   "case-lifeatlas": {
     "src": "/images/posters/case-lifeatlas.webp",
     "width": 1600,
-    "height": 780,
+    "height": 787,
     "srcSet": "/images/posters/case-lifeatlas-480.webp 480w, /images/posters/case-lifeatlas-800.webp 800w, /images/posters/case-lifeatlas.webp 1600w"
   },
   "case-movid": {
     "src": "/images/posters/case-movid.webp",
     "width": 1600,
-    "height": 780,
+    "height": 787,
     "srcSet": "/images/posters/case-movid-480.webp 480w, /images/posters/case-movid-800.webp 800w, /images/posters/case-movid.webp 1600w"
   },
   "case-tibyn": {
     "src": "/images/posters/case-tibyn.webp",
     "width": 1600,
-    "height": 780,
+    "height": 787,
     "srcSet": "/images/posters/case-tibyn-480.webp 480w, /images/posters/case-tibyn-800.webp 800w, /images/posters/case-tibyn.webp 1600w"
   },
   "deep-space": {
@@ -55,32 +55,32 @@
   },
   "project-ats": {
     "src": "/images/posters/project-ats.webp",
-    "width": 652,
-    "height": 680,
-    "srcSet": "/images/posters/project-ats-480.webp 480w, /images/posters/project-ats.webp 652w"
+    "width": 646,
+    "height": 674,
+    "srcSet": "/images/posters/project-ats-480.webp 480w, /images/posters/project-ats.webp 646w"
   },
   "project-lifeatlas": {
     "src": "/images/posters/project-lifeatlas.webp",
-    "width": 652,
-    "height": 680,
-    "srcSet": "/images/posters/project-lifeatlas-480.webp 480w, /images/posters/project-lifeatlas.webp 652w"
+    "width": 646,
+    "height": 674,
+    "srcSet": "/images/posters/project-lifeatlas-480.webp 480w, /images/posters/project-lifeatlas.webp 646w"
   },
   "project-movid": {
     "src": "/images/posters/project-movid.webp",
-    "width": 652,
-    "height": 680,
-    "srcSet": "/images/posters/project-movid-480.webp 480w, /images/posters/project-movid.webp 652w"
+    "width": 646,
+    "height": 674,
+    "srcSet": "/images/posters/project-movid-480.webp 480w, /images/posters/project-movid.webp 646w"
   },
   "project-tibyn": {
     "src": "/images/posters/project-tibyn.webp",
-    "width": 652,
-    "height": 680,
-    "srcSet": "/images/posters/project-tibyn-480.webp 480w, /images/posters/project-tibyn.webp 652w"
+    "width": 646,
+    "height": 674,
+    "srcSet": "/images/posters/project-tibyn-480.webp 480w, /images/posters/project-tibyn.webp 646w"
   },
   "universe": {
     "src": "/images/posters/universe.webp",
     "width": 1100,
-    "height": 652,
+    "height": 653,
     "srcSet": "/images/posters/universe-480.webp 480w, /images/posters/universe-800.webp 800w, /images/posters/universe.webp 1100w"
   }
 }

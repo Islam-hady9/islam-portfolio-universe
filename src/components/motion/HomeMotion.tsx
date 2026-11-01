@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { afterFirstPaint } from '@/lib/after-load';
 import { useExperience } from '@/state/experience-store';
 
 /**
@@ -16,6 +17,8 @@ export function HomeMotion() {
     let disposed = false;
     let revert: (() => void) | null = null;
     (async () => {
+      await afterFirstPaint(); // scrubbed drift only matters once the visitor scrolls
+      if (disposed) return;
       const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
         import('gsap'),
         import('gsap/ScrollTrigger'),

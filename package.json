@@ -22,7 +22,7 @@
     "test:e2e:gpu": "node scripts/qa/e2e-gpu.mjs",
     "content:validate": "tsx scripts/content/validate.ts",
     "content:gate": "tsx scripts/content/publication-gate.ts",
-    "fonts:sync": "node scripts/fonts/sync-fonts.mjs",
+    "fonts:sync": "node scripts/fonts/sync-fonts.mjs && python scripts/fonts/subset-fonts.py",
     "capture:posters": "node scripts/capture/posters.mjs",
     "capture:encode": "python scripts/capture/encode-posters.py",
     "perf:lighthouse": "node scripts/perf/lighthouse.mjs",
