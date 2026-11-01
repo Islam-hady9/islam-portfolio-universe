@@ -31,3 +31,10 @@ npm-debug.log*
 *.tsbuildinfo
 .vscode/*
 !.vscode/extensions.json
+
+# Raw PNG evidence (compressed copies are committed as WebP)
+docs/evidence/screenshots/*.png
+
+# Large/duplicate evidence kept local (regenerate: npm run qa:record / npm run perf:lighthouse)
+docs/evidence/video/*.webm
+docs/evidence/lighthouse/*.report.json

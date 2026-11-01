@@ -1,28 +1,33 @@
 # Acceptance Matrix — IU-MASTER-001
 
-Status legend: `PLANNED` · `IN PROGRESS` · `VERIFIED` (evidence attached) · `PARTIAL` (gap stated) · `DEFERRED` (owner action) · `BLOCKED`
+Status legend: `VERIFIED` (evidence attached) · `VERIFIED*` (engineering self-assessment of a subjective criterion; final acceptance is the owner's) · `PARTIAL` (gap stated) · `DEFERRED` (owner action) · `BLOCKED`
+
+Evidence paths are relative to the repo root; test names are from `tests/`. Numbers: `docs/test-report.md` (final build, 2026-11-01).
 
 | ID | Pri | Requirement | Status | Evidence |
 |---|---|---|---|---|
-| IU-001 | P0 | Homepage visually reflects approved cinematic reference | PLANNED | |
-| IU-002 | P0 | Real semantic HTML rather than baked screenshot | PLANNED | |
-| IU-003 | P0 | Hero energy core is real 3D geometry/shader | PLANNED | |
-| IU-004 | P0 | Shared universe genuinely interactive and navigable | PLANNED | |
-| IU-005 | P0 | All project cards route to working case studies | PLANNED | |
-| IU-006 | P0 | Every CTA behaves truthfully | PLANNED | |
-| IU-007 | P0 | Real CV facts not invented or published | PLANNED | |
-| IU-008 | P0 | AI preview cannot masquerade as live assistant | PLANNED | |
-| IU-009 | P0 | Mobile and touch UX work | PLANNED | |
-| IU-010 | P0 | Reduced-motion and keyboard navigation work | PLANNED | |
-| IU-011 | P0 | WebGL fallback preserves full site use | PLANNED | |
-| IU-012 | P0 | Stable build, lint, typecheck, tests | PLANNED | |
-| IU-013 | P1 | Scene transitions match motion grammar | PLANNED | |
-| IU-014 | P1 | Adaptive 3D quality | PLANNED | |
-| IU-015 | P1 | Core Web Vitals targets profiled | PLANNED | |
-| IU-016 | P1 | SEO metadata and indexable case-study content | PLANNED | |
-| IU-017 | P1 | Resource disposal, route cleanup, failures handled | PLANNED | |
-| IU-018 | P1 | Asset provenance/license documented | PLANNED | |
-| IU-019 | P1 | Assistant architecture ready for CV later | PLANNED | |
-| IU-020 | P1 | Screenshots and release report show actual proof | PLANNED | |
-| IU-021 | P2 | Optional pointer aura and premium microinteractions | PLANNED | |
-| IU-022 | P2 | Scene quality selector UI | PLANNED | |
+| IU-001 | P0 | Homepage visually reflects approved cinematic reference | VERIFIED* | `docs/evidence/live-3d/stations-desktop-ultra.webp` against `docs/intelligence_universe_master/APPROVED_HOMEPAGE_REFERENCE.png` (same section order, compositions, palette, glass UI); 6-viewport screenshots in `docs/evidence/screenshots/`. Owner visual sign-off pending. |
+| IU-002 | P0 | Real semantic HTML rather than baked screenshot | VERIFIED | `navigation.spec` "home renders semantic content…", "section order follows the approved narrative"; `projects.spec` "case studies are server-rendered and crawlable"; `accessibility.spec` "exactly one h1 and a main landmark"; canvas is `aria-hidden` and pointer-transparent. |
+| IU-003 | P0 | Hero energy core is real 3D geometry/shader | VERIFIED | `webgl.spec` "real 3D renders…" (draw calls > 10, triangles > 10k on GPU); `src/experience/objects/core/*`; video `01-hero-gyroscope.webm` (local); stations sheet tile `00-top`. |
+| IU-004 | P0 | Shared universe genuinely interactive and navigable | VERIFIED | `webgl.spec` "universe nodes are pinned to 3D, hover highlights, select approaches then travels"; `navigation.spec` "universe destinations route somewhere real"; `mobile.spec` vertical destination list; keyboard reachability in `accessibility.spec`. |
+| IU-005 | P0 | All project cards route to working case studies | VERIFIED | `projects.spec` "every featured card opens its working case study", "case study navigation…", unknown slug → 404; `webgl.spec` portal → case-study transition; `docs/evidence/live-3d/portal-transition.webp`. |
+| IU-006 | P0 | Every CTA behaves truthfully | VERIFIED | `honesty.spec` link inventory (every href resolves, every hash exists, no `mailto:`/`tel:`, only external host `github.com`); `navigation.spec` "hero CTAs behave truthfully"; "Download CV" is labelled *Soon* and `/resume` explains the deferral. |
+| IU-007 | P0 | Real CV facts not invented or published | VERIFIED | `honesty.spec` (no reference-image employers, "Sample journey" label, LifeAtlas never "health"); `tests/unit/content/factual-safety.test.ts`; `npm run content:gate` lists 42 placeholder records and fails a `VERIFIED_PUBLIC` build. |
+| IU-008 | P0 | AI preview cannot masquerade as live assistant | VERIFIED | `honesty.spec` "assistant is clearly a demo and never calls a backend", "API boundary returns honest unavailability" (503/400/405); unit suites for demo provider, safety, contracts, source index. |
+| IU-009 | P0 | Mobile and touch UX work | PARTIAL | `mobile.spec` (Pixel 7: menu focus/inert/Escape, vertical universe, touch targets); overflow checks at 390×844 and 320×640; `stations-mobile-balanced.webp` (GPU, touch emulation). **Gap:** no physical phone was available. |
+| IU-010 | P0 | Reduced-motion and keyboard navigation work | VERIFIED | `motion.spec` "reduced motion: no prelude, no hidden reveals…"; `accessibility.spec` skip link, keyboard path through CTAs/destinations/milestones, settings dialog Escape + focus return. |
+| IU-011 | P0 | WebGL fallback preserves full site use | VERIFIED | `motion.spec` "no-WebGL browsers get the full site with static art", "forced lite tier renders WebGL and survives a context loss". |
+| IU-012 | P0 | Stable build, lint, typecheck, tests | VERIFIED | typecheck/lint exit 0; Vitest 24 files / 473 tests; build 15 routes + API; E2E 58/58 (4 browser projects); GPU suite 4/4. |
+| IU-013 | P1 | Scene transitions match motion grammar | VERIFIED* | Damped path travel with dwell, warp veil for long jumps, ground-crossing veils (`camera-path.test.ts`), node approach and portal transition (`webgl.spec`); `docs/evidence/live-3d/transitions-desktop-ultra.webp`; videos 02–04 (local). |
+| IU-014 | P1 | Adaptive 3D quality | VERIFIED | `tests/unit/experience/quality/tiers.test.ts`; runtime governor; `motion.spec` "quality and motion preferences apply live and persist"; per-tier FPS in `docs/evidence/fps-profile.json` (balanced 121–153, ultra 93–120 fps on an iGPU). |
+| IU-015 | P1 | Core Web Vitals targets profiled | PARTIAL | Lighthouse (mobile 87/91, desktop GPU 70; CLS 0; mobile TBT 30–40 ms), long tasks and FPS measured. **Gaps:** mobile LCP 3.5–4.1 s vs 2.5 s budget (simulated slow 4G); desktop first-visit blocking ≈1.55 s (one-time shader compile). |
+| IU-016 | P1 | SEO metadata and indexable case-study content | VERIFIED | Per-route metadata, OG image, sitemap, robots, Person JSON-LD; case studies are SSG HTML. Indexing is **gated by design** (`noindex` until `VERIFIED_PUBLIC`, D-11) — `honesty.spec` "preview build is noindex…". |
+| IU-017 | P1 | Resource disposal, route cleanup, failures handled | PARTIAL | Context loss/restore (`motion.spec`), no-WebGL fallback, error boundaries (`error.tsx`, `global-error.tsx`), 404; geometries/materials/targets disposed on unmount (18 modules); shader programs constant (49–51) across all stations. **Gap:** no long-session memory soak test was run. |
+| IU-018 | P1 | Asset provenance/license documented | VERIFIED | `docs/asset-manifest.md`, `src/content/data/attributions.json`, rendered at `/about#colophon`; fonts ship with OFL licence files. |
+| IU-019 | P1 | Assistant architecture ready for CV later | VERIFIED | `src/lib/assistant/{contracts,request-schema,safety,demo-provider,source-index,http-client}.ts`, `src/app/api/assistant/route.ts`; activation steps in `docs/content-population.md`. |
+| IU-020 | P1 | Screenshots and release report show actual proof | VERIFIED | `docs/test-report.md`, `docs/release-readiness.md`, `docs/evidence/**`. |
+| IU-021 | P2 | Optional pointer aura and premium microinteractions | VERIFIED* | `PointerAura` cursor aura + magnetic controls (`data-magnetic`), card tilt; fine pointers only, off under reduced motion; visible in video 01 (local). No automated assertion beyond "no runtime errors". |
+| IU-022 | P2 | Scene quality selector UI | VERIFIED | `SettingsPanel` (Auto / Cinematic / Balanced / Lite / Static, plus motion: system / reduce / full); `motion.spec` preferences persist; `accessibility.spec` keyboard + Escape. |
+
+## Deferred to G7 (owner)
+Real CV content, verified links (LinkedIn, email, résumé), project roles/outcomes/media permissions, live assistant provider and knowledge approval, production domain (`NEXT_PUBLIC_SITE_URL`), and publication approval. See `docs/content-population.md`.

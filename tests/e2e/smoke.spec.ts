@@ -6,7 +6,9 @@ test.describe('smoke', () => {
   test('all routes render their h1 without runtime errors', async ({ page }) => {
     const errors = trackErrors(page);
     for (const route of ROUTES) {
-      const res = await page.goto(route === '/' ? '/?intro=0' : route);
+      // Let link prefetches finish before leaving: WebKit reports prefetches cancelled by a
+      // navigation as unhandled "access control" rejections (benign, not user-facing).
+      const res = await page.goto(route === '/' ? '/?intro=0' : route, { waitUntil: 'networkidle' });
       expect(res?.status(), route).toBe(200);
       await expect(page.locator('h1'), route).toHaveCount(1);
     }

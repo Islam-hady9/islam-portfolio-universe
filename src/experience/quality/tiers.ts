@@ -113,7 +113,9 @@ export function detectTier(s: DeviceSignals): TierDecision {
   if (cores <= 2 || (mem !== null && mem <= 2)) return { tier: 'lite', reason: 'low CPU/memory' };
 
   if (s.coarsePointer && s.viewportWidth < 1024) {
-    if (cores >= 6 && (mem === null || mem >= 4)) return { tier: 'balanced', reason: 'capable touch device' };
+    // Phones/tablets: battery and thermal budgets favour the lighter tiers; only clearly
+    // high-end devices get bloom + live portals.
+    if (cores >= 8 && (mem === null || mem >= 6)) return { tier: 'balanced', reason: 'capable touch device' };
     return { tier: 'lite', reason: 'constrained touch device' };
   }
 

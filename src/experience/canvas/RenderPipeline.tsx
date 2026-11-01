@@ -4,7 +4,15 @@ import { Bloom, EffectComposer, ToneMapping, Vignette } from '@react-three/postp
 import { useFrame } from '@react-three/fiber';
 import { ToneMappingMode } from 'postprocessing';
 import { useEffect, useMemo } from 'react';
-import { ACESFilmicToneMapping, HalfFloatType, Mesh, OrthographicCamera, PlaneGeometry, Scene, ShaderMaterial } from 'three';
+import {
+  ACESFilmicToneMapping,
+  HalfFloatType,
+  Mesh,
+  OrthographicCamera,
+  PlaneGeometry,
+  Scene,
+  ShaderMaterial,
+} from 'three';
 import type { TierConfig } from '../quality/tiers';
 import { frame } from '../orchestrator/frame-state';
 import { useExperience } from '@/state/experience-store';
@@ -20,7 +28,7 @@ function PlainPass({ enabled }: { enabled: boolean }) {
   return null;
 }
 
-/** Full-screen veil used to mask large jumps and reduced-motion cuts (≤ 350 ms dip). */
+/** Full-screen veil masking large jumps, reduced-motion cuts and ground crossings. */
 function VeilPass() {
   const { scene, camera, material } = useMemo(() => {
     const s = new Scene();
@@ -45,8 +53,9 @@ function VeilPass() {
     [material, scene],
   );
   useFrame(({ gl }) => {
-    if (frame.veil < 0.01) return;
-    material.uniforms.uAlpha!.value = Math.min(0.92, frame.veil);
+    const veil = Math.max(frame.veil, frame.transit);
+    if (veil < 0.01) return;
+    material.uniforms.uAlpha!.value = Math.min(0.92, veil);
     const prev = gl.autoClear;
     gl.autoClear = false;
     gl.render(scene, camera);
@@ -65,8 +74,19 @@ export function RenderPipeline({ cfg }: { cfg: TierConfig }) {
   return (
     <>
       {cfg.bloom ? (
-        <EffectComposer enabled={!portalActive} multisampling={cfg.multisampling} frameBufferType={HalfFloatType} renderPriority={1}>
-          <Bloom mipmapBlur luminanceThreshold={1.0} luminanceSmoothing={0.22} intensity={0.9} radius={0.74} />
+        <EffectComposer
+          enabled={!portalActive}
+          multisampling={cfg.multisampling}
+          frameBufferType={HalfFloatType}
+          renderPriority={1}
+        >
+          <Bloom
+            mipmapBlur
+            luminanceThreshold={1.0}
+            luminanceSmoothing={0.22}
+            intensity={0.9}
+            radius={0.74}
+          />
           <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
           <Vignette offset={0.3} darkness={0.62} />
         </EffectComposer>

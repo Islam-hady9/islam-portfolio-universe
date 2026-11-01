@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { askRequestSchema, LIVE_UNAVAILABLE_DISCLAIMER, type GroundedAnswer } from '@/lib/assistant/contracts';
+import { LIVE_UNAVAILABLE_DISCLAIMER, type GroundedAnswer } from '@/lib/assistant/contracts';
+import { askRequestSchema } from '@/lib/assistant/request-schema';
 import { checkQuestion } from '@/lib/assistant/safety';
 
 /**

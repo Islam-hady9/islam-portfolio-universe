@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-01T10:14:58.907Z",
+  "date": "2026-11-01T11:42:48.794Z",
   "method": "Headless Chromium (new headless, ANGLE D3D11) on the real GPU, 1440x900 @1x DPR, one page at a time, tier pinned via ?quality=, 4 s settle after ready, 1.5 s per station before a 2.5 s rAF sample. Headless frames are not vsync-capped.",
   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
   "autoDetectedTier": "balanced",
@@ -7,102 +7,142 @@
     {
       "station": "top",
       "tier": "balanced",
-      "fps": 157,
+      "fps": 128,
       "p95": 8.4,
-      "max": 8.5,
+      "max": 12.6,
       "drawCalls": 38,
       "triangles": 73003,
-      "programs": 44
+      "programs": 49
     },
     {
       "station": "universe",
       "tier": "balanced",
-      "fps": 171,
-      "p95": 8.4,
-      "max": 8.5,
+      "fps": 126,
+      "p95": 12.5,
+      "max": 87.6,
       "drawCalls": 34,
       "triangles": 3009,
       "programs": 50
     },
     {
+      "station": "philosophy",
+      "tier": "balanced",
+      "fps": 153,
+      "p95": 12.6,
+      "max": 25,
+      "drawCalls": 21,
+      "triangles": 2993,
+      "programs": 50
+    },
+    {
+      "station": "capabilities",
+      "tier": "balanced",
+      "fps": 140,
+      "p95": 16.6,
+      "max": 29.1,
+      "drawCalls": 21,
+      "triangles": 2993,
+      "programs": 50
+    },
+    {
       "station": "experience",
       "tier": "balanced",
-      "fps": 150,
-      "p95": 8.4,
-      "max": 12.6,
+      "fps": 121,
+      "p95": 12.5,
+      "max": 20.8,
       "drawCalls": 25,
       "triangles": 47491,
-      "programs": 51
+      "programs": 50
     },
     {
       "station": "ask-ai",
       "tier": "balanced",
-      "fps": 142,
-      "p95": 8.4,
+      "fps": 121,
+      "p95": 12.6,
       "max": 16.7,
       "drawCalls": 26,
       "triangles": 24221,
-      "programs": 53
+      "programs": 50
     },
     {
       "station": "contact",
       "tier": "balanced",
-      "fps": 128,
-      "p95": 8.5,
-      "max": 12.7,
+      "fps": 121,
+      "p95": 12.5,
+      "max": 16.7,
       "drawCalls": 24,
       "triangles": 53835,
-      "programs": 53
+      "programs": 50
     },
     {
       "station": "top",
       "tier": "ultra",
-      "fps": 103,
+      "fps": 95,
       "p95": 12.6,
-      "max": 12.6,
+      "max": 16.8,
       "drawCalls": 38,
       "triangles": 106883,
-      "programs": 45
+      "programs": 50
     },
     {
       "station": "universe",
       "tier": "ultra",
-      "fps": 114,
-      "p95": 12.5,
-      "max": 12.7,
+      "fps": 102,
+      "p95": 12.6,
+      "max": 16.7,
       "drawCalls": 34,
       "triangles": 3009,
       "programs": 51
     },
     {
+      "station": "philosophy",
+      "tier": "ultra",
+      "fps": 120,
+      "p95": 12.5,
+      "max": 16.8,
+      "drawCalls": 22,
+      "triangles": 2993,
+      "programs": 51
+    },
+    {
+      "station": "capabilities",
+      "tier": "ultra",
+      "fps": 120,
+      "p95": 16.7,
+      "max": 20.9,
+      "drawCalls": 22,
+      "triangles": 2993,
+      "programs": 51
+    },
+    {
       "station": "experience",
       "tier": "ultra",
-      "fps": 107,
-      "p95": 12.5,
-      "max": 12.7,
+      "fps": 102,
+      "p95": 12.6,
+      "max": 16.6,
       "drawCalls": 26,
       "triangles": 78851,
-      "programs": 53
+      "programs": 51
     },
     {
       "station": "ask-ai",
       "tier": "ultra",
-      "fps": 112,
+      "fps": 105,
       "p95": 12.5,
-      "max": 12.6,
+      "max": 16.7,
       "drawCalls": 26,
       "triangles": 46205,
-      "programs": 55
+      "programs": 51
     },
     {
       "station": "contact",
       "tier": "ultra",
-      "fps": 102,
+      "fps": 93,
       "p95": 12.6,
       "max": 16.7,
       "drawCalls": 24,
       "triangles": 82035,
-      "programs": 55
+      "programs": 51
     }
   ]
 }

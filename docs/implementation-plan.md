@@ -77,4 +77,15 @@ Key rules
 
 ## 4. Progress log
 
-Updated as gates complete — see bottom of `docs/acceptance-matrix.md` for evidence links.
+| Gate | Status | Notes |
+|---|---|---|
+| G0 Foundation | ✅ | Next 16 / React 19 / TS strict, ESLint, Vitest, Playwright, tokens, OFL fonts, zod content contracts + publication gate. Commit `d7d86d5`. |
+| G1 Semantic UI | ✅ | All home sections, header/footer/mobile menu, inner routes, responsive 320→1920. Commit `d7d86d5`. |
+| G2 WebGL foundation | ✅ | Persistent canvas, tiers, orbital core, stations, galaxy + DOM nodes, fallbacks, context loss. Commit `c8d1f81`. |
+| G3 Motion | ✅ | Camera choreography, intro, reveals, node approach, portal transition, ground-crossing veils, pointer parallax with ground guard. |
+| G4 Routes & data | ✅ | Projects index + filter, case-study template, about/contact/resume, 404/error, SEO (gated). |
+| G5 AI preview | ✅ | Demo provider with citations, safety policy, API boundary (503 until configured). |
+| G6 QA | ✅ | Unit/component/E2E/a11y/visual/GPU suites, Lighthouse, FPS + long tasks, posters from live scenes, evidence, reports. Defects found during QA are listed in `docs/test-report.md`. |
+| G7 Owner CV population | ⏸ deferred | Hand-off guide: `docs/content-population.md`. Verdict: `docs/release-readiness.md` (CONDITIONAL GO). |
+
+Status and evidence per requirement: `docs/acceptance-matrix.md`.

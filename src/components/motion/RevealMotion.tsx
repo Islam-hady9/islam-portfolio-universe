@@ -4,6 +4,14 @@ import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { useExperience } from '@/state/experience-store';
 
+/** Resolves in an idle slot (or after `timeout` ms) so setup work never blocks first input. */
+function idle(timeout: number): Promise<void> {
+  return new Promise((resolve) => {
+    if (window.requestIdleCallback) window.requestIdleCallback(() => resolve(), { timeout });
+    else window.setTimeout(resolve, Math.min(timeout, 300));
+  });
+}
+
 /**
  * Scroll-triggered entrance choreography for every page (spec §6.4):
  *   [data-reveal="lines"]   masked line reveal (SplitText), 70 ms stagger
@@ -32,6 +40,7 @@ export function RevealMotion() {
       if (disposed) return;
       gsap.registerPlugin(ScrollTrigger, SplitText);
       await document.fonts?.ready;
+      await idle(1200);
       if (disposed) return;
 
       const ctx = gsap.context(() => {

@@ -2,7 +2,8 @@
 
 import { Canvas } from '@react-three/fiber';
 import { usePathname } from 'next/navigation';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
+import type { Group } from 'three';
 import { useExperience } from '@/state/experience-store';
 import { TIER_CONFIG, type QualityTier, type RenderTier } from '../quality/tiers';
 import { Orchestrator } from '../orchestrator/Orchestrator';
@@ -30,6 +31,7 @@ export default function ExperienceCanvas({ tier }: { tier: QualityTier }) {
     [cfg.dpr],
   );
   const home = pathname === '/';
+  const worldRef = useRef<Group>(null);
 
   return (
     <Canvas
@@ -50,13 +52,15 @@ export default function ExperienceCanvas({ tier }: { tier: QualityTier }) {
       <WorldLights />
       <Sky />
       <Starfield count={cfg.stars} pixelRatio={pixelRatio} />
-      {home ? <HomeWorld cfg={cfg} pixelRatio={pixelRatio} /> : <DeepSpaceWorld cfg={cfg} pixelRatio={pixelRatio} />}
+      <group ref={worldRef} name="world-root">
+        {home ? <HomeWorld cfg={cfg} pixelRatio={pixelRatio} /> : <DeepSpaceWorld cfg={cfg} pixelRatio={pixelRatio} />}
+      </group>
       <PortalSystem cfg={cfg} />
       <IntroDirector />
       <RenderPipeline cfg={cfg} />
       <ContextGuard />
       <PerformanceGovernor tier={tier} />
-      <ReadySignal worldKey={home ? 'home' : 'inner'} linearTarget={cfg.bloom} />
+      <ReadySignal worldKey={home ? 'home' : 'inner'} linearTarget={cfg.bloom} worldRef={worldRef} />
       <Diagnostics />
     </Canvas>
   );

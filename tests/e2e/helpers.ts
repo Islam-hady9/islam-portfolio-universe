@@ -8,6 +8,30 @@ export async function gotoHome(page: Page, query = '') {
   await expect(page.locator('#hero-title')).toBeVisible();
 }
 
+/**
+ * Waits until every image intersecting the viewport has loaded and decoded, so screenshots never
+ * race the poster art (lazy images below the fold are ignored).
+ */
+export async function viewportImagesDecoded(page: Page) {
+  await page.evaluate(async () => {
+    const visible = [...document.images].filter((img) => {
+      const r = img.getBoundingClientRect();
+      return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < window.innerHeight;
+    });
+    await Promise.all(
+      visible.map(async (img) => {
+        if (!img.complete) {
+          await new Promise<void>((resolve) => {
+            img.addEventListener('load', () => resolve(), { once: true });
+            img.addEventListener('error', () => resolve(), { once: true });
+          });
+        }
+        await img.decode().catch(() => undefined);
+      }),
+    );
+  });
+}
+
 /** Collects console errors and uncaught exceptions for "no runtime errors" assertions. */
 export function trackErrors(page: Page) {
   const errors: string[] = [];

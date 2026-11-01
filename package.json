@@ -2,7 +2,7 @@
   "name": "islam-portfolio-universe",
   "version": "0.1.0",
   "private": true,
-  "description": "ISLAM ABD-ELHADY — The Intelligence Universe. Cinematic interactive 3D portfolio.",
+  "description": "ISLAM ABD-ELHADY \u2014 The Intelligence Universe. Cinematic interactive 3D portfolio.",
   "license": "UNLICENSED",
   "engines": {
     "node": ">=20.19"
@@ -19,12 +19,16 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "test:e2e:gpu": "node scripts/qa/e2e-gpu.mjs",
     "content:validate": "tsx scripts/content/validate.ts",
     "content:gate": "tsx scripts/content/publication-gate.ts",
     "fonts:sync": "node scripts/fonts/sync-fonts.mjs",
-    "capture:posters": "tsx scripts/capture/posters.ts",
+    "capture:posters": "node scripts/capture/posters.mjs",
+    "capture:encode": "python scripts/capture/encode-posters.py",
     "perf:lighthouse": "node scripts/perf/lighthouse.mjs",
-    "perf:fps": "tsx scripts/perf/fps.ts",
+    "perf:fps": "node scripts/qa/e2e-gpu.mjs -g \"frame-rate profile\"",
+    "qa:stations": "node scripts/qa/stations.mjs",
+    "qa:record": "node scripts/qa/record.mjs",
     "check": "npm run typecheck && npm run lint && npm run test && npm run build"
   },
   "dependencies": {

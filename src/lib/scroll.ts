@@ -1,17 +1,27 @@
 'use client';
 
-import gsap from 'gsap';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { useExperience } from '@/state/experience-store';
 
-gsap.registerPlugin(ScrollToPlugin);
+type Gsap = typeof import('gsap').default;
+type Tween = ReturnType<Gsap['to']>;
+
+/** GSAP + ScrollToPlugin are loaded on first smooth travel, keeping them off the critical path. */
+let gsapPromise: Promise<Gsap> | null = null;
+function loadGsap(): Promise<Gsap> {
+  gsapPromise ??= Promise.all([import('gsap'), import('gsap/ScrollToPlugin')]).then(([g, s]) => {
+    g.default.registerPlugin(s.ScrollToPlugin);
+    return g.default;
+  });
+  return gsapPromise;
+}
 
 function headerOffset(): number {
   const v = getComputedStyle(document.documentElement).getPropertyValue('--header-h');
   return (parseFloat(v) || 72) + 8;
 }
 
-let activeTween: gsap.core.Tween | null = null;
+let activeTween: Tween | null = null;
+let travelId = 0;
 
 /**
  * Travels to a home-page section. Duration scales with distance (0.9–1.8 s, spec §6.4
@@ -29,8 +39,10 @@ export function travelToSection(
   const reduced = instant || useExperience.getState().reducedMotion;
   const top = id === 'top' ? 0 : target.getBoundingClientRect().top + window.scrollY - headerOffset();
   const distance = Math.abs(top - window.scrollY);
+  const myId = ++travelId;
 
   activeTween?.kill();
+  activeTween = null;
   const done = () => {
     activeTween = null;
     if (focus) {
@@ -52,14 +64,17 @@ export function travelToSection(
     return true;
   }
   const duration = Math.min(1.8, Math.max(0.9, distance / 2600 + 0.6));
-  activeTween = gsap.to(window, {
-    duration,
-    ease: 'power3.inOut',
-    scrollTo: { y: top, autoKill: true },
-    onComplete: done,
-    onInterrupt: () => {
-      activeTween = null;
-    },
+  void loadGsap().then((gsap) => {
+    if (myId !== travelId) return; // superseded by a newer travel request
+    activeTween = gsap.to(window, {
+      duration,
+      ease: 'power3.inOut',
+      scrollTo: { y: top, autoKill: true },
+      onComplete: done,
+      onInterrupt: () => {
+        activeTween = null;
+      },
+    });
   });
   return true;
 }

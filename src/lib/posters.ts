@@ -10,6 +10,8 @@ export interface PosterEntry {
   src: string;
   width: number;
   height: number;
+  /** Responsive candidates ("url 480w, url 800w, …") when variants exist. */
+  srcSet?: string;
 }
 
 const posters = manifest as Partial<Record<string, PosterEntry>>;

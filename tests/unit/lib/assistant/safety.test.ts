@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { askRequestSchema } from '@/lib/assistant/contracts';
+import { askRequestSchema } from '@/lib/assistant/request-schema';
 import { SAFETY_POLICY, checkQuestion, normalizeQuestion } from '@/lib/assistant/safety';
 
 const reasonOf = (q: string) => {

@@ -13,8 +13,8 @@
 .header[data-scrolled] {
   background: rgb(6 7 10 / 0.58);
   border-bottom-color: var(--line);
-  backdrop-filter: blur(16px) saturate(130%);
   -webkit-backdrop-filter: blur(16px) saturate(130%);
+  backdrop-filter: blur(16px) saturate(130%);
 }
 
 .header[data-menu-open] {

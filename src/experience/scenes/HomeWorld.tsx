@@ -4,7 +4,7 @@ import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef, type ReactNode } from 'react';
 import type { Group } from 'three';
 import type { TierConfig } from '../quality/tiers';
-import { WORLD } from '../orchestrator/camera-path';
+import { WORLD, groundLayerVisible, type GroundLayerId } from '../orchestrator/camera-path';
 import { frame } from '../orchestrator/frame-state';
 import { OrbitalCore } from '../objects/core/OrbitalCore';
 import { Planet } from '../objects/Planet';
@@ -15,10 +15,24 @@ import { Aurora, DataStreams, Dust } from '../objects/Atmospherics';
 import { UniverseStation } from './UniverseStation';
 
 /** Shows children only while the camera is near the given path range (draw-call budget). */
-function StationGate({ from, to, children }: { from: number; to: number; children: ReactNode }) {
+function StationGate({
+  from,
+  to,
+  ground,
+  children,
+}: {
+  from: number;
+  to: number;
+  ground?: GroundLayerId;
+  children: ReactNode;
+}) {
   const ref = useRef<Group>(null);
   useFrame(() => {
-    if (ref.current) ref.current.visible = frame.route === 'home' && frame.s >= from && frame.s <= to;
+    if (!ref.current) return;
+    const inRange = frame.route === 'home' && frame.s >= from && frame.s <= to;
+    // A ground layer is never seen from below: it is hidden under the crossing veil.
+    ref.current.visible =
+      inRange && (ground === undefined || groundLayerVisible(ground, frame.s, frame.aspect));
   });
   return <group ref={ref}>{children}</group>;
 }
@@ -59,7 +73,7 @@ export function HomeWorld({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: nu
       farHeight: 8,
       nearHeight: 1.5,
       scale: 0.07,
-      plateau: { x: -1.6, z: 14, radius: 9, height: 0.6 },
+      plateau: { x: -1.6, z: 14, radius: 9, height: WORLD.portal.plateauHeight },
     };
     const horizon: TerrainShape = {
       width: 220,
@@ -78,7 +92,7 @@ export function HomeWorld({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: nu
   return (
     <>
       {/* S1 hero + S2 identity */}
-      <StationGate from={0} to={1.7}>
+      <StationGate from={0} to={1.7} ground="hero">
         <OrbitalCore cfg={cfg} pixelRatio={pixelRatio} />
         <Planet
           name="hero-planet"
@@ -92,8 +106,21 @@ export function HomeWorld({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: nu
           seed={2}
           fadeStation={0}
         />
-        <Terrain name="hero-terrain" shape={shapes.hero} position={[0, WORLD.heroGroundY - 1.2, -26]} rimStrength={0.42} color="#06080b" />
-        <Dust name="hero-dust" count={cfg.dust} center={[0, 0, -2]} size={[26, 14, 20]} pixelRatio={pixelRatio} stationIndex={0} />
+        <Terrain
+          name="hero-terrain"
+          shape={shapes.hero}
+          position={[0, WORLD.heroGroundY, -26]}
+          rimStrength={0.42}
+          color="#06080b"
+        />
+        <Dust
+          name="hero-dust"
+          count={cfg.dust}
+          center={[0, 0, -2]}
+          size={[26, 14, 20]}
+          pixelRatio={pixelRatio}
+          stationIndex={0}
+        />
       </StationGate>
 
       {/* S3 universe (+ S2/S4 transitions) */}
@@ -110,12 +137,20 @@ export function HomeWorld({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: nu
           pixelRatio={pixelRatio}
           color="#a99bff"
         />
-        {cfg.dataStreams ? <DataStreams center={WORLD.capabilities.center} stationIndex={5} pixelRatio={pixelRatio} /> : null}
+        {cfg.dataStreams ? (
+          <DataStreams center={WORLD.capabilities.center} stationIndex={5} pixelRatio={pixelRatio} />
+        ) : null}
       </StationGate>
 
       {/* S7 journey: low horizon, moon, aurora */}
-      <StationGate from={5.35} to={6.85}>
-        <Terrain shape={shapes.journey} position={[0, WORLD.journey.groundY, -48]} rimColor="#8fb3c8" rimStrength={0.38} color="#06080b" />
+      <StationGate from={5.35} to={6.85} ground="journey">
+        <Terrain
+          shape={shapes.journey}
+          position={[0, WORLD.journey.groundY, -48]}
+          rimColor="#8fb3c8"
+          rimStrength={0.38}
+          color="#06080b"
+        />
         <Planet
           position={WORLD.journey.moon}
           radius={6}
@@ -131,13 +166,24 @@ export function HomeWorld({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: nu
       </StationGate>
 
       {/* S8 ask-ai: explorer before the portal */}
-      <StationGate from={6.3} to={7.8}>
+      <StationGate from={6.3} to={7.8} ground="portal">
         <group position={p.center}>
           <RingPortal radius={p.radius} stationIndex={7} intensity={0.62} />
         </group>
-        <Explorer position={[p.center[0] + 0.7, p.groundY + 0.6, p.center[2] + 5.4]} scale={1} />
-        <Terrain shape={shapes.portal} position={[p.center[0] + 1.6, p.groundY, p.center[2] - 8]} rimStrength={0.7} rimColor="#5fd3ef" />
-        <Dust count={Math.round(cfg.dust * 0.5)} center={[p.center[0], p.groundY + 2.5, p.center[2] + 4]} size={[18, 6, 14]} pixelRatio={pixelRatio} stationIndex={7} />
+        <Explorer position={[p.center[0] + 0.7, p.groundY + p.plateauHeight, p.center[2] + 5.4]} scale={1} />
+        <Terrain
+          shape={shapes.portal}
+          position={[p.center[0] + 1.6, p.groundY, p.center[2] - 8]}
+          rimStrength={0.7}
+          rimColor="#5fd3ef"
+        />
+        <Dust
+          count={Math.round(cfg.dust * 0.5)}
+          center={[p.center[0], p.groundY + 2.5, p.center[2] + 4]}
+          size={[18, 6, 14]}
+          pixelRatio={pixelRatio}
+          stationIndex={7}
+        />
       </StationGate>
 
       {/* S9 contact: massive planet horizon */}
@@ -154,8 +200,21 @@ export function HomeWorld({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: nu
           rotationSpeed={0.002}
           segments={128}
         />
-        <Terrain shape={shapes.horizon} position={[0, WORLD.horizon.groundY, -52]} rimColor="#79e8cf" rimStrength={0.5} />
-        <Aurora position={[-40, -66.5, -110]} width={110} height={12} stationIndex={8} colorA="#7ef7c9" colorB="#3fb6d6" strength={0.55} />
+        <Terrain
+          shape={shapes.horizon}
+          position={[0, WORLD.horizon.groundY, -52]}
+          rimColor="#79e8cf"
+          rimStrength={0.5}
+        />
+        <Aurora
+          position={[-40, -66.5, -110]}
+          width={110}
+          height={12}
+          stationIndex={8}
+          colorA="#7ef7c9"
+          colorB="#3fb6d6"
+          strength={0.55}
+        />
       </StationGate>
     </>
   );

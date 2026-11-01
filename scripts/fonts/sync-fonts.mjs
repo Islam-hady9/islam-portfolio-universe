@@ -10,7 +10,7 @@ const outDir = join(root, 'src/assets/fonts');
 mkdirSync(outDir, { recursive: true });
 
 const fonts = [
-  { pkg: 'sora', files: ['sora-latin-wght-normal.woff2', 'sora-latin-ext-wght-normal.woff2'] },
+  { pkg: 'sora', files: ['sora-latin-wght-normal.woff2'] },
   { pkg: 'manrope', files: ['manrope-latin-wght-normal.woff2'] },
   { pkg: 'jetbrains-mono', files: ['jetbrains-mono-latin-wght-normal.woff2'] },
 ];

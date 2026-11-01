@@ -3,7 +3,14 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import { useMemo } from 'react';
 import { PerspectiveCamera, Vector3 } from 'three';
-import { evaluatePath, HOME_STATIONS, type Pose } from '../orchestrator/camera-path';
+import {
+  evaluatePath,
+  GROUND_CLEARANCE,
+  GROUND_LAYERS,
+  groundLayerVisible,
+  HOME_STATIONS,
+  type Pose,
+} from '../orchestrator/camera-path';
 import { frame } from '../orchestrator/frame-state';
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -29,12 +36,21 @@ export function CameraRig() {
   const camera = useThree((s) => s.camera) as PerspectiveCamera;
   const size = useThree((s) => s.size);
   const tmp = useMemo(
-    () => ({ pos: new Vector3(), target: new Vector3(), dir: new Vector3(), up: new Vector3(0, 1, 0), right: new Vector3() }),
+    () => ({
+      pos: new Vector3(),
+      target: new Vector3(),
+      dir: new Vector3(),
+      up: new Vector3(0, 1, 0),
+      right: new Vector3(),
+    }),
     [],
   );
 
   useFrame(() => {
-    const pose = frame.route === 'home' ? evaluatePath(HOME_STATIONS, frame.s, frame.aspect) : innerPose(frame.scrollY, frame.aspect);
+    const pose =
+      frame.route === 'home'
+        ? evaluatePath(HOME_STATIONS, frame.s, frame.aspect)
+        : innerPose(frame.scrollY, frame.aspect);
     tmp.pos.set(pose.position[0], pose.position[1], pose.position[2]);
     tmp.target.set(pose.target[0], pose.target[1], pose.target[2]);
 
@@ -72,6 +88,7 @@ export function CameraRig() {
     }
 
     // Pointer parallax: orbit the target by ≤ 3° yaw / 2° pitch, damped (spec S1).
+    const baseY = tmp.pos.y;
     const yaw = frame.pointer.sx * 0.052;
     const pitch = frame.pointer.sy * 0.035;
     if (yaw !== 0 || pitch !== 0) {
@@ -80,6 +97,16 @@ export function CameraRig() {
       tmp.right.crossVectors(tmp.up, tmp.dir).normalize();
       tmp.dir.applyAxisAngle(tmp.right, pitch);
       tmp.pos.copy(tmp.target).add(tmp.dir);
+    }
+
+    // Ground guard: parallax never orbits the camera into a visible ground layer (identity rests
+    // 0.4 above the hero terrain; a full 2° pitch would sink it ~0.8 and open a hole in the ground).
+    if (frame.route === 'home') {
+      for (const layer of GROUND_LAYERS) {
+        if (!groundLayerVisible(layer.id, frame.s, frame.aspect)) continue;
+        const maxDrop = Math.max(0, baseY - (layer.ground + GROUND_CLEARANCE));
+        if (baseY - tmp.pos.y > maxDrop) tmp.pos.y = baseY - maxDrop;
+      }
     }
 
     camera.position.copy(tmp.pos);

@@ -3,7 +3,6 @@
  * deterministic demo provider can later be swapped for a grounded live backend
  * (e.g. FastAPI + retrieval over owner-approved, versioned knowledge) without UI changes.
  */
-import { z } from 'zod';
 import type { SourceRef, VerificationStatus } from '@/content/schema';
 
 export type AssistantMode = 'demo' | 'live';
@@ -16,13 +15,13 @@ export type ResponseStatus =
   | 'rate_limited'
   | 'error';
 
-export const askRequestSchema = z.object({
-  question: z.string().trim().min(1).max(500),
+export interface AskRequest {
+  /** 1–500 characters after trimming (validated server-side by request-schema.ts). */
+  question: string;
   /** Opaque per-tab id; never persisted server-side in the current gate. */
-  sessionId: z.string().max(64).optional(),
-  locale: z.literal('en').optional(),
-});
-export type AskRequest = z.infer<typeof askRequestSchema>;
+  sessionId?: string;
+  locale?: 'en';
+}
 
 export interface SourceReference {
   kind: SourceRef['kind'];

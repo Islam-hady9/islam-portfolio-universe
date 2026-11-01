@@ -2,9 +2,9 @@ import { describe, expect, it } from 'vitest';
 import {
   DEMO_DISCLAIMER,
   LIVE_UNAVAILABLE_DISCLAIMER,
-  askRequestSchema,
   sourceKey,
 } from '@/lib/assistant/contracts';
+import { askRequestSchema } from '@/lib/assistant/request-schema';
 
 describe('askRequestSchema', () => {
   it('accepts a plain question and trims it', () => {

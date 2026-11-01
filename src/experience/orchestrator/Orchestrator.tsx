@@ -4,7 +4,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { useExperience, type SceneState } from '@/state/experience-store';
-import { aspectClassFor, HOME_STATIONS } from './camera-path';
+import { aspectClassFor, GROUND_TRANSITS, HOME_STATIONS, transitVeil } from './camera-path';
 import { computeAnchors, damp, localOffset, presence, scrollToParam } from './scroll-map';
 import { frame, resetFrameState } from './frame-state';
 
@@ -111,9 +111,12 @@ export function Orchestrator() {
         frame.presence[i] = presence(frame.s, i);
         frame.local[i] = localOffset(frame.scrollY, frame.anchors[i] ?? 0, frame.viewportH);
       }
+      // Ground crossings between stations are masked by a short veil (0 at every station).
+      frame.transit = transitVeil(frame.s, GROUND_TRANSITS[frame.aspect]);
     } else {
       frame.s = 0;
       frame.sTarget = 0;
+      frame.transit = 0;
     }
 
     // Veil decays quickly (≈ 350 ms). On-demand rendering keeps ticking until it has faded.
@@ -155,12 +158,16 @@ function publishSceneStates() {
     const p = frame.presence[i] ?? 0;
     let state: SceneState;
     if (p > 0.85) state = 'ACTIVE';
-    else if (p > 0.02) state = Math.sign(i - frame.s) === Math.sign(moving) && Math.abs(moving) > 0.01 ? 'ENTERING' : 'EXITING';
+    else if (p > 0.02)
+      state =
+        Math.sign(i - frame.s) === Math.sign(moving) && Math.abs(moving) > 0.01 ? 'ENTERING' : 'EXITING';
     else if (d < 2) state = 'READY';
     else state = 'SUSPENDED';
     next[st.id] = state;
   });
   const prev = store.sceneStates;
-  const changed = Object.keys(next).some((k) => prev[k] !== next[k]) || Object.keys(prev).length !== Object.keys(next).length;
+  const changed =
+    Object.keys(next).some((k) => prev[k] !== next[k]) ||
+    Object.keys(prev).length !== Object.keys(next).length;
   if (changed) store.setSceneStates(next);
 }

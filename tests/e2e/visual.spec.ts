@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
-import { gotoHome, noHorizontalOverflow, scrollThrough } from './helpers';
+import { gotoHome, noHorizontalOverflow, scrollThrough, viewportImagesDecoded } from './helpers';
 
 /**
  * Responsive evidence (spec §13.1): full-page and hero screenshots at the six required
@@ -27,6 +27,7 @@ test.describe('responsive layouts & screenshots (IU-001, IU-009, IU-020)', () =>
       const page = await context.newPage();
       await gotoHome(page, 'quality=static');
       await noHorizontalOverflow(page);
+      await viewportImagesDecoded(page);
       await page.screenshot({ path: `${OUT}/home-hero-${vp.w}x${vp.h}.png` });
       await scrollThrough(page);
       await noHorizontalOverflow(page);
@@ -36,6 +37,7 @@ test.describe('responsive layouts & screenshots (IU-001, IU-009, IU-020)', () =>
         await noHorizontalOverflow(page);
       }
       await page.goto('/projects/tibyn?quality=static');
+      await viewportImagesDecoded(page);
       await page.screenshot({ path: `${OUT}/case-study-${vp.w}x${vp.h}.png` });
       await context.close();
     });
@@ -43,11 +45,13 @@ test.describe('responsive layouts & screenshots (IU-001, IU-009, IU-020)', () =>
 
   test('pixel baseline: hero (static tier)', async ({ page }) => {
     await gotoHome(page, 'quality=static');
+    await viewportImagesDecoded(page);
     await expect(page).toHaveScreenshot('hero-static.png', { fullPage: false });
   });
 
   test('pixel baseline: projects index (static tier)', async ({ page }) => {
     await page.goto('/projects?quality=static');
+    await viewportImagesDecoded(page);
     await expect(page).toHaveScreenshot('projects-static.png', { fullPage: false });
   });
 });

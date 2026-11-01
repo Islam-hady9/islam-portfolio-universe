@@ -21,8 +21,8 @@
   border-radius: var(--r-lg);
   border: 1px solid var(--line);
   background: rgb(12 15 20 / 0.7);
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .channelIcon {

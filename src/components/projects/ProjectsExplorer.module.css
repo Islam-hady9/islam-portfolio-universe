@@ -7,8 +7,8 @@
   border-radius: var(--r-lg);
   border: 1px solid var(--line);
   background: rgb(10 13 18 / 0.6);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .filters,

@@ -41,6 +41,8 @@ export const frame = {
   reduced: false,
   /** 0..1 dip used to mask large anchor jumps and reduced-motion cuts. */
   veil: 0,
+  /** 0..1 veil from ground crossings between stations (a pure function of s). */
+  transit: 0,
   approach: { weight: 0, x: 0, y: 0, z: 0 },
   /** Core emitter energy (written by OrbitalCore, read by WorldLights). */
   coreEnergy: 0,
@@ -56,6 +58,7 @@ export function resetFrameState() {
   frame.intro = 0;
   frame.introStarted = false;
   frame.veil = 0;
+  frame.transit = 0;
   frame.approach.weight = 0;
   frame.portal = null;
 }

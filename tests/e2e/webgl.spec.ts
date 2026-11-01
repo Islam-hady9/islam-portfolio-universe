@@ -82,7 +82,8 @@ test.describe('webgl experience (GPU)', () => {
     await gotoHome(page, `quality=${tier}`);
     await expect.poll(() => page.evaluate(() => window.__IU__?.state().webgl), { timeout: 30_000 }).toBe('ready');
     await page.waitForTimeout(4000);
-    for (const id of ['top', 'universe', 'experience', 'ask-ai', 'contact']) {
+    // philosophy/capabilities: the most frosted-glass cards (backdrop-filter) over the live canvas.
+    for (const id of ['top', 'universe', 'philosophy', 'capabilities', 'experience', 'ask-ai', 'contact']) {
       await scrollToSection(page, id);
       await page.waitForTimeout(1500);
       const sample = await page.evaluate(

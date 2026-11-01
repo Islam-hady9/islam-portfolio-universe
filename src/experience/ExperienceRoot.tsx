@@ -24,12 +24,6 @@ export function ExperienceRoot() {
 
   const webglAvailable = useExperience((s) => s.webglAvailable);
 
-  // Capability detection once per session (cached).
-  useEffect(() => {
-    const signals = gatherDeviceSignals();
-    const d = detectTier(signals);
-    useExperience.getState().setDetectedTier(d.tier, d.reason, signals.webgl1 || signals.webgl2);
-  }, []);
 
   // Preference × detection → effective tier.
   useEffect(() => {
@@ -42,13 +36,67 @@ export function ExperienceRoot() {
     else if (s.webgl === 'disabled') s.setWebGL('pending');
   }, [preference, detected, webglAvailable]);
 
-  // Mount the canvas after first paint + idle, so the DOM is interactive first.
+  // Mount the canvas only once the page is loaded, interactive and idle, so 3D setup never
+  // competes with first paint, hydration or the first taps (spec §8.1). Posters rendered from
+  // the same scenes carry the first impression. Touch devices wait for the first interaction
+  // or a quiet period; desktops for an idle slot after load.
   useEffect(() => {
-    const ric =
-      window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 300) as unknown as number);
-    const cic = window.cancelIdleCallback ?? window.clearTimeout;
-    const id = ric(() => setIdle(true), { timeout: 1500 });
-    return () => cic(id);
+    let cancelled = false;
+    const cleanups: (() => void)[] = [];
+    const ric = (cb: () => void, timeout: number) => {
+      if (window.requestIdleCallback) {
+        const id = window.requestIdleCallback(cb, { timeout });
+        cleanups.push(() => window.cancelIdleCallback(id));
+      } else {
+        const id = window.setTimeout(cb, Math.min(timeout, 600));
+        cleanups.push(() => window.clearTimeout(id));
+      }
+    };
+    const start = () => {
+      if (cancelled) return;
+      // Capability probe (creates a short-lived WebGL context — GPU channel setup can take
+      // hundreds of ms on first use), so it runs here in idle time, never during hydration.
+      if (!useExperience.getState().detectedTier) {
+        const signals = gatherDeviceSignals();
+        const d = detectTier(signals);
+        useExperience.getState().setDetectedTier(d.tier, d.reason, signals.webgl1 || signals.webgl2);
+      }
+      setIdle(true);
+    };
+    const afterLoad = () => {
+      if (!window.matchMedia('(pointer: coarse)').matches) {
+        ric(start, 2500);
+        return;
+      }
+      let done = false;
+      const go = (timeout: number) => {
+        if (done) return;
+        done = true;
+        window.removeEventListener('scroll', onInteract);
+        window.removeEventListener('pointerdown', onInteract);
+        window.clearTimeout(quiet);
+        ric(start, timeout);
+      };
+      const onInteract = () => go(1200);
+      const quiet = window.setTimeout(() => go(2500), 5000);
+      window.addEventListener('scroll', onInteract, { passive: true });
+      window.addEventListener('pointerdown', onInteract, { passive: true });
+      cleanups.push(() => {
+        done = true;
+        window.removeEventListener('scroll', onInteract);
+        window.removeEventListener('pointerdown', onInteract);
+        window.clearTimeout(quiet);
+      });
+    };
+    if (document.readyState === 'complete') afterLoad();
+    else {
+      window.addEventListener('load', afterLoad, { once: true });
+      cleanups.push(() => window.removeEventListener('load', afterLoad));
+    }
+    return () => {
+      cancelled = true;
+      cleanups.forEach((c) => c());
+    };
   }, []);
 
   // Context loss recovery: remount a fresh canvas when the browser restores the context.

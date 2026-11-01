@@ -2,10 +2,7 @@ import localFont from 'next/font/local';
 
 /** Display — Sora (OFL). Geometric, wide; matches the reference's editorial headings. */
 export const fontDisplay = localFont({
-  src: [
-    { path: '../assets/fonts/sora-latin-wght-normal.woff2', weight: '100 800', style: 'normal' },
-    { path: '../assets/fonts/sora-latin-ext-wght-normal.woff2', weight: '100 800', style: 'normal' },
-  ],
+  src: [{ path: '../assets/fonts/sora-latin-wght-normal.woff2', weight: '100 800', style: 'normal' }],
   variable: '--font-display',
   display: 'swap',
   fallback: ['ui-sans-serif', 'Segoe UI', 'Helvetica Neue', 'Arial', 'sans-serif'],

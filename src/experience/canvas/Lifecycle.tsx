@@ -55,7 +55,16 @@ export function ContextGuard() {
  * on the first frames): programs compiled without the env map would be recompiled with it
  * later — exactly the travel hitch this is meant to prevent.
  */
-export function ReadySignal({ worldKey, linearTarget }: { worldKey: string; linearTarget: boolean }) {
+export function ReadySignal({
+  worldKey,
+  linearTarget,
+  worldRef,
+}: {
+  worldKey: string;
+  linearTarget: boolean;
+  /** World root kept hidden while its programs compile in parallel (no sync compile stalls). */
+  worldRef: { current: Object3D | null };
+}) {
   const gl = useThree((s) => s.gl);
   const scene = useThree((s) => s.scene);
   const camera = useThree((s) => s.camera);
@@ -72,6 +81,9 @@ export function ReadySignal({ worldKey, linearTarget }: { worldKey: string; line
   useFrame(() => {
     if (phase.current === 'waiting') {
       frames.current++;
+      // Until compiled, the world is not drawn: a draw would force synchronous compilation of
+      // every program (long main-thread stall). The canvas is still transparent at this point.
+      if (worldRef.current) worldRef.current.visible = false;
       if (!scene.environment && frames.current < 30) return;
       phase.current = 'compiling';
       const gen = generation.current;
@@ -96,6 +108,7 @@ export function ReadySignal({ worldKey, linearTarget }: { worldKey: string; line
       gl.setRenderTarget(prevTarget);
       rt?.dispose();
       hidden.forEach((o) => (o.visible = false));
+      if (worldRef.current) worldRef.current.visible = false;
       pending
         .catch(() => undefined)
         .then(() => {
@@ -103,8 +116,13 @@ export function ReadySignal({ worldKey, linearTarget }: { worldKey: string; line
         });
       return;
     }
+    if (phase.current === 'compiling') {
+      if (worldRef.current) worldRef.current.visible = false;
+      return;
+    }
     if (phase.current !== 'armed') return;
     phase.current = 'done';
+    if (worldRef.current) worldRef.current.visible = true;
     const s = useExperience.getState();
     if (s.webgl !== 'ready') s.setWebGL('ready');
   }, 4);

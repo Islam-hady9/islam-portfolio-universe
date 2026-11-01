@@ -26,6 +26,8 @@ export function ProjectPoster({
         <img
           className={styles.img}
           src={poster.src}
+          srcSet={poster.srcSet}
+          sizes={poster.srcSet ? (variant === 'hero' ? '100vw' : '(max-width: 599px) 100vw, (max-width: 1199px) 50vw, 25vw') : undefined}
           width={poster.width}
           height={poster.height}
           alt={alt}

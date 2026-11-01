@@ -1,10 +1,19 @@
 import { describe, expect, it } from 'vitest';
 import {
+  GROUND_CLEARANCE,
+  GROUND_TRANSITS,
+  GROUND_LAYERS,
   HOME_STATIONS,
+  LAYER_HIDE_AFTER,
   aspectClassFor,
   catmullRom,
   evaluatePath,
+  groundLayerVisible,
   lerpVec,
+  solveGroundCrossing,
+  transitVeil,
+  VEIL_FULL_HEIGHT,
+  VEIL_RISE_HEIGHT,
   type AspectClass,
   type Pose,
   type Vec3,
@@ -151,5 +160,86 @@ describe('evaluatePath', () => {
     expect(mid.fov).toBeCloseTo((a.fov + b.fov) / 2, 12);
     expect(mid.lens[0]).toBeCloseTo((a.lens[0] + b.lens[0]) / 2, 12);
     expect(mid.lens[1]).toBeCloseTo((a.lens[1] + b.lens[1]) / 2, 12);
+  });
+});
+
+describe('ground crossings (the camera is never seen passing through terrain)', () => {
+  it('solves one crossing inside each descending segment, for both aspects', () => {
+    for (const aspect of ASPECTS) {
+      for (const layer of GROUND_LAYERS) {
+        const c = GROUND_TRANSITS[aspect][layer.id].crossing;
+        expect(c).toBeGreaterThan(layer.from);
+        expect(c).toBeLessThan(layer.from + 1);
+        expect(evaluatePath(HOME_STATIONS, c, aspect).position[1]).toBeCloseTo(layer.ground, 6);
+      }
+    }
+  });
+
+  it('descends monotonically through every crossing segment (so bisection is valid)', () => {
+    for (const aspect of ASPECTS) {
+      for (const layer of GROUND_LAYERS) {
+        let previous = Number.POSITIVE_INFINITY;
+        for (let k = 0; k <= 200; k++) {
+          const y = evaluatePath(HOME_STATIONS, layer.from + k / 200, aspect).position[1];
+          expect(y).toBeLessThan(previous);
+          previous = y;
+        }
+      }
+    }
+  });
+
+  it('returns NaN when the path never reaches the ground, and the veil ignores it', () => {
+    expect(solveGroundCrossing(0, 100, 'wide')).toBeNaN();
+    const none = { rise: 1.1, full: 1.2, crossing: Number.NaN, clear: 1.3, end: 1.4 };
+    expect(transitVeil(1.25, { hero: none, journey: none, portal: none })).toBe(0);
+  });
+
+  it('never veils a station or the dwell around it', () => {
+    for (const aspect of ASPECTS) {
+      for (let s = 0; s < HOME_STATIONS.length; s++) {
+        for (const d of [-0.02, 0, 0.02]) expect(transitVeil(s + d, GROUND_TRANSITS[aspect])).toBe(0);
+      }
+    }
+  });
+
+  it('is fully opaque from the crossing until the layer above has been hidden', () => {
+    for (const aspect of ASPECTS) {
+      const transits = GROUND_TRANSITS[aspect];
+      for (const layer of GROUND_LAYERS) {
+        const c = transits[layer.id].crossing;
+        for (const d of [0, LAYER_HIDE_AFTER, LAYER_HIDE_AFTER + 0.01])
+          expect(transitVeil(c + d, transits)).toBe(1);
+        expect(groundLayerVisible(layer.id, layer.from, aspect)).toBe(true);
+        expect(groundLayerVisible(layer.id, c, aspect)).toBe(true);
+        expect(groundLayerVisible(layer.id, c + LAYER_HIDE_AFTER + 0.001, aspect)).toBe(false);
+        expect(transitVeil(c + 0.25, transits)).toBe(0);
+      }
+    }
+  });
+
+  it('rests every station camera at least the parallax clearance above each visible ground', () => {
+    for (const aspect of ASPECTS) {
+      HOME_STATIONS.forEach((station, s) => {
+        for (const layer of GROUND_LAYERS) {
+          if (!groundLayerVisible(layer.id, s, aspect)) continue;
+          expect(station[aspect].position[1]).toBeGreaterThanOrEqual(layer.ground + GROUND_CLEARANCE);
+        }
+      });
+    }
+  });
+
+  it('starts the veil from height above ground, never mid-dwell, and is opaque before contact', () => {
+    for (const aspect of ASPECTS) {
+      for (const layer of GROUND_LAYERS) {
+        const tr = GROUND_TRANSITS[aspect][layer.id];
+        expect(tr.rise).toBeGreaterThanOrEqual(layer.from + 0.03);
+        expect(tr.rise).toBeLessThan(tr.full);
+        expect(tr.full).toBeLessThanOrEqual(tr.crossing);
+        const above = (s: number) => evaluatePath(HOME_STATIONS, s, aspect).position[1] - layer.ground;
+        expect(above(tr.rise)).toBeLessThanOrEqual(VEIL_RISE_HEIGHT + 1e-6);
+        expect(above(tr.full)).toBeLessThanOrEqual(Math.max(VEIL_FULL_HEIGHT, above(tr.rise)) + 1e-6);
+        expect(transitVeil(tr.full, GROUND_TRANSITS[aspect])).toBe(1);
+      }
+    }
   });
 });

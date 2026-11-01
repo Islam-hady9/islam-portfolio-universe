@@ -69,17 +69,26 @@ export function evaluatePath(stations: Station[], s: number, aspect: AspectClass
   };
 }
 
-const P = (position: Vec3, target: Vec3, fov: number, lens: [number, number]): Pose => ({ position, target, fov, lens });
+const P = (position: Vec3, target: Vec3, fov: number, lens: [number, number]): Pose => ({
+  position,
+  target,
+  fov,
+  lens,
+});
 
 /** World layout shared by stations and scene objects. */
 export const WORLD = {
   core: [0, 0, 0] as Vec3,
   heroPlanet: { position: [24, 1.2, -58] as Vec3, radius: 4.6 },
-  heroGroundY: -6.8,
+  /** Base of the hero terrain (the identity camera rests just above it). */
+  heroGroundY: -8.0,
   galaxy: { center: [0, -15.5, -15] as Vec3, radius: 7.8 },
   capabilities: { center: [0, -36, -14] as Vec3 },
-  journey: { groundY: -52.5, moon: [54, -24, -118] as Vec3 },
-  portal: { center: [-5.6, -60.6, -19] as Vec3, radius: 3.6, groundY: -64.7 },
+  // Moon sits on the right frame edge, below the right-aligned journey subtitle and right of the
+  // "Now" milestone at 16:10 and 16:9 (it overlapped the subtitle when closer to centre).
+  journey: { groundY: -52.5, moon: [65.6, -25.7, -118] as Vec3 },
+  // plateauHeight: flat stand for the explorer, relative to the portal terrain base.
+  portal: { center: [-5.6, -60.6, -19] as Vec3, radius: 3.6, groundY: -64.7, plateauHeight: 0.6 },
   // ≈ 21° right, 7° up, 17° angular radius from the contact camera → massive limb on the right.
   horizon: { planet: [54, -51.6, -128] as Vec3, planetRadius: 44, groundY: -73.5 },
 } as const;
@@ -96,9 +105,10 @@ export const HOME_STATIONS: Station[] = [
   },
   {
     // The core slides up and out of frame (same direction as the page), dimming as it recedes.
+    // 0.9 above the hero ground: room for pointer parallax and a gentle veil on the way down.
     id: 'identity',
     section: 'identity',
-    wide: P([-1.5, -7.6, 22], [-0.5, -6.9, 0], 34, [0.05, 0]),
+    wide: P([-1.5, -7.1, 22], [-0.5, -6.4, 0], 34, [0.05, 0]),
     portrait: P([-1, -7.2, 26], [-0.4, -6.6, 0], 42, [0, 0.05]),
     drift: [0, 0, 0],
   },
@@ -152,3 +162,101 @@ export const HOME_STATIONS: Station[] = [
     drift: [0, 0.3, 1.4],
   },
 ];
+
+/**
+ * Ground layers the path descends through between stations. Seen from below, a terrain reads as
+ * a floating sheet (and whatever stands on it floats with it), so each crossing is masked by a
+ * short canvas veil and the layer above is hidden under it. Crossing parameters are solved on
+ * the base path per aspect, so the veil is exactly 0 at every station.
+ */
+export const GROUND_LAYERS = [
+  { id: 'hero', from: 1, ground: WORLD.heroGroundY }, // identity → universe
+  { id: 'journey', from: 6, ground: WORLD.journey.groundY }, // experience → ask-ai
+  // ask-ai → contact: the camera skims the explorer's plateau before the terrain base.
+  { id: 'portal', from: 7, ground: WORLD.portal.groundY + WORLD.portal.plateauHeight },
+] as const;
+
+export type GroundLayerId = (typeof GROUND_LAYERS)[number]['id'];
+
+/** A layer disappears this far (in s) past its crossing — inside the veil's opaque span. */
+export const LAYER_HIDE_AFTER = 0.03;
+/** Pointer parallax keeps the camera at least this far above a visible ground layer. */
+export const GROUND_CLEARANCE = 0.35;
+
+/** Path parameter in (from, from + 1) where the base camera height passes `ground`; NaN if it never does. */
+export function solveGroundCrossing(from: number, ground: number, aspect: AspectClass): number {
+  const above = (s: number) => evaluatePath(HOME_STATIONS, s, aspect).position[1] - ground;
+  let lo = from;
+  let hi = from + 1;
+  if (!(above(lo) > 0 && above(hi) < 0)) return Number.NaN;
+  for (let k = 0; k < 48; k++) {
+    const mid = (lo + hi) / 2;
+    if (above(mid) > 0) lo = mid;
+    else hi = mid;
+  }
+  return (lo + hi) / 2;
+}
+
+/** The veil starts when the descending camera is this high above the ground, opaque from VEIL_FULL_HEIGHT. */
+export const VEIL_RISE_HEIGHT = 1.4;
+export const VEIL_FULL_HEIGHT = 0.25;
+
+/** Path-parameter span of one crossing veil: rise → full → (crossing) → clear → end. */
+export interface GroundTransit {
+  rise: number;
+  full: number;
+  crossing: number;
+  clear: number;
+  end: number;
+}
+
+export function solveGroundTransit(
+  layer: (typeof GROUND_LAYERS)[number],
+  aspect: AspectClass,
+): GroundTransit {
+  const crossing = solveGroundCrossing(layer.from, layer.ground, aspect);
+  const riseAt = solveGroundCrossing(layer.from, layer.ground + VEIL_RISE_HEIGHT, aspect);
+  const fullAt = solveGroundCrossing(layer.from, layer.ground + VEIL_FULL_HEIGHT, aspect);
+  // Never start inside a station's dwell, even when the station itself sits close to the ground.
+  const rise = Math.max(Number.isFinite(riseAt) ? riseAt : layer.from, layer.from + 0.03);
+  const full = Math.min(crossing, Math.max(Number.isFinite(fullAt) ? fullAt : rise, rise + 0.02));
+  return { rise, full, crossing, clear: crossing + 0.08, end: Math.min(crossing + 0.2, layer.from + 0.97) };
+}
+
+function solveAll(aspect: AspectClass): Record<GroundLayerId, GroundTransit> {
+  const out = {} as Record<GroundLayerId, GroundTransit>;
+  for (const layer of GROUND_LAYERS) out[layer.id] = solveGroundTransit(layer, aspect);
+  return out;
+}
+
+export const GROUND_TRANSITS: Record<AspectClass, Record<GroundLayerId, GroundTransit>> = {
+  wide: solveAll('wide'),
+  portrait: solveAll('portrait'),
+};
+
+const smooth01 = (x: number) => {
+  const t = Math.min(1, Math.max(0, x));
+  return t * t * (3 - 2 * t);
+};
+
+/**
+ * Canvas veil (0..1) around ground crossings: rises as the camera nears the ground, stays opaque
+ * while the layer above is hidden, then fades. Never starts within 0.03 of a station.
+ */
+export function transitVeil(s: number, transits: Record<GroundLayerId, GroundTransit>): number {
+  let v = 0;
+  for (const layer of GROUND_LAYERS) {
+    const t = transits[layer.id];
+    if (!Number.isFinite(t.crossing) || s <= t.rise || s >= t.end) continue;
+    const up = smooth01((s - t.rise) / Math.max(1e-6, t.full - t.rise));
+    const down = 1 - smooth01((s - t.clear) / Math.max(1e-6, t.end - t.clear));
+    v = Math.max(v, Math.min(up, down));
+  }
+  return v;
+}
+
+/** Whether a ground layer is still drawn at path parameter s (hidden once the camera is below it). */
+export function groundLayerVisible(id: GroundLayerId, s: number, aspect: AspectClass): boolean {
+  const c = GROUND_TRANSITS[aspect][id].crossing;
+  return !(Number.isFinite(c) && s > c + LAYER_HIDE_AFTER);
+}
