@@ -1,0 +1,212 @@
+.card {
+  --accent: var(--cyan);
+  --accent-rgb: var(--cyan-rgb);
+  --mx: 50%;
+  --my: 30%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 1 / 1.04;
+  min-height: 320px;
+  border-radius: var(--r-lg);
+  isolation: isolate;
+  overflow: hidden;
+  background: rgb(9 12 16 / 0.6);
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 24px 60px -30px rgb(0 0 0 / 0.95);
+  transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(var(--lift, 0px));
+  transition:
+    transform 520ms var(--ease-out),
+    box-shadow 360ms var(--ease-out);
+}
+
+.card[data-accent='violet'] {
+  --accent: var(--violet);
+  --accent-rgb: var(--violet-rgb);
+}
+
+.card[data-accent='mint'] {
+  --accent: var(--mint);
+  --accent-rgb: var(--mint-rgb);
+}
+
+/* Specular border following the pointer (spec S4) */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    260px circle at var(--mx) var(--my),
+    rgb(255 255 255 / 0.55),
+    rgb(var(--accent-rgb) / 0.35) 30%,
+    rgb(var(--silver-rgb) / 0.1) 60%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.35;
+  pointer-events: none;
+  transition: opacity 360ms var(--ease-out);
+}
+
+.card:hover,
+.card:focus-within,
+.card[data-engaged] {
+  --lift: -4px;
+  box-shadow:
+    0 0 0 1px rgb(var(--accent-rgb) / 0.28),
+    0 30px 70px -28px rgb(0 0 0 / 1),
+    0 0 50px -24px rgb(var(--accent-rgb) / 0.7);
+}
+
+.card:hover::before,
+.card:focus-within::before,
+.card[data-engaged]::before {
+  opacity: 1;
+}
+
+/* Poster-mode tilt (no live 3D): ≤5° with damping (spec S4). In live mode the 3D camera
+   provides the depth parallax instead, so the frame stays planar. */
+:global(html[data-motion='full']:not([data-webgl='ready'])) .card[data-engaged] {
+  --tilt-x: calc(var(--py, 0) * -4deg);
+  --tilt-y: calc(var(--px, 0) * 5deg);
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+/* While the live portal is rendering behind this window, the poster fades away. */
+:global(html[data-webgl='ready']) .card[data-portal-live] .media > * {
+  opacity: 0;
+  transition: opacity 420ms var(--ease-out);
+}
+
+.media > * {
+  transition: opacity 420ms var(--ease-out);
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgb(6 7 10 / 0.35) 0%, transparent 22%, transparent 40%, rgb(6 8 11 / 0.78) 66%, rgb(6 8 11 / 0.95) 100%);
+}
+
+.top {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.category {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid rgb(var(--silver-rgb) / 0.22);
+  background: rgb(6 7 10 / 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-family: var(--font-mono-stack);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--text-primary);
+}
+
+/* Static (unpositioned) flex item: z-index still applies, and the link's ::after resolves
+   its containing block to the card, making the whole card clickable. */
+.body {
+  z-index: 2;
+  padding: clamp(1rem, 1.6vw, 1.4rem);
+  padding-right: 3.6rem;
+}
+
+.title {
+  font-size: clamp(1.4rem, 1.75vw, 1.95rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.link {
+  color: var(--text-primary);
+  outline: none;
+}
+
+/* Stretched link: the whole card is the click target. */
+.link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+}
+
+.card:has(.link:focus-visible) {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+}
+
+.tagline {
+  margin-top: 6px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.summary {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.arrow {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: rgb(6 7 10 / 0.5);
+  color: var(--text-primary);
+  transition:
+    transform var(--d-hover) var(--ease-out),
+    border-color var(--d-hover) var(--ease-out),
+    background-color var(--d-hover) var(--ease-out);
+}
+
+.card:hover .arrow,
+.card:focus-within .arrow {
+  transform: translate(2px, -2px);
+  border-color: rgb(var(--accent-rgb) / 0.6);
+  background: rgb(var(--accent-rgb) / 0.14);
+}

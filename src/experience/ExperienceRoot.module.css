@@ -1,0 +1,22 @@
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-canvas);
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 78% 18%, rgb(var(--violet-rgb) / 0.08), transparent 70%),
+    radial-gradient(70% 60% at 12% 85%, rgb(var(--cyan-rgb) / 0.05), transparent 70%), var(--bg-void);
+}
+
+.layer canvas {
+  opacity: 0;
+  transition: opacity 900ms var(--ease-soft);
+}
+
+:global(html[data-webgl='ready']) .layer canvas {
+  opacity: 1;
+}
+
+:global(html:not([data-motion='full'])) .layer canvas {
+  transition: none;
+}

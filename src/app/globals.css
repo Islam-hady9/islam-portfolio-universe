@@ -1,0 +1,264 @@
+/* ────────────────────────────────────────────────────────────────────────────
+   THE INTELLIGENCE UNIVERSE — design tokens & base (spec §3)
+   Motion is opt-in: animations live under html[data-motion='full'], which the
+   pre-paint boot script sets only when the user/system allows motion.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Colour tokens (spec §3.1) */
+  --bg-void: #06070a;
+  --bg-obsidian: #090c12;
+  --surface-1: #11141a;
+  --surface-2: #171c24;
+  --graphite: #242a33;
+  --text-primary: #f3f5f5;
+  --text-secondary: #aab4bc;
+  --text-muted: #7d8993;
+  --silver: #c9d1d9;
+  --mint: #7ef7c9;
+  --cyan: #52c7ea;
+  --violet: #8b7cff;
+  --blue: #7fb2ff;
+  --danger: #e87e87;
+
+  /* Derived */
+  --mint-rgb: 126 247 201;
+  --cyan-rgb: 82 199 234;
+  --violet-rgb: 139 124 255;
+  --silver-rgb: 201 209 217;
+  --line: rgb(var(--silver-rgb) / 0.1);
+  --line-strong: rgb(var(--silver-rgb) / 0.18);
+  --line-glow: rgb(var(--mint-rgb) / 0.35);
+  --glass: rgb(17 20 26 / 0.56);
+  --glass-strong: rgb(19 23 30 / 0.78);
+  --glass-hover: rgb(27 33 42 / 0.7);
+  --text-on-mint: #04120c;
+
+  /* Typography (spec §3.2, tuned per D-09) */
+  --font-display-stack: var(--font-display), ui-sans-serif, 'Segoe UI', Arial, sans-serif;
+  --font-body-stack: var(--font-body), ui-sans-serif, 'Segoe UI', Arial, sans-serif;
+  --font-mono-stack: var(--font-mono), ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  --fs-hero: clamp(3.05rem, 4.9vw, 7rem);
+  --fs-title: clamp(2rem, 3.05vw, 4rem);
+  --fs-title-lg: clamp(2.4rem, 3.9vw, 5rem);
+  --fs-subhead: clamp(1.12rem, 1.35vw, 1.55rem);
+  --fs-lead: clamp(1.05rem, 0.98rem + 0.32vw, 1.32rem);
+  --fs-body: clamp(0.95rem, 0.91rem + 0.18vw, 1.06rem);
+  --fs-small: 0.875rem;
+  --fs-xs: 0.78rem;
+  --fs-eyebrow: 0.6875rem;
+  --tracking-hero: -0.045em;
+  --tracking-title: -0.032em;
+  --tracking-eyebrow: 0.24em;
+
+  /* Spacing — 8px rhythm */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --s-10: 8rem;
+  --section-pad: clamp(4.5rem, 8.5vw, 9rem);
+
+  /* Layout */
+  --gutter: clamp(1rem, 7vw, 8rem);
+  --container-max: 1400px;
+  --header-h: 72px;
+
+  /* Shape */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* Motion (spec §6.4) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --d-hover: 220ms;
+  --d-focus: 320ms;
+  --d-reveal: 820ms;
+
+  /* Layers */
+  --z-canvas: 0;
+  --z-content: 1;
+  --z-nodes: 20;
+  --z-header: 50;
+  --z-dock: 60;
+  --z-transition: 90;
+  --z-prelude: 100;
+  --z-skip: 200;
+
+  color-scheme: dark;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --header-h: 62px;
+    --gutter: clamp(1rem, 5vw, 1.5rem);
+  }
+}
+
+/* ───────────── Base ───────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 12px);
+  background: var(--bg-void);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-body-stack);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display-stack);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: var(--tracking-title);
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgb(var(--mint-rgb) / 0.28);
+  color: var(--text-primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* main sits above the fixed canvas layer */
+main {
+  position: relative;
+  z-index: var(--z-content);
+  display: block;
+}
+
+main:focus {
+  outline: none;
+}
+
+/* ───────────── Utilities ───────────── */
+
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container-max));
+  margin-inline: auto;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.skip-link {
+  position: fixed;
+  left: var(--s-4);
+  top: var(--s-3);
+  z-index: var(--z-skip);
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-sm);
+  background: var(--mint);
+  color: var(--text-on-mint);
+  font-weight: 700;
+  transform: translateY(-160%);
+  transition: transform var(--d-hover) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline-color: var(--text-primary);
+}
+
+.accent-mint {
+  color: var(--mint);
+}
+
+/* Sections anchored from navigation account for the fixed header (spec §4.1). */
+[data-section] {
+  scroll-margin-top: calc(var(--header-h) + 8px);
+}
+
+/* ───────────── Motion gating ───────────── */
+
+/* Without JS, or with reduced motion, nothing animates. */
+html:not([data-motion='full']) *,
+html:not([data-motion='full']) *::before,
+html:not([data-motion='full']) *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  animation-delay: 0ms !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion='full']) {
+    scroll-behavior: auto;
+  }
+}

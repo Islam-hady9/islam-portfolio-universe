@@ -1,0 +1,107 @@
+.identity {
+  position: relative;
+  padding: clamp(4.5rem, 8vw, 8rem) 0;
+  background: linear-gradient(180deg, rgb(6 7 10 / 0) 0%, rgb(8 10 14 / 0.82) 14%, rgb(8 10 14 / 0.82) 86%, rgb(6 7 10 / 0) 100%);
+}
+
+.identity::before,
+.identity::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(var(--silver-rgb) / 0.14) 20%, rgb(var(--mint-rgb) / 0.22) 50%, rgb(var(--silver-rgb) / 0.14) 80%, transparent);
+}
+
+.identity::before {
+  top: 0;
+}
+
+.identity::after {
+  bottom: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.statement {
+  font-family: var(--font-display-stack);
+  font-size: clamp(1.55rem, 2.25vw, 2.55rem);
+  font-weight: 400;
+  line-height: 1.26;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  text-wrap: pretty;
+}
+
+.statement:focus {
+  outline: none;
+}
+
+.highlight {
+  color: var(--mint);
+  font-weight: 500;
+  text-shadow: 0 0 26px rgb(var(--mint-rgb) / 0.25);
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pillar {
+  position: relative;
+  padding: 0.5rem clamp(1rem, 2.4vw, 2.5rem);
+  border-left: 1px solid var(--line);
+}
+
+.icon {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1.25rem;
+  color: var(--mint);
+  filter: drop-shadow(0 0 10px rgb(var(--mint-rgb) / 0.35));
+}
+
+.pillar:nth-child(3) .icon {
+  color: var(--violet);
+  filter: drop-shadow(0 0 10px rgb(var(--violet-rgb) / 0.4));
+}
+
+.pillarTitle {
+  font-size: clamp(1.02rem, 1.2vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.6rem;
+}
+
+.pillarText {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .pillars {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .pillar {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding: 1.5rem 0 0;
+  }
+}

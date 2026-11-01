@@ -1,0 +1,108 @@
+.panel {
+  position: fixed;
+  inset: var(--header-h) 0 0 0;
+  z-index: var(--z-header);
+  background:
+    radial-gradient(120% 70% at 100% 0%, rgb(var(--violet-rgb) / 0.12), transparent 60%),
+    radial-gradient(90% 60% at 0% 100%, rgb(var(--mint-rgb) / 0.08), transparent 60%), rgb(6 7 10 / 0.97);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.inner {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s-7);
+  padding: var(--s-7) var(--gutter) var(--s-6);
+}
+
+.list {
+  display: grid;
+  gap: 4px;
+}
+
+.link {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  min-height: 56px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-display-stack);
+  font-size: clamp(1.7rem, 7vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--text-secondary);
+}
+
+.link[data-active],
+.link:hover {
+  color: var(--text-primary);
+}
+
+.index {
+  font-family: var(--font-mono-stack);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--mint);
+}
+
+html[data-motion='full'] .panel[data-open] li {
+  animation: menu-in 520ms var(--ease-out) both;
+  animation-delay: calc(var(--i) * 45ms + 60ms);
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.cta,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 1.25rem;
+  border-radius: 12px;
+  font-family: var(--font-display-stack);
+  font-weight: 600;
+}
+
+.cta {
+  background: var(--mint);
+  color: var(--text-on-mint);
+}
+
+.secondary {
+  border: 1px solid var(--line-strong);
+}
+
+.role {
+  width: 100%;
+  font-family: var(--font-mono-stack);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--text-muted);
+}

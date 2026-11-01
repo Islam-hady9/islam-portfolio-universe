@@ -1,0 +1,57 @@
+[
+  {
+    "id": "purpose",
+    "title": "Build with Purpose",
+    "description": "Solve real problems and create meaningful impact.",
+    "icon": "target",
+    "verification": {
+      "status": "placeholder",
+      "source": "Title: IU-MASTER-001 §5 S5. Description: approved reference design copy.",
+      "note": "Owner to confirm description wording."
+    }
+  },
+  {
+    "id": "scale",
+    "title": "Architect for Scale",
+    "description": "Design clean, modular, and scalable systems from day one.",
+    "icon": "layers",
+    "verification": {
+      "status": "placeholder",
+      "source": "Title: IU-MASTER-001 §5 S5. Description: approved reference design copy.",
+      "note": "Owner to confirm description wording."
+    }
+  },
+  {
+    "id": "production",
+    "title": "Ship to Production",
+    "description": "Turn ideas into reliable, maintainable, and real-world products.",
+    "icon": "rocket",
+    "verification": {
+      "status": "placeholder",
+      "source": "Title: IU-MASTER-001 §5 S5. Description: approved reference design copy.",
+      "note": "Owner to confirm description wording."
+    }
+  },
+  {
+    "id": "ai-product",
+    "title": "Blend AI with Product Thinking",
+    "description": "Use AI where it creates real value, with a strong product mindset.",
+    "icon": "brain",
+    "verification": {
+      "status": "placeholder",
+      "source": "Title: IU-MASTER-001 §5 S5. Description: approved reference design copy.",
+      "note": "Owner to confirm description wording."
+    }
+  },
+  {
+    "id": "whole-experience",
+    "title": "Design the Whole Experience",
+    "description": "Think end-to-end — from intelligence and systems to a seamless user experience.",
+    "icon": "cube",
+    "verification": {
+      "status": "placeholder",
+      "source": "Title: IU-MASTER-001 §5 S5. Description: approved reference design copy.",
+      "note": "Owner to confirm description wording."
+    }
+  }
+]

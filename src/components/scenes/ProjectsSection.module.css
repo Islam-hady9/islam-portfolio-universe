@@ -1,0 +1,31 @@
+.projects {
+  position: relative;
+  padding: var(--section-pad) 0 calc(var(--section-pad) * 0.7);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.5vw, 1.5rem);
+}
+
+.grid > li {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid > li > * {
+  flex: 1;
+}
+
+@media (max-width: 1199px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 599px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

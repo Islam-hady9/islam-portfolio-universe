@@ -1,0 +1,133 @@
+.art {
+  pointer-events: none;
+}
+
+.poster {
+  position: absolute;
+  inset: 0;
+  opacity: 1;
+  transition: opacity 900ms var(--ease-soft);
+}
+
+:global(html[data-webgl='ready']) .poster {
+  opacity: 0;
+}
+
+.img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ───── Procedural CSS fallback art (used until/unless poster images exist) ───── */
+
+.hero::before {
+  /* orbital core glow */
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(44vw, 640px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgb(var(--cyan-rgb) / 0.55) 0 4%, rgb(var(--cyan-rgb) / 0.16) 12%, transparent 34%),
+    radial-gradient(circle, rgb(30 40 48 / 0.9) 0 27%, transparent 28%);
+  box-shadow:
+    0 0 0 2px rgb(var(--silver-rgb) / 0.08),
+    inset 0 0 80px rgb(var(--cyan-rgb) / 0.08);
+}
+
+.hero::after {
+  /* gyroscope rings */
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(52vw, 760px);
+  aspect-ratio: 2.4;
+  translate: -50% -50%;
+  rotate: -18deg;
+  border-radius: 50%;
+  border: 7px solid rgb(var(--silver-rgb) / 0.22);
+  box-shadow:
+    0 0 0 1px rgb(var(--silver-rgb) / 0.12),
+    inset 0 0 30px rgb(var(--cyan-rgb) / 0.12);
+}
+
+.universe::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 78%;
+  aspect-ratio: 2.6;
+  translate: -50% -50%;
+  rotate: -8deg;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, rgb(236 226 255 / 0.85) 0 3%, rgb(var(--violet-rgb) / 0.45) 12%, rgb(var(--cyan-rgb) / 0.12) 45%, transparent 70%);
+  filter: blur(1px);
+}
+
+.universe::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 96%;
+  aspect-ratio: 2.9;
+  translate: -50% -50%;
+  rotate: -8deg;
+  border-radius: 50%;
+  border: 1px dashed rgb(var(--silver-rgb) / 0.22);
+}
+
+.journey::before {
+  content: '';
+  position: absolute;
+  inset: auto -10% -30% -10%;
+  height: 70%;
+  border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+  background: radial-gradient(80% 60% at 50% 0%, rgb(var(--cyan-rgb) / 0.12), transparent 70%),
+    linear-gradient(180deg, rgb(14 18 24), rgb(6 7 10));
+}
+
+.portal::before {
+  content: '';
+  position: absolute;
+  left: 46%;
+  top: 48%;
+  width: min(30vw, 420px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  border: 18px solid rgb(40 48 56 / 0.85);
+  background: radial-gradient(circle, rgb(var(--cyan-rgb) / 0.32), rgb(var(--cyan-rgb) / 0.05) 60%, transparent 72%);
+  box-shadow: 0 0 80px rgb(var(--cyan-rgb) / 0.25);
+}
+
+.horizon::before {
+  content: '';
+  position: absolute;
+  right: -18%;
+  top: -10%;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgb(38 52 60), rgb(10 13 18) 70%);
+  box-shadow:
+    -18px -6px 60px rgb(var(--cyan-rgb) / 0.28),
+    inset 10px 10px 40px rgb(var(--mint-rgb) / 0.12);
+}
+
+.deep-space::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(50% 40% at 80% 20%, rgb(var(--violet-rgb) / 0.08), transparent 70%);
+}

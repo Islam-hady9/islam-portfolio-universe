@@ -1,0 +1,25 @@
+.wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.note {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  z-index: 5;
+  width: max-content;
+  max-width: min(280px, 80vw);
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: rgb(12 15 20 / 0.95);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  box-shadow: 0 16px 40px -18px rgb(0 0 0 / 0.9);
+}
+
+.note[hidden] {
+  display: none;
+}

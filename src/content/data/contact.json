@@ -1,0 +1,19 @@
+{
+  "email": null,
+  "availability": null,
+  "location": null,
+  "responseNote": null,
+  "unavailableMessage": "Direct contact details will be published after the final profile review.",
+  "verification": {
+    "status": "placeholder",
+    "source": "Not yet supplied by owner (spec §4.2: never invent email or phone)."
+  },
+  "resume": {
+    "url": null,
+    "unavailableMessage": "Resume will be available after final profile review.",
+    "verification": {
+      "status": "placeholder",
+      "source": "Not yet supplied by owner (spec §10.2: no fake PDF)."
+    }
+  }
+}

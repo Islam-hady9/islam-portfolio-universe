@@ -1,0 +1,45 @@
+[
+  {
+    "id": "font-sora",
+    "asset": "Sora (variable) — display typeface",
+    "origin": "third-party-licensed",
+    "license": "SIL Open Font License 1.1",
+    "source": "@fontsource-variable/sora 5.3.0 (src/assets/fonts/sora.LICENSE.txt)"
+  },
+  {
+    "id": "font-manrope",
+    "asset": "Manrope (variable) — body typeface",
+    "origin": "third-party-licensed",
+    "license": "SIL Open Font License 1.1",
+    "source": "@fontsource-variable/manrope 5.3.0 (src/assets/fonts/manrope.LICENSE.txt)"
+  },
+  {
+    "id": "font-jetbrains-mono",
+    "asset": "JetBrains Mono (variable) — technical labels",
+    "origin": "third-party-licensed",
+    "license": "SIL Open Font License 1.1",
+    "source": "@fontsource-variable/jetbrains-mono 5.3.0 (src/assets/fonts/jetbrains-mono.LICENSE.txt)"
+  },
+  {
+    "id": "scenes-procedural",
+    "asset": "All 3D scenes, shaders, terrain, planets, galaxy and project worlds",
+    "origin": "original-procedural",
+    "license": "Original work for this portfolio",
+    "source": "src/experience/** (generated at runtime from code; no external models or textures)"
+  },
+  {
+    "id": "posters",
+    "asset": "Fallback poster images (public/images/posters)",
+    "origin": "original-generated-from-site",
+    "license": "Original work for this portfolio",
+    "source": "Rendered from this site's own scenes by scripts/capture/posters.ts"
+  },
+  {
+    "id": "icons",
+    "asset": "UI line icons",
+    "origin": "original-procedural",
+    "license": "Original work for this portfolio",
+    "source": "src/components/ui/Icon.tsx",
+    "notes": "GitHub and LinkedIn marks are simplified renderings used only to label links to the owner's profiles (nominative use; trademarks belong to their owners)."
+  }
+]

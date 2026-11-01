@@ -1,0 +1,79 @@
+.universe {
+  position: relative;
+  min-height: max(680px, 100svh);
+  display: flex;
+  align-items: center;
+  padding: var(--section-pad) 0;
+}
+
+.universe::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgb(6 7 10 / 0.7) 0%, rgb(6 7 10 / 0.25) 30%, transparent 50%);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.5fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
+}
+
+.heading {
+  margin-bottom: 0;
+}
+
+.intro {
+  position: relative;
+  z-index: 1;
+}
+
+.hint {
+  margin-top: 1.5rem;
+  padding-left: 14px;
+  border-left: 1px solid rgb(var(--mint-rgb) / 0.45);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  max-width: 22rem;
+}
+
+.stage {
+  position: relative;
+  aspect-ratio: 16 / 9.5;
+  min-height: 380px;
+}
+
+.art {
+  position: absolute;
+  inset: 0;
+}
+
+@media (max-width: 1023px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .stage {
+    aspect-ratio: 16 / 11;
+  }
+}
+
+@media (max-width: 767px) {
+  .universe {
+    min-height: auto;
+  }
+  .universe::before {
+    background: none;
+  }
+  .stage {
+    aspect-ratio: auto;
+    min-height: 0;
+    padding-top: 52vw;
+  }
+  .art {
+    inset: 0 -1rem auto;
+    height: 60vw;
+  }
+}

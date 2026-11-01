@@ -1,0 +1,277 @@
+.nav {
+  position: absolute;
+  inset: 0;
+}
+
+.list {
+  position: absolute;
+  inset: 0;
+}
+
+/* Static constellation (desktop, before/without live 3D) */
+.node {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 0;
+  height: 0;
+  z-index: 1;
+  --accent: var(--cyan);
+  --accent-rgb: var(--cyan-rgb);
+}
+
+.node[data-accent='mint'] {
+  --accent: var(--mint);
+  --accent-rgb: var(--mint-rgb);
+}
+
+.node[data-accent='violet'] {
+  --accent: var(--violet);
+  --accent-rgb: var(--violet-rgb);
+}
+
+.node[data-accent='blue'] {
+  --accent: var(--blue);
+  --accent-rgb: 127 178 255;
+}
+
+/* Live mode: the WebGL layer writes `transform` every frame; fixed keeps DOM and canvas in sync. */
+.list[data-mode='live'] .node {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: var(--z-nodes);
+  will-change: transform, opacity;
+  transition: opacity 500ms var(--ease-soft);
+}
+
+.list[data-mode='live'] .node[data-visible='false'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.list[data-mode='live'] .node[data-visible='false']:focus-within {
+  opacity: 1;
+}
+
+.link {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.marker {
+  position: absolute;
+  left: -7px;
+  top: -7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 22%, var(--accent) 45%, rgb(var(--accent-rgb) / 0.2) 70%, transparent 72%);
+  box-shadow:
+    0 0 14px rgb(var(--accent-rgb) / 0.85),
+    0 0 34px rgb(var(--accent-rgb) / 0.45);
+  transition: transform var(--d-focus) var(--ease-out);
+}
+
+.marker::after {
+  content: '';
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+  border: 1px solid rgb(var(--accent-rgb) / 0.4);
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity var(--d-focus) var(--ease-out),
+    transform var(--d-focus) var(--ease-out);
+}
+
+/* In live mode the 3D node itself is the marker; keep a subtle DOM ring for focus feedback. */
+.list[data-mode='live'] .marker {
+  background: transparent;
+  box-shadow: none;
+}
+
+.pill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  gap: 0;
+  min-width: 128px;
+  max-width: 240px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgb(var(--accent-rgb) / 0.32);
+  background: rgb(10 13 18 / 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.04),
+    0 10px 30px -14px rgb(0 0 0 / 0.9),
+    0 0 22px -12px rgb(var(--accent-rgb) / 0.8);
+  white-space: nowrap;
+  transition:
+    border-color var(--d-hover) var(--ease-out),
+    background-color var(--d-hover) var(--ease-out),
+    box-shadow var(--d-hover) var(--ease-out);
+}
+
+.node[data-placement='top'] .pill {
+  transform: translate(-50%, calc(-100% - 20px));
+}
+
+.node[data-placement='bottom'] .pill {
+  transform: translate(-50%, 20px);
+}
+
+.node[data-placement='left'] .pill {
+  transform: translate(calc(-100% - 20px), -50%);
+}
+
+.node[data-placement='right'] .pill {
+  transform: translate(20px, -50%);
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 24px;
+}
+
+.icon {
+  color: var(--accent);
+  flex: none;
+}
+
+.label {
+  font-family: var(--font-display-stack);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.go {
+  margin-left: auto;
+  color: var(--text-muted);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition:
+    opacity var(--d-hover) var(--ease-out),
+    transform var(--d-hover) var(--ease-out);
+}
+
+.teaser {
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  white-space: normal;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  transition:
+    max-height 320ms var(--ease-out),
+    opacity 260ms var(--ease-out),
+    margin-top 320ms var(--ease-out);
+}
+
+.node[data-hovered] .pill,
+.link:focus-visible .pill {
+  border-color: rgb(var(--accent-rgb) / 0.75);
+  background: rgb(14 18 24 / 0.9);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 14px 40px -14px rgb(0 0 0 / 0.95),
+    0 0 30px -8px rgb(var(--accent-rgb) / 0.9);
+}
+
+.node[data-hovered] .teaser,
+.link:focus-visible .teaser {
+  max-height: 4.5em;
+  opacity: 1;
+  margin-top: 6px;
+}
+
+.node[data-hovered] .go,
+.link:focus-visible .go {
+  opacity: 1;
+  transform: none;
+}
+
+.node[data-hovered] .marker,
+.link:focus-visible .marker {
+  transform: scale(1.35);
+}
+
+.node[data-hovered] .marker::after,
+.link:focus-visible .marker::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.link:focus-visible .pill {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+}
+
+html[data-motion='full'] .marker {
+  animation: node-breathe 3.6s var(--ease-in-out) infinite;
+}
+
+@keyframes node-breathe {
+  50% {
+    filter: brightness(1.35);
+  }
+}
+
+/* ───────────── Mobile: vertically navigable list (spec §7) ───────────── */
+@media (max-width: 767px) {
+  .nav,
+  .list {
+    position: static;
+  }
+  .list,
+  .list[data-mode='live'] {
+    display: grid;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+  .node,
+  .list[data-mode='live'] .node {
+    position: static;
+    width: auto;
+    height: auto;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  .link {
+    position: static;
+  }
+  .marker {
+    display: none;
+  }
+  .pill,
+  .node[data-placement] .pill {
+    position: static;
+    transform: none;
+    max-width: none;
+    min-height: 64px;
+    padding: 14px 16px;
+    white-space: normal;
+  }
+  .teaser {
+    max-height: none;
+    opacity: 1;
+    margin-top: 6px;
+  }
+  .go {
+    opacity: 1;
+    transform: none;
+  }
+}

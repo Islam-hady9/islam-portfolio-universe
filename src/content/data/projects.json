@@ -1,0 +1,78 @@
+[
+  {
+    "slug": "tibyn",
+    "title": "TIBYN",
+    "tagline": "Aquaculture Intelligence Platform",
+    "categoryLabel": "AI × AGRITECH",
+    "category": "agritech",
+    "stage": null,
+    "summary": "Aquaculture management SaaS bringing intelligence to aquaculture operations.",
+    "world": "tibyn",
+    "accent": "cyan",
+    "featured": true,
+    "order": 1,
+    "posterAlt": "Moonlit aquaculture pens on still teal water beneath dark mountains.",
+    "verification": {
+      "status": "placeholder",
+      "source": "IU-MASTER-001 §4.2 (identifier and descriptor confirmed for design); summary drafted from that descriptor.",
+      "note": "Details, role and outcomes pending owner review."
+    }
+  },
+  {
+    "slug": "movid",
+    "title": "MOViD Studio",
+    "tagline": "Agentic Video Production Studio",
+    "categoryLabel": "AI × MEDIA",
+    "category": "media",
+    "stage": null,
+    "summary": "A multi-agent studio that orchestrates AI agents across the video production workflow.",
+    "world": "movid",
+    "accent": "violet",
+    "featured": true,
+    "order": 2,
+    "posterAlt": "A silhouetted figure before a curved wall of glowing video screens with a violet play symbol.",
+    "verification": {
+      "status": "placeholder",
+      "source": "IU-MASTER-001 §4.2 and §5 S4 (identifier and descriptor confirmed for design); summary drafted from that descriptor.",
+      "note": "Details, role and outcomes pending owner review."
+    }
+  },
+  {
+    "slug": "ats-matching",
+    "title": "ATS Matching",
+    "tagline": "AI Matching & Observability",
+    "categoryLabel": "AI × RECRUITING",
+    "category": "recruiting",
+    "stage": null,
+    "summary": "AI candidate matching with observability across the matching pipeline.",
+    "world": "ats",
+    "accent": "cyan",
+    "featured": true,
+    "order": 3,
+    "posterAlt": "Layered translucent interface panels linked by flowing cyan data threads (no real candidate data).",
+    "verification": {
+      "status": "placeholder",
+      "source": "IU-MASTER-001 §4.2 and §5 S4 (identifier and descriptor confirmed for design); summary drafted from that descriptor.",
+      "note": "Details, role and outcomes pending owner review."
+    }
+  },
+  {
+    "slug": "lifeatlas",
+    "title": "LifeAtlas",
+    "tagline": "AI Product Concept",
+    "categoryLabel": "AI × CONCEPT",
+    "category": "concept",
+    "stage": "Concept / In development",
+    "summary": "An early-stage AI product concept, currently in development.",
+    "world": "lifeatlas",
+    "accent": "violet",
+    "featured": true,
+    "order": 4,
+    "posterAlt": "An abstract constellation path tracing across luminous wireframe mountains.",
+    "verification": {
+      "status": "placeholder",
+      "source": "IU-MASTER-001 §4.2 (\"AI Product Concept / In Development\"; not a deployed product, not a health platform).",
+      "note": "Concept details pending owner review."
+    }
+  }
+]

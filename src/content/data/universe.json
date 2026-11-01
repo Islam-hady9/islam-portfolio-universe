@@ -1,0 +1,52 @@
+[
+  {
+    "id": "ai-systems",
+    "label": "AI Systems",
+    "teaser": "The intelligence layer — LLMs, agents, retrieval and evaluation.",
+    "href": "/#capabilities",
+    "icon": "chip",
+    "accent": "cyan",
+    "focus": "intelligence"
+  },
+  {
+    "id": "products",
+    "label": "Products",
+    "teaser": "Four featured project worlds, each with its own visual language.",
+    "href": "/#projects",
+    "icon": "layers",
+    "accent": "mint"
+  },
+  {
+    "id": "case-studies",
+    "label": "Case Studies",
+    "teaser": "Engineering deep dives: architecture, decisions and operations.",
+    "href": "/projects",
+    "icon": "chart",
+    "accent": "blue"
+  },
+  {
+    "id": "contact",
+    "label": "Contact",
+    "teaser": "Open a channel for a product, collaboration or idea.",
+    "href": "/#contact",
+    "icon": "send",
+    "accent": "violet"
+  },
+  {
+    "id": "stack",
+    "label": "Stack",
+    "teaser": "Engineering, operations and experience layers of the stack.",
+    "href": "/#capabilities",
+    "icon": "code",
+    "accent": "mint",
+    "focus": "engineering"
+  },
+  {
+    "id": "experience",
+    "label": "Experience",
+    "teaser": "The journey so far — a labelled sample until the CV review.",
+    "href": "/#experience",
+    "icon": "briefcase",
+    "accent": "violet"
+  }
+]

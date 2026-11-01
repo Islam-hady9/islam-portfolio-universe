@@ -1,0 +1,52 @@
+{
+  "hero": {
+    "ctaExplore": "Explore My Universe",
+    "ctaProjects": "View Projects",
+    "ctaResume": "Download CV",
+    "ctaResumeDeferredNote": "Available after profile review",
+    "ctaTalk": "Talk to Me",
+    "artDescription": "A chrome gyroscopic orbital core with a glowing cyan heart, suspended in deep space above a dark rocky horizon."
+  },
+  "universe": {
+    "eyebrow": "EXPLORE MY UNIVERSE",
+    "title": "The Intelligence Universe",
+    "description": "A connected space of my work, experience, projects, and capabilities. Explore the worlds behind what I build.",
+    "hint": "Hover or focus a world to preview it — select it to travel there.",
+    "artDescription": "A tilted spiral galaxy ringed by orbital tracks, with six glowing destinations."
+  },
+  "projects": {
+    "eyebrow": "FEATURED PROJECTS",
+    "title": "Selected Works from My Universe",
+    "viewAll": "View All Projects"
+  },
+  "philosophy": {
+    "eyebrow": "ENGINEERING PHILOSOPHY",
+    "title": "The Principles Behind What I Build"
+  },
+  "capabilities": {
+    "eyebrow": "MY CAPABILITIES",
+    "title": "A Full-Stack AI Product Builder",
+    "footnote": "Capability map from the design brief. Evidenced examples for each layer arrive with the profile review."
+  },
+  "experience": {
+    "eyebrow": "EXPERIENCE JOURNEY",
+    "title": "My Journey in Technology & AI",
+    "subtitle": "From foundations to building real-world intelligent systems."
+  },
+  "assistant": {
+    "eyebrow": "INTERACTIVE",
+    "title": "Ask My AI",
+    "body": "Explore my projects, experience, and technical work through a future intelligent portfolio assistant.",
+    "status": "Concept Preview — AI assistant not yet connected",
+    "artDescription": "A lone explorer stands before a monumental glowing ring portal on a dark ridge."
+  },
+  "contact": {
+    "eyebrow": "GET IN TOUCH",
+    "title": "Let's Build Something Intelligent.",
+    "body": "Whether it's an AI product, a technical collaboration, or a new idea — I'm always open to building meaningful, real-world solutions."
+  },
+  "verification": {
+    "status": "owner_verified",
+    "source": "IU-MASTER-001 §5 S3–S9 (section copy verbatim); hints and art descriptions are accessibility text authored for the build."
+  }
+}
