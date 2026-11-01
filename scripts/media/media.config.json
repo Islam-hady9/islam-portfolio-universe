@@ -1,0 +1,23 @@
+{
+  "$comment": "Creative/encoding decisions for scripts/media/process-media.py. Source files are passed on the command line (default: media-src/, git-ignored); only the optimised derivatives in public/media are committed.",
+  "portrait": {
+    "defaultSource": "media-src/portrait.jpeg",
+    "widths": [480, 720, 960, 1112],
+    "jpegWidths": [720, 1112],
+    "quality": { "avif": 72, "webp": 82, "jpeg": 84 }
+  },
+  "introReel": {
+    "defaultSource": "media-src/intro-reel.mp4",
+    "posterTime": 3.8,
+    "posterWidths": [540, 1080],
+    "thumbnail": { "time": 5.0, "box": [300, 500, 640, 640], "sizes": [112, 168] },
+    "variants": [
+      {
+        "id": "1080",
+        "mode": "copy",
+        "media": "(min-width: 768px) and (min-resolution: 1.5dppx), (min-height: 1100px)"
+      },
+      { "id": "720", "mode": "encode", "height": 1280, "crf": 23, "audioKbps": 128 }
+    ]
+  }
+}

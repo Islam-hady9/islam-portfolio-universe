@@ -14,6 +14,7 @@ import {
   contactConfigSchema,
   contentModeSchema,
   homeCopySchema,
+  mediaContentSchema,
   principleSchema,
   profileExtrasSchema,
   projectSummarySchema,
@@ -37,6 +38,7 @@ import socialJson from './data/social.json';
 import contactJson from './data/contact.json';
 import assistantJson from './data/assistant.json';
 import attributionsJson from './data/attributions.json';
+import mediaJson from './data/media.json';
 
 function parse<T extends z.ZodType>(name: string, schema: T, data: unknown): z.infer<T> {
   const result = schema.safeParse(data);
@@ -60,6 +62,7 @@ export const content = {
   contact: parse('contact.json', contactConfigSchema, contactJson),
   assistant: parse('assistant.json', assistantKnowledgeSchema, assistantJson),
   attributions: parse('attributions.json', z.array(assetAttributionSchema), attributionsJson),
+  media: parse('media.json', mediaContentSchema, mediaJson),
 } as const;
 
 export type Content = typeof content;
@@ -130,4 +133,5 @@ export const getSocialLinks = () => content.social;
 export const getContact = () => content.contact;
 export const getAssistantKnowledge = () => content.assistant;
 export const getAttributions = () => content.attributions;
+export const getMedia = () => content.media;
 export const isPublicMode = () => getContentMode() === 'VERIFIED_PUBLIC';

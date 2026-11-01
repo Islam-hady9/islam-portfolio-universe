@@ -41,5 +41,20 @@
     "license": "Original work for this portfolio",
     "source": "src/components/ui/Icon.tsx",
     "notes": "GitHub and LinkedIn marks are simplified renderings used only to label links to the owner's profiles (nominative use; trademarks belong to their owners)."
+  },
+  {
+    "id": "owner-portrait",
+    "asset": "Portrait photograph (public/media/photo)",
+    "origin": "owner-supplied",
+    "license": "The owner's own photograph, supplied for this site",
+    "source": "Supplied by the owner on 2026-11-01; resized and re-encoded by scripts/media/process-media.py with all metadata removed"
+  },
+  {
+    "id": "owner-intro-reel",
+    "asset": "Introduction reel, its poster frame and thumbnail (public/media/video, posters, thumbnails)",
+    "origin": "owner-supplied",
+    "license": "The owner's own video, supplied for this site",
+    "source": "Supplied by the owner on 2026-11-01; remuxed / re-encoded by scripts/media/process-media.py with all metadata removed",
+    "notes": "Production notes are shown with the player."
   }
 ]

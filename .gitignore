@@ -19,6 +19,9 @@ next-env.d.ts
 # local evidence scratch (curated evidence lives in docs/evidence)
 /.evidence-tmp/
 
+# owner-supplied media originals (optimised derivatives are committed under public/media)
+/media-src/
+
 # env (never commit secrets — see .env.example)
 .env
 .env.*

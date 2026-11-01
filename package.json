@@ -25,6 +25,7 @@
     "fonts:sync": "node scripts/fonts/sync-fonts.mjs && python scripts/fonts/subset-fonts.py",
     "capture:posters": "node scripts/capture/posters.mjs",
     "capture:encode": "python scripts/capture/encode-posters.py",
+    "media:process": "python scripts/media/process-media.py",
     "perf:lighthouse": "node scripts/perf/lighthouse.mjs",
     "perf:fps": "node scripts/qa/e2e-gpu.mjs -g \"frame-rate profile\"",
     "qa:stations": "node scripts/qa/stations.mjs",
