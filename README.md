@@ -42,7 +42,7 @@ Useful URL flags: `?quality=ultra|balanced|lite|static` (force a tier), `?intro=
 | `npm run qa:stations -- <url> <out> --gpu` / `npm run qa:record -- <url>`         | Station screenshots / motion recordings on the GPU                                                              |
 | `npm run check`                                                                   | typecheck + lint + test + build                                                                                 |
 
-More QA tools: `scripts/qa/transitions.mjs` (3D between stations), `scripts/perf/long-tasks.mjs` (load-time main-thread blocking), `scripts/qa/montage.py` (evidence contact sheets).
+More QA tools: `scripts/qa/transitions.mjs` (3D between stations), `scripts/qa/core-evidence.mjs` (hero core close-ups + motion strip), `scripts/qa/soak.mjs` (long-session memory + scroll/route stress), `scripts/perf/long-tasks.mjs` (load-time main-thread blocking), `scripts/perf/gl-stalls.mjs` (per-program shader-compile stalls), `scripts/perf/cpu-profile.mjs` (main-thread CPU profile), `scripts/qa/montage.py` (evidence contact sheets). `npm run perf:lighthouse -- <url> --runs=3` keeps the median run.
 
 ## Architecture
 

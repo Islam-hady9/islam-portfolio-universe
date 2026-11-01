@@ -2,6 +2,8 @@
 
 Spec §13.3 / §14. Branch `feat/intelligence-universe`, 2026-11-01. Evidence: `docs/test-report.md`, `docs/acceptance-matrix.md`, `docs/evidence/`.
 
+> **Update — Cinematic Polish V2 (closed 2026-11-01):** verdict unchanged — **CONDITIONAL GO** for CV population, **not** a GO for public deployment. Measured: mobile LCP 3.1 s (home) / 2.8–2.9 s (case study), CLS 0, GPU 143–171 fps balanced, soak clean. See [`docs/cinematic-polish-v2/CLOSURE-REPORT.md`](cinematic-polish-v2/CLOSURE-REPORT.md).
+
 ## Verdict for the next phase (G7 — CV population): **CONDITIONAL GO**
 
 The engineering platform is complete and verified in real browsers: every P0 requirement except real-device mobile testing is met with evidence, and the content system was built for this hand-off. Content can be populated now **without touching UI, motion or 3D code**.

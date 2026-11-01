@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-01T11:42:48.794Z",
+  "date": "2026-11-01T14:24:28.463Z",
   "method": "Headless Chromium (new headless, ANGLE D3D11) on the real GPU, 1440x900 @1x DPR, one page at a time, tier pinned via ?quality=, 4 s settle after ready, 1.5 s per station before a 2.5 s rAF sample. Headless frames are not vsync-capped.",
   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
   "autoDetectedTier": "balanced",
@@ -7,142 +7,142 @@
     {
       "station": "top",
       "tier": "balanced",
-      "fps": 128,
-      "p95": 8.4,
-      "max": 12.6,
-      "drawCalls": 38,
-      "triangles": 73003,
-      "programs": 49
+      "fps": 117,
+      "p95": 16.6,
+      "max": 20.8,
+      "drawCalls": 43,
+      "triangles": 82127,
+      "programs": 48
     },
     {
       "station": "universe",
       "tier": "balanced",
-      "fps": 126,
+      "fps": 136,
       "p95": 12.5,
-      "max": 87.6,
-      "drawCalls": 34,
-      "triangles": 3009,
-      "programs": 50
+      "max": 16,
+      "drawCalls": 40,
+      "triangles": 11841,
+      "programs": 49
     },
     {
       "station": "philosophy",
       "tier": "balanced",
-      "fps": 153,
-      "p95": 12.6,
-      "max": 25,
+      "fps": 145,
+      "p95": 12.9,
+      "max": 20.9,
       "drawCalls": 21,
       "triangles": 2993,
-      "programs": 50
+      "programs": 49
     },
     {
       "station": "capabilities",
       "tier": "balanced",
-      "fps": 140,
-      "p95": 16.6,
-      "max": 29.1,
+      "fps": 143,
+      "p95": 12.7,
+      "max": 16.8,
       "drawCalls": 21,
       "triangles": 2993,
-      "programs": 50
+      "programs": 49
     },
     {
       "station": "experience",
       "tier": "balanced",
-      "fps": 121,
-      "p95": 12.5,
-      "max": 20.8,
+      "fps": 139,
+      "p95": 12.4,
+      "max": 16.7,
       "drawCalls": 25,
       "triangles": 47491,
-      "programs": 50
+      "programs": 49
     },
     {
       "station": "ask-ai",
       "tier": "balanced",
-      "fps": 121,
+      "fps": 123,
       "p95": 12.6,
-      "max": 16.7,
+      "max": 25,
       "drawCalls": 26,
       "triangles": 24221,
-      "programs": 50
+      "programs": 49
     },
     {
       "station": "contact",
       "tier": "balanced",
-      "fps": 121,
-      "p95": 12.5,
-      "max": 16.7,
+      "fps": 125,
+      "p95": 12.9,
+      "max": 20.9,
       "drawCalls": 24,
       "triangles": 53835,
-      "programs": 50
+      "programs": 49
     },
     {
       "station": "top",
       "tier": "ultra",
-      "fps": 95,
+      "fps": 105,
       "p95": 12.6,
-      "max": 16.8,
-      "drawCalls": 38,
-      "triangles": 106883,
-      "programs": 50
+      "max": 16.7,
+      "drawCalls": 43,
+      "triangles": 126627,
+      "programs": 52
     },
     {
       "station": "universe",
       "tier": "ultra",
-      "fps": 102,
-      "p95": 12.6,
-      "max": 16.7,
-      "drawCalls": 34,
-      "triangles": 3009,
-      "programs": 51
+      "fps": 107,
+      "p95": 12.5,
+      "max": 14.7,
+      "drawCalls": 40,
+      "triangles": 11841,
+      "programs": 53
     },
     {
       "station": "philosophy",
       "tier": "ultra",
-      "fps": 120,
-      "p95": 12.5,
-      "max": 16.8,
+      "fps": 100,
+      "p95": 16.7,
+      "max": 20.8,
       "drawCalls": 22,
       "triangles": 2993,
-      "programs": 51
+      "programs": 53
     },
     {
       "station": "capabilities",
       "tier": "ultra",
-      "fps": 120,
-      "p95": 16.7,
-      "max": 20.9,
+      "fps": 109,
+      "p95": 16.8,
+      "max": 25,
       "drawCalls": 22,
       "triangles": 2993,
-      "programs": 51
+      "programs": 53
     },
     {
       "station": "experience",
       "tier": "ultra",
-      "fps": 102,
-      "p95": 12.6,
-      "max": 16.6,
+      "fps": 90,
+      "p95": 16.7,
+      "max": 20.9,
       "drawCalls": 26,
       "triangles": 78851,
-      "programs": 51
+      "programs": 53
     },
     {
       "station": "ask-ai",
       "tier": "ultra",
-      "fps": 105,
-      "p95": 12.5,
-      "max": 16.7,
+      "fps": 99,
+      "p95": 12.6,
+      "max": 16.6,
       "drawCalls": 26,
       "triangles": 46205,
-      "programs": 51
+      "programs": 53
     },
     {
       "station": "contact",
       "tier": "ultra",
       "fps": 93,
-      "p95": 12.6,
-      "max": 16.7,
+      "p95": 16.3,
+      "max": 16.9,
       "drawCalls": 24,
       "triangles": 82035,
-      "programs": 51
+      "programs": 53
     }
   ]
 }

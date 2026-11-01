@@ -1,5 +1,7 @@
 # Test Report — The Intelligence Universe
 
+> **Update — Cinematic Polish V2:** current results are in [`docs/cinematic-polish-v2/TEST-RESULTS.md`](cinematic-polish-v2/TEST-RESULTS.md) and [`PERFORMANCE-REPORT.md`](cinematic-polish-v2/PERFORMANCE-REPORT.md) (478 unit tests, 58 E2E ×2, 4 GPU, soak; mobile LCP 3.1 s / 2.8–2.9 s). The sections below record the previous phase.
+
 Spec §13.3. Every number below was produced by a command in this file, on the environment below, against the **final production build** of branch `feat/intelligence-universe` on 2026-11-01. Nothing is estimated.
 
 ## Environment

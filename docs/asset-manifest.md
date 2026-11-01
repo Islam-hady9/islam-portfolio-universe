@@ -4,7 +4,7 @@ Spec §3.5 / IU-018. Every shipped asset, its origin and licence. No stock image
 
 | Asset | Location | Origin | Licence | Optimisation |
 |---|---|---|---|---|
-| Sora (variable, latin) | `src/assets/fonts/sora-latin-wght-normal.woff2` | @fontsource-variable/sora 5.3.0 | SIL OFL 1.1 (`sora.LICENSE.txt`) | woff2, self-hosted via `next/font/local`, preloaded |
+| Sora (variable, latin) | `src/assets/fonts/sora-latin-wght-normal.woff2` | @fontsource-variable/sora 5.3.0, subset by `scripts/fonts/subset-fonts.py` | SIL OFL 1.1 (`sora.LICENSE.txt`; no Reserved Font Name) | woff2 subset (Latin-1 + punctuation + arrows), self-hosted via `next/font/local`, preloaded |
 | Manrope (variable, latin) | `src/assets/fonts/manrope-latin-wght-normal.woff2` | @fontsource-variable/manrope 5.3.0 | SIL OFL 1.1 | woff2, preloaded |
 | JetBrains Mono (variable, latin) | `src/assets/fonts/jetbrains-mono-latin-wght-normal.woff2` | @fontsource-variable/jetbrains-mono 5.3.0 | SIL OFL 1.1 | woff2, not preloaded |
 | All 3D scenes, shaders, terrain, planets, galaxy, portals, project worlds | `src/experience/**` | Original, procedural (generated at runtime from code; seeded) | Original work for this portfolio | tiered particle/segment counts, instancing, precompiled programs |
