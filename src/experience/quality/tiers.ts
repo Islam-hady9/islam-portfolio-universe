@@ -96,7 +96,8 @@ export interface TierDecision {
 }
 
 const SOFTWARE_RENDERER = /swiftshader|llvmpipe|softpipe|software|microsoft basic render/i;
-const DISCRETE_OR_STRONG = /nvidia|geforce|rtx|quadro|radeon rx|radeon pro|amd radeon(?!.*graphics)|apple m\d|apple gpu|arc\(tm\)|intel arc/i;
+const DISCRETE_OR_STRONG =
+  /nvidia|geforce|rtx|quadro|radeon rx|radeon pro|amd radeon(?!.*graphics)|apple m\d|apple gpu|arc\(tm\)|intel arc/i;
 const INTEGRATED = /intel|uhd|iris|radeon\(tm\) graphics|vega \d+ graphics|mali|adreno|powervr/i;
 
 /** Tier selection from capabilities — never from the UA string alone (spec §6.7). */
@@ -119,8 +120,10 @@ export function detectTier(s: DeviceSignals): TierDecision {
     return { tier: 'lite', reason: 'constrained touch device' };
   }
 
-  if (s.renderer && DISCRETE_OR_STRONG.test(s.renderer)) return { tier: 'ultra', reason: `strong GPU (${s.renderer})` };
-  if (s.renderer && INTEGRATED.test(s.renderer)) return { tier: 'balanced', reason: `integrated GPU (${s.renderer})` };
+  if (s.renderer && DISCRETE_OR_STRONG.test(s.renderer))
+    return { tier: 'ultra', reason: `strong GPU (${s.renderer})` };
+  if (s.renderer && INTEGRATED.test(s.renderer))
+    return { tier: 'balanced', reason: `integrated GPU (${s.renderer})` };
   return { tier: 'balanced', reason: 'unknown GPU — balanced default' };
 }
 

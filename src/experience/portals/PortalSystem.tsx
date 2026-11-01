@@ -34,7 +34,10 @@ type WorldId = 'tibyn' | 'movid' | 'ats' | 'lifeatlas';
 const WORLD_IDS: WorldId[] = ['tibyn', 'movid', 'ats', 'lifeatlas'];
 
 /** Per-world camera framing (tuned against screenshots). */
-const FRAMING: Record<WorldId, { pos: [number, number, number]; target: [number, number, number]; fov: number }> = {
+const FRAMING: Record<
+  WorldId,
+  { pos: [number, number, number]; target: [number, number, number]; fov: number }
+> = {
   tibyn: { pos: [0, 2.1, 8.8], target: [0, 0.8, -8], fov: 42 },
   movid: { pos: [0, 1.9, 7.2], target: [0, 2.5, -8], fov: 48 },
   ats: { pos: [0.5, 1.0, 7.8], target: [0, 0.75, -1.2], fov: 40 },
@@ -87,7 +90,13 @@ interface TrackState {
   seenAt: number;
 }
 
-function ensureTarget(st: TrackState, w: number, h: number, samples: number, reserve?: { w: number; h: number }) {
+function ensureTarget(
+  st: TrackState,
+  w: number,
+  h: number,
+  samples: number,
+  reserve?: { w: number; h: number },
+) {
   // Grow-only allocation; render into a viewport sub-region so animated sizes never reallocate.
   if (!st.target || w > st.allocW || h > st.allocH) {
     st.target?.dispose();
@@ -114,9 +123,15 @@ function ensureTarget(st: TrackState, w: number, h: number, samples: number, res
  */
 export function PortalSystem({ cfg }: { cfg: TierConfig }) {
   const gl = useThree((s) => s.gl) as WebGLRenderer;
-  const scenes = useMemo(() => Object.fromEntries(WORLD_IDS.map((id) => [id, new Scene()])) as Record<WorldId, Scene>, []);
+  const scenes = useMemo(
+    () => Object.fromEntries(WORLD_IDS.map((id) => [id, new Scene()])) as Record<WorldId, Scene>,
+    [],
+  );
   const cameras = useMemo(
-    () => Object.fromEntries(WORLD_IDS.map((id) => [id, new PerspectiveCamera(FRAMING[id].fov, 1, 0.1, 200)])) as Record<WorldId, PerspectiveCamera>,
+    () =>
+      Object.fromEntries(
+        WORLD_IDS.map((id) => [id, new PerspectiveCamera(FRAMING[id].fov, 1, 0.1, 200)]),
+      ) as Record<WorldId, PerspectiveCamera>,
     [],
   );
   const states = useRef(new Map<PortalTrack | 'transition', TrackState>());
@@ -175,7 +190,9 @@ export function PortalSystem({ cfg }: { cfg: TierConfig }) {
   // Portal transition handler (card → case study).
   useEffect(() => {
     registerPortalTransition((slug, source, done) => {
-      const track = [...getPortalTracks()].find((t) => t.el === source) ?? [...getPortalTracks()].find((t) => t.slug === slug);
+      const track =
+        [...getPortalTracks()].find((t) => t.el === source) ??
+        [...getPortalTracks()].find((t) => t.slug === slug);
       if (!track || !WORLD_IDS.includes(track.world as WorldId)) return done();
       const r = source.getBoundingClientRect();
       const state: PortalTransitionState & { world: string; startedAt: number } = {
@@ -188,7 +205,9 @@ export function PortalSystem({ cfg }: { cfg: TierConfig }) {
         startedAt: performance.now(),
       };
       frame.portal = state;
-      useExperience.getState().setPortal({ slug, phase: 'expanding', from: { x: r.left, y: r.top, w: r.width, h: r.height } });
+      useExperience
+        .getState()
+        .setPortal({ slug, phase: 'expanding', from: { x: r.left, y: r.top, w: r.width, h: r.height } });
       document.documentElement.setAttribute('data-portal', 'active');
       const tl = gsap.timeline({
         onComplete: () => {
@@ -197,7 +216,11 @@ export function PortalSystem({ cfg }: { cfg: TierConfig }) {
           done();
         },
       });
-      tl.to(state.rect, { x: 0, y: 0, w: window.innerWidth, h: window.innerHeight, duration: 0.82, ease: 'power3.inOut' }, 0);
+      tl.to(
+        state.rect,
+        { x: 0, y: 0, w: window.innerWidth, h: window.innerHeight, duration: 0.82, ease: 'power3.inOut' },
+        0,
+      );
       tl.to(state, { radius: 0, depth: 1, duration: 0.82, ease: 'power3.inOut' }, 0);
     });
     return () => registerPortalTransition(null);
@@ -238,12 +261,18 @@ export function PortalSystem({ cfg }: { cfg: TierConfig }) {
       gl.setClearColor(0x06070a, 1);
     }
 
-    const renderWorld = (key: PortalTrack | 'transition', world: WorldId, slug: string, rect: ScreenRect, opts: {
-      radius: number;
-      opacity: number;
-      fadeBottom: number;
-      depth: number;
-    }) => {
+    const renderWorld = (
+      key: PortalTrack | 'transition',
+      world: WorldId,
+      slug: string,
+      rect: ScreenRect,
+      opts: {
+        radius: number;
+        opacity: number;
+        fadeBottom: number;
+        depth: number;
+      },
+    ) => {
       let st = states.current.get(key);
       if (!st) {
         st = { live: 0, px: 0, py: 0, target: null, allocW: 0, allocH: 0, seenAt: now };
@@ -256,7 +285,8 @@ export function PortalSystem({ cfg }: { cfg: TierConfig }) {
       const h = Math.max(2, Math.round(rect.h * scale));
       // The transition grows to full screen: reserve the final size once up front.
       const fullScale = Math.min(dpr, maxEdge / Math.max(W, H));
-      const reserve = key === 'transition' ? { w: Math.round(W * fullScale), h: Math.round(H * fullScale) } : undefined;
+      const reserve =
+        key === 'transition' ? { w: Math.round(W * fullScale), h: Math.round(H * fullScale) } : undefined;
       const target = ensureTarget(st, w, h, samples, reserve);
 
       const hov = getPortalHover(slug);
@@ -321,14 +351,21 @@ export function PortalSystem({ cfg }: { cfg: TierConfig }) {
       else st.live = damp(st.live, want ? 1 : 0, want ? 5 : 7, dt);
       const owner = track.kind === 'card' ? track.el.closest<HTMLElement>('[data-project-card]') : track.el;
       const liveFlag = st.live > 0.5;
-      if (owner && owner.hasAttribute('data-portal-live') !== liveFlag) owner.toggleAttribute('data-portal-live', liveFlag);
+      if (owner && owner.hasAttribute('data-portal-live') !== liveFlag)
+        owner.toggleAttribute('data-portal-live', liveFlag);
       if (st.live < 0.01 || transitionOverCanvas || transitionOwns) return;
-      renderWorld(track, track.world as WorldId, track.slug, { x: r.left, y: r.top, w: r.width, h: r.height }, {
-        radius: track.kind === 'card' ? 20 : 0,
-        opacity: st.live,
-        fadeBottom: track.kind === 'hero' ? 1 : 0,
-        depth: track.kind === 'hero' ? 0.25 : 0,
-      });
+      renderWorld(
+        track,
+        track.world as WorldId,
+        track.slug,
+        { x: r.left, y: r.top, w: r.width, h: r.height },
+        {
+          radius: track.kind === 'card' ? 20 : 0,
+          opacity: st.live,
+          fadeBottom: track.kind === 'hero' ? 1 : 0,
+          depth: track.kind === 'hero' ? 0.25 : 0,
+        },
+      );
     });
 
     // Transition overlay.
@@ -343,7 +380,14 @@ export function PortalSystem({ cfg }: { cfg: TierConfig }) {
           const heroSt = states.current.get(hero);
           if (heroSt) heroSt.live = 1;
           const hr = hero.el.getBoundingClientRect();
-          gsap.to(portal.rect, { x: hr.left, y: hr.top, w: hr.width, h: hr.height, duration: 0.6, ease: 'power2.out' });
+          gsap.to(portal.rect, {
+            x: hr.left,
+            y: hr.top,
+            w: hr.width,
+            h: hr.height,
+            duration: 0.6,
+            ease: 'power2.out',
+          });
           gsap.to(portal, { depth: 0.25, duration: 0.6, ease: 'power2.out', onComplete: endTransition });
         } else if (now - portal.startedAt > 3000) {
           endTransition();

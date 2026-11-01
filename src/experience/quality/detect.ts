@@ -11,7 +11,11 @@ export function gatherDeviceSignals(): DeviceSignals {
     const cached = sessionStorage.getItem(CACHE_KEY);
     if (cached) {
       const parsed = JSON.parse(cached) as DeviceSignals;
-      return { ...parsed, viewportWidth: window.innerWidth, coarsePointer: matchMedia('(pointer: coarse)').matches };
+      return {
+        ...parsed,
+        viewportWidth: window.innerWidth,
+        coarsePointer: matchMedia('(pointer: coarse)').matches,
+      };
     }
   } catch {
     /* storage unavailable — probe below */

@@ -53,7 +53,14 @@ export function Prelude({ name }: { name: string }) {
           <circle cx="120" cy="120" r="52" className={styles.r2} />
           <circle cx="120" cy="120" r="28" className={styles.r1} />
           <path d="M120 4v34M120 202v34M4 120h34M202 120h34" className={styles.ticks} />
-          <ellipse cx="120" cy="120" rx="104" ry="36" transform="rotate(-24 120 120)" className={styles.orbit} />
+          <ellipse
+            cx="120"
+            cy="120"
+            rx="104"
+            ry="36"
+            transform="rotate(-24 120 120)"
+            className={styles.orbit}
+          />
         </svg>
         <span className={styles.pulse} />
       </div>

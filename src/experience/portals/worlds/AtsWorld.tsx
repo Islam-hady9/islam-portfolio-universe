@@ -63,7 +63,10 @@ function panelMaterial(seed: number) {
 /** ATS Matching — layered matching interface + flowing data threads (cyan). */
 export function AtsWorld() {
   const panels = useRef<(Group | null)[]>([]);
-  const mats = useMemo(() => Array.from({ length: PANEL_COUNT }, (_, i) => panelMaterial(i * 0.37 + 0.1)), []);
+  const mats = useMemo(
+    () => Array.from({ length: PANEL_COUNT }, (_, i) => panelMaterial(i * 0.37 + 0.1)),
+    [],
+  );
 
   const threads = useMemo(() => {
     const rand = mulberry32(8);
@@ -173,7 +176,11 @@ export function AtsWorld() {
     panels.current.forEach((p, i) => {
       if (!p) return;
       const spread = 0.55 + a.hover * 0.35;
-      p.position.set(-1.0 + i * spread * 0.55, 0.8 + i * 0.16 + Math.sin(a.time * 0.6 + i) * 0.04, -2.6 + i * spread);
+      p.position.set(
+        -1.0 + i * spread * 0.55,
+        0.8 + i * 0.16 + Math.sin(a.time * 0.6 + i) * 0.04,
+        -2.6 + i * spread,
+      );
       p.rotation.set(0, -0.42 + a.hover * 0.08, 0);
     });
   });

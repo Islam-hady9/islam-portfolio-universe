@@ -83,9 +83,21 @@ export function TibynWorld() {
           gl_FragColor = vec4(col, 1.0);
         }`,
     });
-    const pen = new MeshStandardMaterial({ color: '#1a2a30', metalness: 0.6, roughness: 0.45, emissive: new Color('#0b3540'), emissiveIntensity: 0.6, side: DoubleSide });
+    const pen = new MeshStandardMaterial({
+      color: '#1a2a30',
+      metalness: 0.6,
+      roughness: 0.45,
+      emissive: new Color('#0b3540'),
+      emissiveIntensity: 0.6,
+      side: DoubleSide,
+    });
     const post = new MeshStandardMaterial({ color: '#0d1418', metalness: 0.4, roughness: 0.6 });
-    const light = new MeshStandardMaterial({ color: '#000', emissive: new Color('#52e0ff'), emissiveIntensity: 3, toneMapped: false });
+    const light = new MeshStandardMaterial({
+      color: '#000',
+      emissive: new Color('#52e0ff'),
+      emissiveIntensity: 3,
+      toneMapped: false,
+    });
     const ridgeFar = new ShaderMaterial({
       uniforms: { uColor: { value: new Color('#0d2028') } },
       vertexShader: /* glsl */ `varying float vY; void main(){ vY = position.y; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,

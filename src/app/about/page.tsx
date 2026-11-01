@@ -24,7 +24,8 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'Journey, engineering philosophy and capabilities — plus how this portfolio handles unverified content.',
+  description:
+    'Journey, engineering philosophy and capabilities — plus how this portfolio handles unverified content.',
   alternates: process.env.NEXT_PUBLIC_SITE_URL ? { canonical: '/about' } : undefined,
 };
 
@@ -94,7 +95,11 @@ export default function AboutPage() {
         <p className={styles.note}>{extras.pendingNotice}</p>
       </section>
 
-      <section id="content-status" className={`container ${styles.section}`} aria-labelledby="content-status-title">
+      <section
+        id="content-status"
+        className={`container ${styles.section}`}
+        aria-labelledby="content-status-title"
+      >
         <SectionHeading
           id="content-status-title"
           eyebrow="CONTENT STATUS"
@@ -113,15 +118,17 @@ export default function AboutPage() {
           </dl>
           <div className={styles.prose}>
             <p>
-              This site is technically complete, but most portfolio content is intentionally <strong>sample or
-              pending</strong> until the owner&apos;s CV and project materials are reviewed. Copy that came verbatim from the
-              owner&apos;s brief is marked verified; everything drafted during engineering is marked as a placeholder and
-              labelled in the interface (for example &ldquo;Sample journey&rdquo;, &ldquo;Details being prepared&rdquo;
-              and &ldquo;Demo mode&rdquo;).
+              This site is technically complete, but most portfolio content is intentionally{' '}
+              <strong>sample or pending</strong> until the owner&apos;s CV and project materials are reviewed.
+              Copy that came verbatim from the owner&apos;s brief is marked verified; everything drafted
+              during engineering is marked as a placeholder and labelled in the interface (for example
+              &ldquo;Sample journey&rdquo;, &ldquo;Details being prepared&rdquo; and &ldquo;Demo mode&rdquo;).
             </p>
             <p>
-              No employers, dates, metrics, clients or testimonials are invented. While in preview, pages are marked
-              <em> noindex</em>, and a publication gate refuses to build a public release while any placeholder remains.
+              No employers, dates, metrics, clients or testimonials are invented. While in preview, pages are
+              marked
+              <em> noindex</em>, and a publication gate refuses to build a public release while any
+              placeholder remains.
             </p>
             <ol className={styles.steps}>
               <li>Owner provides CV, portfolio files and project materials.</li>
@@ -139,14 +146,16 @@ export default function AboutPage() {
         <SectionHeading id="assistant-title" eyebrow="ASK MY AI" title="How the assistant preview works" />
         <div className={styles.prose}>
           <p>
-            The assistant on the home page is a <strong>demo</strong>. It matches your question against a small set of
-            pre-written entries composed from this site&apos;s content files and shows the records each answer came from.
-            It does not use a language model, is not trained on a CV, and nothing you type leaves your browser.
+            The assistant on the home page is a <strong>demo</strong>. It matches your question against a
+            small set of pre-written entries composed from this site&apos;s content files and shows the
+            records each answer came from. It does not use a language model, is not trained on a CV, and
+            nothing you type leaves your browser.
           </p>
           <p>
-            The interface already speaks the production contract (request, grounded answer, source references, safety
-            policy). After the owner approves the knowledge base, a server-side provider can be connected with citations,
-            refusal of unknown questions, rate limiting and spend controls — without redesigning the experience.
+            The interface already speaks the production contract (request, grounded answer, source references,
+            safety policy). After the owner approves the knowledge base, a server-side provider can be
+            connected with citations, refusal of unknown questions, rate limiting and spend controls — without
+            redesigning the experience.
           </p>
         </div>
       </section>
@@ -177,8 +186,8 @@ export default function AboutPage() {
           </table>
         </div>
         <p className={styles.note}>
-          Built with Next.js, React, TypeScript, three.js / React Three Fiber and GSAP. All 3D is procedural and rendered
-          in real time; there are no stock images or third-party models.
+          Built with Next.js, React, TypeScript, three.js / React Three Fiber and GSAP. All 3D is procedural
+          and rendered in real time; there are no stock images or third-party models.
         </p>
       </section>
     </>

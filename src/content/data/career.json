@@ -12,7 +12,10 @@
       "icon": "grad-cap",
       "current": false,
       "href": null,
-      "verification": { "status": "placeholder", "source": "Engineering placeholder (spec §4.2 sample milestone)" }
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
     },
     {
       "id": "early-experience",
@@ -24,7 +27,10 @@
       "icon": "code",
       "current": false,
       "href": null,
-      "verification": { "status": "placeholder", "source": "Engineering placeholder (spec §4.2 sample milestone)" }
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
     },
     {
       "id": "product-development",
@@ -36,7 +42,10 @@
       "icon": "cube",
       "current": false,
       "href": null,
-      "verification": { "status": "placeholder", "source": "Engineering placeholder (spec §4.2 sample milestone)" }
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
     },
     {
       "id": "digital-solutions",
@@ -48,7 +57,10 @@
       "icon": "globe",
       "current": false,
       "href": null,
-      "verification": { "status": "placeholder", "source": "Engineering placeholder (spec §4.2 sample milestone)" }
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
     },
     {
       "id": "engineering-depth",
@@ -60,7 +72,10 @@
       "icon": "layers",
       "current": false,
       "href": null,
-      "verification": { "status": "placeholder", "source": "Engineering placeholder (spec §4.2 sample milestone)" }
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
     },
     {
       "id": "delivery",
@@ -72,7 +87,10 @@
       "icon": "rocket",
       "current": false,
       "href": null,
-      "verification": { "status": "placeholder", "source": "Engineering placeholder (spec §4.2 sample milestone)" }
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
     },
     {
       "id": "scale",
@@ -84,7 +102,10 @@
       "icon": "network",
       "current": false,
       "href": null,
-      "verification": { "status": "placeholder", "source": "Engineering placeholder (spec §4.2 sample milestone)" }
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
     },
     {
       "id": "ai-products",
@@ -96,7 +117,10 @@
       "icon": "sparkle",
       "current": true,
       "href": null,
-      "verification": { "status": "placeholder", "source": "Engineering placeholder (spec §4.2 sample milestone)" }
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
     }
   ]
 }

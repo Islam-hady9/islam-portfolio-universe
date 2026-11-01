@@ -13,7 +13,15 @@ const toneFor: Record<VerificationStatus, Tone> = {
  * Honest, discreet status marker (spec §4.2: "display a clearly non-factual placeholder
  * where verification is pending"). Visible text — never colour alone.
  */
-export function StatusTag({ tone, children, title }: { tone: Tone; children: React.ReactNode; title?: string }) {
+export function StatusTag({
+  tone,
+  children,
+  title,
+}: {
+  tone: Tone;
+  children: React.ReactNode;
+  title?: string;
+}) {
   return (
     <span className={`${styles.tag} ${styles[tone]}`} title={title} data-status-tag={tone}>
       <span className={styles.dot} aria-hidden="true" />

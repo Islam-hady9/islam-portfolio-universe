@@ -71,7 +71,8 @@ const overflow = await page.evaluate(() => ({
   scrollWidth: document.documentElement.scrollWidth,
   clientWidth: document.documentElement.clientWidth,
 }));
-if (overflow.scrollWidth > overflow.clientWidth) logs.push(`[overflow] scrollWidth ${overflow.scrollWidth} > ${overflow.clientWidth}`);
+if (overflow.scrollWidth > overflow.clientWidth)
+  logs.push(`[overflow] scrollWidth ${overflow.scrollWidth} > ${overflow.clientWidth}`);
 await page.waitForTimeout(Number(flag('wait', 1500)));
 mkdirSync(dirname(out), { recursive: true });
 await page.screenshot({ path: out, fullPage: Boolean(flag('full', false)) });

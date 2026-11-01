@@ -314,7 +314,12 @@ export type AssistantKnowledge = z.infer<typeof assistantKnowledgeSchema>;
 export const assetAttributionSchema = z.object({
   id: z.string(),
   asset: z.string(),
-  origin: z.enum(['original-procedural', 'original-generated-from-site', 'third-party-licensed', 'owner-supplied']),
+  origin: z.enum([
+    'original-procedural',
+    'original-generated-from-site',
+    'third-party-licensed',
+    'owner-supplied',
+  ]),
   license: z.string(),
   source: z.string(),
   notes: z.string().optional(),

@@ -31,14 +31,31 @@
 }
 .tibyn .layerA {
   background: linear-gradient(180deg, transparent 32%, rgb(5 12 16 / 0.95) 32.5%, transparent 48%);
-  clip-path: polygon(0 48%, 8% 34%, 18% 40%, 30% 26%, 42% 38%, 55% 30%, 68% 42%, 80% 28%, 92% 38%, 100% 33%, 100% 48%);
+  clip-path: polygon(
+    0 48%,
+    8% 34%,
+    18% 40%,
+    30% 26%,
+    42% 38%,
+    55% 30%,
+    68% 42%,
+    80% 28%,
+    92% 38%,
+    100% 33%,
+    100% 48%
+  );
   background: #071116;
 }
 .tibyn .layerB {
   background:
     radial-gradient(ellipse 22% 7% at 30% 72%, transparent 70%, rgb(170 225 230 / 0.55) 74%, transparent 80%),
     radial-gradient(ellipse 16% 5% at 66% 64%, transparent 70%, rgb(170 225 230 / 0.45) 74%, transparent 80%),
-    radial-gradient(ellipse 10% 3.2% at 48% 56%, transparent 68%, rgb(170 225 230 / 0.4) 74%, transparent 82%),
+    radial-gradient(
+      ellipse 10% 3.2% at 48% 56%,
+      transparent 68%,
+      rgb(170 225 230 / 0.4) 74%,
+      transparent 82%
+    ),
     radial-gradient(ellipse 8% 2.6% at 82% 54%, transparent 68%, rgb(170 225 230 / 0.35) 74%, transparent 82%);
 }
 .tibyn .layerC {
@@ -99,17 +116,38 @@
     linear-gradient(rgb(var(--cyan-rgb) / 0.35), rgb(var(--cyan-rgb) / 0.35)) 60% 50% / 30% 3px no-repeat;
 }
 .ats .layerC {
-  background: radial-gradient(ellipse 60% 12% at 50% 82%, transparent 60%, rgb(var(--cyan-rgb) / 0.5) 62%, transparent 66%);
+  background: radial-gradient(
+    ellipse 60% 12% at 50% 82%,
+    transparent 60%,
+    rgb(var(--cyan-rgb) / 0.5) 62%,
+    transparent 66%
+  );
 }
 
 /* LifeAtlas — constellation over wireframe mountains, violet-mint */
 .lifeatlas .art {
   background:
-    radial-gradient(14% 14% at 56% 40%, rgb(220 210 255 / 0.9), rgb(var(--violet-rgb) / 0.4) 40%, transparent 70%),
+    radial-gradient(
+      14% 14% at 56% 40%,
+      rgb(220 210 255 / 0.9),
+      rgb(var(--violet-rgb) / 0.4) 40%,
+      transparent 70%
+    ),
     linear-gradient(180deg, #08101a 0%, #0b1a22 60%, #061014 100%);
 }
 .lifeatlas .layerA {
-  clip-path: polygon(0 80%, 14% 58%, 26% 70%, 40% 44%, 56% 38%, 70% 56%, 84% 46%, 100% 62%, 100% 100%, 0 100%);
+  clip-path: polygon(
+    0 80%,
+    14% 58%,
+    26% 70%,
+    40% 44%,
+    56% 38%,
+    70% 56%,
+    84% 46%,
+    100% 62%,
+    100% 100%,
+    0 100%
+  );
   background:
     repeating-linear-gradient(170deg, transparent 0 7px, rgb(var(--mint-rgb) / 0.32) 7px 8px),
     repeating-linear-gradient(80deg, transparent 0 11px, rgb(var(--mint-rgb) / 0.18) 11px 12px),

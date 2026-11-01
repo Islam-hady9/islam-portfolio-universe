@@ -7,13 +7,35 @@ test.describe('accessibility (IU-010, WCAG 2.2 AA where feasible)', () => {
     test(`axe: ${route}`, async ({ page }, testInfo) => {
       await page.goto(route === '/' ? '/?intro=0' : route);
       await scrollThrough(page);
-      const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
+      const results = await new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+        .analyze();
       const serious = results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
       await testInfo.attach('axe-violations', {
-        body: JSON.stringify(results.violations.map((v) => ({ id: v.id, impact: v.impact, nodes: v.nodes.length, help: v.help })), null, 2),
+        body: JSON.stringify(
+          results.violations.map((v) => ({
+            id: v.id,
+            impact: v.impact,
+            nodes: v.nodes.length,
+            help: v.help,
+          })),
+          null,
+          2,
+        ),
         contentType: 'application/json',
       });
-      expect(serious, serious.map((v) => `${v.id}: ${v.help} (${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')})`).join('\n')).toEqual([]);
+      expect(
+        serious,
+        serious
+          .map(
+            (v) =>
+              `${v.id}: ${v.help} (${v.nodes
+                .map((n) => n.target.join(' '))
+                .slice(0, 3)
+                .join(' | ')})`,
+          )
+          .join('\n'),
+      ).toEqual([]);
     });
   }
 
@@ -30,7 +52,8 @@ test.describe('accessibility (IU-010, WCAG 2.2 AA where feasible)', () => {
   test('keyboard reaches hero CTAs, universe destinations and journey milestones', async ({ page }) => {
     await gotoHome(page);
     const explore = page.locator('[data-action="hero-explore"]');
-    for (let i = 0; i < 25 && !(await explore.evaluate((el) => el === document.activeElement)); i++) await page.keyboard.press('Tab');
+    for (let i = 0; i < 25 && !(await explore.evaluate((el) => el === document.activeElement)); i++)
+      await page.keyboard.press('Tab');
     await expect(explore).toBeFocused();
     await page.locator('[data-node="stack"] a').focus();
     await expect(page.locator('[data-node="stack"] a')).toBeFocused();

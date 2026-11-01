@@ -146,7 +146,15 @@ export function Aurora({
 }
 
 /** Ultra-subtle data streams behind the capability panels (spec S6, high tier only). */
-export function DataStreams({ center, stationIndex, pixelRatio }: { center: [number, number, number]; stationIndex: number; pixelRatio: number }) {
+export function DataStreams({
+  center,
+  stationIndex,
+  pixelRatio,
+}: {
+  center: [number, number, number];
+  stationIndex: number;
+  pixelRatio: number;
+}) {
   const { g, m } = useMemo(() => {
     const streams = 7;
     const per = 140;

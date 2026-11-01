@@ -23,7 +23,11 @@ test.describe('responsive layouts & screenshots (IU-001, IU-009, IU-020)', () =>
   for (const vp of VIEWPORTS) {
     test(`home ${vp.w}x${vp.h}: no overflow, evidence captured`, async ({ browser }) => {
       const mobile = vp.w < 768;
-      const context = await browser.newContext({ viewport: { width: vp.w, height: vp.h }, isMobile: mobile, hasTouch: mobile });
+      const context = await browser.newContext({
+        viewport: { width: vp.w, height: vp.h },
+        isMobile: mobile,
+        hasTouch: mobile,
+      });
       const page = await context.newPage();
       await gotoHome(page, 'quality=static');
       await noHorizontalOverflow(page);

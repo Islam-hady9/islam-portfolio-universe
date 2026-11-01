@@ -16,7 +16,8 @@ const context = await browser.newContext({ viewport: { width: 1440, height: 900 
 await context.addInitScript(() => {
   window.__LONG_TASKS__ = [];
   new PerformanceObserver((list) => {
-    for (const e of list.getEntries()) window.__LONG_TASKS__.push([Math.round(e.startTime), Math.round(e.duration)]);
+    for (const e of list.getEntries())
+      window.__LONG_TASKS__.push([Math.round(e.startTime), Math.round(e.duration)]);
   }).observe({ type: 'longtask', buffered: true });
 });
 
@@ -24,12 +25,24 @@ const rows = [];
 for (const visit of ['first', 'repeat']) {
   const page = await context.newPage();
   await page.goto(`${base}/?intro=0${quality ? `&quality=${quality}` : ''}`, { waitUntil: 'load' });
-  await page.waitForFunction(() => window.__IU__?.state?.().webgl === 'ready', null, { timeout: 30000, polling: 'raf' });
+  await page.waitForFunction(() => window.__IU__?.state?.().webgl === 'ready', null, {
+    timeout: 30000,
+    polling: 'raf',
+  });
   const readyAt = await page.evaluate(() => Math.round(performance.now()));
   await page.waitForTimeout(1500);
-  const { tasks, tier } = await page.evaluate(() => ({ tasks: window.__LONG_TASKS__, tier: window.__IU__.state().tier }));
+  const { tasks, tier } = await page.evaluate(() => ({
+    tasks: window.__LONG_TASKS__,
+    tier: window.__IU__.state().tier,
+  }));
   const blocking = tasks.reduce((sum, [, d]) => sum + Math.max(0, d - 50), 0);
-  rows.push({ visit, tier, readyAtMs: readyAt, longTasks: tasks.map(([s, d]) => `(${s}, ${d})`).join(' '), blockingMs: blocking });
+  rows.push({
+    visit,
+    tier,
+    readyAtMs: readyAt,
+    longTasks: tasks.map(([s, d]) => `(${s}, ${d})`).join(' '),
+    blockingMs: blocking,
+  });
   await page.close();
 }
 await browser.close();

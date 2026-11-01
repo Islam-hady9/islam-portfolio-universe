@@ -60,7 +60,10 @@ test.describe('projects & case studies (IU-005, IU-016)', () => {
     await expect(page.locator('[data-project-card]')).toHaveCount(1);
     await page.getByRole('button', { name: /^All/ }).click();
     await page.getByRole('button', { name: 'List' }).click();
-    await expect(page.getByRole('link', { name: 'ATS Matching' })).toHaveAttribute('href', '/projects/ats-matching');
+    await expect(page.getByRole('link', { name: 'ATS Matching' })).toHaveAttribute(
+      'href',
+      '/projects/ats-matching',
+    );
   });
 
   test('case study navigation: next world, related, back to universe', async ({ page }) => {

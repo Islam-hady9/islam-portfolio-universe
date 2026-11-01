@@ -36,7 +36,12 @@ export function SectionHeading({
     <div className={[styles.heading, className].filter(Boolean).join(' ')}>
       <div className={styles.text}>
         <Eyebrow>{eyebrow}</Eyebrow>
-        <Tag id={id} className={size === 'lg' ? styles.titleLg : styles.title} data-reveal="lines" tabIndex={-1}>
+        <Tag
+          id={id}
+          className={size === 'lg' ? styles.titleLg : styles.title}
+          data-reveal="lines"
+          tabIndex={-1}
+        >
           {title}
         </Tag>
         {description ? (

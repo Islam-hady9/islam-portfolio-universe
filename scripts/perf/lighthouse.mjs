@@ -30,7 +30,16 @@ for (const r of runs) {
   const path = join(outDir, r.name);
   execFileSync(
     process.execPath,
-    [lhBin, r.url, ...r.args, '--output=json', '--output=html', `--output-path=${path}`, `--chrome-flags=${r.flags}`, '--quiet'],
+    [
+      lhBin,
+      r.url,
+      ...r.args,
+      '--output=json',
+      '--output=html',
+      `--output-path=${path}`,
+      `--chrome-flags=${r.flags}`,
+      '--quiet',
+    ],
     { stdio: 'inherit' },
   );
   const report = JSON.parse(readFileSync(`${path}.report.json`, 'utf8'));

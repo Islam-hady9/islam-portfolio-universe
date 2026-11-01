@@ -15,7 +15,10 @@ test.describe('mobile & touch (IU-009)', () => {
     await expect(menu).toBeHidden();
     await expect(page.getByRole('button', { name: 'Open menu' })).toBeFocused();
     await page.getByRole('button', { name: 'Open menu' }).tap();
-    await page.getByRole('navigation', { name: 'Mobile primary' }).getByRole('link', { name: 'Experience' }).tap();
+    await page
+      .getByRole('navigation', { name: 'Mobile primary' })
+      .getByRole('link', { name: 'Experience' })
+      .tap();
     await expectInViewport(page, '#experience');
     await expect(page.getByRole('navigation', { name: 'Mobile primary' })).toBeHidden();
   });
@@ -25,7 +28,9 @@ test.describe('mobile & touch (IU-009)', () => {
     const list = page.locator('[data-universe-nodes]');
     await list.scrollIntoViewIfNeeded();
     await expect(list).toHaveAttribute('data-mode', 'static');
-    const rects = await page.$$eval('[data-universe-nodes] [data-node] a', (as) => as.map((a) => a.getBoundingClientRect().top));
+    const rects = await page.$$eval('[data-universe-nodes] [data-node] a', (as) =>
+      as.map((a) => a.getBoundingClientRect().top),
+    );
     for (let i = 1; i < rects.length; i++) expect(rects[i]!).toBeGreaterThan(rects[i - 1]!);
     const target = page.locator('[data-node="contact"] a');
     const size = await target.evaluate((a) => a.getBoundingClientRect().height);
@@ -45,7 +50,13 @@ test.describe('mobile & touch (IU-009)', () => {
           // Stretched links (card titles) expose their whole card via an absolutely positioned ::after.
           const after = getComputedStyle(e, '::after');
           const stretched = after.content !== 'none' && after.position === 'absolute';
-          return !stretched && r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && (r.height < 32 || r.width < 32);
+          return (
+            !stretched &&
+            r.width > 0 &&
+            r.height > 0 &&
+            s.visibility !== 'hidden' &&
+            (r.height < 32 || r.width < 32)
+          );
         })
         .map((e) => (e.textContent || e.getAttribute('aria-label') || e.tagName).trim().slice(0, 40)),
     );

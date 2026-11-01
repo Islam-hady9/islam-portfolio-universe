@@ -16,14 +16,20 @@ url.searchParams.set('intro', '0');
 if (flag('quality', null)) url.searchParams.set('quality', flag('quality'));
 mkdirSync(outDir, { recursive: true });
 
-const browser = await chromium.launch({ headless: true, channel: 'chromium', args: ['--enable-gpu', '--ignore-gpu-blocklist', '--use-angle=d3d11'] });
+const browser = await chromium.launch({
+  headless: true,
+  channel: 'chromium',
+  args: ['--enable-gpu', '--ignore-gpu-blocklist', '--use-angle=d3d11'],
+});
 const page = await (await browser.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
 const errors = [];
 page.on('pageerror', (e) => errors.push(e.message));
 page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
 await page.goto(url.toString(), { waitUntil: 'networkidle' });
 await page.waitForFunction(() => window.__IU__?.state?.().webgl === 'ready', null, { timeout: 30000 });
-await page.evaluate(() => document.getElementById('projects')?.scrollIntoView({ block: 'center', behavior: 'instant' }));
+await page.evaluate(() =>
+  document.getElementById('projects')?.scrollIntoView({ block: 'center', behavior: 'instant' }),
+);
 await page.waitForTimeout(2500);
 
 for (const s of ['tibyn', 'movid', 'ats-matching', 'lifeatlas']) {
@@ -46,6 +52,22 @@ for (const ms of [120, 380, 700, 1100, 1700, 2600]) {
   await page.screenshot({ path: join(outDir, `transition-${String(ms).padStart(4, '0')}.png`) });
 }
 await page.waitForTimeout(800);
-console.log(JSON.stringify({ finalUrl: page.url(), portalAttr: await page.evaluate(() => document.documentElement.getAttribute('data-portal')), heroLive: await page.evaluate(() => !!document.querySelector('[data-case-study-hero] [data-portal-live], [data-portal-live][data-portal-track]')), errors }, null, 2));
+console.log(
+  JSON.stringify(
+    {
+      finalUrl: page.url(),
+      portalAttr: await page.evaluate(() => document.documentElement.getAttribute('data-portal')),
+      heroLive: await page.evaluate(
+        () =>
+          !!document.querySelector(
+            '[data-case-study-hero] [data-portal-live], [data-portal-live][data-portal-track]',
+          ),
+      ),
+      errors,
+    },
+    null,
+    2,
+  ),
+);
 await page.screenshot({ path: join(outDir, 'case-study-final.png') });
 await browser.close();

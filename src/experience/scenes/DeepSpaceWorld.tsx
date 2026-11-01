@@ -77,7 +77,13 @@ export function DeepSpaceWorld({ cfg, pixelRatio }: { cfg: TierConfig; pixelRati
         atmosphereStrength={0.8}
         seed={14}
       />
-      <Dust count={Math.round(cfg.dust * 0.7)} center={[0, 0, -6]} size={[40, 40, 24]} pixelRatio={pixelRatio} color="#9fb8d0" />
+      <Dust
+        count={Math.round(cfg.dust * 0.7)}
+        center={[0, 0, -6]}
+        size={[40, 40, 24]}
+        pixelRatio={pixelRatio}
+        color="#9fb8d0"
+      />
     </>
   );
 }

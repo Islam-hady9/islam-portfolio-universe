@@ -67,7 +67,10 @@ test.describe('home & navigation (IU-002, IU-006)', () => {
       await page.goto(`/?intro=0#${id}`);
       await expectInViewport(page, `#${id}`);
       const top = await page.locator(`#${id}`).evaluate((el) => el.getBoundingClientRect().top);
-      const header = await page.locator('header').first().evaluate((el) => el.getBoundingClientRect().height);
+      const header = await page
+        .locator('header')
+        .first()
+        .evaluate((el) => el.getBoundingClientRect().height);
       expect(top).toBeGreaterThanOrEqual(header - 2);
     }
   });
@@ -77,7 +80,14 @@ test.describe('home & navigation (IU-002, IU-006)', () => {
     const links = page.locator('[data-universe-nodes] a');
     await expect(links).toHaveCount(6);
     const hrefs = await links.evaluateAll((as) => as.map((a) => a.getAttribute('href')));
-    expect(hrefs).toEqual(['/#capabilities', '/#projects', '/projects', '/#contact', '/#capabilities', '/#experience']);
+    expect(hrefs).toEqual([
+      '/#capabilities',
+      '/#projects',
+      '/projects',
+      '/#contact',
+      '/#capabilities',
+      '/#experience',
+    ]);
     await page.locator('[data-node="case-studies"] a').click();
     await expect(page).toHaveURL(/\/projects$/);
   });

@@ -153,7 +153,6 @@ export function MovidWorld() {
     mats.hero.uniforms.uHover!.value = a.hover;
   });
 
-
   return (
     <>
       <color attach="background" args={['#05040c']} />

@@ -145,7 +145,8 @@ export function JourneyTimeline({ entries }: { entries: CareerEntry[] }) {
         <p className={styles.detailTitle}>{entry.title}</p>
         <p className={styles.detailText}>{entry.summary}</p>
         <p className={styles.detailMeta}>
-          {entry.organization ?? 'Organisation pending CV review'} · {entry.period ?? 'Dates pending CV review'}
+          {entry.organization ?? 'Organisation pending CV review'} ·{' '}
+          {entry.period ?? 'Dates pending CV review'}
         </p>
       </div>
     </div>

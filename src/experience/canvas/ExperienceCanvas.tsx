@@ -53,7 +53,11 @@ export default function ExperienceCanvas({ tier }: { tier: QualityTier }) {
       <Sky />
       <Starfield count={cfg.stars} pixelRatio={pixelRatio} />
       <group ref={worldRef} name="world-root">
-        {home ? <HomeWorld cfg={cfg} pixelRatio={pixelRatio} /> : <DeepSpaceWorld cfg={cfg} pixelRatio={pixelRatio} />}
+        {home ? (
+          <HomeWorld cfg={cfg} pixelRatio={pixelRatio} />
+        ) : (
+          <DeepSpaceWorld cfg={cfg} pixelRatio={pixelRatio} />
+        )}
       </group>
       <PortalSystem cfg={cfg} />
       <IntroDirector />

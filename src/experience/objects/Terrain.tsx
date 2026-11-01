@@ -23,7 +23,12 @@ export interface TerrainShape {
 
 /** Seeded procedural terrain heights (deterministic). Exported for tests. */
 export function buildTerrainGeometry(shape: TerrainShape): PlaneGeometry {
-  const g = new PlaneGeometry(shape.width, shape.depth, shape.segments, Math.round(shape.segments * (shape.depth / shape.width)));
+  const g = new PlaneGeometry(
+    shape.width,
+    shape.depth,
+    shape.segments,
+    Math.round(shape.segments * (shape.depth / shape.width)),
+  );
   g.rotateX(-Math.PI / 2);
   const pos = g.attributes.position as BufferAttribute;
   for (let i = 0; i < pos.count; i++) {
@@ -84,7 +89,10 @@ export function Terrain({
       shader.uniforms.uRimColor = { value: rim };
       shader.uniforms.uRimStrength = { value: rimStrength };
       shader.fragmentShader = shader.fragmentShader
-        .replace('#include <common>', '#include <common>\nuniform vec3 uRimColor;\nuniform float uRimStrength;')
+        .replace(
+          '#include <common>',
+          '#include <common>\nuniform vec3 uRimColor;\nuniform float uRimStrength;',
+        )
         .replace(
           '#include <emissivemap_fragment>',
           `#include <emissivemap_fragment>
@@ -105,5 +113,7 @@ export function Terrain({
     [geometry, material],
   );
 
-  return <mesh name={name} geometry={geometry} material={material} position={position} receiveShadow={false} />;
+  return (
+    <mesh name={name} geometry={geometry} material={material} position={position} receiveShadow={false} />
+  );
 }

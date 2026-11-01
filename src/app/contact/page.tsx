@@ -58,7 +58,9 @@ export default function ContactPage() {
                 {s.url ? (
                   <>
                     <p className={styles.muted}>
-                      {s.verification.status === 'placeholder' ? 'Profile link pending owner confirmation.' : 'Public profile.'}
+                      {s.verification.status === 'placeholder'
+                        ? 'Profile link pending owner confirmation.'
+                        : 'Public profile.'}
                     </p>
                     <SocialAction link={s} />
                   </>
@@ -88,15 +90,19 @@ export default function ContactPage() {
         <div className={styles.facts}>
           <p>
             <strong>Availability:</strong>{' '}
-            <span className={styles.muted}>{contact.availability ?? 'To be confirmed after the profile review.'}</span>
+            <span className={styles.muted}>
+              {contact.availability ?? 'To be confirmed after the profile review.'}
+            </span>
           </p>
           <p>
             <strong>Location:</strong>{' '}
-            <span className={styles.muted}>{contact.location ?? 'To be confirmed after the profile review.'}</span>
+            <span className={styles.muted}>
+              {contact.location ?? 'To be confirmed after the profile review.'}
+            </span>
           </p>
           <p className={styles.muted}>
-            There is intentionally no contact form yet: a form will only be added together with a real backend and spam
-            protection.
+            There is intentionally no contact form yet: a form will only be added together with a real backend
+            and spam protection.
           </p>
         </div>
 

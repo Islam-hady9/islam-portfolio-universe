@@ -2,7 +2,14 @@
 
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo } from 'react';
-import { AdditiveBlending, BufferAttribute, BufferGeometry, Line, PlaneGeometry, ShaderMaterial } from 'three';
+import {
+  AdditiveBlending,
+  BufferAttribute,
+  BufferGeometry,
+  Line,
+  PlaneGeometry,
+  ShaderMaterial,
+} from 'three';
 import { mulberry32, ridged2 } from '../../math/noise';
 import { activity, glowMaterial } from './kit';
 

@@ -22,7 +22,17 @@ const height = Number(flag('h', 900));
 const quality = flag('quality', 'ultra');
 const pairs = flag('pairs', '0,1,2,3,4,5,6,7').split(',').map(Number);
 const fractions = flag('fractions', '0.2,0.35,0.5,0.65').split(',').map(Number);
-const ids = ['top', 'identity', 'universe', 'projects', 'philosophy', 'capabilities', 'experience', 'ask-ai', 'contact'];
+const ids = [
+  'top',
+  'identity',
+  'universe',
+  'projects',
+  'philosophy',
+  'capabilities',
+  'experience',
+  'ask-ai',
+  'contact',
+];
 
 mkdirSync(outDir, { recursive: true });
 const browser = await chromium.launch({

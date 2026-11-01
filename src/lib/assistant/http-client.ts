@@ -1,4 +1,9 @@
-import { LIVE_UNAVAILABLE_DISCLAIMER, type AskRequest, type AssistantClient, type GroundedAnswer } from './contracts';
+import {
+  LIVE_UNAVAILABLE_DISCLAIMER,
+  type AskRequest,
+  type AssistantClient,
+  type GroundedAnswer,
+} from './contracts';
 
 /**
  * Transport for the future live assistant. Talks only to this site's own /api/assistant

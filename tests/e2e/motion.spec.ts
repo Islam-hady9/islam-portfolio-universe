@@ -3,7 +3,10 @@ import { gotoHome, trackErrors } from './helpers';
 
 test.describe('motion, intro and fallbacks (IU-010, IU-011, IU-014, IU-022)', () => {
   test('reduced motion: no prelude, no hidden reveals, motion flag set', async ({ browser }) => {
-    const context = await browser.newContext({ reducedMotion: 'reduce', viewport: { width: 1440, height: 900 } });
+    const context = await browser.newContext({
+      reducedMotion: 'reduce',
+      viewport: { width: 1440, height: 900 },
+    });
     const page = await context.newPage();
     await page.goto('/');
     await expect(page.locator('html')).toHaveAttribute('data-motion', 'reduced');
@@ -11,8 +14,11 @@ test.describe('motion, intro and fallbacks (IU-010, IU-011, IU-014, IU-022)', ()
     await expect(page.locator('[data-prelude]')).toBeHidden();
     // Content far below the fold is visible without scroll-triggered reveals.
     await page.locator('#capabilities').scrollIntoViewIfNeeded();
-    const hidden = await page.$$eval('[data-reveal], [data-reveal-item]', (els) =>
-      els.filter((e) => getComputedStyle(e).opacity === '0' || getComputedStyle(e).visibility === 'hidden').length,
+    const hidden = await page.$$eval(
+      '[data-reveal], [data-reveal-item]',
+      (els) =>
+        els.filter((e) => getComputedStyle(e).opacity === '0' || getComputedStyle(e).visibility === 'hidden')
+          .length,
     );
     expect(hidden).toBe(0);
     await context.close();
@@ -42,7 +48,11 @@ test.describe('motion, intro and fallbacks (IU-010, IU-011, IU-014, IU-022)', ()
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     await context.addInitScript(() => {
       const orig = HTMLCanvasElement.prototype.getContext;
-      HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement, type: string, ...args: unknown[]) {
+      HTMLCanvasElement.prototype.getContext = function (
+        this: HTMLCanvasElement,
+        type: string,
+        ...args: unknown[]
+      ) {
         if (/webgl/i.test(type)) return null;
         return (orig as (...a: unknown[]) => unknown).call(this, type, ...args);
       } as typeof orig;
@@ -79,7 +89,9 @@ test.describe('motion, intro and fallbacks (IU-010, IU-011, IU-014, IU-022)', ()
   test('forced lite tier renders WebGL and survives a context loss', async ({ page }) => {
     test.slow();
     await gotoHome(page, 'quality=lite');
-    await expect.poll(() => page.evaluate(() => window.__IU__?.state().webgl), { timeout: 30_000 }).toBe('ready');
+    await expect
+      .poll(() => page.evaluate(() => window.__IU__?.state().webgl), { timeout: 30_000 })
+      .toBe('ready');
     const lost = await page.evaluate(() => window.__IU__?.loseContext?.());
     expect(lost).toBe(true);
     await expect.poll(() => page.evaluate(() => window.__IU__?.state().webgl)).toBe('lost');
@@ -87,6 +99,8 @@ test.describe('motion, intro and fallbacks (IU-010, IU-011, IU-014, IU-022)', ()
     await page.locator('[data-action="hero-talk"]').click();
     await expect(page).toHaveURL(/#contact$/);
     await page.evaluate(() => window.__IU__?.restoreContext?.());
-    await expect.poll(() => page.evaluate(() => window.__IU__?.state().webgl), { timeout: 30_000 }).toBe('ready');
+    await expect
+      .poll(() => page.evaluate(() => window.__IU__?.state().webgl), { timeout: 30_000 })
+      .toBe('ready');
   });
 });

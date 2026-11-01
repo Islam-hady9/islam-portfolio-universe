@@ -12,7 +12,10 @@ import styles from './ExperienceRoot.module.css';
  * changes. The heavy three.js bundle is code-split and requested only after hydration and an
  * idle slot, so reading content and reaching CTAs never waits on 3D (spec §8.1).
  */
-const ExperienceCanvas = dynamic(() => import('./canvas/ExperienceCanvas'), { ssr: false, loading: () => null });
+const ExperienceCanvas = dynamic(() => import('./canvas/ExperienceCanvas'), {
+  ssr: false,
+  loading: () => null,
+});
 
 export function ExperienceRoot() {
   const preference = useExperience((s) => s.qualityPreference);
@@ -23,7 +26,6 @@ export function ExperienceRoot() {
   const [generation, setGeneration] = useState(0);
 
   const webglAvailable = useExperience((s) => s.webglAvailable);
-
 
   // Preference × detection → effective tier.
   useEffect(() => {

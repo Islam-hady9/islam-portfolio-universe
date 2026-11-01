@@ -53,7 +53,9 @@ export function activeNavId(pathname: string, activeSection: SectionId | null): 
     const bySection = PRIMARY_NAV.find((n) => activeSection && n.sections?.includes(activeSection));
     return bySection ? bySection.id : 'home';
   }
-  const byPath = PRIMARY_NAV.find((n) => n.paths?.some((p) => pathname === p || pathname.startsWith(`${p}/`)));
+  const byPath = PRIMARY_NAV.find((n) =>
+    n.paths?.some((p) => pathname === p || pathname.startsWith(`${p}/`)),
+  );
   return byPath ? byPath.id : null;
 }
 

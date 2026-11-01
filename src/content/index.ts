@@ -71,15 +71,18 @@ export function validateReferences(c: Content = content): string[] {
   if (slugs.size !== c.projects.length) problems.push('Duplicate project slugs.');
   for (const cs of c.caseStudies) {
     if (!slugs.has(cs.slug)) problems.push(`Case study "${cs.slug}" has no matching project.`);
-    for (const r of cs.related) if (!slugs.has(r)) problems.push(`Case study "${cs.slug}" relates to unknown "${r}".`);
+    for (const r of cs.related)
+      if (!slugs.has(r)) problems.push(`Case study "${cs.slug}" relates to unknown "${r}".`);
     if (cs.diagram) {
       const ids = new Set(cs.diagram.nodes.map((n) => n.id));
       for (const e of cs.diagram.edges)
-        if (!ids.has(e.from) || !ids.has(e.to)) problems.push(`Diagram edge ${e.from}→${e.to} in "${cs.slug}" is dangling.`);
+        if (!ids.has(e.from) || !ids.has(e.to))
+          problems.push(`Diagram edge ${e.from}→${e.to} in "${cs.slug}" is dangling.`);
     }
   }
   for (const p of c.projects)
-    if (!c.caseStudies.some((cs) => cs.slug === p.slug)) problems.push(`Project "${p.slug}" has no case study record.`);
+    if (!c.caseStudies.some((cs) => cs.slug === p.slug))
+      problems.push(`Project "${p.slug}" has no case study record.`);
   const entryIds = new Set(c.assistant.entries.map((e) => e.id));
   for (const prompt of c.assistant.samplePrompts)
     if (!entryIds.has(prompt.entryId)) problems.push(`Sample prompt "${prompt.id}" points to missing entry.`);
@@ -93,7 +96,8 @@ export function validateReferences(c: Content = content): string[] {
     }
   }
   for (const n of c.universe) {
-    if (n.focus && !capIds.has(n.focus)) problems.push(`Universe node "${n.id}" focuses unknown capability "${n.focus}".`);
+    if (n.focus && !capIds.has(n.focus))
+      problems.push(`Universe node "${n.id}" focuses unknown capability "${n.focus}".`);
   }
   return problems;
 }

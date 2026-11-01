@@ -205,7 +205,10 @@ export function UniverseStation({ cfg, pixelRatio }: { cfg: TierConfig; pixelRat
   );
 
   // DOM bridge: switch the node list into live mode while this station is mounted (desktop only).
-  const domRef = useRef<{ list: HTMLElement | null; items: Map<string, HTMLElement> }>({ list: null, items: new Map() });
+  const domRef = useRef<{ list: HTMLElement | null; items: Map<string, HTMLElement> }>({
+    list: null,
+    items: new Map(),
+  });
   useEffect(() => {
     const list = document.querySelector<HTMLElement>('[data-universe-nodes]');
     const items = new Map<string, HTMLElement>();
@@ -253,7 +256,10 @@ export function UniverseStation({ cfg, pixelRatio }: { cfg: TierConfig; pixelRat
   useFrame(() => {
     const g = root.current;
     if (!g) return;
-    const p = frame.route === 'home' ? Math.max(frame.presence[2] ?? 0, (frame.presence[1] ?? 0) * 0.7, (frame.presence[3] ?? 0) * 0.7) : 0;
+    const p =
+      frame.route === 'home'
+        ? Math.max(frame.presence[2] ?? 0, (frame.presence[1] ?? 0) * 0.7, (frame.presence[3] ?? 0) * 0.7)
+        : 0;
     const visible = frame.route === 'home' && frame.s > 0.6 && frame.s < 3.8;
     g.visible = visible;
     const { list, items } = domRef.current;

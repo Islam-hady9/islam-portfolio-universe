@@ -37,7 +37,11 @@ export function Header({ displayName, roleLabel }: { displayName: string; roleLa
   }
 
   return (
-    <header className={styles.header} data-scrolled={scrolled || undefined} data-menu-open={menuOpen || undefined}>
+    <header
+      className={styles.header}
+      data-scrolled={scrolled || undefined}
+      data-menu-open={menuOpen || undefined}
+    >
       <div className={styles.bar}>
         <Link href={routes.home} className={styles.brand}>
           <BrandMark gradientId="bm-header" />

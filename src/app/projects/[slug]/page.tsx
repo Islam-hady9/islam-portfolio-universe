@@ -208,8 +208,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 <StatusTag tone="pending">Details being prepared</StatusTag>
               </div>
               <p className={styles.muted}>
-                These parts of the case study will be published after content review. Nothing here is guessed or
-                generated.
+                These parts of the case study will be published after content review. Nothing here is guessed
+                or generated.
               </p>
               <ul className={styles.pendingList}>
                 {pending.map((p) => (
@@ -240,7 +240,13 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <ButtonLink href={routes.projects} icon="layers" dataAction="cs-all-projects">
               All projects
             </ButtonLink>
-            <ButtonLink href={routes.contact} variant="primary" icon="send" trailingIcon="arrow-right" dataAction="cs-contact">
+            <ButtonLink
+              href={routes.contact}
+              variant="primary"
+              icon="send"
+              trailingIcon="arrow-right"
+              dataAction="cs-contact"
+            >
               Talk about a project
             </ButtonLink>
           </div>

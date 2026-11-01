@@ -38,7 +38,8 @@ export function PointerAura() {
       const mk = 1 - Math.exp(-dt * 12);
       magnetCurrent.x += (magnetOffset.x - magnetCurrent.x) * mk;
       magnetCurrent.y += (magnetOffset.y - magnetCurrent.y) * mk;
-      if (magnetInner) magnetInner.style.transform = `translate3d(${magnetCurrent.x}px, ${magnetCurrent.y}px, 0)`;
+      if (magnetInner)
+        magnetInner.style.transform = `translate3d(${magnetCurrent.x}px, ${magnetCurrent.y}px, 0)`;
 
       const settled =
         Math.abs(target.x - pos.x) < 0.3 &&

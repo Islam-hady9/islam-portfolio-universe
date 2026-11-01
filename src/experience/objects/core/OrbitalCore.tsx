@@ -52,7 +52,12 @@ function chrome(physical: boolean): Material {
         clearcoatRoughness: 0.14,
         envMapIntensity: 1.55,
       })
-    : new MeshStandardMaterial({ color: new Color('#cfd6dd'), metalness: 1, roughness: 0.26, envMapIntensity: 1.4 });
+    : new MeshStandardMaterial({
+        color: new Color('#cfd6dd'),
+        metalness: 1,
+        roughness: 0.26,
+        envMapIntensity: 1.4,
+      });
 }
 
 function gunmetal(physical: boolean): Material {
@@ -65,7 +70,12 @@ function gunmetal(physical: boolean): Material {
         clearcoatRoughness: 0.4,
         envMapIntensity: 0.55,
       })
-    : new MeshStandardMaterial({ color: new Color('#141a20'), metalness: 0.78, roughness: 0.5, envMapIntensity: 0.5 });
+    : new MeshStandardMaterial({
+        color: new Color('#141a20'),
+        metalness: 0.78,
+        roughness: 0.5,
+        envMapIntensity: 0.5,
+      });
 }
 
 const EMITTER_VERTEX = /* glsl */ `
@@ -164,9 +174,24 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
     () => ({
       chrome: chrome(cfg.physicalMaterials),
       gunmetal: gunmetal(cfg.physicalMaterials),
-      dark: new MeshStandardMaterial({ color: '#12171d', metalness: 0.9, roughness: 0.42, envMapIntensity: 0.9 }),
-      stud: new MeshStandardMaterial({ color: '#000000', emissive: new Color('#52c7ea'), emissiveIntensity: 3.2, toneMapped: false }),
-      copper: new MeshStandardMaterial({ color: '#000000', emissive: new Color('#ff9a5a'), emissiveIntensity: 2.4, toneMapped: false }),
+      dark: new MeshStandardMaterial({
+        color: '#12171d',
+        metalness: 0.9,
+        roughness: 0.42,
+        envMapIntensity: 0.9,
+      }),
+      stud: new MeshStandardMaterial({
+        color: '#000000',
+        emissive: new Color('#52c7ea'),
+        emissiveIntensity: 3.2,
+        toneMapped: false,
+      }),
+      copper: new MeshStandardMaterial({
+        color: '#000000',
+        emissive: new Color('#ff9a5a'),
+        emissiveIntensity: 2.4,
+        toneMapped: false,
+      }),
     }),
     [cfg.physicalMaterials],
   );
@@ -174,10 +199,36 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
   // Oblique tilts → crossing diagonal ellipses (reference gyroscope), not face-on circles.
   const rings: RingDef[] = useMemo(
     () => [
-      { geometry: buildChannelRing(2.78, 0.3, 0.2, 0.065, 0.06, 220), tilt: [0.52, 0.1, 0.58], spin: 0.085, phase: 0.2, clamps: 18, radius: 2.78 },
-      { geometry: buildChannelRing(2.42, 0.24, 0.17, 0.055, 0.05, 200), tilt: [-0.62, 0.35, -0.42], spin: -0.12, phase: 1.3, studs: 24, radius: 2.42 },
-      { geometry: new TorusGeometry(3.12, 0.028, 10, 260), tilt: [0.3, -0.2, -0.95], spin: 0.055, phase: 2.1, radius: 3.12 },
-      { geometry: buildChannelRing(1.74, 0.13, 0.1, 0.034, 0.03, 160), tilt: [1.3, 0.3, 0.12], spin: 0.2, phase: 0.7, radius: 1.74 },
+      {
+        geometry: buildChannelRing(2.78, 0.3, 0.2, 0.065, 0.06, 220),
+        tilt: [0.52, 0.1, 0.58],
+        spin: 0.085,
+        phase: 0.2,
+        clamps: 18,
+        radius: 2.78,
+      },
+      {
+        geometry: buildChannelRing(2.42, 0.24, 0.17, 0.055, 0.05, 200),
+        tilt: [-0.62, 0.35, -0.42],
+        spin: -0.12,
+        phase: 1.3,
+        studs: 24,
+        radius: 2.42,
+      },
+      {
+        geometry: new TorusGeometry(3.12, 0.028, 10, 260),
+        tilt: [0.3, -0.2, -0.95],
+        spin: 0.055,
+        phase: 2.1,
+        radius: 3.12,
+      },
+      {
+        geometry: buildChannelRing(1.74, 0.13, 0.1, 0.034, 0.03, 160),
+        tilt: [1.3, 0.3, 0.12],
+        spin: 0.2,
+        phase: 0.7,
+        radius: 1.74,
+      },
     ],
     [],
   );
@@ -241,7 +292,15 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
     const tint = new Float32Array(n * 3);
     const pos = new Float32Array(n * 3);
     for (let i = 0; i < n; i++) {
-      orbit.set([1.25 + rand() * 2.6, (0.05 + rand() * 0.22) * (rand() < 0.5 ? -1 : 1), rand() * Math.PI * 2, (rand() - 0.5) * 2.2], i * 4);
+      orbit.set(
+        [
+          1.25 + rand() * 2.6,
+          (0.05 + rand() * 0.22) * (rand() < 0.5 ? -1 : 1),
+          rand() * Math.PI * 2,
+          (rand() - 0.5) * 2.2,
+        ],
+        i * 4,
+      );
       const warm = rand() < 0.22;
       tint.set(warm ? [1.0, 0.62, 0.35] : [0.45, 0.9, 1.0], i * 3);
     }
@@ -328,7 +387,8 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
     const unfold = easeInOut(Math.min(1, frame.intro * 1.15));
 
     // Irregular, non-strobing pulse (sum of incommensurate sines).
-    const pulse = 1 + 0.1 * Math.sin(t * 1.7) + 0.07 * Math.sin(t * 2.93 + 1.3) + 0.05 * Math.sin(t * 0.61 + 4.0);
+    const pulse =
+      1 + 0.1 * Math.sin(t * 1.7) + 0.07 * Math.sin(t * 2.93 + 1.3) + 0.05 * Math.sin(t * 0.61 + 4.0);
     const recede = 0.35 + 0.65 * heroP;
     const ignite = easeOutCubic(Math.min(1, frame.intro * 1.4));
     const energy = ignite * pulse * recede;
@@ -349,7 +409,11 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
       // Independent slow precession per gimbal (distinct rates and phases).
       const wx = Math.sin(t * (0.09 + i * 0.023) + r.phase * 3.0) * 0.09;
       const wz = Math.cos(t * (0.07 + i * 0.031) + r.phase * 2.0) * 0.08;
-      g.rotation.set((r.tilt[0] + wx) * unfold, r.tilt[1] * unfold + t * 0.01 * (i % 2 ? -1 : 1), (r.tilt[2] + wz) * unfold);
+      g.rotation.set(
+        (r.tilt[0] + wx) * unfold,
+        r.tilt[1] * unfold + t * 0.01 * (i % 2 ? -1 : 1),
+        (r.tilt[2] + wz) * unfold,
+      );
       mesh.rotation.y = r.phase + t * r.spin;
     });
     if (ringsRoot.current) {
@@ -373,7 +437,9 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
     if (fr) {
       fragments.forEach((f, i) => {
         const a = f.phase + t * f.speed;
-        tmp.v.set(Math.cos(a) * f.radius, Math.sin(a * 2.0 + f.phase) * 0.25, Math.sin(a) * f.radius).applyEuler(f.incl);
+        tmp.v
+          .set(Math.cos(a) * f.radius, Math.sin(a * 2.0 + f.phase) * 0.25, Math.sin(a) * f.radius)
+          .applyEuler(f.incl);
         q.setFromAxisAngle(f.spin, t * f.spinSpeed + f.phase);
         const s = f.size * (0.4 + 0.6 * ignite);
         m4.compose(tmp.v, q, tmp.o.scale.set(s, s, s));
@@ -407,7 +473,12 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
         ))}
       </group>
 
-      <instancedMesh ref={shellRef} name="core-shell" args={[undefined, undefined, plates.length]} material={mats.gunmetal}>
+      <instancedMesh
+        ref={shellRef}
+        name="core-shell"
+        args={[undefined, undefined, plates.length]}
+        material={mats.gunmetal}
+      >
         <boxGeometry args={[1, 1, 1]} />
       </instancedMesh>
 
@@ -425,7 +496,12 @@ export function OrbitalCore({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: 
         <planeGeometry args={[4.4, 4.4]} />
       </mesh>
 
-      <instancedMesh ref={fragRef} name="core-fragments" args={[shard, mats.gunmetal, fragments.length]} frustumCulled={false} />
+      <instancedMesh
+        ref={fragRef}
+        name="core-fragments"
+        args={[shard, mats.gunmetal, fragments.length]}
+        frustumCulled={false}
+      />
       <points name="core-sparks" geometry={sparks.g} material={sparks.m} frustumCulled={false} />
       <CopperSeeds material={mats.copper} />
     </group>

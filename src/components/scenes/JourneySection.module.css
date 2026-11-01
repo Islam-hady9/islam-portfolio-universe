@@ -10,7 +10,13 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(180deg, rgb(6 7 10 / 0.6) 0%, transparent 30%, transparent 75%, rgb(6 7 10 / 0.35) 100%);
+  background: linear-gradient(
+    180deg,
+    rgb(6 7 10 / 0.6) 0%,
+    transparent 30%,
+    transparent 75%,
+    rgb(6 7 10 / 0.35) 100%
+  );
 }
 
 .art {

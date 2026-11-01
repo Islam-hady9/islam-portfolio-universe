@@ -33,8 +33,18 @@ export function RingPortal({
 
   const mats = useMemo(
     () => ({
-      block: new MeshStandardMaterial({ color: '#151b22', metalness: 0.75, roughness: 0.48, envMapIntensity: 0.7 }),
-      seam: new MeshStandardMaterial({ color: '#000', emissive: new Color('#52c7ea'), emissiveIntensity: 2.6, toneMapped: false }),
+      block: new MeshStandardMaterial({
+        color: '#151b22',
+        metalness: 0.75,
+        roughness: 0.48,
+        envMapIntensity: 0.7,
+      }),
+      seam: new MeshStandardMaterial({
+        color: '#000',
+        emissive: new Color('#52c7ea'),
+        emissiveIntensity: 2.6,
+        toneMapped: false,
+      }),
       disc: new ShaderMaterial({
         uniforms: { uTime: { value: 0 }, uIntensity: { value: 0 } },
         vertexShader: /* glsl */ `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,

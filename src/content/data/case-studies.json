@@ -15,9 +15,24 @@
       "nodes": [
         { "id": "inputs", "label": "Inputs", "detail": "Users, data sources and events", "lane": "input" },
         { "id": "data", "label": "Data layer", "detail": "Ingestion, storage and retrieval", "lane": "data" },
-        { "id": "intelligence", "label": "Intelligence layer", "detail": "Models, agents and evaluation", "lane": "intelligence" },
-        { "id": "product", "label": "Product surface", "detail": "APIs and user interfaces", "lane": "product" },
-        { "id": "operations", "label": "Operations", "detail": "Deployment, monitoring and feedback", "lane": "operations" }
+        {
+          "id": "intelligence",
+          "label": "Intelligence layer",
+          "detail": "Models, agents and evaluation",
+          "lane": "intelligence"
+        },
+        {
+          "id": "product",
+          "label": "Product surface",
+          "detail": "APIs and user interfaces",
+          "lane": "product"
+        },
+        {
+          "id": "operations",
+          "label": "Operations",
+          "detail": "Deployment, monitoring and feedback",
+          "lane": "operations"
+        }
       ],
       "edges": [
         { "from": "inputs", "to": "data" },
@@ -60,9 +75,24 @@
       "nodes": [
         { "id": "inputs", "label": "Inputs", "detail": "Users, data sources and events", "lane": "input" },
         { "id": "data", "label": "Data layer", "detail": "Ingestion, storage and retrieval", "lane": "data" },
-        { "id": "intelligence", "label": "Intelligence layer", "detail": "Models, agents and evaluation", "lane": "intelligence" },
-        { "id": "product", "label": "Product surface", "detail": "APIs and user interfaces", "lane": "product" },
-        { "id": "operations", "label": "Operations", "detail": "Deployment, monitoring and feedback", "lane": "operations" }
+        {
+          "id": "intelligence",
+          "label": "Intelligence layer",
+          "detail": "Models, agents and evaluation",
+          "lane": "intelligence"
+        },
+        {
+          "id": "product",
+          "label": "Product surface",
+          "detail": "APIs and user interfaces",
+          "lane": "product"
+        },
+        {
+          "id": "operations",
+          "label": "Operations",
+          "detail": "Deployment, monitoring and feedback",
+          "lane": "operations"
+        }
       ],
       "edges": [
         { "from": "inputs", "to": "data" },
@@ -105,9 +135,24 @@
       "nodes": [
         { "id": "inputs", "label": "Inputs", "detail": "Users, data sources and events", "lane": "input" },
         { "id": "data", "label": "Data layer", "detail": "Ingestion, storage and retrieval", "lane": "data" },
-        { "id": "intelligence", "label": "Intelligence layer", "detail": "Models, agents and evaluation", "lane": "intelligence" },
-        { "id": "product", "label": "Product surface", "detail": "APIs and user interfaces", "lane": "product" },
-        { "id": "operations", "label": "Operations", "detail": "Deployment, monitoring and feedback", "lane": "operations" }
+        {
+          "id": "intelligence",
+          "label": "Intelligence layer",
+          "detail": "Models, agents and evaluation",
+          "lane": "intelligence"
+        },
+        {
+          "id": "product",
+          "label": "Product surface",
+          "detail": "APIs and user interfaces",
+          "lane": "product"
+        },
+        {
+          "id": "operations",
+          "label": "Operations",
+          "detail": "Deployment, monitoring and feedback",
+          "lane": "operations"
+        }
       ],
       "edges": [
         { "from": "inputs", "to": "data" },

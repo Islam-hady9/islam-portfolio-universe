@@ -18,7 +18,8 @@
   box-shadow:
     0 0 0 1px var(--line),
     0 24px 60px -30px rgb(0 0 0 / 0.95);
-  transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(var(--lift, 0px));
+  transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg))
+    translateY(var(--lift, 0px));
   transition:
     transform 520ms var(--ease-out),
     box-shadow 360ms var(--ease-out);
@@ -112,8 +113,14 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background:
-    linear-gradient(180deg, rgb(6 7 10 / 0.35) 0%, transparent 22%, transparent 40%, rgb(6 8 11 / 0.78) 66%, rgb(6 8 11 / 0.95) 100%);
+  background: linear-gradient(
+    180deg,
+    rgb(6 7 10 / 0.35) 0%,
+    transparent 22%,
+    transparent 40%,
+    rgb(6 8 11 / 0.78) 66%,
+    rgb(6 8 11 / 0.95) 100%
+  );
 }
 
 .top {

@@ -56,7 +56,8 @@ export async function POST(request: Request) {
   return reply(503, {
     mode: 'live',
     status: 'unavailable',
-    answer: 'The live assistant is not connected yet. It will answer from verified portfolio sources after content review.',
+    answer:
+      'The live assistant is not connected yet. It will answer from verified portfolio sources after content review.',
     sources: [],
     entryId: null,
     disclaimer: LIVE_UNAVAILABLE_DISCLAIMER,
@@ -65,7 +66,11 @@ export async function POST(request: Request) {
 
 export function GET() {
   return NextResponse.json(
-    { status: 'unavailable', mode: 'live', message: 'POST an AskRequest. The live assistant is not connected yet.' },
+    {
+      status: 'unavailable',
+      mode: 'live',
+      message: 'POST an AskRequest. The live assistant is not connected yet.',
+    },
     { status: 405, headers: { Allow: 'POST', 'Cache-Control': 'no-store' } },
   );
 }

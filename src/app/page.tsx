@@ -37,7 +37,11 @@ export default function HomePage() {
       <PhilosophySection copy={home.philosophy} principles={getPrinciples()} />
       <CapabilitiesSection copy={home.capabilities} groups={getCapabilities()} />
       <JourneySection copy={home.experience} career={getCareer()} />
-      <AskAISection copy={home.assistant} knowledge={getAssistantKnowledge()} sourceIndex={buildSourceIndex(content)} />
+      <AskAISection
+        copy={home.assistant}
+        knowledge={getAssistantKnowledge()}
+        sourceIndex={buildSourceIndex(content)}
+      />
       <ContactSection copy={home.contact} social={getSocialLinks()} />
       <HomeMotion />
     </>

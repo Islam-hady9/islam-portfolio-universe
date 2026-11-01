@@ -20,7 +20,9 @@ export const fontBody = localFont({
 
 /** Technical eyebrow labels — JetBrains Mono (OFL). Not preloaded: decorative, small. */
 export const fontMono = localFont({
-  src: [{ path: '../assets/fonts/jetbrains-mono-latin-wght-normal.woff2', weight: '100 800', style: 'normal' }],
+  src: [
+    { path: '../assets/fonts/jetbrains-mono-latin-wght-normal.woff2', weight: '100 800', style: 'normal' },
+  ],
   variable: '--font-mono',
   display: 'swap',
   preload: false,

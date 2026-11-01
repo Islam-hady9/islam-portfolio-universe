@@ -2,7 +2,13 @@ import { AdditiveBlending, BackSide, Color, ShaderMaterial } from 'three';
 import { NOISE_GLSL } from '../../shaders/noise';
 
 /** Vertical gradient sky dome for a portal world (inverted sphere). */
-export function skyDome(top: string, horizon: string, glowDir: [number, number, number], glow: string, glowStrength = 0.5) {
+export function skyDome(
+  top: string,
+  horizon: string,
+  glowDir: [number, number, number],
+  glow: string,
+  glowStrength = 0.5,
+) {
   return new ShaderMaterial({
     side: BackSide,
     depthWrite: false,
@@ -35,7 +41,11 @@ export function glowMaterial(color: string, intensity = 1, falloff = 6) {
     transparent: true,
     depthWrite: false,
     blending: AdditiveBlending,
-    uniforms: { uColor: { value: new Color(color) }, uIntensity: { value: intensity }, uFalloff: { value: falloff } },
+    uniforms: {
+      uColor: { value: new Color(color) },
+      uIntensity: { value: intensity },
+      uFalloff: { value: falloff },
+    },
     vertexShader: /* glsl */ `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
     fragmentShader: /* glsl */ `
       uniform vec3 uColor; uniform float uIntensity; uniform float uFalloff; varying vec2 vUv;

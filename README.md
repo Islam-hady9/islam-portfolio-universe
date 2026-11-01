@@ -25,20 +25,20 @@ Useful URL flags: `?quality=ultra|balanced|lite|static` (force a tier), `?intro=
 
 ## Scripts
 
-| Script | What it does |
-|---|---|
-| `npm run dev` / `build` / `start` | Next.js dev server, production build, production server |
-| `npm run typecheck` / `lint` / `format:check` | `tsc --noEmit`, ESLint, Prettier check |
-| `npm test` | Vitest unit + component suites |
-| `npm run test:e2e` | Playwright: Chromium desktop + mobile, Firefox, WebKit (needs a build; `E2E_PORT=3300` reuses a running server) |
-| `npm run test:e2e:gpu` | Opt-in real-GPU WebGL suite (3D render, stations, nodes, portals, FPS) |
-| `npm run perf:fps` | GPU frame-rate profile → `docs/evidence/fps-profile.json` |
-| `npm run perf:lighthouse -- <url>` | Lighthouse mobile + desktop-GPU runs → `docs/evidence/lighthouse/` |
-| `npm run content:validate` | Validates all content JSON against the zod contracts |
-| `npm run content:gate [-- --strict]` | Lists records still pending verification; fails in `VERIFIED_PUBLIC` mode |
-| `npm run capture:posters -- <url> [--only=journey]` then `npm run capture:encode` | Re-render fallback posters from the live scenes |
-| `npm run qa:stations -- <url> <out> --gpu` / `npm run qa:record -- <url>` | Station screenshots / motion recordings on the GPU |
-| `npm run check` | typecheck + lint + test + build |
+| Script                                                                            | What it does                                                                                                    |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `npm run dev` / `build` / `start`                                                 | Next.js dev server, production build, production server                                                         |
+| `npm run typecheck` / `lint` / `format:check`                                     | `tsc --noEmit`, ESLint, Prettier check                                                                          |
+| `npm test`                                                                        | Vitest unit + component suites                                                                                  |
+| `npm run test:e2e`                                                                | Playwright: Chromium desktop + mobile, Firefox, WebKit (needs a build; `E2E_PORT=3300` reuses a running server) |
+| `npm run test:e2e:gpu`                                                            | Opt-in real-GPU WebGL suite (3D render, stations, nodes, portals, FPS)                                          |
+| `npm run perf:fps`                                                                | GPU frame-rate profile → `docs/evidence/fps-profile.json`                                                       |
+| `npm run perf:lighthouse -- <url>`                                                | Lighthouse mobile + desktop-GPU runs → `docs/evidence/lighthouse/`                                              |
+| `npm run content:validate`                                                        | Validates all content JSON against the zod contracts                                                            |
+| `npm run content:gate [-- --strict]`                                              | Lists records still pending verification; fails in `VERIFIED_PUBLIC` mode                                       |
+| `npm run capture:posters -- <url> [--only=journey]` then `npm run capture:encode` | Re-render fallback posters from the live scenes                                                                 |
+| `npm run qa:stations -- <url> <out> --gpu` / `npm run qa:record -- <url>`         | Station screenshots / motion recordings on the GPU                                                              |
+| `npm run check`                                                                   | typecheck + lint + test + build                                                                                 |
 
 More QA tools: `scripts/qa/transitions.mjs` (3D between stations), `scripts/perf/long-tasks.mjs` (load-time main-thread blocking), `scripts/qa/montage.py` (evidence contact sheets).
 

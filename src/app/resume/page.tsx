@@ -45,8 +45,8 @@ export default function ResumePage() {
       {!available ? (
         <section className={`container ${styles.section}`} aria-label="Why the resume is not available">
           <p className={styles.note}>
-            The site is being finished before the final profile review. Rather than publishing an outdated or unverified
-            document, the resume will appear here once the owner has approved it.
+            The site is being finished before the final profile review. Rather than publishing an outdated or
+            unverified document, the resume will appear here once the owner has approved it.
           </p>
         </section>
       ) : null}

@@ -1,7 +1,13 @@
 .identity {
   position: relative;
   padding: clamp(4.5rem, 8vw, 8rem) 0;
-  background: linear-gradient(180deg, rgb(6 7 10 / 0) 0%, rgb(8 10 14 / 0.82) 14%, rgb(8 10 14 / 0.82) 86%, rgb(6 7 10 / 0) 100%);
+  background: linear-gradient(
+    180deg,
+    rgb(6 7 10 / 0) 0%,
+    rgb(8 10 14 / 0.82) 14%,
+    rgb(8 10 14 / 0.82) 86%,
+    rgb(6 7 10 / 0) 100%
+  );
 }
 
 .identity::before,
@@ -11,7 +17,14 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgb(var(--silver-rgb) / 0.14) 20%, rgb(var(--mint-rgb) / 0.22) 50%, rgb(var(--silver-rgb) / 0.14) 80%, transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(var(--silver-rgb) / 0.14) 20%,
+    rgb(var(--mint-rgb) / 0.22) 50%,
+    rgb(var(--silver-rgb) / 0.14) 80%,
+    transparent
+  );
 }
 
 .identity::before {

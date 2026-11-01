@@ -28,7 +28,8 @@ export function buildExplorerGeometry(): BufferGeometry {
 export function Explorer({ position, scale = 1.25 }: { position: [number, number, number]; scale?: number }) {
   const geometry = useMemo(() => buildExplorerGeometry(), []);
   const material = useMemo(
-    () => new MeshStandardMaterial({ color: '#05070a', roughness: 0.85, metalness: 0.2, envMapIntensity: 0.2 }),
+    () =>
+      new MeshStandardMaterial({ color: '#05070a', roughness: 0.85, metalness: 0.2, envMapIntensity: 0.2 }),
     [],
   );
   useEffect(

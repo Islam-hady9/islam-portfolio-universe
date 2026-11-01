@@ -74,7 +74,10 @@ export function UniverseNodes({ nodes }: { nodes: UniverseNode[] }) {
               data-placement={layout.placement}
               data-accent={n.accent}
               data-hovered={hovered === n.id || undefined}
-              style={{ ['--x' as string]: `${layout.staticPos[0]}%`, ['--y' as string]: `${layout.staticPos[1]}%` }}
+              style={{
+                ['--x' as string]: `${layout.staticPos[0]}%`,
+                ['--y' as string]: `${layout.staticPos[1]}%`,
+              }}
             >
               <span className={styles.marker} aria-hidden="true" />
               <a

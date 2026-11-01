@@ -1,9 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  DEMO_DISCLAIMER,
-  LIVE_UNAVAILABLE_DISCLAIMER,
-  sourceKey,
-} from '@/lib/assistant/contracts';
+import { DEMO_DISCLAIMER, LIVE_UNAVAILABLE_DISCLAIMER, sourceKey } from '@/lib/assistant/contracts';
 import { askRequestSchema } from '@/lib/assistant/request-schema';
 
 describe('askRequestSchema', () => {

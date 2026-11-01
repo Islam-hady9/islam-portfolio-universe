@@ -4,9 +4,20 @@ import { Icon } from '@/components/ui/Icon';
 import styles from './PhilosophySection.module.css';
 
 /** S5 — Engineering philosophy: five restrained glass tiles. */
-export function PhilosophySection({ copy, principles }: { copy: HomeCopy['philosophy']; principles: Principle[] }) {
+export function PhilosophySection({
+  copy,
+  principles,
+}: {
+  copy: HomeCopy['philosophy'];
+  principles: Principle[];
+}) {
   return (
-    <section id="philosophy" data-section="philosophy" className={styles.philosophy} aria-labelledby="philosophy-title">
+    <section
+      id="philosophy"
+      data-section="philosophy"
+      className={styles.philosophy}
+      aria-labelledby="philosophy-title"
+    >
       <div className="container">
         <SectionHeading id="philosophy-title" eyebrow={copy.eyebrow} title={copy.title} />
         <ol className={styles.grid} data-reveal="stagger">

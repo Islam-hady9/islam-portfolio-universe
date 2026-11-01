@@ -17,7 +17,15 @@ const SIZES: Record<PosterScene, string> = {
  * decorative nodes) and its static fallback art. The poster is visible until the WebGL layer
  * reports "ready", and permanently in the static tier / when WebGL fails (spec §6.7).
  */
-export function SceneArt({ scene, label, className }: { scene: PosterScene; label: string; className?: string }) {
+export function SceneArt({
+  scene,
+  label,
+  className,
+}: {
+  scene: PosterScene;
+  label: string;
+  className?: string;
+}) {
   const poster = posterFor(scene);
   // The hero poster is the mobile LCP element: start fetching it with the document.
   if (scene === 'hero' && poster) {
@@ -29,7 +37,12 @@ export function SceneArt({ scene, label, className }: { scene: PosterScene; labe
     });
   }
   return (
-    <div className={[styles.art, className].filter(Boolean).join(' ')} role="img" aria-label={label} data-scene-art={scene}>
+    <div
+      className={[styles.art, className].filter(Boolean).join(' ')}
+      role="img"
+      aria-label={label}
+      data-scene-art={scene}
+    >
       <div className={`${styles.poster} ${styles[scene] ?? ''}`} aria-hidden="true">
         {poster ? (
           // eslint-disable-next-line @next/next/no-img-element -- static poster, sized by CSS; next/image adds no value for a decorative fallback layer

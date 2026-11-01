@@ -11,7 +11,12 @@ import styles from './UniverseSection.module.css';
  */
 export function UniverseSection({ copy, nodes }: { copy: HomeCopy['universe']; nodes: UniverseNode[] }) {
   return (
-    <section id="universe" data-section="universe" className={styles.universe} aria-labelledby="universe-title">
+    <section
+      id="universe"
+      data-section="universe"
+      className={styles.universe}
+      aria-labelledby="universe-title"
+    >
       <div className={`container ${styles.layout}`}>
         <div className={styles.intro}>
           <SectionHeading

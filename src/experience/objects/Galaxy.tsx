@@ -122,7 +122,11 @@ export function Galaxy({ count, radius, pixelRatio }: { count: number; radius: n
   );
 
   useFrame(() => {
-    const p = Math.max(frame.presence[2] ?? 0, (frame.presence[1] ?? 0) * 0.6, (frame.presence[3] ?? 0) * 0.5);
+    const p = Math.max(
+      frame.presence[2] ?? 0,
+      (frame.presence[1] ?? 0) * 0.6,
+      (frame.presence[3] ?? 0) * 0.5,
+    );
     material.uniforms.uTime!.value = frame.time;
     material.uniforms.uFade!.value = 0.25 + 0.75 * p;
     bulge.uniforms.uIntensity!.value = 0.22 + 0.48 * p;

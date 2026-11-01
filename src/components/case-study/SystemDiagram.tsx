@@ -50,7 +50,15 @@ export function SystemDiagram({ diagram, titleId }: { diagram: Diagram; titleId:
       <svg className={styles.svg} viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby={`${titleId}-svg`}>
         <title id={`${titleId}-svg`}>{diagram.caption}</title>
         <defs>
-          <marker id={`${titleId}-arrow`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <marker
+            id={`${titleId}-arrow`}
+            viewBox="0 0 10 10"
+            refX="9"
+            refY="5"
+            markerWidth="7"
+            markerHeight="7"
+            orient="auto-start-reverse"
+          >
             <path d="M0 0 10 5 0 10z" className={styles.arrowHead} />
           </marker>
         </defs>
@@ -77,7 +85,12 @@ export function SystemDiagram({ diagram, titleId }: { diagram: Diagram; titleId:
         {diagram.nodes.map((n) => {
           const p = pos.get(n.id)!;
           return (
-            <g key={n.id} className={styles.node} data-lane={n.lane} transform={`translate(${p.x - NODE_W / 2} ${p.y - NODE_H / 2})`}>
+            <g
+              key={n.id}
+              className={styles.node}
+              data-lane={n.lane}
+              transform={`translate(${p.x - NODE_W / 2} ${p.y - NODE_H / 2})`}
+            >
               <rect width={NODE_W} height={NODE_H} rx="14" />
               <text x={NODE_W / 2} y={32} textAnchor="middle" className={styles.nodeLabel}>
                 {n.label}

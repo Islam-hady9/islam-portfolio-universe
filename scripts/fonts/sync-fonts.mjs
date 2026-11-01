@@ -17,7 +17,8 @@ const fonts = [
 
 for (const { pkg, files } of fonts) {
   const base = join(root, 'node_modules/@fontsource-variable', pkg);
-  if (!existsSync(base)) throw new Error(`Missing font package @fontsource-variable/${pkg}. Run npm install.`);
+  if (!existsSync(base))
+    throw new Error(`Missing font package @fontsource-variable/${pkg}. Run npm install.`);
   for (const file of files) copyFileSync(join(base, 'files', file), join(outDir, file));
   copyFileSync(join(base, 'LICENSE'), join(outDir, `${pkg}.LICENSE.txt`));
   console.log(`synced ${pkg}`);

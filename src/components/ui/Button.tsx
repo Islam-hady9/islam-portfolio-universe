@@ -23,7 +23,12 @@ interface CommonProps {
   dataAction?: string;
 }
 
-function Inner({ children, icon, trailingIcon, badge }: Pick<CommonProps, 'children' | 'icon' | 'trailingIcon' | 'badge'>) {
+function Inner({
+  children,
+  icon,
+  trailingIcon,
+  badge,
+}: Pick<CommonProps, 'children' | 'icon' | 'trailingIcon' | 'badge'>) {
   return (
     <span className={styles.inner} data-magnetic-inner="">
       {icon ? <Icon name={icon} size={18} className={styles.icon} /> : null}

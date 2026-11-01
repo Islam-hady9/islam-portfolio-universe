@@ -8,7 +8,12 @@ import styles from './IdentitySection.module.css';
 export function IdentitySection({ site }: { site: SiteIdentity }) {
   const { identity, pillars } = site;
   return (
-    <section id="identity" data-section="identity" className={styles.identity} aria-labelledby="identity-title">
+    <section
+      id="identity"
+      data-section="identity"
+      className={styles.identity}
+      aria-labelledby="identity-title"
+    >
       <div className={`container ${styles.grid}`}>
         <div className={styles.statementCol}>
           <Eyebrow>{identity.eyebrow}</Eyebrow>

@@ -21,15 +21,33 @@ export function WorldLights() {
     const home = frame.route === 'home';
     if (core.current) core.current.intensity = home ? 34 * frame.coreEnergy : 0;
     if (portal.current) {
-      const p = home ? Math.max(frame.presence[7] ?? 0, (frame.presence[6] ?? 0) * 0.3, (frame.presence[8] ?? 0) * 0.3) : 0;
+      const p = home
+        ? Math.max(frame.presence[7] ?? 0, (frame.presence[6] ?? 0) * 0.3, (frame.presence[8] ?? 0) * 0.3)
+        : 0;
       portal.current.intensity = 90 * p;
     }
   });
 
   return (
     <>
-      <pointLight ref={core} name="light-core" position={WORLD.core} color="#52c7ea" intensity={0} distance={7.5} decay={2} />
-      <pointLight ref={portal} name="light-portal" position={[px, py, pz + 2.5]} color="#52c7ea" intensity={0} distance={22} decay={2} />
+      <pointLight
+        ref={core}
+        name="light-core"
+        position={WORLD.core}
+        color="#52c7ea"
+        intensity={0}
+        distance={7.5}
+        decay={2}
+      />
+      <pointLight
+        ref={portal}
+        name="light-portal"
+        position={[px, py, pz + 2.5]}
+        color="#52c7ea"
+        intensity={0}
+        distance={22}
+        decay={2}
+      />
     </>
   );
 }

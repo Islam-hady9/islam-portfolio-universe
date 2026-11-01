@@ -91,7 +91,9 @@ await clip('03-universe-node-approach', async (page) => {
 
 await clip('04-project-portal-transition', async (page) => {
   await ready(page, `${base}/?intro=0`);
-  await page.evaluate(() => document.getElementById('projects').scrollIntoView({ block: 'center', behavior: 'instant' }));
+  await page.evaluate(() =>
+    document.getElementById('projects').scrollIntoView({ block: 'center', behavior: 'instant' }),
+  );
   await page.waitForTimeout(2200);
   for (const slug of ['tibyn', 'movid', 'ats-matching', 'lifeatlas']) {
     const card = page.locator(`[data-project-card="${slug}"]`);

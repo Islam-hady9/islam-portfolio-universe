@@ -9,7 +9,17 @@
     {
       "id": "kb-projects",
       "topic": "projects",
-      "keywords": ["project", "projects", "built", "build", "portfolio", "work", "products", "case study", "case studies"],
+      "keywords": [
+        "project",
+        "projects",
+        "built",
+        "build",
+        "portfolio",
+        "work",
+        "products",
+        "case study",
+        "case studies"
+      ],
       "answer": "This preview features four project worlds: TIBYN — aquaculture management SaaS focused on aquaculture intelligence; MOViD Studio — a multi-agent video production studio; ATS Matching — AI candidate matching with observability; and LifeAtlas — an AI product concept that is still in development. Detailed case studies are being prepared and will be published after content review.",
       "sources": [
         { "kind": "project", "ref": "tibyn" },
@@ -17,12 +27,36 @@
         { "kind": "project", "ref": "ats-matching" },
         { "kind": "project", "ref": "lifeatlas" }
       ],
-      "verification": { "status": "placeholder", "source": "Composed from projects.json (spec §4.2 identifiers)." }
+      "verification": {
+        "status": "placeholder",
+        "source": "Composed from projects.json (spec §4.2 identifiers)."
+      }
     },
     {
       "id": "kb-stack",
       "topic": "stack",
-      "keywords": ["stack", "tech", "technology", "technologies", "tools", "skills", "language", "languages", "framework", "python", "fastapi", "next.js", "nextjs", "docker", "rag", "llm", "llms", "agents", "devops", "cloud"],
+      "keywords": [
+        "stack",
+        "tech",
+        "technology",
+        "technologies",
+        "tools",
+        "skills",
+        "language",
+        "languages",
+        "framework",
+        "python",
+        "fastapi",
+        "next.js",
+        "nextjs",
+        "docker",
+        "rag",
+        "llm",
+        "llms",
+        "agents",
+        "devops",
+        "cloud"
+      ],
       "answer": "The capability map groups the stack into four layers. Intelligence: LLMs, agents, RAG, prompting and evaluation. Engineering: Python, FastAPI, Next.js, databases and system design. Operations: Docker, CI/CD, cloud, monitoring and DevOps. Experience: product thinking, UX flow, prototyping and user-centered design. Evidenced examples for each layer will be added after the profile review.",
       "sources": [
         { "kind": "capability", "ref": "intelligence" },
@@ -35,7 +69,22 @@
     {
       "id": "kb-experience",
       "topic": "experience",
-      "keywords": ["experience", "career", "journey", "history", "job", "jobs", "role", "roles", "worked", "employer", "cv", "resume", "background", "education"],
+      "keywords": [
+        "experience",
+        "career",
+        "journey",
+        "history",
+        "job",
+        "jobs",
+        "role",
+        "roles",
+        "worked",
+        "employer",
+        "cv",
+        "resume",
+        "background",
+        "education"
+      ],
       "answer": "The verified career history hasn't been added yet. The Experience section currently shows a clearly labelled sample journey. Once the CV is supplied and approved, this assistant will answer from it — with citations to the exact source entries.",
       "sources": [{ "kind": "career", "ref": "sample-journey" }],
       "verification": { "status": "placeholder", "source": "Reflects career.json status (sample only)." }
@@ -43,7 +92,19 @@
     {
       "id": "kb-contact",
       "topic": "contact",
-      "keywords": ["contact", "email", "reach", "hire", "hiring", "available", "availability", "collaborate", "collaboration", "talk", "freelance"],
+      "keywords": [
+        "contact",
+        "email",
+        "reach",
+        "hire",
+        "hiring",
+        "available",
+        "availability",
+        "collaborate",
+        "collaboration",
+        "talk",
+        "freelance"
+      ],
       "answer": "Direct contact details will be published after the final profile review. Until then, the Contact page lists which channels are ready and which are still pending.",
       "sources": [{ "kind": "contact", "ref": "contact-config" }],
       "verification": { "status": "placeholder", "source": "Reflects contact.json status." }
@@ -54,8 +115,14 @@
       "subject": "tibyn",
       "keywords": ["tibyn", "aquaculture", "fish", "farm", "agritech"],
       "answer": "TIBYN is listed as an aquaculture management SaaS with an aquaculture-intelligence focus. Its full case study — role, architecture and outcomes — is in preparation and will be published after content review.",
-      "sources": [{ "kind": "project", "ref": "tibyn" }, { "kind": "case-study", "ref": "tibyn" }],
-      "verification": { "status": "placeholder", "source": "Composed from projects.json / case-studies.json." }
+      "sources": [
+        { "kind": "project", "ref": "tibyn" },
+        { "kind": "case-study", "ref": "tibyn" }
+      ],
+      "verification": {
+        "status": "placeholder",
+        "source": "Composed from projects.json / case-studies.json."
+      }
     },
     {
       "id": "kb-movid",
@@ -63,17 +130,38 @@
       "subject": "movid",
       "keywords": ["movid", "video", "studio", "media", "multi-agent", "agentic"],
       "answer": "MOViD Studio is listed as a multi-agent video production studio. Its full case study is in preparation and will be published after content review.",
-      "sources": [{ "kind": "project", "ref": "movid" }, { "kind": "case-study", "ref": "movid" }],
-      "verification": { "status": "placeholder", "source": "Composed from projects.json / case-studies.json." }
+      "sources": [
+        { "kind": "project", "ref": "movid" },
+        { "kind": "case-study", "ref": "movid" }
+      ],
+      "verification": {
+        "status": "placeholder",
+        "source": "Composed from projects.json / case-studies.json."
+      }
     },
     {
       "id": "kb-ats",
       "topic": "project",
       "subject": "ats-matching",
-      "keywords": ["ats", "matching", "candidate", "candidates", "recruiting", "recruitment", "observability", "hiring platform"],
+      "keywords": [
+        "ats",
+        "matching",
+        "candidate",
+        "candidates",
+        "recruiting",
+        "recruitment",
+        "observability",
+        "hiring platform"
+      ],
       "answer": "ATS Matching is listed as AI candidate matching with observability. Its full case study is in preparation and will be published after content review.",
-      "sources": [{ "kind": "project", "ref": "ats-matching" }, { "kind": "case-study", "ref": "ats-matching" }],
-      "verification": { "status": "placeholder", "source": "Composed from projects.json / case-studies.json." }
+      "sources": [
+        { "kind": "project", "ref": "ats-matching" },
+        { "kind": "case-study", "ref": "ats-matching" }
+      ],
+      "verification": {
+        "status": "placeholder",
+        "source": "Composed from projects.json / case-studies.json."
+      }
     },
     {
       "id": "kb-lifeatlas",
@@ -87,7 +175,18 @@
     {
       "id": "kb-meta",
       "topic": "meta",
-      "keywords": ["who are you", "are you real", "are you ai", "assistant", "chatbot", "trained", "how do you work", "gpt", "claude", "model"],
+      "keywords": [
+        "who are you",
+        "are you real",
+        "are you ai",
+        "assistant",
+        "chatbot",
+        "trained",
+        "how do you work",
+        "gpt",
+        "claude",
+        "model"
+      ],
       "answer": "I'm a preview of a future portfolio assistant. Right now I return pre-written sample answers composed from this site's content files. I'm not connected to a language model, I'm not trained on a CV, and nothing you type is sent anywhere or stored.",
       "sources": [{ "kind": "knowledge", "ref": "assistant-architecture" }],
       "verification": { "status": "placeholder", "source": "Describes the implemented demo provider." }
@@ -98,7 +197,10 @@
       "keywords": ["philosophy", "principles", "approach", "values", "how do you build", "mindset"],
       "answer": "The engineering philosophy section lists five principles: build with purpose, architect for scale, ship to production, blend AI with product thinking, and design the whole experience.",
       "sources": [{ "kind": "site", "ref": "philosophy" }],
-      "verification": { "status": "placeholder", "source": "Composed from philosophy.json (titles from spec §5 S5)." }
+      "verification": {
+        "status": "placeholder",
+        "source": "Composed from philosophy.json (titles from spec §5 S5)."
+      }
     }
   ]
 }

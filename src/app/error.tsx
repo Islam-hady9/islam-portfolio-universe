@@ -6,7 +6,13 @@ import { Button, ButtonLink } from '@/components/ui/Button';
 import { track } from '@/lib/analytics';
 
 /** Route-level error boundary: keeps header/footer/navigation alive and offers recovery. */
-export default function RouteError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function RouteError({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
   useEffect(() => {
     track('scene_error', { where: 'route', digest: error.digest ?? 'none' });
   }, [error]);

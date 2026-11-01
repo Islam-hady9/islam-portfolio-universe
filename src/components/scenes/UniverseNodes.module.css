@@ -61,7 +61,13 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: radial-gradient(circle, #fff 0 22%, var(--accent) 45%, rgb(var(--accent-rgb) / 0.2) 70%, transparent 72%);
+  background: radial-gradient(
+    circle,
+    #fff 0 22%,
+    var(--accent) 45%,
+    rgb(var(--accent-rgb) / 0.2) 70%,
+    transparent 72%
+  );
   box-shadow:
     0 0 14px rgb(var(--accent-rgb) / 0.85),
     0 0 34px rgb(var(--accent-rgb) / 0.45);

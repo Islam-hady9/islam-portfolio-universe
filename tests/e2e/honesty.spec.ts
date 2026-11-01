@@ -10,7 +10,9 @@ test.describe('truthfulness audit', () => {
     const seen = new Map<string, string>();
     for (const route of ROUTES) {
       await page.goto(route.includes('?') ? route : `${route}${route === '/' ? '?intro=0' : ''}`);
-      const hrefs = await page.$$eval('a[href]', (as) => as.map((a) => (a as HTMLAnchorElement).getAttribute('href') ?? ''));
+      const hrefs = await page.$$eval('a[href]', (as) =>
+        as.map((a) => (a as HTMLAnchorElement).getAttribute('href') ?? ''),
+      );
       for (const h of hrefs) if (!seen.has(h)) seen.set(h, route);
     }
     const external: string[] = [];
@@ -41,7 +43,11 @@ test.describe('truthfulness audit', () => {
     await panel.scrollIntoViewIfNeeded();
     await expect(panel.getByText('Demo mode')).toBeVisible();
     await expect(page.getByText('Concept Preview — AI assistant not yet connected').first()).toBeVisible();
-    for (const prompt of ['What projects have you built?', "What's your tech stack?", 'Tell me about your experience.']) {
+    for (const prompt of [
+      'What projects have you built?',
+      "What's your tech stack?",
+      'Tell me about your experience.',
+    ]) {
       await panel.getByRole('button', { name: prompt }).click();
       const answer = page.getByTestId('assistant-answer');
       await expect(answer).toContainText('Demo');
@@ -55,7 +61,9 @@ test.describe('truthfulness audit', () => {
   });
 
   test('assistant API boundary returns honest unavailability', async ({ request }) => {
-    const post = await request.post('/api/assistant', { data: { question: 'What projects have you built?' } });
+    const post = await request.post('/api/assistant', {
+      data: { question: 'What projects have you built?' },
+    });
     expect(post.status()).toBe(503);
     const body = await post.json();
     expect(body.status).toBe('unavailable');

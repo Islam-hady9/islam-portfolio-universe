@@ -78,5 +78,24 @@ export async function noHorizontalOverflow(page: Page) {
   expect(o.sw, `scrollWidth ${o.sw} > clientWidth ${o.cw}`).toBeLessThanOrEqual(o.cw);
 }
 
-export const ROUTES = ['/', '/projects', '/projects/tibyn', '/projects/movid', '/projects/ats-matching', '/projects/lifeatlas', '/about', '/contact', '/resume'];
-export const SECTIONS = ['identity', 'universe', 'projects', 'philosophy', 'capabilities', 'experience', 'ask-ai', 'contact'];
+export const ROUTES = [
+  '/',
+  '/projects',
+  '/projects/tibyn',
+  '/projects/movid',
+  '/projects/ats-matching',
+  '/projects/lifeatlas',
+  '/about',
+  '/contact',
+  '/resume',
+];
+export const SECTIONS = [
+  'identity',
+  'universe',
+  'projects',
+  'philosophy',
+  'capabilities',
+  'experience',
+  'ask-ai',
+  'contact',
+];

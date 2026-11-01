@@ -130,7 +130,11 @@ export function AssistantPanel({
 
       <div className={styles.output} aria-live="polite" aria-busy={pending}>
         {exchange ? (
-          <article className={styles.answer} data-status={exchange.answer.status} data-testid="assistant-answer">
+          <article
+            className={styles.answer}
+            data-status={exchange.answer.status}
+            data-testid="assistant-answer"
+          >
             <p className={styles.question}>
               <span className="sr-only">You asked: </span>“{exchange.question}”
             </p>
@@ -161,8 +165,8 @@ export function AssistantPanel({
           </article>
         ) : (
           <p className={styles.empty}>
-            Pick a sample question or type your own. Answers come from this site’s sample content — nothing you type is
-            sent or stored.
+            Pick a sample question or type your own. Answers come from this site’s sample content — nothing
+            you type is sent or stored.
           </p>
         )}
       </div>

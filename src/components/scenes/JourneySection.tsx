@@ -9,11 +9,25 @@ import styles from './JourneySection.module.css';
 export function JourneySection({ copy, career }: { copy: HomeCopy['experience']; career: Career }) {
   const allSample = career.entries.every((e) => e.verification.status === 'placeholder');
   return (
-    <section id="experience" data-section="experience" className={styles.journey} aria-labelledby="experience-title">
-      <SceneArt scene="journey" label="A low horizon of dark mountains under a field of stars." className={styles.art} />
+    <section
+      id="experience"
+      data-section="experience"
+      className={styles.journey}
+      aria-labelledby="experience-title"
+    >
+      <SceneArt
+        scene="journey"
+        label="A low horizon of dark mountains under a field of stars."
+        className={styles.art}
+      />
       <div className="container">
         <div className={styles.header}>
-          <SectionHeading id="experience-title" eyebrow={copy.eyebrow} title={copy.title} className={styles.heading} />
+          <SectionHeading
+            id="experience-title"
+            eyebrow={copy.eyebrow}
+            title={copy.title}
+            className={styles.heading}
+          />
           <p className={styles.subtitle}>{copy.subtitle}</p>
         </div>
         {allSample ? (

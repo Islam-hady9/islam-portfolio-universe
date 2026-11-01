@@ -12,14 +12,7 @@ import type { QualityPreference, QualityTier } from '@/experience/quality/tiers'
 export type WebGLStatus = 'pending' | 'ready' | 'failed' | 'lost' | 'disabled';
 export type MotionPreference = 'system' | 'reduced' | 'full';
 export type SceneState =
-  | 'UNLOADED'
-  | 'PRELOADING'
-  | 'READY'
-  | 'ENTERING'
-  | 'ACTIVE'
-  | 'EXITING'
-  | 'SUSPENDED'
-  | 'FALLBACK';
+  'UNLOADED' | 'PRELOADING' | 'READY' | 'ENTERING' | 'ACTIVE' | 'EXITING' | 'SUSPENDED' | 'FALLBACK';
 
 export interface PortalTransition {
   slug: string;
@@ -74,7 +67,8 @@ export const useExperience = create<ExperienceState>((set) => ({
   portal: null,
   sceneStates: {},
   setQualityPreference: (qualityPreference) => set({ qualityPreference }),
-  setDetectedTier: (detectedTier, tierReason, webglAvailable) => set({ detectedTier, tierReason, webglAvailable }),
+  setDetectedTier: (detectedTier, tierReason, webglAvailable) =>
+    set({ detectedTier, tierReason, webglAvailable }),
   setTier: (tier, tierReason) => set({ tier, tierReason }),
   setMotionPreference: (motionPreference) => set({ motionPreference }),
   setReducedMotion: (reducedMotion) => set({ reducedMotion }),

@@ -47,10 +47,20 @@ export function ProjectsExplorer({ projects }: { projects: ProjectSummary[] }) {
           ))}
         </div>
         <div role="group" aria-label="Layout" className={styles.views}>
-          <button type="button" className={styles.view} aria-pressed={view === 'grid'} onClick={() => setView('grid')}>
+          <button
+            type="button"
+            className={styles.view}
+            aria-pressed={view === 'grid'}
+            onClick={() => setView('grid')}
+          >
             Grid
           </button>
-          <button type="button" className={styles.view} aria-pressed={view === 'list'} onClick={() => setView('list')}>
+          <button
+            type="button"
+            className={styles.view}
+            aria-pressed={view === 'list'}
+            onClick={() => setView('list')}
+          >
             List
           </button>
         </div>

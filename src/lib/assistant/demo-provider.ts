@@ -79,7 +79,11 @@ function resolveSources(entry: AIKnowledgeEntry, index: SourceIndex): SourceRefe
   });
 }
 
-export function answerDemo(knowledge: AssistantKnowledge, index: SourceIndex, request: AskRequest): GroundedAnswer {
+export function answerDemo(
+  knowledge: AssistantKnowledge,
+  index: SourceIndex,
+  request: AskRequest,
+): GroundedAnswer {
   const verdict = checkQuestion(request.question);
   if (!verdict.ok) {
     return {
@@ -112,7 +116,11 @@ export function answerDemo(knowledge: AssistantKnowledge, index: SourceIndex, re
   };
 }
 
-export function answerEntryById(knowledge: AssistantKnowledge, index: SourceIndex, entryId: string): GroundedAnswer | null {
+export function answerEntryById(
+  knowledge: AssistantKnowledge,
+  index: SourceIndex,
+  entryId: string,
+): GroundedAnswer | null {
   const entry = knowledge.entries.find((e) => e.id === entryId);
   if (!entry) return null;
   return {

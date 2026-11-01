@@ -16,7 +16,10 @@ export function HomeMotion() {
     let disposed = false;
     let revert: (() => void) | null = null;
     (async () => {
-      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([import('gsap'), import('gsap/ScrollTrigger')]);
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+        import('gsap'),
+        import('gsap/ScrollTrigger'),
+      ]);
       if (disposed) return;
       gsap.registerPlugin(ScrollTrigger);
       const ctx = gsap.context(() => {
