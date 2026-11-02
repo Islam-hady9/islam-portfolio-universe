@@ -8,7 +8,9 @@ import { gotoHome, trackErrors } from './helpers';
  * reduced motion, layout stability and the About placement.
  */
 const dialog = (page: Page) => page.getByRole('dialog', { name: 'A short introduction' });
-const video = (page: Page) => page.locator('dialog video');
+// The reel player's dialog (the global AI drawer is another, always-present <dialog>).
+const reelDialog = (page: Page) => page.locator('dialog:not([data-assistant-drawer])');
+const video = (page: Page) => reelDialog(page).locator('video');
 const currentTime = (page: Page) => video(page).evaluate((v: HTMLVideoElement) => v.currentTime);
 // WebKit reports RSC prefetches aborted by page.goto as "access control checks" (harness artifact).
 const benign = /\?_rsc=\S+ due to access control checks/;
@@ -21,7 +23,7 @@ async function openFrom(page: Page, action: 'hero-reel' | 'identity-reel' | 'abo
   const trigger = page.locator(`[data-action="${action}"]`);
   await trigger.scrollIntoViewIfNeeded();
   // The player chunk mounts after first paint (or on intent); wait for its dialog.
-  await expect(page.locator('dialog')).toHaveCount(1, { timeout: 15_000 });
+  await expect(reelDialog(page)).toHaveCount(1, { timeout: 15_000 });
   await trigger.click();
   await expect(dialog(page)).toBeVisible();
   return trigger;
@@ -100,12 +102,12 @@ test.describe('personal media', () => {
       'aria-pressed',
       'true',
     );
-    await expect(page.locator('dialog [data-captions="on"]')).toHaveText(/\S/, { timeout: 10_000 });
+    await expect(reelDialog(page).locator('[data-captions="on"]')).toHaveText(/\S/, { timeout: 10_000 });
     // The world behind is paused and the page cannot scroll.
     expect(await page.evaluate(() => window.__IU__?.state().mediaOverlay)).toBe(true);
     expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
     await page.keyboard.press('Escape');
-    await expect(page.locator('dialog')).not.toHaveAttribute('open', '');
+    await expect(reelDialog(page)).not.toHaveAttribute('open', '');
     await expect(trigger).toBeFocused();
     expect(await video(page).evaluate((v: HTMLVideoElement) => v.paused)).toBe(true);
     // The dialog's "close" event (which restores the page) fires a task after close().
@@ -122,7 +124,7 @@ test.describe('personal media', () => {
     await gotoHome(page, STATIC);
     const trigger = page.locator('[data-action="identity-reel"]');
     await trigger.scrollIntoViewIfNeeded();
-    await expect(page.locator('dialog')).toHaveCount(1, { timeout: 15_000 });
+    await expect(reelDialog(page)).toHaveCount(1, { timeout: 15_000 });
     await trigger.focus();
     await page.keyboard.press('Enter');
     await expect(dialog(page)).toBeVisible();

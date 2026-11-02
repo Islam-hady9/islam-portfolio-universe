@@ -1,6 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Locator, type Page } from '@playwright/test';
-import { gotoHome, trackErrors } from './helpers';
+import { gotoHome, sectionPanel, trackErrors } from './helpers';
 
 /**
  * Portfolio Intelligence Engine — Smart Mode in every browser, and every Local AI path that does
@@ -17,9 +17,7 @@ const watch = (page: Page) => {
 
 async function openPanel(page: Page) {
   await gotoHome(page, 'quality=static');
-  const panel = page.getByTestId('ask-ai-panel');
-  // Instant scroll (no actionability wait): slow engines under load keep reveals animating.
-  await panel.evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
+  const panel = await sectionPanel(page);
   await expect(panel).toHaveAttribute('data-smart', 'ready', { timeout: 15_000 });
   return panel;
 }
@@ -53,8 +51,7 @@ test.describe('Ask My AI — Smart Mode', () => {
     await gotoHome(page, 'quality=static');
     await page.waitForTimeout(1500);
     expect(urls.filter((u) => u.includes('/ai/knowledge.json'))).toEqual([]);
-    const panel = page.getByTestId('ask-ai-panel');
-    await panel.scrollIntoViewIfNeeded();
+    const panel = await sectionPanel(page);
     await expect(panel).toHaveAttribute('data-smart', 'ready', { timeout: 15_000 });
     expect(urls.filter((u) => u.includes('/ai/knowledge.json'))).toHaveLength(1);
     expect(urls.filter((u) => MODEL_HOSTS.test(u) || /turbopack-worker/.test(u))).toEqual([]);

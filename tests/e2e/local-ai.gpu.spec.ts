@@ -1,6 +1,7 @@
 import { chromium, expect, test, type BrowserContext, type Page } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 import path from 'node:path';
+import { sectionPanel } from './helpers';
 
 /**
  * Local AI on a real GPU (opt-in `gpu` project: `npm run test:e2e:gpu -- -g "Local AI"`).
@@ -45,8 +46,7 @@ async function ask(question: string) {
 
 test('Local AI: consent → download/initialize → streamed, cited answer', async () => {
   await page.goto('/?intro=0');
-  const panel = page.getByTestId('ask-ai-panel');
-  await panel.scrollIntoViewIfNeeded();
+  const panel = await sectionPanel(page);
   await expect(panel).toHaveAttribute('data-smart', 'ready', { timeout: 30_000 });
   expect(await page.evaluate(() => typeof navigator.gpu)).toBe('object');
 
@@ -108,6 +108,54 @@ test('Local AI: stop mid-generation keeps the question and stays usable', async 
   }
   await expect(panel).toHaveAttribute('data-local', 'ready');
   expect(await page.evaluate(() => window.__IU__?.state().aiRenderHold)).toBe(false);
+});
+
+test('Local AI in the global drawer: the same local session, and the orb follows generation (AI Presence V1)', async () => {
+  const EVIDENCE = '.evidence-tmp/presence';
+  mkdirSync(EVIDENCE, { recursive: true });
+  const section = page.locator('[data-ai-host="section"] [data-testid="ask-ai-panel"]');
+  const turns = await section.getByTestId('assistant-answer').count();
+  // Away from the section the orb is on screen; its left part is always visible (it may tuck).
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+  const orbBody = page.locator('[data-testid="assistant-orb"] [data-orb-body]');
+  await orbBody.click({ position: { x: 12, y: 27 } });
+  const drawer = page.locator('[data-ai-host="drawer"] [data-testid="ask-ai-panel"]');
+  await expect(drawer).toBeVisible();
+  // One instance: the drawer shows the very session the section built — same mode, same model.
+  await expect(drawer).toHaveAttribute('data-mode', 'local');
+  await expect(drawer).toHaveAttribute('data-local', 'ready');
+  await expect(drawer.getByTestId('assistant-answer')).toHaveCount(turns);
+  expect(await page.evaluate(() => window.__IU__?.state().assistantOpen)).toBe(true);
+
+  const box = drawer.getByRole('textbox', { name: /Ask about Islam/ });
+  await box.fill('How can I contact him?');
+  await box.press('Enter');
+  await expect(drawer).toHaveAttribute('data-local', 'generating', { timeout: 30_000 });
+  // Close mid-generation: the answer keeps streaming in the shared session and the orb shows it.
+  await page.keyboard.press('Escape');
+  await expect(page.getByTestId('assistant-drawer')).toBeHidden();
+  const orb = page.getByTestId('assistant-orb');
+  await expect(orb).toHaveAttribute('data-phase', 'generating');
+  await expect(orb).toHaveAccessibleName(/writing an answer/);
+  const b = (await orbBody.boundingBox())!;
+  const x0 = Math.max(0, b.x - 300);
+  const y0 = Math.max(0, b.y - 60);
+  await page.screenshot({
+    path: `${EVIDENCE}/g-01-orb-generating.png`,
+    clip: { x: x0, y: y0, width: 1440 - x0, height: Math.min(140, 900 - y0) },
+  });
+  const answer = section.getByTestId('assistant-answer').nth(Math.min(turns, 7));
+  await expect(answer).toHaveAttribute('data-turn-state', 'done', { timeout: 120_000 });
+  await expect(orb).toHaveAttribute('data-phase', /complete|fallback/);
+
+  // Reopen: the finished local answer is in the drawer too.
+  await orbBody.click({ position: { x: 12, y: 27 } });
+  await expect(drawer).toBeVisible();
+  await expect(drawer.getByTestId('assistant-answer')).toHaveCount(Math.min(turns + 1, 8));
+  await page.waitForTimeout(600);
+  await page.screenshot({ path: `${EVIDENCE}/g-02-drawer-local-answer.png` });
+  await page.getByRole('button', { name: 'Close Ask My AI' }).click();
+  await expect(page.getByTestId('assistant-drawer')).toBeHidden();
 });
 
 test('Local AI: back to Smart Mode releases the model and the 3D hold', async () => {

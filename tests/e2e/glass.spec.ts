@@ -1,5 +1,5 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
-import { gotoHome } from './helpers';
+import { gotoHome, sectionPanel } from './helpers';
 
 /**
  * Cinematic Fidelity V3 — the Intelligent Glass system on real CSS: nested surfaces never blur
@@ -28,8 +28,7 @@ test.describe('Intelligent Glass (V3)', () => {
     page,
   }) => {
     await gotoHome(page, 'quality=static');
-    const panel = page.getByTestId('ask-ai-panel');
-    await panel.evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
+    const panel = await sectionPanel(page);
     await expect(panel).toHaveClass(/glass--panel/);
     await expect.poll(() => panel.getAttribute('data-smart')).toBe('ready');
     const box = panel.getByRole('textbox', { name: /Ask about Islam/ });
@@ -84,11 +83,13 @@ test.describe('Intelligent Glass (V3)', () => {
     await gotoHome(page, 'quality=static');
     const supported = await page.evaluate(() => matchMedia('(prefers-reduced-transparency: reduce)').matches);
     test.skip(!supported, 'this Chromium build does not expose prefers-reduced-transparency');
-    const panel = page.getByTestId('ask-ai-panel');
-    // The panel's module sets its own --g-a (0.76); the preference must still win.
-    expect(await panel.evaluate((el) => getComputedStyle(el).getPropertyValue('--g-a').trim())).toBe('0.95');
+    const panel = await sectionPanel(page);
+    // The panel's module sets its own --g-a (0.76); the preference must still win. Compared as a
+    // number: the production CSS minifier writes 0.95 as ".95".
+    const alpha = (el: Element) => Number(getComputedStyle(el).getPropertyValue('--g-a').trim());
+    expect(await panel.evaluate(alpha)).toBeCloseTo(0.95, 5);
     expect(await backdrop(panel)).toBe('none');
     const tile = page.locator('[data-spotlight][data-tilt]').first();
-    expect(await tile.evaluate((el) => getComputedStyle(el).getPropertyValue('--g-a').trim())).toBe('0.95');
+    expect(await tile.evaluate(alpha)).toBeCloseTo(0.95, 5);
   });
 });

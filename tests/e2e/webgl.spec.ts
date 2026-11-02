@@ -18,6 +18,30 @@ type Frame = {
 const frameOf = (page: import('@playwright/test').Page) =>
   page.evaluate(() => window.__IU__?.frame?.() as unknown as Frame);
 
+/** Counts WebGL draw calls from every context on the page; returns "draws during the next ms". */
+async function drawCounter(page: import('@playwright/test').Page) {
+  await page.addInitScript(() => {
+    const w = window as unknown as { __draws: number };
+    w.__draws = 0;
+    for (const proto of [WebGLRenderingContext.prototype, WebGL2RenderingContext.prototype]) {
+      for (const name of ['drawArrays', 'drawElements', 'drawArraysInstanced', 'drawElementsInstanced']) {
+        const orig = (proto as unknown as Record<string, ((...a: unknown[]) => unknown) | undefined>)[name];
+        if (!orig) continue;
+        (proto as unknown as Record<string, unknown>)[name] = function (this: unknown, ...args: unknown[]) {
+          w.__draws++;
+          return orig.apply(this, args);
+        };
+      }
+    }
+  });
+  const draws = () => page.evaluate(() => (window as unknown as { __draws: number }).__draws);
+  return async (ms: number) => {
+    const a = await draws();
+    await page.waitForTimeout(ms);
+    return (await draws()) - a;
+  };
+}
+
 async function scrollToSection(page: import('@playwright/test').Page, id: string) {
   await page.evaluate((sid) => {
     const el = document.getElementById(sid)!;
@@ -151,27 +175,7 @@ test.describe('webgl experience (GPU)', () => {
   });
 
   test('intro reel: the world stops rendering while the film plays, and resumes after', async ({ page }) => {
-    // Count WebGL draw calls from every context on the page.
-    await page.addInitScript(() => {
-      const w = window as unknown as { __draws: number };
-      w.__draws = 0;
-      for (const proto of [WebGLRenderingContext.prototype, WebGL2RenderingContext.prototype]) {
-        for (const name of ['drawArrays', 'drawElements', 'drawArraysInstanced', 'drawElementsInstanced']) {
-          const orig = (proto as unknown as Record<string, ((...a: unknown[]) => unknown) | undefined>)[name];
-          if (!orig) continue;
-          (proto as unknown as Record<string, unknown>)[name] = function (this: unknown, ...args: unknown[]) {
-            w.__draws++;
-            return orig.apply(this, args);
-          };
-        }
-      }
-    });
-    const draws = () => page.evaluate(() => (window as unknown as { __draws: number }).__draws);
-    const drawsOver = async (ms: number) => {
-      const a = await draws();
-      await page.waitForTimeout(ms);
-      return (await draws()) - a;
-    };
+    const drawsOver = await drawCounter(page);
     await gotoHome(page, 'quality=balanced');
     await expect
       .poll(() => page.evaluate(() => window.__IU__?.state().webgl), { timeout: 30_000 })
@@ -180,10 +184,12 @@ test.describe('webgl experience (GPU)', () => {
     expect(await drawsOver(1000)).toBeGreaterThan(50);
 
     const trigger = page.locator('[data-action="identity-reel"]');
-    await expect(page.locator('dialog')).toHaveCount(1, { timeout: 15_000 });
+    // The reel player's dialog (the global AI drawer is another, always-present <dialog>).
+    const reel = page.locator('dialog:not([data-assistant-drawer])');
+    await expect(reel).toHaveCount(1, { timeout: 15_000 });
     await trigger.click();
     await expect
-      .poll(() => page.locator('dialog video').evaluate((v: HTMLVideoElement) => v.currentTime), {
+      .poll(() => reel.locator('video').evaluate((v: HTMLVideoElement) => v.currentTime), {
         timeout: 15_000,
       })
       .toBeGreaterThan(1);
@@ -192,7 +198,34 @@ test.describe('webgl experience (GPU)', () => {
     expect(await drawsOver(1500)).toBe(0);
 
     await page.keyboard.press('Escape');
-    await expect(page.locator('dialog')).not.toHaveAttribute('open', '');
+    await expect(reel).not.toHaveAttribute('open', '');
+    await expect.poll(() => drawsOver(600), { timeout: 5000 }).toBeGreaterThan(20);
+    expect(await page.evaluate(() => window.__IU__?.state().webgl)).toBe('ready');
+  });
+
+  test('AI drawer (AI Presence V1): the world stops rendering while it covers it, and resumes after', async ({
+    page,
+  }) => {
+    const drawsOver = await drawCounter(page);
+    await gotoHome(page, 'quality=balanced');
+    await expect
+      .poll(() => page.evaluate(() => window.__IU__?.state().webgl), { timeout: 30_000 })
+      .toBe('ready');
+    expect(await drawsOver(1000)).toBeGreaterThan(50);
+    // The orb's left part is always on screen (it may be tucked past the right edge).
+    await page.locator('[data-testid="assistant-orb"] [data-orb-body]').click({ position: { x: 12, y: 27 } });
+    const drawer = page.getByTestId('assistant-drawer');
+    await expect(drawer).toBeVisible();
+    await expect(page.locator('[data-ai-host="drawer"] [data-testid="ask-ai-panel"]')).toHaveAttribute(
+      'data-smart',
+      'ready',
+      { timeout: 15_000 },
+    );
+    expect(await page.evaluate(() => window.__IU__?.state().assistantOpen)).toBe(true);
+    await page.waitForTimeout(300);
+    expect(await drawsOver(1500)).toBe(0);
+    await page.keyboard.press('Escape');
+    await expect(drawer).toBeHidden();
     await expect.poll(() => drawsOver(600), { timeout: 5000 }).toBeGreaterThan(20);
     expect(await page.evaluate(() => window.__IU__?.state().webgl)).toBe('ready');
   });

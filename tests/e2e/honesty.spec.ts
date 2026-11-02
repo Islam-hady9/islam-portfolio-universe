@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
-import { ROUTES, gotoHome, scrollThrough } from './helpers';
+import { ROUTES, gotoHome, scrollThrough, sectionPanel } from './helpers';
 
 const json = (file: string) => JSON.parse(readFileSync(file, 'utf8'));
 const contact = json('src/content/data/contact.json') as {
@@ -56,8 +56,7 @@ test.describe('truthfulness audit', () => {
       if (r.url().includes('/api/') || r.method() !== 'GET') calls.push(`${r.method()} ${r.url()}`);
     });
     await gotoHome(page);
-    const panel = page.getByTestId('ask-ai-panel');
-    await panel.scrollIntoViewIfNeeded();
+    const panel = await sectionPanel(page);
     await expect(panel.getByTestId('ask-ai-mode')).toContainText('Smart Mode');
     await expect(panel).toHaveAttribute('data-smart', 'ready', { timeout: 15_000 });
     // The former "concept preview" status is no longer shown now that answers are real.

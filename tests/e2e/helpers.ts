@@ -88,6 +88,19 @@ export async function expectInViewport(page: Page, selector: string) {
     .toBe('in');
 }
 
+/**
+ * The Ask My AI panel in its home section. Since AI Presence V1 the one site-wide assistant is not
+ * server-rendered: it mounts in the section's slot as the section nears the viewport (or when the
+ * visitor opens it), so the section is brought in first. Instant scrolls: slow engines under load
+ * keep reveals animating, which would stall actionability-based scrolling.
+ */
+export async function sectionPanel(page: Page) {
+  await page.locator('#ask-ai').evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
+  const panel = page.locator('[data-ai-host="section"] [data-testid="ask-ai-panel"]');
+  await panel.evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
+  return panel;
+}
+
 export async function noHorizontalOverflow(page: Page) {
   const o = await page.evaluate(() => ({
     sw: document.documentElement.scrollWidth,
