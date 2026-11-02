@@ -22,6 +22,7 @@ import {
   socialLinkSchema,
   universeNodeSchema,
   verifiedLinksSchema,
+  aiKnowledgeApprovalsSchema,
   type ContentMode,
 } from './schema';
 import { assertPublishable } from './gate';
@@ -41,6 +42,7 @@ import assistantJson from './data/assistant.json';
 import attributionsJson from './data/attributions.json';
 import mediaJson from './data/media.json';
 import verifiedLinksJson from './data/verified-links.json';
+import aiKnowledgeJson from './data/ai-knowledge.json';
 
 function parse<T extends z.ZodType>(name: string, schema: T, data: unknown): z.infer<T> {
   const result = schema.safeParse(data);
@@ -66,6 +68,7 @@ export const content = {
   attributions: parse('attributions.json', z.array(assetAttributionSchema), attributionsJson),
   media: parse('media.json', mediaContentSchema, mediaJson),
   verifiedLinks: parse('verified-links.json', verifiedLinksSchema, verifiedLinksJson),
+  aiKnowledge: parse('ai-knowledge.json', aiKnowledgeApprovalsSchema, aiKnowledgeJson),
 } as const;
 
 export type Content = typeof content;
@@ -143,4 +146,5 @@ export const getAttributions = () => content.attributions;
 export const getMedia = () => content.media;
 /** Registry for the CV-population phase — scripts and tests only; never rendered. */
 export const getVerifiedLinks = () => content.verifiedLinks;
+export const getAiKnowledgeApprovals = () => content.aiKnowledge;
 export const isPublicMode = () => getContentMode() === 'VERIFIED_PUBLIC';

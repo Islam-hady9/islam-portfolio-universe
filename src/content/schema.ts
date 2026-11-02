@@ -397,6 +397,26 @@ export const verifiedLinksSchema = z.object({
 });
 export type VerifiedLinks = z.infer<typeof verifiedLinksSchema>;
 
+// ───────────────────────── Assistant knowledge approvals ─────────────────────────
+// Which public content the portfolio assistant may state as fact (PIE spec §5). Default deny.
+
+export const aiKnowledgeApprovalsSchema = z.object({
+  approvals: z
+    .array(
+      z.object({
+        /** "profile.role", "project.tibyn" or a collection wildcard such as "project.*". */
+        source: z.string().regex(/^[a-z-]+\.(?:[a-z0-9-]+|\*)$/),
+        approvedForAi: z.boolean(),
+        note: z.string().optional(),
+      }),
+    )
+    .refine((a) => new Set(a.map((x) => x.source)).size === a.length, {
+      message: 'duplicate approval source',
+    }),
+  verification: verificationSchema,
+});
+export type AiKnowledgeApprovals = z.infer<typeof aiKnowledgeApprovalsSchema>;
+
 // ───────────────────────── Asset attribution ─────────────────────────
 
 export const assetAttributionSchema = z.object({
