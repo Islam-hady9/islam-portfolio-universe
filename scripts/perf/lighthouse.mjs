@@ -26,6 +26,13 @@ const profiles = [
   { name: 'mobile-static-case-study', url: `${base}/projects/tibyn`, args: [], flags: '--headless=new' },
   { name: 'mobile-static-about', url: `${base}/about`, args: [], flags: '--headless=new', optional: true },
   {
+    name: 'mobile-static-case-lifeatlas',
+    url: `${base}/projects/lifeatlas`,
+    args: [],
+    flags: '--headless=new',
+    optional: true,
+  },
+  {
     name: 'desktop-gpu-home',
     url: `${base}/?intro=0`,
     args: ['--preset=desktop'],
