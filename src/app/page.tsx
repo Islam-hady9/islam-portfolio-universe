@@ -13,6 +13,7 @@ import {
 } from '@/content';
 import { buildSourceIndex } from '@/lib/assistant/source-index';
 import { formatDuration, reelAsset, reelView, spokenDuration } from '@/lib/media';
+import { resumeDocument } from '@/lib/resume';
 // Shared media components first, in the same order as on /about (one CSS order for both routes).
 import { IntroReelHost } from '@/components/media/IntroReelHost';
 import { IntroReelTrigger } from '@/components/media/IntroReelTrigger';
@@ -35,6 +36,7 @@ export default function HomePage() {
   const home = getHomeCopy();
   const media = getMedia();
   const reel = reelAsset();
+  const resume = resumeDocument();
   const reelLabels = {
     label: media.introReel.ctaLabel,
     duration: formatDuration(reel.duration),
@@ -46,6 +48,7 @@ export default function HomePage() {
       <HeroSection
         site={site}
         copy={home.hero}
+        resume={resume}
         reel={
           <IntroReelTrigger
             {...reelLabels}
@@ -78,7 +81,7 @@ export default function HomePage() {
         knowledge={getAssistantKnowledge()}
         sourceIndex={buildSourceIndex(content)}
       />
-      <ContactSection copy={home.contact} social={getSocialLinks()} />
+      <ContactSection copy={home.contact} social={getSocialLinks()} resume={resume} />
       <HomeMotion />
       <IntroReelHost reel={reelView(media.introReel)} />
     </>

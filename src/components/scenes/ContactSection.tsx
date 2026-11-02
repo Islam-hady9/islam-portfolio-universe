@@ -1,4 +1,5 @@
 import type { HomeCopy, SocialLink } from '@/content/schema';
+import type { ResumeDocument } from '@/lib/resume';
 import { Eyebrow } from '@/components/ui/SectionHeading';
 import { ButtonLink } from '@/components/ui/Button';
 import { SocialAction } from '@/components/contact/SocialAction';
@@ -7,7 +8,16 @@ import { SceneArt } from './SceneArt';
 import styles from './ContactSection.module.css';
 
 /** S9 — The Invitation. Calm return to the cinematic universe: planet horizon on the right. */
-export function ContactSection({ copy, social }: { copy: HomeCopy['contact']; social: SocialLink[] }) {
+export function ContactSection({
+  copy,
+  social,
+  resume,
+}: {
+  copy: HomeCopy['contact'];
+  social: SocialLink[];
+  /** The verified résumé; while null the Resume action shows its "Soon" badge. */
+  resume?: ResumeDocument | null;
+}) {
   const linkedin = social.find((s) => s.id === 'linkedin');
   const github = social.find((s) => s.id === 'github');
   return (
@@ -39,7 +49,13 @@ export function ContactSection({ copy, social }: { copy: HomeCopy['contact']; so
             </ButtonLink>
             {linkedin ? <SocialAction link={linkedin} /> : null}
             {github ? <SocialAction link={github} /> : null}
-            <ButtonLink href={routes.resume} icon="file" badge="Soon" magnetic dataAction="contact-resume">
+            <ButtonLink
+              href={routes.resume}
+              icon="file"
+              badge={resume ? undefined : 'Soon'}
+              magnetic
+              dataAction="contact-resume"
+            >
               Resume
             </ButtonLink>
           </div>

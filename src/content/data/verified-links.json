@@ -1,0 +1,212 @@
+{
+  "$comment": "Owner-verified links from the temporary CV that have no matching record on the site yet. Nothing in this file is rendered; it exists so the CV-population phase can use exact, extracted URLs. Wired links live in social.json and contact.json.",
+  "source": {
+    "document": "public/resume/Islam_Abdelhady_CV.pdf",
+    "sha256": "244673cb86f56ec7a58c36b81e7ed6ee89d84d22f48554ff7eac05d43b7689d8",
+    "extractedOn": "2026-11-02",
+    "method": "Link annotations read with two PDF parsers (PyMuPDF, pypdf) and a raw zlib inflate; all three agree."
+  },
+  "phone": {
+    "display": "+20 1066463355",
+    "href": "tel:+201066463355",
+    "publicDisplay": false,
+    "verification": {
+      "status": "owner_verified",
+      "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 1 header (text, not a link)",
+      "note": "Not published on the site until the owner authorises it (it is printed in the PDF itself)."
+    }
+  },
+  "repositories": [
+    {
+      "id": "dataops-llm-engine",
+      "title": "DataOps LLM Engine",
+      "url": "https://github.com/Islam-hady9/dataops-llm-engine",
+      "page": 3,
+      "matchedProject": null,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 3 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    },
+    {
+      "id": "eyes-mate",
+      "title": "Eyes Mate: AI Assistant for the Visually Impaired",
+      "url": "https://github.com/Islam-hady9/application-to-help-the-blind-eyes-mate",
+      "page": 3,
+      "matchedProject": null,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 3 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    },
+    {
+      "id": "brain-tumor-detection-api",
+      "title": "Brain Tumor Detection API",
+      "url": "https://github.com/Islam-hady9/BrainTumorDetection-API",
+      "page": 3,
+      "matchedProject": null,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 3 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    },
+    {
+      "id": "generative-ai-models",
+      "title": "Generative AI Models",
+      "url": "https://github.com/Islam-hady9/Generative-AI-Models",
+      "page": 3,
+      "matchedProject": null,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 3 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    },
+    {
+      "id": "smartai-customer-support",
+      "title": "SmartAI Customer Support",
+      "url": "https://github.com/Islam-hady9/SmartAI_CustomerSupport",
+      "page": 3,
+      "matchedProject": null,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 3 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    },
+    {
+      "id": "deep-cuda",
+      "title": "Deep CUDA: GPU Acceleration from Scratch",
+      "url": "https://github.com/Islam-hady9/deep-cuda",
+      "page": 3,
+      "matchedProject": null,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 3 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    }
+  ],
+  "certificates": [
+    {
+      "id": "llmops-and-aiops-bootcamp-with-eight-end-to-end-projects",
+      "title": "LLMOps and AIOps Bootcamp with Eight End-to-End Projects",
+      "issuer": "Udemy, KRISHAI Technologies",
+      "date": "Mar 2026",
+      "url": "https://drive.google.com/file/d/1LRMq4abpNwBmxEh_bcviQSFq132oCCFC/view?usp=drive_link",
+      "page": 4,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 4 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    },
+    {
+      "id": "generative-ai-with-large-language-models",
+      "title": "Generative AI with Large Language Models",
+      "issuer": "Coursera",
+      "date": "Apr 2025",
+      "url": "https://drive.google.com/file/d/1qkDcCiYGasivGr5Ozfq51DuBgaE9j0fO/view?usp=drivesdk",
+      "page": 4,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 4 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    },
+    {
+      "id": "advanced-learning-algorithms",
+      "title": "Advanced Learning Algorithms",
+      "issuer": "DeepLearning.AI",
+      "date": "Sep 2023",
+      "url": "https://drive.google.com/file/d/1Z9-hwfvvIeLOC-8foyEUdOdJaSkE454v/view",
+      "page": 4,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 4 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    },
+    {
+      "id": "deep-learning-with-pytorch-image-segmentation",
+      "title": "Deep Learning with PyTorch: Image Segmentation",
+      "issuer": "Coursera",
+      "date": "Sep 2023",
+      "url": "https://drive.google.com/file/d/1byehbMkf4Dr-BL1l5z1EIZo6ju8OVS-5/view",
+      "page": 4,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 4 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    },
+    {
+      "id": "empedia-competitive-programming-competition",
+      "title": "Empedia Competitive Programming Competition",
+      "issuer": "Empedia",
+      "date": "Aug 2023",
+      "url": "https://drive.google.com/file/d/1N9leyAlDCAoQzjANXn2pMyp6Ec1NC_Td/view",
+      "page": 4,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 4 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    },
+    {
+      "id": "mathematics-for-computer-science",
+      "title": "Mathematics for Computer Science",
+      "issuer": "BIO CODE, Assiut University",
+      "date": "Aug 2023",
+      "url": "https://drive.google.com/file/d/1XvkvbVA_PuUV7hGh3bC6Cu3Z-ZVlwk1D/view",
+      "page": 4,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 4 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    },
+    {
+      "id": "supervised-machine-learning-regression-and-classification",
+      "title": "Supervised Machine Learning: Regression and Classification",
+      "issuer": "DeepLearning.AI",
+      "date": "Mar 2023",
+      "url": "https://drive.google.com/file/d/1FOQtu1kBrybHJn99R28ZX3afhqk_I6Wj/view",
+      "page": 4,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 4 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    },
+    {
+      "id": "python-programming-basics",
+      "title": "Python Programming Basics",
+      "issuer": "MaharaTech",
+      "date": "Feb 2023",
+      "url": "https://drive.google.com/file/d/13DwIJIlSSwFtjmZxjMQ2dic9SpJJu5SY/view",
+      "page": 4,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 4 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    },
+    {
+      "id": "database-fundamentals",
+      "title": "Database Fundamentals",
+      "issuer": "MaharaTech",
+      "date": "Feb 2023",
+      "url": "https://drive.google.com/file/d/1YMmTIxpXn5Nbpqqwb5jBVqCpGkQrXioX/view",
+      "page": 4,
+      "verification": {
+        "status": "owner_verified",
+        "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 4 link annotation",
+        "note": "Not rendered: kept for the CV-population phase. Temporary CV — re-check against the final CV before use."
+      }
+    }
+  ]
+}

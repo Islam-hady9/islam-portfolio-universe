@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getContact } from '@/content';
+import { resumeDocument } from '@/lib/resume';
 import { PageHero } from '@/components/layout/PageHero';
 import { ButtonLink } from '@/components/ui/Button';
 import { StatusTag } from '@/components/ui/StatusTag';
@@ -14,23 +15,43 @@ export const metadata: Metadata = {
 
 /**
  * /resume (spec §4.1, §10.2): a controlled, honest deferral — never a broken or fake file.
- * When an owner-verified resume URL is configured, this page offers the download.
+ * When an owner-verified resume is configured, this page offers it: Download saves the original
+ * PDF; View opens it in the browser's own PDF viewer (the site's headers forbid framing, so there
+ * is no embedded viewer and no PDF library).
  */
 export default function ResumePage() {
   const { resume } = getContact();
-  const available = Boolean(resume.url) && resume.verification.status !== 'placeholder';
+  const doc = resumeDocument();
+  const available = doc !== null;
   return (
     <>
       <PageHero
         eyebrow="RESUME"
         title={available ? 'Download the resume' : 'Resume coming soon'}
         lead={available ? 'The latest owner-approved resume.' : resume.unavailableMessage}
-        aside={available ? null : <StatusTag tone="pending">Available after profile review</StatusTag>}
+        aside={
+          doc ? (
+            <p className={styles.meta}>PDF · {doc.sizeLabel}</p>
+          ) : (
+            <StatusTag tone="pending">Available after profile review</StatusTag>
+          )
+        }
       >
-        {available ? (
-          <ButtonLink href={resume.url!} external variant="primary" icon="download">
-            Download resume
-          </ButtonLink>
+        {doc ? (
+          <>
+            <ButtonLink
+              href={doc.href}
+              download={doc.fileName}
+              variant="primary"
+              icon="download"
+              dataAction="resume-download"
+            >
+              Download resume
+            </ButtonLink>
+            <ButtonLink href={doc.href} external icon="file" dataAction="resume-view">
+              View resume
+            </ButtonLink>
+          </>
         ) : null}
         <ButtonLink href={routes.projects} icon="layers">
           Explore projects

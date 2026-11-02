@@ -1,19 +1,21 @@
 {
-  "email": null,
+  "email": "eslamabdo71239@gmail.com",
   "availability": null,
   "location": null,
   "responseNote": null,
   "unavailableMessage": "Direct contact details will be published after the final profile review.",
   "verification": {
-    "status": "placeholder",
-    "source": "Not yet supplied by owner (spec §4.2: never invent email or phone)."
+    "status": "owner_verified",
+    "source": "Owner's CV, Islam_Abdelhady_CV.pdf, page 1 mailto link annotation",
+    "note": "Only the email is set; availability, location and response note stay unset. The CV's phone number is not published (kept in verified-links.json, publicDisplay false)."
   },
   "resume": {
-    "url": null,
+    "url": "/resume/Islam_Abdelhady_CV.pdf",
     "unavailableMessage": "Resume will be available after final profile review.",
     "verification": {
-      "status": "placeholder",
-      "source": "Not yet supplied by owner (spec §10.2: no fake PDF)."
+      "status": "owner_verified",
+      "source": "Owner-supplied PDF, imported byte-for-byte by scripts/resume/import-resume.mjs (checksum in src/assets/resume.json)",
+      "note": "Temporary CV; replace with `npm run resume:import -- <file>` — the public URL stays the same."
     }
   }
 }

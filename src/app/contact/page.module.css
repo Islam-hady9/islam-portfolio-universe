@@ -75,3 +75,9 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.resumeActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

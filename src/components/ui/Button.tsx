@@ -42,12 +42,15 @@ function Inner({
 export interface ButtonLinkProps extends CommonProps {
   href: string;
   external?: boolean;
+  /** Same-origin file download: renders a native <a download> with this suggested file name. */
+  download?: string;
 }
 
 /** A link styled as a button. Internal routes use next/link; hash links stay native anchors. */
 export function ButtonLink({
   href,
   external,
+  download,
   variant = 'secondary',
   size = 'md',
   magnetic,
@@ -63,6 +66,13 @@ export function ButtonLink({
     'aria-describedby': describedBy,
     'data-action': dataAction,
   };
+  if (download) {
+    return (
+      <a href={href} download={download} {...shared}>
+        <Inner {...inner} />
+      </a>
+    );
+  }
   if (external) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" {...shared}>

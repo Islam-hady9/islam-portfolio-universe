@@ -6,6 +6,7 @@ import { ButtonLink } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import { StatusTag } from '@/components/ui/StatusTag';
 import { routes } from '@/lib/routes';
+import { resumeDocument } from '@/lib/resume';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function ContactPage() {
   const copy = getHomeCopy().contact;
   const contact = getContact();
   const social = getSocialLinks();
+  const resume = resumeDocument();
   return (
     <>
       <PageHero eyebrow={copy.eyebrow} title={copy.title} lead={copy.body} />
@@ -79,10 +81,38 @@ export default function ContactPage() {
             </span>
             <div className={styles.channelBody}>
               <h3 className={styles.channelTitle}>Resume</h3>
-              <p className={styles.muted}>{contact.resume.unavailableMessage}</p>
-              <ButtonLink href={routes.resume} size="sm" icon="file" badge="Soon">
-                Resume status
-              </ButtonLink>
+              {resume ? (
+                <>
+                  <p className={styles.muted}>PDF · {resume.sizeLabel}</p>
+                  <span className={styles.resumeActions}>
+                    <ButtonLink
+                      href={resume.href}
+                      external
+                      size="sm"
+                      icon="file"
+                      dataAction="contact-resume-view"
+                    >
+                      View resume
+                    </ButtonLink>
+                    <ButtonLink
+                      href={resume.href}
+                      download={resume.fileName}
+                      size="sm"
+                      icon="download"
+                      dataAction="contact-resume-download"
+                    >
+                      Download
+                    </ButtonLink>
+                  </span>
+                </>
+              ) : (
+                <>
+                  <p className={styles.muted}>{contact.resume.unavailableMessage}</p>
+                  <ButtonLink href={routes.resume} size="sm" icon="file" badge="Soon">
+                    Resume status
+                  </ButtonLink>
+                </>
+              )}
             </div>
           </li>
         </ul>

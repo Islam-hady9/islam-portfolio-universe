@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import type { HomeCopy, SiteIdentity } from '@/content/schema';
+import type { ResumeDocument } from '@/lib/resume';
 import { ButtonLink } from '@/components/ui/Button';
 import { routes } from '@/lib/routes';
 import { SceneArt } from './SceneArt';
@@ -14,11 +15,14 @@ export function HeroSection({
   site,
   copy,
   reel,
+  resume,
 }: {
   site: SiteIdentity;
   copy: HomeCopy['hero'];
   /** Optional intro-reel trigger: a quiet human entry point under the CTAs. */
   reel?: ReactNode;
+  /** The verified résumé PDF; while null the CTA keeps its honest "Soon" deferral. */
+  resume?: ResumeDocument | null;
 }) {
   return (
     <section id="top" data-section="hero" className={styles.hero} aria-labelledby="hero-title">
@@ -67,16 +71,29 @@ export function HeroSection({
               </ButtonLink>
             </span>
             <span className={styles.cta} style={{ ['--d' as string]: 820 }}>
-              <ButtonLink
-                href={routes.resume}
-                icon="download"
-                badge="Soon"
-                describedBy="hero-cv-note"
-                magnetic
-                dataAction="hero-resume"
-              >
-                {copy.ctaResume}
-              </ButtonLink>
+              {resume ? (
+                <ButtonLink
+                  href={resume.href}
+                  download={resume.fileName}
+                  icon="download"
+                  magnetic
+                  dataAction="hero-resume"
+                >
+                  {copy.ctaResume}
+                  <span className="sr-only"> (PDF, {resume.sizeLabel})</span>
+                </ButtonLink>
+              ) : (
+                <ButtonLink
+                  href={routes.resume}
+                  icon="download"
+                  badge="Soon"
+                  describedBy="hero-cv-note"
+                  magnetic
+                  dataAction="hero-resume"
+                >
+                  {copy.ctaResume}
+                </ButtonLink>
+              )}
             </span>
             <span className={styles.cta} style={{ ['--d' as string]: 890 }}>
               <ButtonLink href="#contact" icon="chat" magnetic dataAction="hero-talk">
@@ -89,9 +106,11 @@ export function HeroSection({
               {reel}
             </div>
           ) : null}
-          <p id="hero-cv-note" className="sr-only">
-            {copy.ctaResumeDeferredNote}
-          </p>
+          {resume ? null : (
+            <p id="hero-cv-note" className="sr-only">
+              {copy.ctaResumeDeferredNote}
+            </p>
+          )}
         </div>
       </div>
       <a href="#identity" className={styles.scrollCue} aria-label="Scroll to the next section">

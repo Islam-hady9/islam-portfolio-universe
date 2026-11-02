@@ -351,6 +351,52 @@ export const mediaContentSchema = z.object({
 });
 export type MediaContent = z.infer<typeof mediaContentSchema>;
 
+// ───────────────────────── Verified links registry (not rendered) ─────────────────────────
+// Exact links extracted from the owner's CV that have no matching record on the site yet
+// (project repositories, certificates) plus contact data not authorised for display. The
+// CV-population phase consumes this; components never import it.
+
+export const verifiedLinksSchema = z.object({
+  source: z.object({
+    document: z.string(),
+    sha256: z.string().regex(/^[0-9a-f]{64}$/),
+    extractedOn: z.string(),
+    method: z.string(),
+  }),
+  phone: z
+    .object({
+      display: z.string(),
+      href: z.string().regex(/^tel:\+\d{8,15}$/),
+      /** Stays false until the owner authorises showing the number on the site. */
+      publicDisplay: z.boolean(),
+      verification: verificationSchema,
+    })
+    .nullable(),
+  repositories: z.array(
+    z.object({
+      id: z.string(),
+      title: z.string(),
+      url: httpsUrlSchema,
+      page: z.number().int().positive(),
+      /** Slug of an existing project only when it is the same project; otherwise null. */
+      matchedProject: z.string().nullable(),
+      verification: verificationSchema,
+    }),
+  ),
+  certificates: z.array(
+    z.object({
+      id: z.string(),
+      title: z.string(),
+      issuer: z.string(),
+      date: z.string(),
+      url: httpsUrlSchema,
+      page: z.number().int().positive(),
+      verification: verificationSchema,
+    }),
+  ),
+});
+export type VerifiedLinks = z.infer<typeof verifiedLinksSchema>;
+
 // ───────────────────────── Asset attribution ─────────────────────────
 
 export const assetAttributionSchema = z.object({

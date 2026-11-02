@@ -21,6 +21,7 @@ import {
   siteIdentitySchema,
   socialLinkSchema,
   universeNodeSchema,
+  verifiedLinksSchema,
   type ContentMode,
 } from './schema';
 import { assertPublishable } from './gate';
@@ -39,6 +40,7 @@ import contactJson from './data/contact.json';
 import assistantJson from './data/assistant.json';
 import attributionsJson from './data/attributions.json';
 import mediaJson from './data/media.json';
+import verifiedLinksJson from './data/verified-links.json';
 
 function parse<T extends z.ZodType>(name: string, schema: T, data: unknown): z.infer<T> {
   const result = schema.safeParse(data);
@@ -63,6 +65,7 @@ export const content = {
   assistant: parse('assistant.json', assistantKnowledgeSchema, assistantJson),
   attributions: parse('attributions.json', z.array(assetAttributionSchema), attributionsJson),
   media: parse('media.json', mediaContentSchema, mediaJson),
+  verifiedLinks: parse('verified-links.json', verifiedLinksSchema, verifiedLinksJson),
 } as const;
 
 export type Content = typeof content;
@@ -102,6 +105,10 @@ export function validateReferences(c: Content = content): string[] {
     if (n.focus && !capIds.has(n.focus))
       problems.push(`Universe node "${n.id}" focuses unknown capability "${n.focus}".`);
   }
+  for (const r of c.verifiedLinks.repositories) {
+    if (r.matchedProject && !slugs.has(r.matchedProject))
+      problems.push(`Verified repository "${r.id}" matches unknown project "${r.matchedProject}".`);
+  }
   return problems;
 }
 
@@ -134,4 +141,6 @@ export const getContact = () => content.contact;
 export const getAssistantKnowledge = () => content.assistant;
 export const getAttributions = () => content.attributions;
 export const getMedia = () => content.media;
+/** Registry for the CV-population phase — scripts and tests only; never rendered. */
+export const getVerifiedLinks = () => content.verifiedLinks;
 export const isPublicMode = () => getContentMode() === 'VERIFIED_PUBLIC';
