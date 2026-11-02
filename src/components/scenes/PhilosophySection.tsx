@@ -22,7 +22,13 @@ export function PhilosophySection({
         <SectionHeading id="philosophy-title" eyebrow={copy.eyebrow} title={copy.title} />
         <ol className={styles.grid} data-reveal="stagger">
           {principles.map((p, i) => (
-            <li key={p.id} className={styles.tile} data-reveal-item="" data-spotlight="">
+            <li
+              key={p.id}
+              className={`${styles.tile} glass glass--card glass--mint`}
+              data-reveal-item=""
+              data-spotlight=""
+              data-tilt=""
+            >
               <span className={styles.lineArt} aria-hidden="true" />
               <span className={styles.index} aria-hidden="true">
                 0{i + 1}

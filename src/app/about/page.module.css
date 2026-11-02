@@ -23,8 +23,7 @@
 .card {
   padding: 1.25rem 1.4rem;
   border-radius: var(--r-lg);
-  border: 1px solid var(--line);
-  background: rgb(12 15 20 / 0.66);
+  border: 1px solid transparent; /* .glass--flat paints the frame */
 }
 
 .cardTitle {
@@ -64,8 +63,7 @@
 .statusFacts div {
   padding: 1rem 1.2rem;
   border-radius: var(--r-md);
-  border: 1px solid var(--line);
-  background: rgb(12 15 20 / 0.66);
+  border: 1px solid transparent; /* .glass--flat */
 }
 
 .statusFacts dt {

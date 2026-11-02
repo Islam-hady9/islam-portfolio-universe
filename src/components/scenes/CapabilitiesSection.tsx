@@ -26,10 +26,11 @@ export function CapabilitiesSection({
             <li
               key={g.id}
               id={`capability-${g.id}`}
-              className={styles.panel}
+              className={`${styles.panel} glass glass--card glass--cyan`}
               data-capability={g.id}
               data-reveal-item=""
               data-spotlight=""
+              data-tilt=""
             >
               <div className={styles.head}>
                 <span className={styles.icon} aria-hidden="true">
@@ -42,7 +43,7 @@ export function CapabilitiesSection({
               </div>
               <ul className={styles.chips} aria-label={`${g.title} skills`}>
                 {g.skills.map((s) => (
-                  <li key={s} className={styles.chip}>
+                  <li key={s} className={`${styles.chip} glass glass--chip`}>
                     {s}
                   </li>
                 ))}

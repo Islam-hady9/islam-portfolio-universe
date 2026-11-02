@@ -81,7 +81,7 @@ export function SettingsPanel({ id, open, onClose, anchorRef }: SettingsPanelPro
     <div
       id={id}
       ref={ref}
-      className={styles.panel}
+      className={`${styles.panel} glass glass--panel glass--mint`}
       hidden={!open}
       role="dialog"
       aria-modal="false"

@@ -358,6 +358,7 @@ export function AskAiPanel({ manifestVersion }: { manifestVersion: string }) {
               announce(UI.cancelled);
             } else {
               dispatch({ type: 'answer', id, answer: display });
+              useExperience.getState().signalAssistant();
               announce(
                 `${display.mode === 'local' ? UI.localLabel : UI.smartLabel}: ${display.evidence.length} source(s).`,
               );
@@ -383,6 +384,7 @@ export function AskAiPanel({ manifestVersion }: { manifestVersion: string }) {
         } else {
           const a = engine.answer(question, history);
           dispatch({ type: 'answer', id, answer: smartDisplay(a) });
+          useExperience.getState().signalAssistant();
           announce(`${UI.smartLabel}: ${a.evidence.length} source(s).`);
         }
       } finally {
@@ -413,7 +415,7 @@ export function AskAiPanel({ manifestVersion }: { manifestVersion: string }) {
   return (
     <div
       ref={rootRef}
-      className={styles.panel}
+      className={`${styles.panel} glass glass--panel glass--mint`}
       data-testid="ask-ai-panel"
       data-state={ui}
       data-mode={state.mode}
@@ -433,7 +435,7 @@ export function AskAiPanel({ manifestVersion }: { manifestVersion: string }) {
         {localActive ? (
           <button
             type="button"
-            className={styles.ghost}
+            className={`${styles.ghost} glass glass--chip glass--cyan`}
             onClick={() => void backToSmart()}
             data-action="back-to-smart"
           >
@@ -442,7 +444,7 @@ export function AskAiPanel({ manifestVersion }: { manifestVersion: string }) {
         ) : offerLocal ? (
           <button
             type="button"
-            className={styles.ghost}
+            className={`${styles.ghost} glass glass--chip glass--cyan`}
             onClick={() => void tryLocal()}
             data-action="try-local"
           >
@@ -466,7 +468,7 @@ export function AskAiPanel({ manifestVersion }: { manifestVersion: string }) {
       />
 
       <form
-        className={styles.form}
+        className={`${styles.form} glass glass--inset`}
         onSubmit={(e) => {
           e.preventDefault();
           void ask(draft);
@@ -510,7 +512,7 @@ export function AskAiPanel({ manifestVersion }: { manifestVersion: string }) {
           <li key={s}>
             <button
               type="button"
-              className={styles.prompt}
+              className={`${styles.prompt} glass glass--chip`}
               onClick={() => void ask(s)}
               data-action="assistant-prompt"
               disabled={generating}

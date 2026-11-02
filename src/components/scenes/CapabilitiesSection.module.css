@@ -16,26 +16,22 @@
   gap: 1.25rem;
   padding: clamp(1.25rem, 1.7vw, 1.6rem);
   border-radius: var(--r-lg);
-  border: 1px solid var(--line);
-  background:
-    linear-gradient(165deg, rgb(255 255 255 / 0.04), rgb(255 255 255 / 0) 38%),
-    linear-gradient(180deg, rgb(21 26 33 / 0.66), rgb(12 15 20 / 0.76));
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  /* Surface from the shared glass system (.glass--card); transparent border keeps the size. */
+  border: 1px solid transparent;
   transition:
-    border-color 300ms var(--ease-out),
-    box-shadow 420ms var(--ease-out);
+    transform var(--d-lift) var(--ease-out),
+    box-shadow var(--d-glow) var(--ease-out);
 }
 
 .panel:hover {
-  border-color: rgb(var(--cyan-rgb) / 0.25);
+  --g-stroke: rgb(var(--cyan-rgb) / 0.28);
+  --g-drop: 0 24px 56px -32px rgb(var(--cyan-rgb) / 0.4), 0 26px 60px -34px rgb(0 0 0 / 0.95);
+  transform: var(--g-tilt, rotate(0deg)) translateY(-2px);
 }
 
 .panel[data-focused] {
-  border-color: rgb(var(--mint-rgb) / 0.65);
-  box-shadow:
-    0 0 0 1px rgb(var(--mint-rgb) / 0.3),
-    0 0 60px -18px rgb(var(--mint-rgb) / 0.65);
+  --g-stroke: rgb(var(--mint-rgb) / 0.6);
+  --g-drop: 0 0 0 1px rgb(var(--mint-rgb) / 0.3), 0 0 60px -18px rgb(var(--mint-rgb) / 0.65);
 }
 
 .head {
@@ -80,8 +76,9 @@
   min-height: 32px;
   padding: 0 12px;
   border-radius: var(--r-pill);
-  border: 1px solid rgb(var(--silver-rgb) / 0.14);
-  background: rgb(6 7 10 / 0.5);
+  border: 1px solid transparent; /* .glass--chip paints the frame */
+  --g-a: 0.5;
+  --g-stroke: rgb(var(--silver-rgb) / 0.15);
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--text-primary);

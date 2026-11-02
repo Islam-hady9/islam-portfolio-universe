@@ -41,7 +41,11 @@ export function LocalAiCard({
 
   if (s === 'capability-check') {
     return (
-      <section className={styles.localCard} aria-label="Local AI" data-testid="local-ai-card">
+      <section
+        className={`${styles.localCard} glass glass--inset glass--cyan`}
+        aria-label="Local AI"
+        data-testid="local-ai-card"
+      >
         <p>{LOCAL.checking}</p>
       </section>
     );
@@ -55,15 +59,30 @@ export function LocalAiCard({
           ? LOCAL.offline
           : state.localError?.message;
     return (
-      <section className={styles.localCard} aria-label="Local AI" data-testid="local-ai-card" role="status">
+      <section
+        className={`${styles.localCard} glass glass--inset glass--cyan`}
+        aria-label="Local AI"
+        data-testid="local-ai-card"
+        role="status"
+      >
         <p>{text}</p>
         <div className={styles.actions}>
           {s === 'error' || s === 'offline-without-model' ? (
-            <button type="button" className={styles.ghost} onClick={onRetry} data-action="local-retry">
+            <button
+              type="button"
+              className={`${styles.ghost} glass glass--chip glass--cyan`}
+              onClick={onRetry}
+              data-action="local-retry"
+            >
               {LOCAL.retry}
             </button>
           ) : null}
-          <button type="button" className={styles.ghost} onClick={onBack} data-action="local-dismiss">
+          <button
+            type="button"
+            className={`${styles.ghost} glass glass--chip glass--cyan`}
+            onClick={onBack}
+            data-action="local-dismiss"
+          >
             {UI.backToSmart}
           </button>
         </div>
@@ -80,7 +99,7 @@ export function LocalAiCard({
     const cached = state.cache === 'complete';
     return (
       <section
-        className={styles.localCard}
+        className={`${styles.localCard} glass glass--inset glass--cyan`}
         aria-labelledby="local-consent-title"
         data-testid="local-ai-consent"
       >
@@ -131,14 +150,19 @@ export function LocalAiCard({
         <div className={styles.actions}>
           <button
             type="button"
-            className={`${styles.ghost} ${styles.primary}`}
+            className={`${styles.ghost} ${styles.primary} glass glass--chip`}
             onClick={onAccept}
             disabled={noSpace}
             data-action="local-accept"
           >
             {cached ? LOCAL.acceptCached : LOCAL.accept}
           </button>
-          <button type="button" className={styles.ghost} onClick={onDecline} data-action="local-decline">
+          <button
+            type="button"
+            className={`${styles.ghost} glass glass--chip glass--cyan`}
+            onClick={onDecline}
+            data-action="local-decline"
+          >
             {LOCAL.decline}
           </button>
           {state.cache === 'partial' ? (
@@ -158,7 +182,11 @@ export function LocalAiCard({
     const pct = Math.round((p?.progress ?? 0) * 100);
     const shards = p?.completed && p.total ? ` (${p.completed}/${p.total})` : '';
     return (
-      <section className={styles.localCard} aria-label="Local AI" data-testid="local-ai-progress">
+      <section
+        className={`${styles.localCard} glass glass--inset glass--cyan`}
+        aria-label="Local AI"
+        data-testid="local-ai-progress"
+      >
         <p>
           {label}
           {shards}… {pct}%
@@ -172,7 +200,12 @@ export function LocalAiCard({
         />
         <p className={styles.meta}>{UI.pausedNote}</p>
         <div className={styles.actions}>
-          <button type="button" className={styles.ghost} onClick={onCancel} data-action="local-cancel">
+          <button
+            type="button"
+            className={`${styles.ghost} glass glass--chip glass--cyan`}
+            onClick={onCancel}
+            data-action="local-cancel"
+          >
             {LOCAL.cancel}
           </button>
         </div>
@@ -182,7 +215,11 @@ export function LocalAiCard({
 
   // ready / generating
   return (
-    <section className={styles.localCard} aria-label="Local AI" data-testid="local-ai-ready">
+    <section
+      className={`${styles.localCard} glass glass--inset glass--cyan`}
+      aria-label="Local AI"
+      data-testid="local-ai-ready"
+    >
       <p>{LOCAL.ready(entry.label)}</p>
       <p className={styles.meta}>{UI.pausedNote}</p>
       <div className={styles.actions}>

@@ -24,7 +24,7 @@ export function ProjectsExplorer({ projects }: { projects: ProjectSummary[] }) {
 
   return (
     <div>
-      <div className={styles.toolbar}>
+      <div className={`${styles.toolbar} glass glass--card`}>
         <div role="group" aria-label="Filter projects by category" className={styles.filters}>
           <button
             type="button"

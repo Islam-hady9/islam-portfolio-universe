@@ -100,7 +100,7 @@ export default function AboutPage() {
         <SectionHeading id="profile-extras" eyebrow="PROFILE" title="Education, research & achievements" />
         <div className={styles.extras}>
           {extraGroups.map(([label, items]) => (
-            <div key={label} className={styles.card}>
+            <div key={label} className={`${styles.card} glass glass--flat glass--mint`} data-spotlight="">
               <h3 className={styles.cardTitle}>{label}</h3>
               {items.length ? (
                 <ul className={styles.items}>
@@ -135,11 +135,11 @@ export default function AboutPage() {
         />
         <div className={styles.status}>
           <dl className={styles.statusFacts}>
-            <div>
+            <div className="glass glass--flat">
               <dt>Publication mode</dt>
               <dd>{MODE_LABEL[mode]}</dd>
             </div>
-            <div>
+            <div className="glass glass--flat">
               <dt>Records pending verification</dt>
               <dd data-testid="pending-count">{pending.length}</dd>
             </div>

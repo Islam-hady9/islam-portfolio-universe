@@ -16,6 +16,9 @@
   background:
     linear-gradient(90deg, transparent 0%, transparent 30%, rgb(6 7 10 / 0.55) 48%, rgb(6 7 10 / 0.7) 100%),
     linear-gradient(180deg, rgb(6 7 10 / 0.5), transparent 20%, transparent 80%, rgb(6 7 10 / 0.5));
+  /* Fade the overlay out at the section edges so it meets the next section without a seam. */
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 10%, #000 90%, transparent);
 }
 
 .art {
@@ -50,6 +53,7 @@
   margin-top: 1rem;
   color: var(--text-secondary);
   max-width: 26rem;
+  text-shadow: 0 1px 12px rgb(6 7 10 / 0.8);
 }
 
 .status {
@@ -59,7 +63,12 @@
   gap: 10px;
   margin-top: 1.25rem;
   font-size: 0.78rem;
-  color: var(--text-muted);
+  /* Sits over the portal's lit terrain: the brighter secondary tone plus a soft dark halo keep
+     it ≥ 4.5:1 where the ground glows (it was muted grey and washed out there). */
+  color: var(--text-secondary);
+  text-shadow:
+    0 1px 2px rgb(6 7 10 / 0.9),
+    0 0 14px rgb(6 7 10 / 0.85);
 }
 
 @media (max-width: 1199px) {

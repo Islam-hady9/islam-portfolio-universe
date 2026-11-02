@@ -120,7 +120,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               </h3>
               <ol className={styles.steps}>
                 {cs.workflow.map((w) => (
-                  <li key={w.title}>
+                  <li key={w.title} className="glass glass--flat">
                     <strong>{w.title}</strong>
                     <p>{w.body}</p>
                   </li>
@@ -137,7 +137,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               </h3>
               <ul className={styles.cards}>
                 {cs.decisions.map((d) => (
-                  <li key={d.title}>
+                  <li key={d.title} className="glass glass--flat">
                     <strong>{d.title}</strong>
                     <p>{d.choice}</p>
                     <p className={styles.muted}>Trade-off: {d.tradeoff}</p>
@@ -155,7 +155,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               </h3>
               <ul className={styles.cards}>
                 {cs.challenges.map((c) => (
-                  <li key={c.challenge}>
+                  <li key={c.challenge} className="glass glass--flat">
                     <strong>{c.challenge}</strong>
                     <p>{c.solution}</p>
                   </li>
@@ -189,7 +189,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               </h3>
               <ul className={styles.cards}>
                 {cs.outcomes.map((o) => (
-                  <li key={o.label}>
+                  <li key={o.label} className="glass glass--flat">
                     <strong>{o.value}</strong>
                     <p>{o.label}</p>
                     <p className={styles.muted}>Evidence: {o.evidence}</p>

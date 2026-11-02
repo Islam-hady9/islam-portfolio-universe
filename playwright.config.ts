@@ -39,17 +39,17 @@ export default defineConfig({
     {
       name: 'chromium-mobile',
       use: { ...devices['Pixel 7'] },
-      testMatch: /(mobile|smoke|media|resume|ask-ai)\.spec\.ts/,
+      testMatch: /(mobile|smoke|media|resume|ask-ai|glass)\.spec\.ts/,
     },
     {
       name: 'firefox-desktop',
       use: { ...devices['Desktop Firefox'], viewport: { width: 1440, height: 900 } },
-      testMatch: /(smoke|media|resume|ask-ai)\.spec\.ts/,
+      testMatch: /(smoke|media|resume|ask-ai|glass)\.spec\.ts/,
     },
     {
       name: 'webkit-desktop',
       use: { ...devices['Desktop Safari'], viewport: { width: 1440, height: 900 } },
-      testMatch: /(smoke|media|resume|ask-ai)\.spec\.ts/,
+      testMatch: /(smoke|media|resume|ask-ai|glass)\.spec\.ts/,
       // Headless WebKit on Windows renders WebGL and decodes video on the CPU: parallel WebKit
       // pages starve each other (measured: lost WebGL contexts, frames stalling actionability
       // checks). One WebKit worker at a time; the other projects still run in parallel.

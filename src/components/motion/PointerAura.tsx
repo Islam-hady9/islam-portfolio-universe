@@ -93,6 +93,9 @@ export function PointerAura() {
         const r = spot.getBoundingClientRect();
         spot.style.setProperty('--sx', `${(e.clientX - r.left).toFixed(0)}px`);
         spot.style.setProperty('--sy', `${(e.clientY - r.top).toFixed(0)}px`);
+        // Normalised offset from the centre (-1..1) for the glass tilt ([data-tilt]).
+        spot.style.setProperty('--tx', (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(2));
+        spot.style.setProperty('--ty', (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(2));
       }
       aura.dataset.hot = (e.target as Element | null)?.closest?.('a, button, [role="button"], input, label')
         ? 'true'

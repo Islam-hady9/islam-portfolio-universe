@@ -43,6 +43,11 @@ interface ExperienceState {
    * way (frames still render on scroll), leaving the GPU to the model. Released afterwards.
    */
   aiRenderHold: boolean;
+  /**
+   * Increments once per completed assistant answer. The portal answers with a single restrained
+   * light pulse — never per token, and only after any render hold is released.
+   */
+  assistantSignal: number;
   sceneStates: Record<string, SceneState>;
   setQualityPreference: (p: QualityPreference) => void;
   setDetectedTier: (tier: QualityTier, reason: string, webglAvailable: boolean) => void;
@@ -57,6 +62,7 @@ interface ExperienceState {
   setPortal: (p: PortalTransition | null) => void;
   setMediaOverlay: (open: boolean) => void;
   setAiRenderHold: (hold: boolean) => void;
+  signalAssistant: () => void;
   setSceneStates: (s: Record<string, SceneState>) => void;
 }
 
@@ -76,6 +82,7 @@ export const useExperience = create<ExperienceState>((set) => ({
   portal: null,
   mediaOverlay: false,
   aiRenderHold: false,
+  assistantSignal: 0,
   sceneStates: {},
   setQualityPreference: (qualityPreference) => set({ qualityPreference }),
   setDetectedTier: (detectedTier, tierReason, webglAvailable) =>
@@ -91,5 +98,6 @@ export const useExperience = create<ExperienceState>((set) => ({
   setPortal: (portal) => set({ portal }),
   setMediaOverlay: (mediaOverlay) => set({ mediaOverlay }),
   setAiRenderHold: (aiRenderHold) => set({ aiRenderHold }),
+  signalAssistant: () => set((s) => ({ assistantSignal: s.assistantSignal + 1 })),
   setSceneStates: (sceneStates) => set({ sceneStates }),
 }));

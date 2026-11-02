@@ -4,9 +4,9 @@
   z-index: var(--z-header);
   height: var(--header-h);
   transition:
-    background-color 360ms var(--ease-out),
-    border-color 360ms var(--ease-out),
-    backdrop-filter 360ms var(--ease-out);
+    background-color var(--d-glow) var(--ease-out),
+    border-color var(--d-glow) var(--ease-out),
+    backdrop-filter var(--d-glow) var(--ease-out);
   border-bottom: 1px solid transparent;
 }
 
@@ -81,7 +81,7 @@
   box-shadow: 0 0 12px rgb(var(--mint-rgb) / 0.7);
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform 360ms var(--ease-out);
+  transition: transform var(--d-glow) var(--ease-out);
 }
 
 .navLink:hover {

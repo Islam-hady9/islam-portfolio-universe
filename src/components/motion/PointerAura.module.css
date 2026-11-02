@@ -16,8 +16,8 @@
   );
   opacity: 0;
   transition:
-    opacity 420ms var(--ease-out),
-    scale 420ms var(--ease-out);
+    opacity var(--d-fade) var(--ease-out),
+    scale var(--d-fade) var(--ease-out);
   will-change: transform;
 }
 

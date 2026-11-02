@@ -85,10 +85,10 @@ function Answer({ answer }: { answer: DisplayAnswer }) {
                 {e.url ? (
                   <TargetLink
                     link={{ href: e.url, label: `${e.id} · ${e.title}`, kind: kindOf(e.url) }}
-                    className={styles.source}
+                    className={`${styles.source} glass glass--chip`}
                   />
                 ) : (
-                  <span className={styles.source}>{`${e.id} · ${e.title}`}</span>
+                  <span className={`${styles.source} glass glass--chip`}>{`${e.id} · ${e.title}`}</span>
                 )}
               </li>
             ))}
@@ -98,7 +98,7 @@ function Answer({ answer }: { answer: DisplayAnswer }) {
       {nextSteps.length > 0 ? (
         <nav className={styles.nextSteps} aria-label={UI.nextSteps}>
           {nextSteps.map((l) => (
-            <TargetLink key={l.id} link={l} className={styles.source} />
+            <TargetLink key={l.id} link={l} className={`${styles.source} glass glass--chip`} />
           ))}
         </nav>
       ) : null}
@@ -111,7 +111,7 @@ export function AnswerCard({ turn, reducedMotion }: { turn: Turn; reducedMotion:
   const mode = turn.answer?.mode ?? (turn.state === 'streaming' ? 'local' : 'smart');
   return (
     <article
-      className={styles.answer}
+      className={`${styles.answer} glass glass--inset`}
       data-testid="assistant-answer"
       data-turn-state={turn.state}
       data-mode={mode}

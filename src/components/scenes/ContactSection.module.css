@@ -16,6 +16,9 @@
   background:
     linear-gradient(90deg, rgb(6 7 10 / 0.65) 0%, rgb(6 7 10 / 0.3) 45%, transparent 70%),
     linear-gradient(180deg, rgb(6 7 10 / 0.5) 0%, transparent 25%);
+  /* Fade in from the top edge so the overlay meets the previous section without a seam. */
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 10%);
+  mask-image: linear-gradient(180deg, transparent, #000 10%);
 }
 
 .art {

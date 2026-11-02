@@ -32,7 +32,11 @@ export default function ContactPage() {
           Channels
         </h2>
         <ul className={styles.channels}>
-          <li className={styles.channel} data-testid="channel-email">
+          <li
+            className={`${styles.channel} glass glass--card glass--mint`}
+            data-spotlight=""
+            data-testid="channel-email"
+          >
             <span className={styles.channelIcon} aria-hidden="true">
               <Icon name="mail" size={22} />
             </span>
@@ -51,7 +55,12 @@ export default function ContactPage() {
             </div>
           </li>
           {social.map((s) => (
-            <li key={s.id} className={styles.channel} data-testid={`channel-${s.id}`}>
+            <li
+              key={s.id}
+              className={`${styles.channel} glass glass--card glass--mint`}
+              data-spotlight=""
+              data-testid={`channel-${s.id}`}
+            >
               <span className={styles.channelIcon} aria-hidden="true">
                 <Icon name={s.icon} size={22} />
               </span>
@@ -75,7 +84,11 @@ export default function ContactPage() {
               </div>
             </li>
           ))}
-          <li className={styles.channel} data-testid="channel-resume">
+          <li
+            className={`${styles.channel} glass glass--card glass--mint`}
+            data-spotlight=""
+            data-testid="channel-resume"
+          >
             <span className={styles.channelIcon} aria-hidden="true">
               <Icon name="file" size={22} />
             </span>

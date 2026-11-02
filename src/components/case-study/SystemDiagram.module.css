@@ -2,8 +2,7 @@
   margin: 0;
   padding: clamp(1rem, 2vw, 1.5rem);
   border-radius: var(--r-lg);
-  border: 1px solid var(--line);
-  background: rgb(10 13 18 / 0.66);
+  border: 1px solid transparent; /* .glass--flat paints the frame */
 }
 
 .head {

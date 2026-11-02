@@ -34,7 +34,7 @@ export function SystemDiagram({ diagram, titleId }: { diagram: Diagram; titleId:
   const byId = new Map(diagram.nodes.map((n) => [n.id, n]));
 
   return (
-    <figure className={styles.figure} aria-labelledby={titleId}>
+    <figure className={`${styles.figure} glass glass--flat glass--cyan`} aria-labelledby={titleId}>
       <div className={styles.head}>
         {diagram.kind === 'illustrative' ? <StatusTag tone="pending">Illustrative template</StatusTag> : null}
         <ul className={styles.legend} aria-label="Legend">

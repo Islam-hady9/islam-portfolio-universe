@@ -10,6 +10,9 @@ export const MOTION = {
   duration: {
     hover: 0.22, // --d-hover
     focus: 0.32, // --d-focus
+    glow: 0.36, // --d-glow: surface light / border illumination
+    fade: 0.42, // --d-fade: cross-fades and arrivals of panels
+    lift: 0.52, // --d-lift: surface elevation and tilt return
     reveal: 0.82, // --d-reveal: blocks rising into place
     lines: 0.95, // masked headline lines
     commit: 0.72, // node approach before navigation

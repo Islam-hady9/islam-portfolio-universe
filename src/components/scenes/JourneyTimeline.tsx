@@ -135,7 +135,7 @@ export function JourneyTimeline({ entries }: { entries: CareerEntry[] }) {
         ))}
       </ol>
 
-      <div id={detailId} className={styles.detail} aria-live="polite">
+      <div id={detailId} className={`${styles.detail} glass glass--card glass--mint`} aria-live="polite">
         <div className={styles.detailHead}>
           <span className={styles.detailIndex}>
             Milestone {String(active + 1).padStart(2, '0')} · {entry.phase}

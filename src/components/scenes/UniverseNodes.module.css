@@ -106,11 +106,15 @@
   padding: 10px 14px;
   border-radius: 12px;
   border: 1px solid rgb(var(--accent-rgb) / 0.32);
-  background: rgb(10 13 18 / 0.72);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  /* Glass label (V3 optics): top-edge light, a corner glint and a faint accent tint. */
+  background:
+    radial-gradient(9px circle at 0 0, rgb(255 255 255 / 0.1), transparent 70%),
+    linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0) 45%),
+    radial-gradient(120% 100% at 0% 0%, rgb(var(--accent-rgb) / 0.07), transparent 60%), rgb(10 13 18 / 0.72);
+  -webkit-backdrop-filter: blur(10px) saturate(1.25);
+  backdrop-filter: blur(10px) saturate(1.25);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.04),
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
     0 10px 30px -14px rgb(0 0 0 / 0.9),
     0 0 22px -12px rgb(var(--accent-rgb) / 0.8);
   white-space: nowrap;
@@ -174,17 +178,20 @@
   line-height: 1.45;
   color: var(--text-secondary);
   transition:
-    max-height 320ms var(--ease-out),
+    max-height var(--d-focus) var(--ease-out),
     opacity 260ms var(--ease-out),
-    margin-top 320ms var(--ease-out);
+    margin-top var(--d-focus) var(--ease-out);
 }
 
 .node[data-hovered] .pill,
 .pill:focus-visible {
   border-color: rgb(var(--accent-rgb) / 0.75);
-  background: rgb(14 18 24 / 0.9);
+  background:
+    radial-gradient(9px circle at 0 0, rgb(255 255 255 / 0.14), transparent 70%),
+    linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0) 45%),
+    radial-gradient(120% 100% at 0% 0%, rgb(var(--accent-rgb) / 0.12), transparent 60%), rgb(14 18 24 / 0.9);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    inset 0 1px 0 rgb(255 255 255 / 0.1),
     0 14px 40px -14px rgb(0 0 0 / 0.95),
     0 0 30px -8px rgb(var(--accent-rgb) / 0.9);
 }
