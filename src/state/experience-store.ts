@@ -38,6 +38,11 @@ interface ExperienceState {
   portal: PortalTransition | null;
   /** A full-screen media overlay (the intro reel player) covers the world: rendering pauses. */
   mediaOverlay: boolean;
+  /**
+   * Local AI is loading a model or generating on the GPU: continuous rendering pauses the same
+   * way (frames still render on scroll), leaving the GPU to the model. Released afterwards.
+   */
+  aiRenderHold: boolean;
   sceneStates: Record<string, SceneState>;
   setQualityPreference: (p: QualityPreference) => void;
   setDetectedTier: (tier: QualityTier, reason: string, webglAvailable: boolean) => void;
@@ -51,6 +56,7 @@ interface ExperienceState {
   setFocusCapability: (id: string | null) => void;
   setPortal: (p: PortalTransition | null) => void;
   setMediaOverlay: (open: boolean) => void;
+  setAiRenderHold: (hold: boolean) => void;
   setSceneStates: (s: Record<string, SceneState>) => void;
 }
 
@@ -69,6 +75,7 @@ export const useExperience = create<ExperienceState>((set) => ({
   focusCapability: null,
   portal: null,
   mediaOverlay: false,
+  aiRenderHold: false,
   sceneStates: {},
   setQualityPreference: (qualityPreference) => set({ qualityPreference }),
   setDetectedTier: (detectedTier, tierReason, webglAvailable) =>
@@ -83,5 +90,6 @@ export const useExperience = create<ExperienceState>((set) => ({
   setFocusCapability: (focusCapability) => set({ focusCapability }),
   setPortal: (portal) => set({ portal }),
   setMediaOverlay: (mediaOverlay) => set({ mediaOverlay }),
+  setAiRenderHold: (aiRenderHold) => set({ aiRenderHold }),
   setSceneStates: (sceneStates) => set({ sceneStates }),
 }));

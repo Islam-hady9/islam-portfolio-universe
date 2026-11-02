@@ -1,6 +1,5 @@
 import {
   content,
-  getAssistantKnowledge,
   getCapabilities,
   getCareer,
   getFeaturedProjects,
@@ -11,7 +10,7 @@ import {
   getSocialLinks,
   getUniverseNodes,
 } from '@/content';
-import { buildSourceIndex } from '@/lib/assistant/source-index';
+import { compileKnowledge } from '@/lib/portfolio-ai/knowledge/compiler';
 import { formatDuration, reelAsset, reelView, spokenDuration } from '@/lib/media';
 import { resumeDocument } from '@/lib/resume';
 // Shared media components first, in the same order as on /about (one CSS order for both routes).
@@ -76,11 +75,7 @@ export default function HomePage() {
       <PhilosophySection copy={home.philosophy} principles={getPrinciples()} />
       <CapabilitiesSection copy={home.capabilities} groups={getCapabilities()} />
       <JourneySection copy={home.experience} career={getCareer()} />
-      <AskAISection
-        copy={home.assistant}
-        knowledge={getAssistantKnowledge()}
-        sourceIndex={buildSourceIndex(content)}
-      />
+      <AskAISection copy={home.assistant} manifestVersion={compileKnowledge(content).manifest.version} />
       <ContactSection copy={home.contact} social={getSocialLinks()} resume={resume} />
       <HomeMotion />
       <IntroReelHost reel={reelView(media.introReel)} />

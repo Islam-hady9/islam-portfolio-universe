@@ -1,20 +1,21 @@
-import type { AssistantKnowledge, HomeCopy } from '@/content/schema';
-import type { SourceIndex } from '@/lib/assistant/contracts';
+import type { HomeCopy } from '@/content/schema';
 import { Eyebrow } from '@/components/ui/SectionHeading';
 import { StatusTag } from '@/components/ui/StatusTag';
-import { AssistantPanel } from '@/components/assistant/AssistantPanel';
+import { AskAiPanel } from '@/components/ask-ai/AskAiPanel';
 import { SceneArt } from './SceneArt';
 import styles from './AskAISection.module.css';
 
-/** S8 — Ask My AI: explorer before a monumental portal (3D) + honest assistant preview. */
+/**
+ * S8 — Ask My AI: explorer before a monumental portal (3D) + the Portfolio Intelligence Engine
+ * (Smart Mode by default, opt-in Local AI). The section copy comes from home.json unchanged; the
+ * former "concept preview" status line is replaced by the live mode status.
+ */
 export function AskAISection({
   copy,
-  knowledge,
-  sourceIndex,
+  manifestVersion,
 }: {
   copy: HomeCopy['assistant'];
-  knowledge: AssistantKnowledge;
-  sourceIndex: SourceIndex;
+  manifestVersion: string;
 }) {
   return (
     <section id="ask-ai" data-section="ask-ai" className={styles.section} aria-labelledby="ask-ai-title">
@@ -30,12 +31,14 @@ export function AskAISection({
             {copy.body}
           </p>
           <p className={styles.status} data-reveal="fade">
-            <StatusTag tone="demo">Concept preview</StatusTag>
-            <span>{copy.status}</span>
+            <StatusTag tone="verified">Live</StatusTag>
+            <span>
+              Smart Mode answers from approved content · Local AI is optional and runs on your device
+            </span>
           </p>
         </div>
         <div className={styles.panel} data-reveal="fade">
-          <AssistantPanel knowledge={knowledge} sourceIndex={sourceIndex} statusLabel={copy.status} />
+          <AskAiPanel manifestVersion={manifestVersion} />
         </div>
       </div>
     </section>

@@ -26,8 +26,9 @@ export default function ExperienceCanvas({ tier }: { tier: QualityTier }) {
   const pathname = usePathname() ?? '/';
   const reduced = useExperience((s) => s.reducedMotion);
   // While a full-screen media overlay covers the world, stop the render loop: the GPU is left
-  // to video decoding and the last frame stays on screen under the overlay's backdrop.
-  const covered = useExperience((s) => s.mediaOverlay);
+  // to video decoding and the last frame stays on screen under the overlay's backdrop. Local AI
+  // model loading/generation uses the same pause (frames still render on scroll).
+  const covered = useExperience((s) => s.mediaOverlay || s.aiRenderHold);
   const cfg = TIER_CONFIG[(tier === 'static' ? 'lite' : tier) as RenderTier];
   const pixelRatio = useMemo(
     () => Math.min(typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1, cfg.dpr[1]),

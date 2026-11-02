@@ -27,6 +27,7 @@ import { StatusTag } from '@/components/ui/StatusTag';
 import { ButtonLink } from '@/components/ui/Button';
 import { routes } from '@/lib/routes';
 import { formatDuration, reelAsset, reelView, spokenDuration } from '@/lib/media';
+import { MODEL_CATALOG, MODEL_CHOICES, formatMB } from '@/lib/portfolio-ai/local/catalog';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -149,7 +150,7 @@ export default function AboutPage() {
               <strong>sample or pending</strong> until the owner&apos;s CV and project materials are reviewed.
               Copy that came verbatim from the owner&apos;s brief is marked verified; everything drafted
               during engineering is marked as a placeholder and labelled in the interface (for example
-              &ldquo;Sample journey&rdquo;, &ldquo;Details being prepared&rdquo; and &ldquo;Demo mode&rdquo;).
+              &ldquo;Sample journey&rdquo; and &ldquo;Details being prepared&rdquo;).
             </p>
             <p>
               No employers, dates, metrics, clients or testimonials are invented. While in preview, pages are
@@ -170,19 +171,25 @@ export default function AboutPage() {
       </section>
 
       <section id="assistant" className={`container ${styles.section}`} aria-labelledby="assistant-title">
-        <SectionHeading id="assistant-title" eyebrow="ASK MY AI" title="How the assistant preview works" />
+        <SectionHeading id="assistant-title" eyebrow="ASK MY AI" title="How the assistant works" />
         <div className={styles.prose}>
           <p>
-            The assistant on the home page is a <strong>demo</strong>. It matches your question against a
-            small set of pre-written entries composed from this site&apos;s content files and shows the
-            records each answer came from. It does not use a language model, is not trained on a CV, and
-            nothing you type leaves your browser.
+            The assistant on the home page answers in your browser. <strong>Smart Mode</strong> (the default)
+            searches only portfolio content that the owner has verified and approved for it, quotes that text
+            with numbered sources, and says so when nothing approved covers a question instead of guessing. It
+            is not trained on a CV: the résumé is offered as a document, not used as knowledge.
           </p>
           <p>
-            The interface already speaks the production contract (request, grounded answer, source references,
-            safety policy). After the owner approves the knowledge base, a server-side provider can be
-            connected with citations, refusal of unknown questions, rate limiting and spend controls — without
-            redesigning the experience.
+            <strong>Local AI</strong> is optional. If your browser supports WebGPU and you agree to a one-time
+            download (
+            {MODEL_CHOICES.map(
+              (id) => `${MODEL_CATALOG[id]!.label}, about ${formatMB(MODEL_CATALOG[id]!.downloadBytes)}`,
+            ).join('; or ')}{' '}
+            — open-weights models under the Apache-2.0 licence), a small language model runs on your device
+            and writes answers from the same approved sources. Each answer is checked against those sources
+            before it is shown; anything that fails the check is replaced by the Smart Mode answer. Generated
+            answers can still contain mistakes. Nothing you type is sent to a server or stored, and the model
+            can be removed from your browser at any time.
           </p>
         </div>
       </section>
