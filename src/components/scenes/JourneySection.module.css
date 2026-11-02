@@ -1,0 +1,55 @@
+.journey {
+  position: relative;
+  padding: var(--section-pad) 0 calc(var(--section-pad) * 1.15);
+  isolation: isolate;
+}
+
+.journey::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgb(6 7 10 / 0.6) 0%,
+    transparent 30%,
+    transparent 75%,
+    rgb(6 7 10 / 0.35) 100%
+  );
+}
+
+.art {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+
+.heading {
+  margin-bottom: 0;
+}
+
+.subtitle {
+  max-width: 26rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  padding-bottom: 0.4rem;
+}
+
+.notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1.25rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}

@@ -1,0 +1,20 @@
+.section {
+  padding-bottom: var(--section-pad);
+}
+
+.note {
+  max-width: 44rem;
+  padding: 1.25rem 1.4rem;
+  border-radius: var(--r-lg);
+  border: 1px dashed rgb(233 194 125 / 0.35);
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.meta {
+  font-family: var(--font-mono-stack);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}

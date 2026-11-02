@@ -1,0 +1,88 @@
+.contact {
+  position: relative;
+  min-height: max(560px, 86svh);
+  display: flex;
+  align-items: center;
+  padding: var(--section-pad) 0 calc(var(--section-pad) * 1.2);
+  isolation: isolate;
+}
+
+.contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgb(6 7 10 / 0.65) 0%, rgb(6 7 10 / 0.3) 45%, transparent 70%),
+    linear-gradient(180deg, rgb(6 7 10 / 0.5) 0%, transparent 25%);
+  /* Fade in from the top edge so the overlay meets the previous section without a seam. */
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 10%);
+  mask-image: linear-gradient(180deg, transparent, #000 10%);
+}
+
+.art {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.copy {
+  grid-column: 2 / span 7;
+}
+
+.title {
+  font-size: var(--fs-title-lg);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+.title:focus {
+  outline: none;
+}
+
+.body {
+  margin-top: 1.1rem;
+  max-width: 36rem;
+  color: var(--text-secondary);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 2rem;
+}
+
+@media (max-width: 1023px) {
+  .copy {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .contact {
+    align-items: flex-end;
+    padding-top: 46vw;
+  }
+  .contact::before {
+    background: linear-gradient(180deg, transparent 10%, rgb(6 7 10 / 0.7) 45%, rgb(6 7 10 / 0.85));
+  }
+  .actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .actions > :first-child {
+    grid-column: 1 / -1;
+  }
+  .actions > * > *,
+  .actions > a {
+    width: 100%;
+  }
+}

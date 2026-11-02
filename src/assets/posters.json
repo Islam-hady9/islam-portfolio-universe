@@ -1,0 +1,86 @@
+{
+  "case-ats": {
+    "src": "/images/posters/case-ats.webp",
+    "width": 1600,
+    "height": 787,
+    "srcSet": "/images/posters/case-ats-480.webp 480w, /images/posters/case-ats-800.webp 800w, /images/posters/case-ats.webp 1600w"
+  },
+  "case-lifeatlas": {
+    "src": "/images/posters/case-lifeatlas.webp",
+    "width": 1600,
+    "height": 787,
+    "srcSet": "/images/posters/case-lifeatlas-480.webp 480w, /images/posters/case-lifeatlas-800.webp 800w, /images/posters/case-lifeatlas.webp 1600w"
+  },
+  "case-movid": {
+    "src": "/images/posters/case-movid.webp",
+    "width": 1600,
+    "height": 787,
+    "srcSet": "/images/posters/case-movid-480.webp 480w, /images/posters/case-movid-800.webp 800w, /images/posters/case-movid.webp 1600w"
+  },
+  "case-tibyn": {
+    "src": "/images/posters/case-tibyn.webp",
+    "width": 1600,
+    "height": 787,
+    "srcSet": "/images/posters/case-tibyn-480.webp 480w, /images/posters/case-tibyn-800.webp 800w, /images/posters/case-tibyn.webp 1600w"
+  },
+  "deep-space": {
+    "src": "/images/posters/deep-space.webp",
+    "width": 1400,
+    "height": 875,
+    "srcSet": "/images/posters/deep-space-480.webp 480w, /images/posters/deep-space-800.webp 800w, /images/posters/deep-space.webp 1400w"
+  },
+  "hero": {
+    "src": "/images/posters/hero.webp",
+    "width": 1100,
+    "height": 1109,
+    "srcSet": "/images/posters/hero-480.webp 480w, /images/posters/hero-800.webp 800w, /images/posters/hero.webp 1100w"
+  },
+  "horizon": {
+    "src": "/images/posters/horizon.webp",
+    "width": 1600,
+    "height": 1000,
+    "srcSet": "/images/posters/horizon-480.webp 480w, /images/posters/horizon-800.webp 800w, /images/posters/horizon.webp 1600w"
+  },
+  "journey": {
+    "src": "/images/posters/journey.webp",
+    "width": 1600,
+    "height": 1000,
+    "srcSet": "/images/posters/journey-480.webp 480w, /images/posters/journey-800.webp 800w, /images/posters/journey.webp 1600w"
+  },
+  "portal": {
+    "src": "/images/posters/portal.webp",
+    "width": 900,
+    "height": 1250,
+    "srcSet": "/images/posters/portal-480.webp 480w, /images/posters/portal.webp 900w"
+  },
+  "project-ats": {
+    "src": "/images/posters/project-ats.webp",
+    "width": 646,
+    "height": 674,
+    "srcSet": "/images/posters/project-ats-480.webp 480w, /images/posters/project-ats.webp 646w"
+  },
+  "project-lifeatlas": {
+    "src": "/images/posters/project-lifeatlas.webp",
+    "width": 646,
+    "height": 674,
+    "srcSet": "/images/posters/project-lifeatlas-480.webp 480w, /images/posters/project-lifeatlas.webp 646w"
+  },
+  "project-movid": {
+    "src": "/images/posters/project-movid.webp",
+    "width": 646,
+    "height": 674,
+    "srcSet": "/images/posters/project-movid-480.webp 480w, /images/posters/project-movid.webp 646w"
+  },
+  "project-tibyn": {
+    "src": "/images/posters/project-tibyn.webp",
+    "width": 646,
+    "height": 674,
+    "srcSet": "/images/posters/project-tibyn-480.webp 480w, /images/posters/project-tibyn.webp 646w"
+  },
+  "universe": {
+    "src": "/images/posters/universe.webp",
+    "width": 1100,
+    "height": 653,
+    "srcSet": "/images/posters/universe-480.webp 480w, /images/posters/universe-800.webp 800w, /images/posters/universe.webp 1100w"
+  }
+}

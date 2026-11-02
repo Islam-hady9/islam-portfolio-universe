@@ -1,0 +1,36 @@
+.aura {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: var(--z-canvas);
+  width: 520px;
+  height: 520px;
+  margin: -260px 0 0 -260px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    rgb(var(--mint-rgb) / 0.075) 0%,
+    rgb(var(--cyan-rgb) / 0.04) 32%,
+    transparent 66%
+  );
+  opacity: 0;
+  transition:
+    opacity var(--d-fade) var(--ease-out),
+    scale var(--d-fade) var(--ease-out);
+  will-change: transform;
+}
+
+.aura[data-visible='true'] {
+  opacity: 1;
+}
+
+.aura[data-hot='true'] {
+  scale: 0.7;
+  background: radial-gradient(
+    circle at center,
+    rgb(var(--mint-rgb) / 0.11) 0%,
+    rgb(var(--cyan-rgb) / 0.05) 34%,
+    transparent 66%
+  );
+}

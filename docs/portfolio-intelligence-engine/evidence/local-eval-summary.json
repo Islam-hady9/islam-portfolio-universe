@@ -1,0 +1,244 @@
+{
+  "generatedAt": "2026-11-02T11:39:37.036Z",
+  "reviewer": "Claude (implementing agent) — not a human; see scripts/ai/review-template.md",
+  "note": "GPU contended by the owner's Chrome (45-99% of the iGPU) during these runs",
+  "runs": {
+    "Qwen2.5-1.5B-Instruct-q4f16_1-MLC": {
+      "cases": 51,
+      "sentToModel": 27,
+      "modelCalls": 34,
+      "shownLocal": 12,
+      "fellBackToSmart": 15,
+      "citedIdsValid": 14,
+      "citedIdsInvalid": 0,
+      "privateDataHits": 0,
+      "warmInitMs": 632569,
+      "ttftMedianMs": 9278,
+      "decodeMedianTokPerS": 6.9,
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+        "gpu": {
+          "vendor": "intel",
+          "architecture": "xe-lpg",
+          "description": ""
+        }
+      },
+      "shown": [
+        {
+          "id": "c01-en-kind",
+          "text": "Islam is an AI Full-Stack Engineer. [E1] [E4]"
+        },
+        {
+          "id": "c01-en-work",
+          "text": "Islam works on building intelligent systems across AI, backend, product, and infrastructure. [E2]"
+        },
+        {
+          "id": "c01-en-who",
+          "text": "Islam Abd-Elhady is an AI Full-Stack Engineer. [E1]"
+        },
+        {
+          "id": "c01-en-ai",
+          "text": "Yes, Islam works on AI. [E5]"
+        },
+        {
+          "id": "c02-en-products",
+          "text": "You can explore Islam Abd-Elhady's AI products, systems, and experiences. [E4]"
+        },
+        {
+          "id": "c04-en-stack",
+          "text": "Islam's tech stack includes AI, backend systems, product development, and infrastructure. [E2]"
+        },
+        {
+          "id": "c04-en-backend",
+          "text": "Yes, Islam builds backend work. [E1]"
+        },
+        {
+          "id": "c06-en-more-overview",
+          "text": "Islam works on developing intelligent products and scalable systems. [E1]"
+        },
+        {
+          "id": "c10-en-quote",
+          "text": "Yes, it is true that he builds AI products. [E4] confirms this by stating \"Islam Abd-Elhady — AI Full-Stack Engineer.\""
+        },
+        {
+          "id": "c00-en-reel",
+          "text": "Yes, there is an introduction video. It can be played from the Identity section of the home page and from the About page."
+        },
+        {
+          "id": "c00-en-privacy",
+          "text": "No, your questions are not stored. [E1]"
+        },
+        {
+          "id": "c00-en-status",
+          "text": "The assistant is still verifying certain elements of the portfolio, such as project case studies, experience journey details, capability descriptions, and engineering principles. These are being left out until they have been verified by the owner."
+        }
+      ]
+    },
+    "Qwen2.5-1.5B-Instruct-q4f16_1-MLC-heldout": {
+      "cases": 24,
+      "sentToModel": 16,
+      "modelCalls": 20,
+      "shownLocal": 8,
+      "fellBackToSmart": 8,
+      "citedIdsValid": 8,
+      "citedIdsInvalid": 0,
+      "privateDataHits": 0,
+      "warmInitMs": 5408,
+      "ttftMedianMs": 8912,
+      "decodeMedianTokPerS": 7.1,
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+        "gpu": {
+          "vendor": "intel",
+          "architecture": "xe-lpg",
+          "description": ""
+        }
+      },
+      "shown": [
+        {
+          "id": "h01-en-summary",
+          "text": "Islam is an AI Full-Stack Engineer specializing in building intelligent systems across various areas including AI, backend, product, and infrastructure. [E2]"
+        },
+        {
+          "id": "h01-en-role",
+          "text": "Islam Abd-Elhady is an AI Full-Stack Engineer. [E1]"
+        },
+        {
+          "id": "h01-en-speciality",
+          "text": "Islam's speciality lies in building AI products, systems, and experiences. [E2]"
+        },
+        {
+          "id": "h01-en-introduce",
+          "text": "Islam Abd-Elhady is an AI Full-Stack Engineer. He specializes in architecting intelligent systems across various areas including AI, backend, product, and infrastructure. His work involves transforming complex ideas into production-ready experiences."
+        },
+        {
+          "id": "h02-en-case-studies",
+          "text": "Yes, he has case studies. [E1]"
+        },
+        {
+          "id": "h00-en-email-how",
+          "text": "To email Islam, use eslamabdo71239@gmail.com."
+        },
+        {
+          "id": "h00-en-send-questions",
+          "text": "No, your questions are answered in your browser and nothing is sent to a server or an inference API. [E1]"
+        },
+        {
+          "id": "h00-en-universe",
+          "text": "The Intelligence Universe means a connected space encompassing the author's work, experience, projects, and capabilities."
+        }
+      ]
+    },
+    "Qwen2.5-0.5B-Instruct-q4f16_1-MLC": {
+      "cases": 51,
+      "sentToModel": 27,
+      "modelCalls": 41,
+      "shownLocal": 10,
+      "fellBackToSmart": 17,
+      "citedIdsValid": 23,
+      "citedIdsInvalid": 4,
+      "privateDataHits": 0,
+      "warmInitMs": 2720,
+      "ttftMedianMs": 2522,
+      "decodeMedianTokPerS": 14.2,
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+        "gpu": {
+          "vendor": "intel",
+          "architecture": "xe-lpg",
+          "description": ""
+        }
+      },
+      "shown": [
+        {
+          "id": "c01-en-kind",
+          "text": "[E1] Islam Abd-Elhady — AI Full-Stack Engineer: \"Islam Abd-Elhady — AI Full-Stack Engineer. Architecting AI Products, Systems, and Experiences.\""
+        },
+        {
+          "id": "c01-en-work",
+          "text": "[E1] Islam Abd-Elhady — AI Full-Stack Engineer: \"Islam Abd-Elhady — AI Full-Stack Engineer. Architecting AI Products, Systems, and Experiences.\" indicates that Islam works on AI products, systems, and experiences."
+        },
+        {
+          "id": "c01-en-who",
+          "text": "[E1] Islam Abd-Elhady — AI Full-Stack Engineer: \"Islam Abd-Elhady — AI Full-Stack Engineer. Architecting AI Products, Systems, and Experiences.\""
+        },
+        {
+          "id": "c02-en-built",
+          "text": "[E1] Islam Abd-Elhady has built various projects, including the project case studies, experience journey, capability details, and engineering principles. These are still being verified by him before they can be described on his pages."
+        },
+        {
+          "id": "c05-en-multiagent",
+          "text": "[E1] The assistant does not describe projects involving multi-agent systems, but their pages can be browsed."
+        },
+        {
+          "id": "c10-en-quote",
+          "text": "[E5] Islam Abd-Elhady — AI Full-Stack Engineer: \"Islam Abd-Elhady — AI Full-Stack Engineer. Architecting AI Products, Systems, and Experiences.\""
+        },
+        {
+          "id": "c00-en-linkedin",
+          "text": "Yes, LinkedIn is mentioned on the provided LinkedIn profile."
+        },
+        {
+          "id": "c00-en-cv",
+          "text": "[E1] Résumé: \"A résumé (PDF) can be viewed or downloaded from the Résumé page.\""
+        },
+        {
+          "id": "c00-en-assistant",
+          "text": "This assistant works by searching approved public portfolio content in the user's browser."
+        },
+        {
+          "id": "c00-en-status",
+          "text": "[E1] Still awaiting the owner's verification: project case studies, experience journey, capability details, engineering principles."
+        }
+      ]
+    },
+    "Qwen2.5-0.5B-Instruct-q4f16_1-MLC-heldout": {
+      "cases": 24,
+      "sentToModel": 16,
+      "modelCalls": 27,
+      "shownLocal": 3,
+      "fellBackToSmart": 13,
+      "citedIdsValid": 11,
+      "citedIdsInvalid": 4,
+      "privateDataHits": 0,
+      "warmInitMs": 3498,
+      "ttftMedianMs": 3068,
+      "decodeMedianTokPerS": 12.8,
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+        "gpu": {
+          "vendor": "intel",
+          "architecture": "xe-lpg",
+          "description": ""
+        }
+      },
+      "shown": [
+        {
+          "id": "h01-en-summary",
+          "text": "[E1] Islam Abd-Elhady is an AI full-stack engineer who specializes in building intelligent systems across various fields, including AI, backend, product, and infrastructure. He has experience transforming complex ideas into production-ready experiences."
+        },
+        {
+          "id": "h01-en-speciality",
+          "text": "Islam Abd-Elhady specializes in AI, full-stack engineering, and building intelligent systems across various areas."
+        },
+        {
+          "id": "h02-en-case-studies",
+          "text": "Yes, Islam Abd-Elhady has project case studies."
+        }
+      ]
+    }
+  },
+  "claimReview": {
+    "1.5B": {
+      "golden": "13/15",
+      "heldout": "12/12",
+      "total": "25/27 (92.6%)",
+      "beforeFinalRules": "17/25 (68%) on 17 golden answers"
+    },
+    "0.5B": {
+      "golden": "14/17",
+      "heldout": "5/5",
+      "total": "19/22 (86.4%)"
+    }
+  }
+}

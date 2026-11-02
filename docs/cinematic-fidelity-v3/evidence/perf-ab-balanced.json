@@ -1,0 +1,2555 @@
+{
+  "date": "2026-11-02T14:24:23.015Z",
+  "tier": "balanced",
+  "rounds": 4,
+  "variants": {
+    "baseline": "http://localhost:3320",
+    "feature": "http://localhost:3310"
+  },
+  "summary": {
+    "top": {
+      "baseline": {
+        "gpuMsPerFrame": 5.01,
+        "cleanWindows": 4,
+        "gpuMsAll": [
+          5.61,
+          4.81,
+          5.14,
+          5.01
+        ],
+        "otherGpuPctAll": [
+          2.3,
+          2.2,
+          3.9,
+          1
+        ],
+        "disjoint": false,
+        "fps": 148.6,
+        "fpsAll": [
+          136.8,
+          162.4,
+          148.6,
+          154
+        ],
+        "p95Ms": 8.5,
+        "p99Ms": 12.6,
+        "maxMs": 16.8,
+        "drawCalls": 43,
+        "triangles": 82127,
+        "programs": 48,
+        "geometries": 45,
+        "textures": 21,
+        "heapMB": 26
+      },
+      "feature": {
+        "gpuMsPerFrame": 5.36,
+        "cleanWindows": 4,
+        "gpuMsAll": [
+          5.36,
+          5.39,
+          5.09,
+          5.56
+        ],
+        "otherGpuPctAll": [
+          2.3,
+          3.4,
+          2.2,
+          2.8
+        ],
+        "disjoint": false,
+        "fps": 142.5,
+        "fpsAll": [
+          144.3,
+          142.5,
+          156.4,
+          137.9
+        ],
+        "p95Ms": 8.4,
+        "p99Ms": 12.5,
+        "maxMs": 16.8,
+        "drawCalls": 43,
+        "triangles": 82127,
+        "programs": 57,
+        "geometries": 45,
+        "textures": 21,
+        "heapMB": 24
+      },
+      "gpuDeltaPct": 7,
+      "fpsDeltaPct": -4.1
+    },
+    "ask-ai": {
+      "baseline": {
+        "gpuMsPerFrame": 4.83,
+        "cleanWindows": 4,
+        "gpuMsAll": [
+          5.62,
+          4.83,
+          4.87,
+          4.68
+        ],
+        "otherGpuPctAll": [
+          2.3,
+          3.2,
+          2.7,
+          2.1
+        ],
+        "disjoint": false,
+        "fps": 150.8,
+        "fpsAll": [
+          124.1,
+          155.3,
+          150.8,
+          157
+        ],
+        "p95Ms": 8.4,
+        "p99Ms": 12.6,
+        "maxMs": 16.8,
+        "drawCalls": 26,
+        "triangles": 24221,
+        "programs": 49,
+        "geometries": 52,
+        "textures": 21,
+        "heapMB": 24
+      },
+      "feature": {
+        "gpuMsPerFrame": 5.59,
+        "cleanWindows": 3,
+        "gpuMsAll": [
+          9.71,
+          5.94,
+          5.48,
+          5.59
+        ],
+        "otherGpuPctAll": [
+          49.8,
+          6.3,
+          2.6,
+          1.9
+        ],
+        "disjoint": false,
+        "fps": 124.1,
+        "fpsAll": [
+          39,
+          124.1,
+          139.4,
+          134.9
+        ],
+        "p95Ms": 12.5,
+        "p99Ms": 16.7,
+        "maxMs": 41.7,
+        "drawCalls": 33,
+        "triangles": 54925,
+        "programs": 58,
+        "geometries": 58,
+        "textures": 21,
+        "heapMB": 27
+      },
+      "gpuDeltaPct": 15.7,
+      "fpsDeltaPct": -17.7
+    },
+    "card-tibyn": {
+      "baseline": {
+        "gpuMsPerFrame": 4.41,
+        "cleanWindows": 4,
+        "gpuMsAll": [
+          4.99,
+          4.41,
+          4.41,
+          3.84
+        ],
+        "otherGpuPctAll": [
+          2.3,
+          2.4,
+          2.7,
+          1
+        ],
+        "disjoint": false,
+        "fps": 158.2,
+        "fpsAll": [
+          138.2,
+          161.9,
+          158.2,
+          186.3
+        ],
+        "p95Ms": 8.4,
+        "p99Ms": 12.6,
+        "maxMs": 16.7,
+        "drawCalls": 41,
+        "triangles": 14377,
+        "programs": 50,
+        "geometries": 73,
+        "textures": 22,
+        "heapMB": 24
+      },
+      "feature": {
+        "gpuMsPerFrame": 4.43,
+        "cleanWindows": 3,
+        "gpuMsAll": [
+          4.61,
+          4.29,
+          4.69,
+          4.43
+        ],
+        "otherGpuPctAll": [
+          66.6,
+          4.1,
+          6.3,
+          3
+        ],
+        "disjoint": false,
+        "fps": 147.9,
+        "fpsAll": [
+          54.4,
+          161.9,
+          147.9,
+          161.3
+        ],
+        "p95Ms": 8.5,
+        "p99Ms": 12.6,
+        "maxMs": 24.9,
+        "drawCalls": 45,
+        "triangles": 32515,
+        "programs": 59,
+        "geometries": 83,
+        "textures": 23,
+        "heapMB": 27
+      },
+      "gpuDeltaPct": 0.5,
+      "fpsDeltaPct": -6.5
+    },
+    "card-movid": {
+      "baseline": {
+        "gpuMsPerFrame": 4.36,
+        "cleanWindows": 4,
+        "gpuMsAll": [
+          4.81,
+          4.42,
+          4.36,
+          3.86
+        ],
+        "otherGpuPctAll": [
+          3.1,
+          2.9,
+          1.7,
+          0.9
+        ],
+        "disjoint": false,
+        "fps": 160.8,
+        "fpsAll": [
+          144,
+          160.8,
+          161.5,
+          185.5
+        ],
+        "p95Ms": 8.4,
+        "p99Ms": 12.5,
+        "maxMs": 12.7,
+        "drawCalls": 39,
+        "triangles": 4091,
+        "programs": 50,
+        "geometries": 79,
+        "textures": 22,
+        "heapMB": 26
+      },
+      "feature": {
+        "gpuMsPerFrame": 4.09,
+        "cleanWindows": 3,
+        "gpuMsAll": [
+          5.91,
+          4.38,
+          4.03,
+          4.09
+        ],
+        "otherGpuPctAll": [
+          45.4,
+          2,
+          0.6,
+          2.6
+        ],
+        "disjoint": false,
+        "fps": 160.1,
+        "fpsAll": [
+          42.6,
+          160.1,
+          182.2,
+          174.6
+        ],
+        "p95Ms": 8.4,
+        "p99Ms": 12.5,
+        "maxMs": 16.6,
+        "drawCalls": 39,
+        "triangles": 5095,
+        "programs": 59,
+        "geometries": 89,
+        "textures": 23,
+        "heapMB": 26
+      },
+      "gpuDeltaPct": -6.2,
+      "fpsDeltaPct": -0.4
+    },
+    "card-ats-matching": {
+      "baseline": {
+        "gpuMsPerFrame": 4.16,
+        "cleanWindows": 4,
+        "gpuMsAll": [
+          4.67,
+          4.56,
+          4.16,
+          3.85
+        ],
+        "otherGpuPctAll": [
+          1.9,
+          1.9,
+          2.5,
+          0.9
+        ],
+        "disjoint": false,
+        "fps": 156,
+        "fpsAll": [
+          149.2,
+          156,
+          167.9,
+          186.4
+        ],
+        "p95Ms": 8.4,
+        "p99Ms": 12.5,
+        "maxMs": 17.2,
+        "drawCalls": 41,
+        "triangles": 3017,
+        "programs": 50,
+        "geometries": 88,
+        "textures": 22,
+        "heapMB": 25
+      },
+      "feature": {
+        "gpuMsPerFrame": 4.25,
+        "cleanWindows": 4,
+        "gpuMsAll": [
+          7.57,
+          4.25,
+          4.09,
+          4.63
+        ],
+        "otherGpuPctAll": [
+          7.8,
+          1.8,
+          0.7,
+          3.9
+        ],
+        "disjoint": false,
+        "fps": 141.6,
+        "fpsAll": [
+          47.7,
+          164.8,
+          178,
+          141.6
+        ],
+        "p95Ms": 8.4,
+        "p99Ms": 12.5,
+        "maxMs": 20.9,
+        "drawCalls": 40,
+        "triangles": 5703,
+        "programs": 59,
+        "geometries": 97,
+        "textures": 23,
+        "heapMB": 26
+      },
+      "gpuDeltaPct": 2.2,
+      "fpsDeltaPct": -9.2
+    },
+    "card-lifeatlas": {
+      "baseline": {
+        "gpuMsPerFrame": 4.25,
+        "cleanWindows": 4,
+        "gpuMsAll": [
+          4.75,
+          4.67,
+          4.25,
+          3.86
+        ],
+        "otherGpuPctAll": [
+          1.9,
+          2.6,
+          1.8,
+          1.4
+        ],
+        "disjoint": false,
+        "fps": 152.5,
+        "fpsAll": [
+          146.3,
+          152.5,
+          164.3,
+          185.2
+        ],
+        "p95Ms": 8.4,
+        "p99Ms": 12.6,
+        "maxMs": 16.7,
+        "drawCalls": 37,
+        "triangles": 31005,
+        "programs": 50,
+        "geometries": 92,
+        "textures": 22,
+        "heapMB": 24
+      },
+      "feature": {
+        "gpuMsPerFrame": 4.36,
+        "cleanWindows": 4,
+        "gpuMsAll": [
+          4.38,
+          4.36,
+          4.22,
+          4.38
+        ],
+        "otherGpuPctAll": [
+          2.3,
+          8.7,
+          2.1,
+          2.5
+        ],
+        "disjoint": false,
+        "fps": 161,
+        "fpsAll": [
+          161,
+          153.5,
+          172,
+          161.7
+        ],
+        "p95Ms": 12.1,
+        "p99Ms": 12.6,
+        "maxMs": 20.9,
+        "drawCalls": 37,
+        "triangles": 31245,
+        "programs": 59,
+        "geometries": 102,
+        "textures": 23,
+        "heapMB": 26
+      },
+      "gpuDeltaPct": 2.6,
+      "fpsDeltaPct": 5.6
+    },
+    "case-movid": {
+      "baseline": {
+        "gpuMsPerFrame": 5.3,
+        "cleanWindows": 4,
+        "gpuMsAll": [
+          5.3,
+          5.53,
+          5.48,
+          4.67
+        ],
+        "otherGpuPctAll": [
+          4.1,
+          2.8,
+          3.6,
+          1.8
+        ],
+        "disjoint": false,
+        "fps": 144.8,
+        "fpsAll": [
+          147.5,
+          144.8,
+          143.5,
+          169.9
+        ],
+        "p95Ms": 8.4,
+        "p99Ms": 12.5,
+        "maxMs": 16.7,
+        "drawCalls": 32,
+        "triangles": 21459,
+        "programs": 33,
+        "geometries": 38,
+        "textures": 22,
+        "heapMB": 16
+      },
+      "feature": {
+        "gpuMsPerFrame": 4.99,
+        "cleanWindows": 4,
+        "gpuMsAll": [
+          4.99,
+          5.37,
+          4.94,
+          5.14
+        ],
+        "otherGpuPctAll": [
+          1.5,
+          9.7,
+          1.9,
+          1.9
+        ],
+        "disjoint": false,
+        "fps": 155,
+        "fpsAll": [
+          159.4,
+          140.4,
+          165.3,
+          155
+        ],
+        "p95Ms": 8.4,
+        "p99Ms": 12.4,
+        "maxMs": 20.9,
+        "drawCalls": 32,
+        "triangles": 22463,
+        "programs": 36,
+        "geometries": 38,
+        "textures": 22,
+        "heapMB": 16
+      },
+      "gpuDeltaPct": -5.8,
+      "fpsDeltaPct": 7
+    },
+    "case-tibyn": {
+      "baseline": {
+        "gpuMsPerFrame": 5.44,
+        "cleanWindows": 4,
+        "gpuMsAll": [
+          6.62,
+          5.44,
+          5.96,
+          4.95
+        ],
+        "otherGpuPctAll": [
+          2.1,
+          3.4,
+          3.9,
+          1.3
+        ],
+        "disjoint": false,
+        "fps": 131.6,
+        "fpsAll": [
+          113.4,
+          145.3,
+          131.6,
+          163.3
+        ],
+        "p95Ms": 8.4,
+        "p99Ms": 12.5,
+        "maxMs": 16.7,
+        "drawCalls": 34,
+        "triangles": 31745,
+        "programs": 33,
+        "geometries": 41,
+        "textures": 22,
+        "heapMB": 32
+      },
+      "feature": {
+        "gpuMsPerFrame": 5.59,
+        "cleanWindows": 4,
+        "gpuMsAll": [
+          5.54,
+          5.75,
+          5.68,
+          5.59
+        ],
+        "otherGpuPctAll": [
+          1.9,
+          1.2,
+          2.3,
+          3.5
+        ],
+        "disjoint": false,
+        "fps": 145.1,
+        "fpsAll": [
+          146.9,
+          140.7,
+          145.2,
+          145.1
+        ],
+        "p95Ms": 8.4,
+        "p99Ms": 12.5,
+        "maxMs": 16.7,
+        "drawCalls": 38,
+        "triangles": 49883,
+        "programs": 36,
+        "geometries": 45,
+        "textures": 23,
+        "heapMB": 35
+      },
+      "gpuDeltaPct": 2.8,
+      "fpsDeltaPct": 10.3
+    }
+  },
+  "gpuMemory": {
+    "baseline": [
+      {
+        "processes": 8,
+        "sharedBytes": 395460608,
+        "dedicatedBytes": 0
+      },
+      {
+        "processes": 8,
+        "sharedBytes": 404045824,
+        "dedicatedBytes": 0
+      },
+      {
+        "processes": 8,
+        "sharedBytes": 384880640,
+        "dedicatedBytes": 0
+      },
+      {
+        "processes": 8,
+        "sharedBytes": 376676352,
+        "dedicatedBytes": 0
+      }
+    ],
+    "feature": [
+      {
+        "processes": 8,
+        "sharedBytes": 406790144,
+        "dedicatedBytes": 0
+      },
+      {
+        "processes": 8,
+        "sharedBytes": 396865536,
+        "dedicatedBytes": 0
+      },
+      {
+        "processes": 8,
+        "sharedBytes": 390041600,
+        "dedicatedBytes": 0
+      },
+      {
+        "processes": 10,
+        "sharedBytes": 396378112,
+        "dedicatedBytes": 0
+      }
+    ]
+  },
+  "runs": [
+    {
+      "variant": "baseline",
+      "round": 1,
+      "gpuMemory": {
+        "processes": 8,
+        "sharedBytes": 395460608,
+        "dedicatedBytes": 0
+      },
+      "scenarios": {
+        "top": {
+          "gpuMsPerFrame": 5.61,
+          "gpuBusyPct": 76.7,
+          "disjoint": false,
+          "fps": 136.8,
+          "p95Ms": 12.6,
+          "p99Ms": 20.8,
+          "maxMs": 54.2,
+          "over33": 3,
+          "frames": 1095,
+          "drawCalls": 43,
+          "triangles": 82127,
+          "points": 3940,
+          "programs": 48,
+          "geometries": 45,
+          "textures": 21,
+          "heapMB": 27,
+          "tier": "balanced",
+          "otherGpuPct": 2.3,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.4
+            },
+            {
+              "pid": 2400,
+              "pct": 0.9
+            }
+          ]
+        },
+        "ask-ai": {
+          "gpuMsPerFrame": 5.62,
+          "gpuBusyPct": 69.8,
+          "disjoint": false,
+          "fps": 124.1,
+          "p95Ms": 12.5,
+          "p99Ms": 16.7,
+          "maxMs": 158.4,
+          "over33": 4,
+          "frames": 993,
+          "drawCalls": 26,
+          "triangles": 24221,
+          "points": 3500,
+          "programs": 49,
+          "geometries": 52,
+          "textures": 21,
+          "heapMB": 23,
+          "tier": "balanced",
+          "otherGpuPct": 2.3,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.4
+            },
+            {
+              "pid": 2400,
+              "pct": 0.9
+            }
+          ]
+        },
+        "card-tibyn": {
+          "gpuMsPerFrame": 4.99,
+          "gpuBusyPct": 68.9,
+          "disjoint": false,
+          "fps": 138.2,
+          "p95Ms": 12.5,
+          "p99Ms": 16.8,
+          "maxMs": 33.4,
+          "over33": 1,
+          "frames": 1106,
+          "drawCalls": 41,
+          "triangles": 14377,
+          "points": 29680,
+          "programs": 50,
+          "geometries": 73,
+          "textures": 22,
+          "heapMB": 24,
+          "tier": "balanced",
+          "otherGpuPct": 2.3,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.3
+            },
+            {
+              "pid": 2400,
+              "pct": 1
+            }
+          ]
+        },
+        "card-movid": {
+          "gpuMsPerFrame": 4.81,
+          "gpuBusyPct": 69.3,
+          "disjoint": false,
+          "fps": 144,
+          "p95Ms": 12.3,
+          "p99Ms": 12.7,
+          "maxMs": 17,
+          "over33": 0,
+          "frames": 1152,
+          "drawCalls": 39,
+          "triangles": 4091,
+          "points": 29680,
+          "programs": 50,
+          "geometries": 79,
+          "textures": 22,
+          "heapMB": 25,
+          "tier": "balanced",
+          "otherGpuPct": 3.1,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.9
+            },
+            {
+              "pid": 2400,
+              "pct": 1.2
+            }
+          ]
+        },
+        "card-ats-matching": {
+          "gpuMsPerFrame": 4.67,
+          "gpuBusyPct": 69.6,
+          "disjoint": false,
+          "fps": 149.2,
+          "p95Ms": 8.5,
+          "p99Ms": 12.5,
+          "maxMs": 17.7,
+          "over33": 0,
+          "frames": 1194,
+          "drawCalls": 41,
+          "triangles": 3017,
+          "points": 29706,
+          "programs": 50,
+          "geometries": 88,
+          "textures": 22,
+          "heapMB": 26,
+          "tier": "balanced",
+          "otherGpuPct": 1.9,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.1
+            },
+            {
+              "pid": 2400,
+              "pct": 0.8
+            }
+          ]
+        },
+        "card-lifeatlas": {
+          "gpuMsPerFrame": 4.75,
+          "gpuBusyPct": 69.5,
+          "disjoint": false,
+          "fps": 146.3,
+          "p95Ms": 8.8,
+          "p99Ms": 12.6,
+          "maxMs": 16.8,
+          "over33": 0,
+          "frames": 1171,
+          "drawCalls": 37,
+          "triangles": 31005,
+          "points": 30291,
+          "programs": 50,
+          "geometries": 92,
+          "textures": 22,
+          "heapMB": 25,
+          "tier": "balanced",
+          "otherGpuPct": 1.9,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.1
+            },
+            {
+              "pid": 2400,
+              "pct": 0.8
+            }
+          ]
+        },
+        "case-movid": {
+          "gpuMsPerFrame": 5.3,
+          "gpuBusyPct": 78.1,
+          "disjoint": false,
+          "fps": 147.5,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 24.9,
+          "over33": 0,
+          "frames": 1181,
+          "drawCalls": 32,
+          "triangles": 21459,
+          "points": 3620,
+          "programs": 33,
+          "geometries": 38,
+          "textures": 22,
+          "heapMB": 17,
+          "tier": "balanced",
+          "otherGpuPct": 4.1,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 2.2
+            },
+            {
+              "pid": 2400,
+              "pct": 1.9
+            }
+          ]
+        },
+        "case-tibyn": {
+          "gpuMsPerFrame": 6.62,
+          "gpuBusyPct": 75,
+          "disjoint": false,
+          "fps": 113.4,
+          "p95Ms": 12.5,
+          "p99Ms": 16.9,
+          "maxMs": 225.2,
+          "over33": 4,
+          "frames": 908,
+          "drawCalls": 34,
+          "triangles": 31745,
+          "points": 3620,
+          "programs": 33,
+          "geometries": 41,
+          "textures": 22,
+          "heapMB": 33,
+          "tier": "balanced",
+          "otherGpuPct": 2.1,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.2
+            },
+            {
+              "pid": 2400,
+              "pct": 0.9
+            }
+          ]
+        }
+      }
+    },
+    {
+      "variant": "feature",
+      "round": 1,
+      "gpuMemory": {
+        "processes": 8,
+        "sharedBytes": 406790144,
+        "dedicatedBytes": 0
+      },
+      "scenarios": {
+        "top": {
+          "gpuMsPerFrame": 5.36,
+          "gpuBusyPct": 77.3,
+          "disjoint": false,
+          "fps": 144.3,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.8,
+          "over33": 0,
+          "frames": 1155,
+          "drawCalls": 43,
+          "triangles": 82127,
+          "points": 3940,
+          "programs": 57,
+          "geometries": 45,
+          "textures": 21,
+          "heapMB": 27,
+          "tier": "balanced",
+          "otherGpuPct": 2.3,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.4
+            },
+            {
+              "pid": 2400,
+              "pct": 0.9
+            }
+          ]
+        },
+        "ask-ai": {
+          "gpuMsPerFrame": 9.71,
+          "gpuBusyPct": 37.8,
+          "disjoint": false,
+          "fps": 39,
+          "p95Ms": 41.9,
+          "p99Ms": 62.5,
+          "maxMs": 450,
+          "over33": 43,
+          "frames": 312,
+          "drawCalls": 33,
+          "triangles": 54925,
+          "points": 3720,
+          "programs": 58,
+          "geometries": 58,
+          "textures": 21,
+          "heapMB": 24,
+          "tier": "balanced",
+          "otherGpuPct": 49.8,
+          "topOther": [
+            {
+              "pid": 28272,
+              "pct": 45.4
+            },
+            {
+              "pid": 1720,
+              "pct": 3.4
+            }
+          ]
+        },
+        "card-tibyn": {
+          "gpuMsPerFrame": 4.61,
+          "gpuBusyPct": 25.1,
+          "disjoint": false,
+          "fps": 54.4,
+          "p95Ms": 35.8,
+          "p99Ms": 41.5,
+          "maxMs": 58.4,
+          "over33": 31,
+          "frames": 436,
+          "drawCalls": 45,
+          "triangles": 32515,
+          "points": 29680,
+          "programs": 59,
+          "geometries": 83,
+          "textures": 23,
+          "heapMB": 25,
+          "tier": "balanced",
+          "otherGpuPct": 66.6,
+          "topOther": [
+            {
+              "pid": 28272,
+              "pct": 65.1
+            },
+            {
+              "pid": 1720,
+              "pct": 1.5
+            }
+          ]
+        },
+        "card-movid": {
+          "gpuMsPerFrame": 5.91,
+          "gpuBusyPct": 25.1,
+          "disjoint": false,
+          "fps": 42.6,
+          "p95Ms": 37.5,
+          "p99Ms": 133.4,
+          "maxMs": 1883.4,
+          "over33": 28,
+          "frames": 382,
+          "drawCalls": 39,
+          "triangles": 5095,
+          "points": 29680,
+          "programs": 59,
+          "geometries": 89,
+          "textures": 23,
+          "heapMB": 26,
+          "tier": "balanced",
+          "otherGpuPct": 45.4,
+          "topOther": [
+            {
+              "pid": 28272,
+              "pct": 43.1
+            },
+            {
+              "pid": 1720,
+              "pct": 2.3
+            }
+          ]
+        },
+        "card-ats-matching": {
+          "gpuMsPerFrame": 7.57,
+          "gpuBusyPct": 36.1,
+          "disjoint": false,
+          "fps": 47.7,
+          "p95Ms": 45.8,
+          "p99Ms": 133.3,
+          "maxMs": 508.3,
+          "over33": 40,
+          "frames": 382,
+          "drawCalls": 40,
+          "triangles": 5703,
+          "points": 29706,
+          "programs": 59,
+          "geometries": 97,
+          "textures": 23,
+          "heapMB": 25,
+          "tier": "balanced",
+          "otherGpuPct": 7.8,
+          "topOther": [
+            {
+              "pid": 28272,
+              "pct": 6.5
+            },
+            {
+              "pid": 1720,
+              "pct": 1.3
+            }
+          ]
+        },
+        "card-lifeatlas": {
+          "gpuMsPerFrame": 4.38,
+          "gpuBusyPct": 70.5,
+          "disjoint": false,
+          "fps": 161,
+          "p95Ms": 12.3,
+          "p99Ms": 12.6,
+          "maxMs": 54.2,
+          "over33": 1,
+          "frames": 1289,
+          "drawCalls": 37,
+          "triangles": 31245,
+          "points": 30291,
+          "programs": 59,
+          "geometries": 102,
+          "textures": 23,
+          "heapMB": 26,
+          "tier": "balanced",
+          "otherGpuPct": 2.3,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 2.3
+            }
+          ]
+        },
+        "case-movid": {
+          "gpuMsPerFrame": 4.99,
+          "gpuBusyPct": 79.6,
+          "disjoint": false,
+          "fps": 159.4,
+          "p95Ms": 8.4,
+          "p99Ms": 8.7,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1276,
+          "drawCalls": 32,
+          "triangles": 22463,
+          "points": 3620,
+          "programs": 36,
+          "geometries": 38,
+          "textures": 22,
+          "heapMB": 43,
+          "tier": "balanced",
+          "otherGpuPct": 1.5,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.5
+            }
+          ]
+        },
+        "case-tibyn": {
+          "gpuMsPerFrame": 5.54,
+          "gpuBusyPct": 81.4,
+          "disjoint": false,
+          "fps": 146.9,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1175,
+          "drawCalls": 38,
+          "triangles": 49883,
+          "points": 3620,
+          "programs": 36,
+          "geometries": 45,
+          "textures": 23,
+          "heapMB": 27,
+          "tier": "balanced",
+          "otherGpuPct": 1.9,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.9
+            }
+          ]
+        }
+      }
+    },
+    {
+      "variant": "feature",
+      "round": 2,
+      "gpuMemory": {
+        "processes": 8,
+        "sharedBytes": 396865536,
+        "dedicatedBytes": 0
+      },
+      "scenarios": {
+        "top": {
+          "gpuMsPerFrame": 5.39,
+          "gpuBusyPct": 76.8,
+          "disjoint": false,
+          "fps": 142.5,
+          "p95Ms": 12.5,
+          "p99Ms": 12.7,
+          "maxMs": 41.7,
+          "over33": 1,
+          "frames": 1140,
+          "drawCalls": 43,
+          "triangles": 82127,
+          "points": 3940,
+          "programs": 57,
+          "geometries": 45,
+          "textures": 21,
+          "heapMB": 24,
+          "tier": "balanced",
+          "otherGpuPct": 3.4,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.9
+            },
+            {
+              "pid": 2400,
+              "pct": 0.8
+            }
+          ]
+        },
+        "ask-ai": {
+          "gpuMsPerFrame": 5.94,
+          "gpuBusyPct": 73.7,
+          "disjoint": false,
+          "fps": 124.1,
+          "p95Ms": 12.5,
+          "p99Ms": 16.7,
+          "maxMs": 116.7,
+          "over33": 1,
+          "frames": 993,
+          "drawCalls": 33,
+          "triangles": 54925,
+          "points": 3720,
+          "programs": 58,
+          "geometries": 58,
+          "textures": 21,
+          "heapMB": 29,
+          "tier": "balanced",
+          "otherGpuPct": 6.3,
+          "topOther": [
+            {
+              "pid": 2400,
+              "pct": 4.7
+            },
+            {
+              "pid": 1720,
+              "pct": 1.6
+            }
+          ]
+        },
+        "card-tibyn": {
+          "gpuMsPerFrame": 4.29,
+          "gpuBusyPct": 69.5,
+          "disjoint": false,
+          "fps": 161.9,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1296,
+          "drawCalls": 45,
+          "triangles": 32515,
+          "points": 29680,
+          "programs": 59,
+          "geometries": 83,
+          "textures": 23,
+          "heapMB": 29,
+          "tier": "balanced",
+          "otherGpuPct": 4.1,
+          "topOther": [
+            {
+              "pid": 2400,
+              "pct": 2.2
+            },
+            {
+              "pid": 1720,
+              "pct": 1.9
+            }
+          ]
+        },
+        "card-movid": {
+          "gpuMsPerFrame": 4.38,
+          "gpuBusyPct": 70.2,
+          "disjoint": false,
+          "fps": 160.1,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.6,
+          "over33": 0,
+          "frames": 1281,
+          "drawCalls": 39,
+          "triangles": 5095,
+          "points": 29680,
+          "programs": 59,
+          "geometries": 89,
+          "textures": 23,
+          "heapMB": 26,
+          "tier": "balanced",
+          "otherGpuPct": 2,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.2
+            },
+            {
+              "pid": 2400,
+              "pct": 0.8
+            }
+          ]
+        },
+        "card-ats-matching": {
+          "gpuMsPerFrame": 4.25,
+          "gpuBusyPct": 70,
+          "disjoint": false,
+          "fps": 164.8,
+          "p95Ms": 8.4,
+          "p99Ms": 12.4,
+          "maxMs": 20.9,
+          "over33": 0,
+          "frames": 1318,
+          "drawCalls": 40,
+          "triangles": 5703,
+          "points": 29706,
+          "programs": 59,
+          "geometries": 97,
+          "textures": 23,
+          "heapMB": 27,
+          "tier": "balanced",
+          "otherGpuPct": 1.8,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.1
+            },
+            {
+              "pid": 2400,
+              "pct": 0.7
+            }
+          ]
+        },
+        "card-lifeatlas": {
+          "gpuMsPerFrame": 4.36,
+          "gpuBusyPct": 67,
+          "disjoint": false,
+          "fps": 153.5,
+          "p95Ms": 12.5,
+          "p99Ms": 16.7,
+          "maxMs": 29.2,
+          "over33": 0,
+          "frames": 1229,
+          "drawCalls": 37,
+          "triangles": 31245,
+          "points": 30291,
+          "programs": 59,
+          "geometries": 102,
+          "textures": 23,
+          "heapMB": 28,
+          "tier": "balanced",
+          "otherGpuPct": 8.7,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 5.9
+            },
+            {
+              "pid": 2400,
+              "pct": 2.8
+            }
+          ]
+        },
+        "case-movid": {
+          "gpuMsPerFrame": 5.37,
+          "gpuBusyPct": 75.4,
+          "disjoint": false,
+          "fps": 140.4,
+          "p95Ms": 12.5,
+          "p99Ms": 16.7,
+          "maxMs": 20.9,
+          "over33": 0,
+          "frames": 1124,
+          "drawCalls": 32,
+          "triangles": 22463,
+          "points": 3620,
+          "programs": 36,
+          "geometries": 38,
+          "textures": 22,
+          "heapMB": 16,
+          "tier": "balanced",
+          "otherGpuPct": 9.7,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 6.6
+            },
+            {
+              "pid": 2400,
+              "pct": 3.1
+            }
+          ]
+        },
+        "case-tibyn": {
+          "gpuMsPerFrame": 5.75,
+          "gpuBusyPct": 80.9,
+          "disjoint": false,
+          "fps": 140.7,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1126,
+          "drawCalls": 38,
+          "triangles": 49883,
+          "points": 3620,
+          "programs": 36,
+          "geometries": 45,
+          "textures": 23,
+          "heapMB": 36,
+          "tier": "balanced",
+          "otherGpuPct": 1.2,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "variant": "baseline",
+      "round": 2,
+      "gpuMemory": {
+        "processes": 8,
+        "sharedBytes": 404045824,
+        "dedicatedBytes": 0
+      },
+      "scenarios": {
+        "top": {
+          "gpuMsPerFrame": 4.81,
+          "gpuBusyPct": 78.1,
+          "disjoint": false,
+          "fps": 162.4,
+          "p95Ms": 8.4,
+          "p99Ms": 12.4,
+          "maxMs": 16.6,
+          "over33": 0,
+          "frames": 1300,
+          "drawCalls": 43,
+          "triangles": 82127,
+          "points": 3940,
+          "programs": 48,
+          "geometries": 45,
+          "textures": 21,
+          "heapMB": 26,
+          "tier": "balanced",
+          "otherGpuPct": 2.2,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.5
+            },
+            {
+              "pid": 2400,
+              "pct": 0.7
+            }
+          ]
+        },
+        "ask-ai": {
+          "gpuMsPerFrame": 4.83,
+          "gpuBusyPct": 75,
+          "disjoint": false,
+          "fps": 155.3,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1243,
+          "drawCalls": 26,
+          "triangles": 24221,
+          "points": 3500,
+          "programs": 49,
+          "geometries": 52,
+          "textures": 21,
+          "heapMB": 24,
+          "tier": "balanced",
+          "otherGpuPct": 3.2,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 2.3
+            },
+            {
+              "pid": 2400,
+              "pct": 0.9
+            }
+          ]
+        },
+        "card-tibyn": {
+          "gpuMsPerFrame": 4.41,
+          "gpuBusyPct": 71.4,
+          "disjoint": false,
+          "fps": 161.9,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1295,
+          "drawCalls": 41,
+          "triangles": 14377,
+          "points": 29680,
+          "programs": 50,
+          "geometries": 73,
+          "textures": 22,
+          "heapMB": 24,
+          "tier": "balanced",
+          "otherGpuPct": 2.4,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.6
+            },
+            {
+              "pid": 2400,
+              "pct": 0.8
+            }
+          ]
+        },
+        "card-movid": {
+          "gpuMsPerFrame": 4.42,
+          "gpuBusyPct": 71,
+          "disjoint": false,
+          "fps": 160.8,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 12.7,
+          "over33": 0,
+          "frames": 1287,
+          "drawCalls": 39,
+          "triangles": 4091,
+          "points": 29680,
+          "programs": 50,
+          "geometries": 79,
+          "textures": 22,
+          "heapMB": 28,
+          "tier": "balanced",
+          "otherGpuPct": 2.9,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.9
+            },
+            {
+              "pid": 2400,
+              "pct": 1
+            }
+          ]
+        },
+        "card-ats-matching": {
+          "gpuMsPerFrame": 4.56,
+          "gpuBusyPct": 71.1,
+          "disjoint": false,
+          "fps": 156,
+          "p95Ms": 8.5,
+          "p99Ms": 12.5,
+          "maxMs": 17.2,
+          "over33": 0,
+          "frames": 1249,
+          "drawCalls": 41,
+          "triangles": 3017,
+          "points": 29706,
+          "programs": 50,
+          "geometries": 88,
+          "textures": 22,
+          "heapMB": 28,
+          "tier": "balanced",
+          "otherGpuPct": 1.9,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.1
+            },
+            {
+              "pid": 2400,
+              "pct": 0.8
+            }
+          ]
+        },
+        "card-lifeatlas": {
+          "gpuMsPerFrame": 4.67,
+          "gpuBusyPct": 71.2,
+          "disjoint": false,
+          "fps": 152.5,
+          "p95Ms": 8.7,
+          "p99Ms": 12.6,
+          "maxMs": 20.9,
+          "over33": 0,
+          "frames": 1221,
+          "drawCalls": 37,
+          "triangles": 31005,
+          "points": 30291,
+          "programs": 50,
+          "geometries": 92,
+          "textures": 22,
+          "heapMB": 24,
+          "tier": "balanced",
+          "otherGpuPct": 2.6,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.6
+            },
+            {
+              "pid": 2400,
+              "pct": 1
+            }
+          ]
+        },
+        "case-movid": {
+          "gpuMsPerFrame": 5.53,
+          "gpuBusyPct": 80,
+          "disjoint": false,
+          "fps": 144.8,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1159,
+          "drawCalls": 32,
+          "triangles": 21459,
+          "points": 3620,
+          "programs": 33,
+          "geometries": 38,
+          "textures": 22,
+          "heapMB": 16,
+          "tier": "balanced",
+          "otherGpuPct": 2.8,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.8
+            },
+            {
+              "pid": 2400,
+              "pct": 1
+            }
+          ]
+        },
+        "case-tibyn": {
+          "gpuMsPerFrame": 5.44,
+          "gpuBusyPct": 79,
+          "disjoint": false,
+          "fps": 145.3,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 20.8,
+          "over33": 0,
+          "frames": 1163,
+          "drawCalls": 34,
+          "triangles": 31745,
+          "points": 3620,
+          "programs": 33,
+          "geometries": 41,
+          "textures": 22,
+          "heapMB": 34,
+          "tier": "balanced",
+          "otherGpuPct": 3.4,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.9
+            },
+            {
+              "pid": 2400,
+              "pct": 1.5
+            }
+          ]
+        }
+      }
+    },
+    {
+      "variant": "baseline",
+      "round": 3,
+      "gpuMemory": {
+        "processes": 8,
+        "sharedBytes": 384880640,
+        "dedicatedBytes": 0
+      },
+      "scenarios": {
+        "top": {
+          "gpuMsPerFrame": 5.14,
+          "gpuBusyPct": 76.3,
+          "disjoint": false,
+          "fps": 148.6,
+          "p95Ms": 8.5,
+          "p99Ms": 12.6,
+          "maxMs": 16.8,
+          "over33": 0,
+          "frames": 1190,
+          "drawCalls": 43,
+          "triangles": 82127,
+          "points": 3940,
+          "programs": 48,
+          "geometries": 45,
+          "textures": 21,
+          "heapMB": 23,
+          "tier": "balanced",
+          "otherGpuPct": 3.9,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 2.8
+            },
+            {
+              "pid": 2400,
+              "pct": 1.1
+            }
+          ]
+        },
+        "ask-ai": {
+          "gpuMsPerFrame": 4.87,
+          "gpuBusyPct": 73.4,
+          "disjoint": false,
+          "fps": 150.8,
+          "p95Ms": 8.4,
+          "p99Ms": 12.6,
+          "maxMs": 16.8,
+          "over33": 0,
+          "frames": 1207,
+          "drawCalls": 26,
+          "triangles": 24221,
+          "points": 3500,
+          "programs": 49,
+          "geometries": 52,
+          "textures": 21,
+          "heapMB": 24,
+          "tier": "balanced",
+          "otherGpuPct": 2.7,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.7
+            },
+            {
+              "pid": 2400,
+              "pct": 1
+            }
+          ]
+        },
+        "card-tibyn": {
+          "gpuMsPerFrame": 4.41,
+          "gpuBusyPct": 69.7,
+          "disjoint": false,
+          "fps": 158.2,
+          "p95Ms": 8.4,
+          "p99Ms": 12.6,
+          "maxMs": 16.9,
+          "over33": 0,
+          "frames": 1266,
+          "drawCalls": 41,
+          "triangles": 14377,
+          "points": 29680,
+          "programs": 50,
+          "geometries": 73,
+          "textures": 22,
+          "heapMB": 26,
+          "tier": "balanced",
+          "otherGpuPct": 2.7,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.7
+            },
+            {
+              "pid": 2400,
+              "pct": 1
+            }
+          ]
+        },
+        "card-movid": {
+          "gpuMsPerFrame": 4.36,
+          "gpuBusyPct": 70.4,
+          "disjoint": false,
+          "fps": 161.5,
+          "p95Ms": 8.4,
+          "p99Ms": 12.4,
+          "maxMs": 12.6,
+          "over33": 0,
+          "frames": 1293,
+          "drawCalls": 39,
+          "triangles": 4091,
+          "points": 29680,
+          "programs": 50,
+          "geometries": 79,
+          "textures": 22,
+          "heapMB": 26,
+          "tier": "balanced",
+          "otherGpuPct": 1.7,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1
+            },
+            {
+              "pid": 2400,
+              "pct": 0.7
+            }
+          ]
+        },
+        "card-ats-matching": {
+          "gpuMsPerFrame": 4.16,
+          "gpuBusyPct": 69.8,
+          "disjoint": false,
+          "fps": 167.9,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1344,
+          "drawCalls": 41,
+          "triangles": 3017,
+          "points": 29706,
+          "programs": 50,
+          "geometries": 88,
+          "textures": 22,
+          "heapMB": 25,
+          "tier": "balanced",
+          "otherGpuPct": 2.5,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.7
+            },
+            {
+              "pid": 2400,
+              "pct": 0.8
+            }
+          ]
+        },
+        "card-lifeatlas": {
+          "gpuMsPerFrame": 4.25,
+          "gpuBusyPct": 69.9,
+          "disjoint": false,
+          "fps": 164.3,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1315,
+          "drawCalls": 37,
+          "triangles": 31005,
+          "points": 30291,
+          "programs": 50,
+          "geometries": 92,
+          "textures": 22,
+          "heapMB": 24,
+          "tier": "balanced",
+          "otherGpuPct": 1.8,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.1
+            },
+            {
+              "pid": 2400,
+              "pct": 0.7
+            }
+          ]
+        },
+        "case-movid": {
+          "gpuMsPerFrame": 5.48,
+          "gpuBusyPct": 78.6,
+          "disjoint": false,
+          "fps": 143.5,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.8,
+          "over33": 0,
+          "frames": 1148,
+          "drawCalls": 32,
+          "triangles": 21459,
+          "points": 3620,
+          "programs": 33,
+          "geometries": 38,
+          "textures": 22,
+          "heapMB": 16,
+          "tier": "balanced",
+          "otherGpuPct": 3.6,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 2.4
+            },
+            {
+              "pid": 2400,
+              "pct": 1.2
+            }
+          ]
+        },
+        "case-tibyn": {
+          "gpuMsPerFrame": 5.96,
+          "gpuBusyPct": 78.5,
+          "disjoint": false,
+          "fps": 131.6,
+          "p95Ms": 12.4,
+          "p99Ms": 12.6,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1053,
+          "drawCalls": 34,
+          "triangles": 31745,
+          "points": 3620,
+          "programs": 33,
+          "geometries": 41,
+          "textures": 22,
+          "heapMB": 27,
+          "tier": "balanced",
+          "otherGpuPct": 3.9,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 2.9
+            },
+            {
+              "pid": 2400,
+              "pct": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "variant": "feature",
+      "round": 3,
+      "gpuMemory": {
+        "processes": 8,
+        "sharedBytes": 390041600,
+        "dedicatedBytes": 0
+      },
+      "scenarios": {
+        "top": {
+          "gpuMsPerFrame": 5.09,
+          "gpuBusyPct": 79.6,
+          "disjoint": false,
+          "fps": 156.4,
+          "p95Ms": 8.4,
+          "p99Ms": 12.4,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1252,
+          "drawCalls": 43,
+          "triangles": 82127,
+          "points": 3940,
+          "programs": 57,
+          "geometries": 45,
+          "textures": 21,
+          "heapMB": 25,
+          "tier": "balanced",
+          "otherGpuPct": 2.2,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.5
+            },
+            {
+              "pid": 2400,
+              "pct": 0.7
+            }
+          ]
+        },
+        "ask-ai": {
+          "gpuMsPerFrame": 5.48,
+          "gpuBusyPct": 76.5,
+          "disjoint": false,
+          "fps": 139.4,
+          "p95Ms": 8.5,
+          "p99Ms": 12.6,
+          "maxMs": 20.8,
+          "over33": 0,
+          "frames": 1116,
+          "drawCalls": 33,
+          "triangles": 54925,
+          "points": 3720,
+          "programs": 58,
+          "geometries": 58,
+          "textures": 21,
+          "heapMB": 28,
+          "tier": "balanced",
+          "otherGpuPct": 2.6,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 2
+            },
+            {
+              "pid": 2400,
+              "pct": 0.6
+            }
+          ]
+        },
+        "card-tibyn": {
+          "gpuMsPerFrame": 4.69,
+          "gpuBusyPct": 69.3,
+          "disjoint": false,
+          "fps": 147.9,
+          "p95Ms": 12.4,
+          "p99Ms": 16.3,
+          "maxMs": 195.3,
+          "over33": 2,
+          "frames": 1183,
+          "drawCalls": 45,
+          "triangles": 32515,
+          "points": 29680,
+          "programs": 59,
+          "geometries": 83,
+          "textures": 23,
+          "heapMB": 27,
+          "tier": "balanced",
+          "otherGpuPct": 6.3,
+          "topOther": [
+            {
+              "pid": 2400,
+              "pct": 3.9
+            },
+            {
+              "pid": 1720,
+              "pct": 2.4
+            }
+          ]
+        },
+        "card-movid": {
+          "gpuMsPerFrame": 4.03,
+          "gpuBusyPct": 73.4,
+          "disjoint": false,
+          "fps": 182.2,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 12.7,
+          "over33": 0,
+          "frames": 1458,
+          "drawCalls": 39,
+          "triangles": 5095,
+          "points": 29680,
+          "programs": 59,
+          "geometries": 89,
+          "textures": 23,
+          "heapMB": 28,
+          "tier": "balanced",
+          "otherGpuPct": 0.6,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 0.6
+            }
+          ]
+        },
+        "card-ats-matching": {
+          "gpuMsPerFrame": 4.09,
+          "gpuBusyPct": 72.7,
+          "disjoint": false,
+          "fps": 178,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1424,
+          "drawCalls": 40,
+          "triangles": 5703,
+          "points": 29706,
+          "programs": 59,
+          "geometries": 97,
+          "textures": 23,
+          "heapMB": 28,
+          "tier": "balanced",
+          "otherGpuPct": 0.7,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 0.7
+            }
+          ]
+        },
+        "card-lifeatlas": {
+          "gpuMsPerFrame": 4.22,
+          "gpuBusyPct": 72.6,
+          "disjoint": false,
+          "fps": 172,
+          "p95Ms": 12.1,
+          "p99Ms": 12.9,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1376,
+          "drawCalls": 37,
+          "triangles": 31245,
+          "points": 30291,
+          "programs": 59,
+          "geometries": 102,
+          "textures": 23,
+          "heapMB": 25,
+          "tier": "balanced",
+          "otherGpuPct": 2.1,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 2.1
+            }
+          ]
+        },
+        "case-movid": {
+          "gpuMsPerFrame": 4.94,
+          "gpuBusyPct": 81.6,
+          "disjoint": false,
+          "fps": 165.3,
+          "p95Ms": 8.4,
+          "p99Ms": 12.4,
+          "maxMs": 25,
+          "over33": 0,
+          "frames": 1323,
+          "drawCalls": 32,
+          "triangles": 22463,
+          "points": 3620,
+          "programs": 36,
+          "geometries": 38,
+          "textures": 22,
+          "heapMB": 17,
+          "tier": "balanced",
+          "otherGpuPct": 1.9,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.9
+            }
+          ]
+        },
+        "case-tibyn": {
+          "gpuMsPerFrame": 5.68,
+          "gpuBusyPct": 82.5,
+          "disjoint": false,
+          "fps": 145.2,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.5,
+          "over33": 0,
+          "frames": 1163,
+          "drawCalls": 38,
+          "triangles": 49883,
+          "points": 3620,
+          "programs": 36,
+          "geometries": 45,
+          "textures": 23,
+          "heapMB": 35,
+          "tier": "balanced",
+          "otherGpuPct": 2.3,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.6
+            },
+            {
+              "pid": 2400,
+              "pct": 0.7
+            }
+          ]
+        }
+      }
+    },
+    {
+      "variant": "feature",
+      "round": 4,
+      "gpuMemory": {
+        "processes": 10,
+        "sharedBytes": 396378112,
+        "dedicatedBytes": 0
+      },
+      "scenarios": {
+        "top": {
+          "gpuMsPerFrame": 5.56,
+          "gpuBusyPct": 76.8,
+          "disjoint": false,
+          "fps": 137.9,
+          "p95Ms": 12.5,
+          "p99Ms": 20.8,
+          "maxMs": 37.5,
+          "over33": 1,
+          "frames": 1104,
+          "drawCalls": 43,
+          "triangles": 82127,
+          "points": 3940,
+          "programs": 57,
+          "geometries": 45,
+          "textures": 21,
+          "heapMB": 24,
+          "tier": "balanced",
+          "otherGpuPct": 2.8,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.9
+            },
+            {
+              "pid": 2400,
+              "pct": 0.9
+            }
+          ]
+        },
+        "ask-ai": {
+          "gpuMsPerFrame": 5.59,
+          "gpuBusyPct": 75.4,
+          "disjoint": false,
+          "fps": 134.9,
+          "p95Ms": 12.6,
+          "p99Ms": 16.9,
+          "maxMs": 41.7,
+          "over33": 1,
+          "frames": 1079,
+          "drawCalls": 33,
+          "triangles": 54925,
+          "points": 3720,
+          "programs": 58,
+          "geometries": 58,
+          "textures": 21,
+          "heapMB": 27,
+          "tier": "balanced",
+          "otherGpuPct": 1.9,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.9
+            }
+          ]
+        },
+        "card-tibyn": {
+          "gpuMsPerFrame": 4.43,
+          "gpuBusyPct": 71.4,
+          "disjoint": false,
+          "fps": 161.3,
+          "p95Ms": 8.5,
+          "p99Ms": 12.6,
+          "maxMs": 24.9,
+          "over33": 0,
+          "frames": 1290,
+          "drawCalls": 45,
+          "triangles": 32515,
+          "points": 29680,
+          "programs": 59,
+          "geometries": 83,
+          "textures": 23,
+          "heapMB": 29,
+          "tier": "balanced",
+          "otherGpuPct": 3,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 2
+            },
+            {
+              "pid": 2400,
+              "pct": 1
+            }
+          ]
+        },
+        "card-movid": {
+          "gpuMsPerFrame": 4.09,
+          "gpuBusyPct": 71.4,
+          "disjoint": false,
+          "fps": 174.6,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 16.8,
+          "over33": 0,
+          "frames": 1398,
+          "drawCalls": 39,
+          "triangles": 5095,
+          "points": 29680,
+          "programs": 59,
+          "geometries": 89,
+          "textures": 23,
+          "heapMB": 26,
+          "tier": "balanced",
+          "otherGpuPct": 2.6,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.9
+            },
+            {
+              "pid": 2400,
+              "pct": 0.7
+            }
+          ]
+        },
+        "card-ats-matching": {
+          "gpuMsPerFrame": 4.63,
+          "gpuBusyPct": 65.6,
+          "disjoint": false,
+          "fps": 141.6,
+          "p95Ms": 12.5,
+          "p99Ms": 20.8,
+          "maxMs": 729.1,
+          "over33": 1,
+          "frames": 1134,
+          "drawCalls": 40,
+          "triangles": 5703,
+          "points": 29706,
+          "programs": 59,
+          "geometries": 97,
+          "textures": 23,
+          "heapMB": 26,
+          "tier": "balanced",
+          "otherGpuPct": 3.9,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 2.8
+            },
+            {
+              "pid": 2400,
+              "pct": 1.1
+            }
+          ]
+        },
+        "card-lifeatlas": {
+          "gpuMsPerFrame": 4.38,
+          "gpuBusyPct": 70.8,
+          "disjoint": false,
+          "fps": 161.7,
+          "p95Ms": 9.4,
+          "p99Ms": 12.6,
+          "maxMs": 20.9,
+          "over33": 0,
+          "frames": 1294,
+          "drawCalls": 37,
+          "triangles": 31245,
+          "points": 30291,
+          "programs": 59,
+          "geometries": 102,
+          "textures": 23,
+          "heapMB": 30,
+          "tier": "balanced",
+          "otherGpuPct": 2.5,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.7
+            },
+            {
+              "pid": 2400,
+              "pct": 0.8
+            }
+          ]
+        },
+        "case-movid": {
+          "gpuMsPerFrame": 5.14,
+          "gpuBusyPct": 79.6,
+          "disjoint": false,
+          "fps": 155,
+          "p95Ms": 8.5,
+          "p99Ms": 12.5,
+          "maxMs": 29.2,
+          "over33": 0,
+          "frames": 1241,
+          "drawCalls": 32,
+          "triangles": 22463,
+          "points": 3620,
+          "programs": 36,
+          "geometries": 38,
+          "textures": 22,
+          "heapMB": 16,
+          "tier": "balanced",
+          "otherGpuPct": 1.9,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.9
+            }
+          ]
+        },
+        "case-tibyn": {
+          "gpuMsPerFrame": 5.59,
+          "gpuBusyPct": 81.1,
+          "disjoint": false,
+          "fps": 145.1,
+          "p95Ms": 8.5,
+          "p99Ms": 12.6,
+          "maxMs": 16.9,
+          "over33": 0,
+          "frames": 1161,
+          "drawCalls": 38,
+          "triangles": 49883,
+          "points": 3620,
+          "programs": 36,
+          "geometries": 45,
+          "textures": 23,
+          "heapMB": 37,
+          "tier": "balanced",
+          "otherGpuPct": 3.5,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 2.8
+            },
+            {
+              "pid": 2400,
+              "pct": 0.7
+            }
+          ]
+        }
+      }
+    },
+    {
+      "variant": "baseline",
+      "round": 4,
+      "gpuMemory": {
+        "processes": 8,
+        "sharedBytes": 376676352,
+        "dedicatedBytes": 0
+      },
+      "scenarios": {
+        "top": {
+          "gpuMsPerFrame": 5.01,
+          "gpuBusyPct": 77.1,
+          "disjoint": false,
+          "fps": 154,
+          "p95Ms": 8.8,
+          "p99Ms": 12.6,
+          "maxMs": 25,
+          "over33": 0,
+          "frames": 1232,
+          "drawCalls": 43,
+          "triangles": 82127,
+          "points": 3940,
+          "programs": 48,
+          "geometries": 45,
+          "textures": 21,
+          "heapMB": 28,
+          "tier": "balanced",
+          "otherGpuPct": 1,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1
+            }
+          ]
+        },
+        "ask-ai": {
+          "gpuMsPerFrame": 4.68,
+          "gpuBusyPct": 73.5,
+          "disjoint": false,
+          "fps": 157,
+          "p95Ms": 12.2,
+          "p99Ms": 12.6,
+          "maxMs": 45.7,
+          "over33": 1,
+          "frames": 1257,
+          "drawCalls": 26,
+          "triangles": 24221,
+          "points": 3500,
+          "programs": 49,
+          "geometries": 52,
+          "textures": 21,
+          "heapMB": 28,
+          "tier": "balanced",
+          "otherGpuPct": 2.1,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 2.1
+            }
+          ]
+        },
+        "card-tibyn": {
+          "gpuMsPerFrame": 3.84,
+          "gpuBusyPct": 71.5,
+          "disjoint": false,
+          "fps": 186.3,
+          "p95Ms": 8.4,
+          "p99Ms": 12.6,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1490,
+          "drawCalls": 41,
+          "triangles": 14377,
+          "points": 29680,
+          "programs": 50,
+          "geometries": 73,
+          "textures": 22,
+          "heapMB": 28,
+          "tier": "balanced",
+          "otherGpuPct": 1,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1
+            }
+          ]
+        },
+        "card-movid": {
+          "gpuMsPerFrame": 3.86,
+          "gpuBusyPct": 71.6,
+          "disjoint": false,
+          "fps": 185.5,
+          "p95Ms": 8.5,
+          "p99Ms": 12.5,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1484,
+          "drawCalls": 39,
+          "triangles": 4091,
+          "points": 29680,
+          "programs": 50,
+          "geometries": 79,
+          "textures": 22,
+          "heapMB": 26,
+          "tier": "balanced",
+          "otherGpuPct": 0.9,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 0.9
+            }
+          ]
+        },
+        "card-ats-matching": {
+          "gpuMsPerFrame": 3.85,
+          "gpuBusyPct": 71.7,
+          "disjoint": false,
+          "fps": 186.4,
+          "p95Ms": 8.4,
+          "p99Ms": 12.5,
+          "maxMs": 20.8,
+          "over33": 0,
+          "frames": 1491,
+          "drawCalls": 41,
+          "triangles": 3017,
+          "points": 29706,
+          "programs": 50,
+          "geometries": 88,
+          "textures": 22,
+          "heapMB": 25,
+          "tier": "balanced",
+          "otherGpuPct": 0.9,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 0.9
+            }
+          ]
+        },
+        "card-lifeatlas": {
+          "gpuMsPerFrame": 3.86,
+          "gpuBusyPct": 71.5,
+          "disjoint": false,
+          "fps": 185.2,
+          "p95Ms": 8.4,
+          "p99Ms": 12.6,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1482,
+          "drawCalls": 37,
+          "triangles": 31005,
+          "points": 30291,
+          "programs": 50,
+          "geometries": 92,
+          "textures": 22,
+          "heapMB": 24,
+          "tier": "balanced",
+          "otherGpuPct": 1.4,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.4
+            }
+          ]
+        },
+        "case-movid": {
+          "gpuMsPerFrame": 4.67,
+          "gpuBusyPct": 79.4,
+          "disjoint": false,
+          "fps": 169.9,
+          "p95Ms": 8.4,
+          "p99Ms": 12.4,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1359,
+          "drawCalls": 32,
+          "triangles": 21459,
+          "points": 3620,
+          "programs": 33,
+          "geometries": 38,
+          "textures": 22,
+          "heapMB": 17,
+          "tier": "balanced",
+          "otherGpuPct": 1.8,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.8
+            }
+          ]
+        },
+        "case-tibyn": {
+          "gpuMsPerFrame": 4.95,
+          "gpuBusyPct": 80.8,
+          "disjoint": false,
+          "fps": 163.3,
+          "p95Ms": 8.4,
+          "p99Ms": 8.6,
+          "maxMs": 16.7,
+          "over33": 0,
+          "frames": 1306,
+          "drawCalls": 34,
+          "triangles": 31745,
+          "points": 3620,
+          "programs": 33,
+          "geometries": 41,
+          "textures": 22,
+          "heapMB": 32,
+          "tier": "balanced",
+          "otherGpuPct": 1.3,
+          "topOther": [
+            {
+              "pid": 1720,
+              "pct": 1.3
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

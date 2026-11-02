@@ -1,0 +1,154 @@
+/* Hero AI discovery — compact flat glass (no backdrop sampling over the live hero world). */
+.entry {
+  display: grid;
+  gap: 8px;
+  flex: 1 1 auto;
+  max-width: 35rem;
+  padding: 12px 14px 12px 12px;
+  border-radius: var(--r-lg);
+  border: 1px solid transparent;
+  --g-a: 0.62;
+  --g-stroke: rgb(var(--mint-rgb) / 0.2);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+}
+
+/* A small energy mark — the same intelligence as the orb and the core. */
+.glyph {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgb(255 255 255 / 0.95) 0 7%,
+      rgb(var(--mint-rgb) / 0.9) 21%,
+      transparent 44%
+    ),
+    radial-gradient(circle at 34% 28%, rgb(255 255 255 / 0.14), transparent 45%), rgb(10 13 18 / 0.9);
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--mint-rgb) / 0.35),
+    0 0 20px -4px rgb(var(--mint-rgb) / 0.55);
+}
+
+.copy {
+  min-width: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-mono-stack);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+
+.title {
+  margin-top: 2px;
+  font-family: var(--font-display-stack);
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 12px 0 14px;
+  border-radius: var(--r-pill);
+  border: 1px solid rgb(var(--mint-rgb) / 0.45);
+  background: linear-gradient(180deg, rgb(var(--mint-rgb) / 0.2), rgb(var(--mint-rgb) / 0.08));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    0 6px 18px -10px rgb(var(--mint-rgb) / 0.6);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.86rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    box-shadow var(--d-glow) var(--ease-out),
+    border-color var(--d-hover) var(--ease-out),
+    transform var(--d-hover) var(--ease-out);
+}
+
+.primary:hover {
+  border-color: rgb(var(--mint-rgb) / 0.75);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.16),
+    0 8px 24px -10px rgb(var(--mint-rgb) / 0.8);
+}
+
+.primary:active {
+  transform: scale(0.97);
+}
+
+.kbd {
+  padding: 1px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-mono-stack);
+  font-size: 0.66rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  --g-stroke: rgb(var(--silver-rgb) / 0.16);
+  --g-accent-rgb: var(--mint-rgb);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    box-shadow var(--d-glow) var(--ease-out),
+    color var(--d-hover) var(--ease-out);
+}
+
+.chip:hover {
+  --g-stroke: rgb(var(--mint-rgb) / 0.42);
+  --g-tint: 0.14;
+  color: var(--text-primary);
+}
+
+.chip:active {
+  transform: translateY(1px);
+}
+
+/* Short desktop viewports and phones: the entry collapses to its single action row. */
+@media (max-height: 820px) and (min-width: 768px) {
+  .chips {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .entry {
+    padding: 10px 10px 10px 10px;
+  }
+  .chips,
+  .kbd {
+    display: none;
+  }
+  .title {
+    font-size: 0.9rem;
+  }
+}

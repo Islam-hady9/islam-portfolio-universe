@@ -1,0 +1,216 @@
+{
+  "date": "2026-11-02T11:40:48.326Z",
+  "variants": {
+    "baseline": "http://localhost:3320",
+    "feature": "http://localhost:3310"
+  },
+  "rounds": 3,
+  "runs": [
+    {
+      "round": 1,
+      "variant": "baseline",
+      "profile": "mobile-static-home",
+      "perf": 88,
+      "fcpMs": 1060,
+      "lcpMs": 3328,
+      "tbtMs": 226,
+      "cls": 0,
+      "scriptKB": 232,
+      "totalKB": 465
+    },
+    {
+      "round": 1,
+      "variant": "baseline",
+      "profile": "desktop-gpu-home",
+      "perf": 67,
+      "fcpMs": 296,
+      "lcpMs": 745,
+      "tbtMs": 2330,
+      "cls": 0,
+      "scriptKB": 559,
+      "totalKB": 915
+    },
+    {
+      "round": 1,
+      "variant": "feature",
+      "profile": "mobile-static-home",
+      "perf": 88,
+      "fcpMs": 1213,
+      "lcpMs": 3690,
+      "tbtMs": 90,
+      "cls": 0,
+      "scriptKB": 240,
+      "totalKB": 472
+    },
+    {
+      "round": 1,
+      "variant": "feature",
+      "profile": "desktop-gpu-home",
+      "perf": 68,
+      "fcpMs": 292,
+      "lcpMs": 747,
+      "tbtMs": 1790,
+      "cls": 0,
+      "scriptKB": 568,
+      "totalKB": 923
+    },
+    {
+      "round": 2,
+      "variant": "feature",
+      "profile": "mobile-static-home",
+      "perf": 92,
+      "fcpMs": 1210,
+      "lcpMs": 3294,
+      "tbtMs": 98,
+      "cls": 0,
+      "scriptKB": 240,
+      "totalKB": 472
+    },
+    {
+      "round": 2,
+      "variant": "feature",
+      "profile": "desktop-gpu-home",
+      "perf": 69,
+      "fcpMs": 288,
+      "lcpMs": 730,
+      "tbtMs": 1468,
+      "cls": 0,
+      "scriptKB": 568,
+      "totalKB": 923
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "profile": "mobile-static-home",
+      "perf": 78,
+      "fcpMs": 1765,
+      "lcpMs": 3842,
+      "tbtMs": 277,
+      "cls": 0,
+      "scriptKB": 232,
+      "totalKB": 465
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "profile": "desktop-gpu-home",
+      "perf": 68,
+      "fcpMs": 291,
+      "lcpMs": 738,
+      "tbtMs": 1898,
+      "cls": 0,
+      "scriptKB": 559,
+      "totalKB": 915
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "profile": "mobile-static-home",
+      "perf": 86,
+      "fcpMs": 1060,
+      "lcpMs": 3291,
+      "tbtMs": 285,
+      "cls": 0,
+      "scriptKB": 232,
+      "totalKB": 465
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "profile": "desktop-gpu-home",
+      "perf": 69,
+      "fcpMs": 287,
+      "lcpMs": 724,
+      "tbtMs": 1498,
+      "cls": 0,
+      "scriptKB": 559,
+      "totalKB": 915
+    },
+    {
+      "round": 3,
+      "variant": "feature",
+      "profile": "mobile-static-home",
+      "perf": 93,
+      "fcpMs": 1211,
+      "lcpMs": 3172,
+      "tbtMs": 48,
+      "cls": 0,
+      "scriptKB": 240,
+      "totalKB": 472
+    },
+    {
+      "round": 3,
+      "variant": "feature",
+      "profile": "desktop-gpu-home",
+      "perf": 69,
+      "fcpMs": 289,
+      "lcpMs": 727,
+      "tbtMs": 1538,
+      "cls": 0,
+      "scriptKB": 568,
+      "totalKB": 923
+    }
+  ],
+  "summary": {
+    "mobile-static-home": {
+      "baseline": {
+        "perf": 86,
+        "fcpMs": 1060,
+        "lcpMs": 3328,
+        "tbtMs": 277,
+        "cls": 0,
+        "scriptKB": 232,
+        "totalKB": 465,
+        "lcpAll": [
+          3328,
+          3842,
+          3291
+        ]
+      },
+      "feature": {
+        "perf": 92,
+        "fcpMs": 1211,
+        "lcpMs": 3294,
+        "tbtMs": 90,
+        "cls": 0,
+        "scriptKB": 240,
+        "totalKB": 472,
+        "lcpAll": [
+          3690,
+          3294,
+          3172
+        ]
+      }
+    },
+    "desktop-gpu-home": {
+      "baseline": {
+        "perf": 68,
+        "fcpMs": 291,
+        "lcpMs": 738,
+        "tbtMs": 1898,
+        "cls": 0,
+        "scriptKB": 559,
+        "totalKB": 915,
+        "lcpAll": [
+          745,
+          738,
+          724
+        ]
+      },
+      "feature": {
+        "perf": 69,
+        "fcpMs": 289,
+        "lcpMs": 730,
+        "tbtMs": 1538,
+        "cls": 0,
+        "scriptKB": 568,
+        "totalKB": 923,
+        "lcpAll": [
+          747,
+          730,
+          727
+        ]
+      }
+    }
+  }
+}

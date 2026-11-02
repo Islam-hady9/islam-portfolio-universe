@@ -1,0 +1,210 @@
+[
+  {
+    "slug": "tibyn",
+    "publication": "in_preparation",
+    "role": null,
+    "period": null,
+    "industry": "Aquaculture",
+    "pitch": "Aquaculture management SaaS with a focus on aquaculture intelligence.",
+    "context": null,
+    "goals": [],
+    "constraints": [],
+    "diagram": {
+      "kind": "illustrative",
+      "caption": "Diagram template — illustrative only. The verified system architecture replaces this after content review.",
+      "nodes": [
+        { "id": "inputs", "label": "Inputs", "detail": "Users, data sources and events", "lane": "input" },
+        { "id": "data", "label": "Data layer", "detail": "Ingestion, storage and retrieval", "lane": "data" },
+        {
+          "id": "intelligence",
+          "label": "Intelligence layer",
+          "detail": "Models, agents and evaluation",
+          "lane": "intelligence"
+        },
+        {
+          "id": "product",
+          "label": "Product surface",
+          "detail": "APIs and user interfaces",
+          "lane": "product"
+        },
+        {
+          "id": "operations",
+          "label": "Operations",
+          "detail": "Deployment, monitoring and feedback",
+          "lane": "operations"
+        }
+      ],
+      "edges": [
+        { "from": "inputs", "to": "data" },
+        { "from": "data", "to": "intelligence" },
+        { "from": "intelligence", "to": "product" },
+        { "from": "product", "to": "operations", "label": "telemetry" },
+        { "from": "operations", "to": "data", "label": "feedback" }
+      ]
+    },
+    "workflow": [],
+    "decisions": [],
+    "highlights": [],
+    "challenges": [],
+    "operations": { "reliability": null, "observability": null, "deployment": null, "testing": null },
+    "outcomes": [],
+    "media": [],
+    "lessons": [],
+    "nextSteps": [],
+    "stack": [],
+    "related": ["movid", "ats-matching"],
+    "verification": {
+      "status": "placeholder",
+      "source": "IU-MASTER-001 §4.2 descriptor only.",
+      "note": "Detailed case study coming after content review."
+    }
+  },
+  {
+    "slug": "movid",
+    "publication": "in_preparation",
+    "role": null,
+    "period": null,
+    "industry": "Media & video production",
+    "pitch": "A multi-agent studio for agentic video production.",
+    "context": null,
+    "goals": [],
+    "constraints": [],
+    "diagram": {
+      "kind": "illustrative",
+      "caption": "Diagram template — illustrative only. The verified system architecture replaces this after content review.",
+      "nodes": [
+        { "id": "inputs", "label": "Inputs", "detail": "Users, data sources and events", "lane": "input" },
+        { "id": "data", "label": "Data layer", "detail": "Ingestion, storage and retrieval", "lane": "data" },
+        {
+          "id": "intelligence",
+          "label": "Intelligence layer",
+          "detail": "Models, agents and evaluation",
+          "lane": "intelligence"
+        },
+        {
+          "id": "product",
+          "label": "Product surface",
+          "detail": "APIs and user interfaces",
+          "lane": "product"
+        },
+        {
+          "id": "operations",
+          "label": "Operations",
+          "detail": "Deployment, monitoring and feedback",
+          "lane": "operations"
+        }
+      ],
+      "edges": [
+        { "from": "inputs", "to": "data" },
+        { "from": "data", "to": "intelligence" },
+        { "from": "intelligence", "to": "product" },
+        { "from": "product", "to": "operations", "label": "telemetry" },
+        { "from": "operations", "to": "data", "label": "feedback" }
+      ]
+    },
+    "workflow": [],
+    "decisions": [],
+    "highlights": [],
+    "challenges": [],
+    "operations": { "reliability": null, "observability": null, "deployment": null, "testing": null },
+    "outcomes": [],
+    "media": [],
+    "lessons": [],
+    "nextSteps": [],
+    "stack": [],
+    "related": ["ats-matching", "lifeatlas"],
+    "verification": {
+      "status": "placeholder",
+      "source": "IU-MASTER-001 §4.2 descriptor only.",
+      "note": "Detailed case study coming after content review."
+    }
+  },
+  {
+    "slug": "ats-matching",
+    "publication": "in_preparation",
+    "role": null,
+    "period": null,
+    "industry": "Recruiting",
+    "pitch": "AI candidate matching with observability.",
+    "context": null,
+    "goals": [],
+    "constraints": [],
+    "diagram": {
+      "kind": "illustrative",
+      "caption": "Diagram template — illustrative only. The verified system architecture replaces this after content review.",
+      "nodes": [
+        { "id": "inputs", "label": "Inputs", "detail": "Users, data sources and events", "lane": "input" },
+        { "id": "data", "label": "Data layer", "detail": "Ingestion, storage and retrieval", "lane": "data" },
+        {
+          "id": "intelligence",
+          "label": "Intelligence layer",
+          "detail": "Models, agents and evaluation",
+          "lane": "intelligence"
+        },
+        {
+          "id": "product",
+          "label": "Product surface",
+          "detail": "APIs and user interfaces",
+          "lane": "product"
+        },
+        {
+          "id": "operations",
+          "label": "Operations",
+          "detail": "Deployment, monitoring and feedback",
+          "lane": "operations"
+        }
+      ],
+      "edges": [
+        { "from": "inputs", "to": "data" },
+        { "from": "data", "to": "intelligence" },
+        { "from": "intelligence", "to": "product" },
+        { "from": "product", "to": "operations", "label": "telemetry" },
+        { "from": "operations", "to": "data", "label": "feedback" }
+      ]
+    },
+    "workflow": [],
+    "decisions": [],
+    "highlights": [],
+    "challenges": [],
+    "operations": { "reliability": null, "observability": null, "deployment": null, "testing": null },
+    "outcomes": [],
+    "media": [],
+    "lessons": [],
+    "nextSteps": [],
+    "stack": [],
+    "related": ["tibyn", "movid"],
+    "verification": {
+      "status": "placeholder",
+      "source": "IU-MASTER-001 §4.2 descriptor only.",
+      "note": "Detailed case study coming after content review."
+    }
+  },
+  {
+    "slug": "lifeatlas",
+    "publication": "in_preparation",
+    "role": null,
+    "period": null,
+    "industry": null,
+    "pitch": "An AI product concept, currently in development.",
+    "context": null,
+    "goals": [],
+    "constraints": [],
+    "diagram": null,
+    "workflow": [],
+    "decisions": [],
+    "highlights": [],
+    "challenges": [],
+    "operations": { "reliability": null, "observability": null, "deployment": null, "testing": null },
+    "outcomes": [],
+    "media": [],
+    "lessons": [],
+    "nextSteps": [],
+    "stack": [],
+    "related": ["tibyn", "ats-matching"],
+    "verification": {
+      "status": "placeholder",
+      "source": "IU-MASTER-001 §4.2 (\"AI Product Concept / In Development\").",
+      "note": "Concept details pending owner review. Not a deployed product."
+    }
+  }
+]

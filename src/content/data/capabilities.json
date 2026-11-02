@@ -1,0 +1,50 @@
+[
+  {
+    "id": "intelligence",
+    "title": "Intelligence Layer",
+    "description": "Design and build AI capabilities that power real products.",
+    "icon": "brain",
+    "skills": ["LLMs", "Agents", "RAG", "Prompting", "Evaluation"],
+    "verification": {
+      "status": "placeholder",
+      "source": "Title and skills: IU-MASTER-001 §5 S6. Description: approved reference design copy.",
+      "note": "Owner to confirm description and add evidenced examples."
+    }
+  },
+  {
+    "id": "engineering",
+    "title": "Engineering Layer",
+    "description": "Build robust, scalable, and maintainable systems.",
+    "icon": "code",
+    "skills": ["Python", "FastAPI", "Next.js", "Databases", "System Design"],
+    "verification": {
+      "status": "placeholder",
+      "source": "Title and skills: IU-MASTER-001 §5 S6. Description: approved reference design copy.",
+      "note": "Owner to confirm description and add evidenced examples."
+    }
+  },
+  {
+    "id": "operations",
+    "title": "Operations Layer",
+    "description": "Deploy, run, and keep products reliable.",
+    "icon": "infinity",
+    "skills": ["Docker", "CI/CD", "Cloud", "Monitoring", "DevOps"],
+    "verification": {
+      "status": "placeholder",
+      "source": "Title and skills: IU-MASTER-001 §5 S6. Description: approved reference design copy.",
+      "note": "Owner to confirm description and add evidenced examples."
+    }
+  },
+  {
+    "id": "experience",
+    "title": "Experience Layer",
+    "description": "Turn intelligence into simple, valuable, and elegant experiences.",
+    "icon": "stack",
+    "skills": ["Product Thinking", "UX Flow", "Prototyping", "User-Centered Design"],
+    "verification": {
+      "status": "placeholder",
+      "source": "Title and skills: IU-MASTER-001 §5 S6. Description: approved reference design copy.",
+      "note": "Owner to confirm description and add evidenced examples."
+    }
+  }
+]

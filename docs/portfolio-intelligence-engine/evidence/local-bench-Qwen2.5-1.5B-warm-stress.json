@@ -1,0 +1,237 @@
+{
+  "model": "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
+  "label": "warm-stress",
+  "base": "http://localhost:3310",
+  "date": "2026-11-02T11:41:34.620Z",
+  "gpu": {
+    "beforeLocal": {
+      "processes": 9,
+      "sharedBytes": 401735680,
+      "dedicatedBytes": 0
+    },
+    "ready": {
+      "processes": 9,
+      "sharedBytes": 1472667648,
+      "dedicatedBytes": 0
+    },
+    "afterAnswers": {
+      "processes": 9,
+      "sharedBytes": 1901256704,
+      "dedicatedBytes": 0
+    },
+    "afterBack": {
+      "processes": 9,
+      "sharedBytes": 376520704,
+      "dedicatedBytes": 0
+    }
+  },
+  "heap": {
+    "beforeLocal": 29902641,
+    "ready": 24955566,
+    "afterBack": 26222202
+  },
+  "stages": {
+    "consentShown": null,
+    "accepted": null,
+    "downloading": null,
+    "initializing": 3529,
+    "ready": 12623,
+    "holdDuringInit": true
+  },
+  "answers": [
+    {
+      "question": "What does Islam work on?",
+      "wallMs": 26129,
+      "mode": "local",
+      "attempts": [
+        {
+          "ok": true,
+          "promptTokens": 283,
+          "completionTokens": 21,
+          "ttftMs": 24269,
+          "totalMs": 25903,
+          "decodeTokPerS": 12.277470840894447,
+          "prefillTokPerS": 11.663994526576401
+        }
+      ],
+      "holdDuring": true,
+      "gpuDuring": {
+        "processes": 9,
+        "sharedBytes": 1604550656,
+        "dedicatedBytes": 0
+      },
+      "holdAfter": false
+    },
+    {
+      "question": "How does this assistant work?",
+      "wallMs": 25276,
+      "mode": "local",
+      "attempts": [
+        {
+          "ok": false,
+          "promptTokens": 308,
+          "completionTokens": 45,
+          "ttftMs": 5504,
+          "totalMs": 12925,
+          "decodeTokPerS": 5.944821250076864,
+          "prefillTokPerS": 55.96235259913026
+        },
+        {
+          "ok": true,
+          "promptTokens": 319,
+          "completionTokens": 46,
+          "ttftMs": 6856,
+          "totalMs": 12243,
+          "decodeTokPerS": 8.380356444489456,
+          "prefillTokPerS": 46.52994544767039
+        }
+      ],
+      "holdDuring": true,
+      "gpuDuring": {
+        "processes": 9,
+        "sharedBytes": 1916268544,
+        "dedicatedBytes": 0
+      },
+      "holdAfter": false
+    },
+    {
+      "question": "What is his email?",
+      "wallMs": 13998,
+      "mode": "local",
+      "attempts": [
+        {
+          "ok": false,
+          "promptTokens": 256,
+          "completionTokens": 20,
+          "ttftMs": 4925,
+          "totalMs": 7514,
+          "decodeTokPerS": 7.352656630952295,
+          "prefillTokPerS": 51.98391747559393
+        },
+        {
+          "ok": true,
+          "promptTokens": 267,
+          "completionTokens": 18,
+          "ttftMs": 5132,
+          "totalMs": 6334,
+          "decodeTokPerS": 14.172571905312525,
+          "prefillTokPerS": 52.039682694338964
+        }
+      ],
+      "holdDuring": true,
+      "gpuDuring": {
+        "processes": 9,
+        "sharedBytes": 1926868992,
+        "dedicatedBytes": 0
+      },
+      "holdAfter": false
+    }
+  ],
+  "cycles": [
+    {
+      "cycle": 1,
+      "readyMs": 5163,
+      "mode": "local",
+      "ttftMs": 31659,
+      "holdAfter": false,
+      "webgl": "ready",
+      "gpuAfterBack": 372994048,
+      "heap": 25547206
+    },
+    {
+      "cycle": 2,
+      "readyMs": 6712,
+      "mode": "local",
+      "ttftMs": 23145,
+      "holdAfter": false,
+      "webgl": "ready",
+      "gpuAfterBack": 373620736,
+      "heap": 25288134
+    },
+    {
+      "cycle": 3,
+      "readyMs": 4831,
+      "mode": "local",
+      "ttftMs": 25789,
+      "holdAfter": false,
+      "webgl": "ready",
+      "gpuAfterBack": 342994944,
+      "heap": 26444840
+    },
+    {
+      "cycle": 4,
+      "readyMs": 10329,
+      "mode": "smart",
+      "ttftMs": 49801,
+      "holdAfter": false,
+      "webgl": "ready",
+      "gpuAfterBack": 348745728,
+      "heap": 25327566
+    },
+    {
+      "cycle": 5,
+      "readyMs": 9813,
+      "mode": "local",
+      "ttftMs": 61824,
+      "holdAfter": false,
+      "webgl": "ready",
+      "gpuAfterBack": 360677376,
+      "heap": 26984527
+    },
+    {
+      "cycle": 6,
+      "readyMs": 24725,
+      "mode": "smart",
+      "ttftMs": 64927,
+      "holdAfter": false,
+      "webgl": "ready",
+      "gpuAfterBack": 296173568,
+      "heap": 26708191
+    },
+    {
+      "cycle": 7,
+      "readyMs": 9575,
+      "mode": "local",
+      "ttftMs": 41885,
+      "holdAfter": false,
+      "webgl": "ready",
+      "gpuAfterBack": 298979328,
+      "heap": 26595024
+    },
+    {
+      "cycle": 8,
+      "readyMs": 8131,
+      "mode": "smart",
+      "ttftMs": 38743,
+      "holdAfter": false,
+      "webgl": "ready",
+      "gpuAfterBack": 315674624,
+      "heap": 26132357
+    },
+    {
+      "cycle": 9,
+      "readyMs": 25679,
+      "mode": "local",
+      "ttftMs": 38066,
+      "holdAfter": false,
+      "webgl": "ready",
+      "gpuAfterBack": 292081664,
+      "heap": 26599836
+    },
+    {
+      "cycle": 10,
+      "readyMs": 17531,
+      "mode": "smart",
+      "ttftMs": 48794,
+      "holdAfter": false,
+      "webgl": "ready",
+      "gpuAfterBack": 299347968,
+      "heap": 26673778
+    }
+  ],
+  "bytesByHost": {
+    "localhost:3310": 248462
+  },
+  "errors": [],
+  "webglAtEnd": "ready"
+}

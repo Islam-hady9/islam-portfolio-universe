@@ -1,0 +1,104 @@
+.capabilities {
+  position: relative;
+  padding: calc(var(--section-pad) * 0.7) 0 var(--section-pad);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.2vw, 1.25rem);
+}
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 1.7vw, 1.6rem);
+  border-radius: var(--r-lg);
+  /* Surface from the shared glass system (.glass--card); transparent border keeps the size. */
+  border: 1px solid transparent;
+  transition:
+    transform var(--d-lift) var(--ease-out),
+    box-shadow var(--d-glow) var(--ease-out);
+}
+
+.panel:hover {
+  --g-stroke: rgb(var(--cyan-rgb) / 0.28);
+  --g-drop: 0 24px 56px -32px rgb(var(--cyan-rgb) / 0.4), 0 26px 60px -34px rgb(0 0 0 / 0.95);
+  transform: var(--g-tilt, rotate(0deg)) translateY(-2px);
+}
+
+.panel[data-focused] {
+  --g-stroke: rgb(var(--mint-rgb) / 0.6);
+  --g-drop: 0 0 0 1px rgb(var(--mint-rgb) / 0.3), 0 0 60px -18px rgb(var(--mint-rgb) / 0.65);
+}
+
+.head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: var(--mint);
+  filter: drop-shadow(0 0 8px rgb(var(--mint-rgb) / 0.35));
+}
+
+.title {
+  font-size: clamp(1rem, 1.12vw, 1.15rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.text {
+  margin-top: 0.35rem;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent; /* .glass--chip paints the frame */
+  --g-a: 0.5;
+  --g-stroke: rgb(var(--silver-rgb) / 0.15);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.footnote {
+  margin-top: 1.25rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 1199px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 599px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

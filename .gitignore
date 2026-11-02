@@ -1,0 +1,43 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/build
+
+# testing
+/coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# local evidence scratch (curated evidence lives in docs/evidence)
+/.evidence-tmp/
+
+# owner-supplied media originals (optimised derivatives are committed under public/media)
+/media-src/
+
+# env (never commit secrets — see .env.example)
+.env
+.env.*
+!.env.example
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+*.tsbuildinfo
+.vscode/*
+!.vscode/extensions.json
+
+# Raw PNG evidence (compressed copies are committed as WebP)
+docs/evidence/screenshots/*.png
+
+# Large/duplicate evidence kept local (regenerate: npm run qa:record / npm run perf:lighthouse)
+docs/evidence/video/*.webm
+docs/evidence/lighthouse/*.report.json

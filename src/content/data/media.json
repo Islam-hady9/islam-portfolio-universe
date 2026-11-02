@@ -1,0 +1,72 @@
+{
+  "portrait": {
+    "alt": "Islam Abd-Elhady, seated in a dark shirt with his hand at his chin, looking to one side in a warmly lit room.",
+    "eyebrow": "THE ENGINEER BEHIND THE UNIVERSE",
+    "verification": {
+      "status": "owner_verified",
+      "source": "Owner-supplied portrait, provided for this site on 2026-11-01",
+      "note": "Alt text describes the photograph; it makes no claim beyond what is visible."
+    }
+  },
+  "introReel": {
+    "eyebrow": "PERSONAL REEL",
+    "title": "A short introduction",
+    "ctaLabel": "Watch the introduction",
+    "summary": "A short reel on turning complex ideas into intelligent systems — from AI agents to real-world platforms.",
+    "language": "en",
+    "provenance": {
+      "aiGenerated": true,
+      "label": "Produced with generative AI video tools.",
+      "verification": {
+        "status": "placeholder",
+        "source": "Inferred from the source file (supplied from a generated-videos folder; its filename is a generation prompt)",
+        "note": "Owner to confirm or reword the disclosure; set aiGenerated to false only if no generative tools were used."
+      }
+    },
+    "transcript": {
+      "cues": [
+        { "start": 0.5, "end": 3.4, "text": "Every breakthrough begins with a question." },
+        { "start": 4.4, "end": 6.9, "text": "What if intelligence could do more?" },
+        { "start": 7.3, "end": 8.8, "text": "More than automate?" },
+        { "start": 9.1, "end": 10.4, "text": "More than respond?" },
+        { "start": 10.9, "end": 12.7, "text": "What if it could build?" },
+        { "start": 13.1, "end": 17.0, "text": "I turn complex ideas into intelligent systems." },
+        { "start": 17.5, "end": 21.3, "text": "From AI agents to real-world platforms." },
+        { "start": 21.5, "end": 24.4, "text": "From architecture to impact." },
+        { "start": 26.6, "end": 29.2, "text": "I'm Islam Abd-Elhady," },
+        { "start": 29.4, "end": 32.6, "text": "and I'm building what comes next." }
+      ],
+      "visuals": [
+        {
+          "at": 0,
+          "text": "Points of light draw a constellation across a dark frame; a close-up portrait emerges beside the word “question”."
+        },
+        {
+          "at": 6,
+          "text": "An orbital diagram of an agent loop — planner, retriever, tool call, evaluator — around a glowing core. The words “Automate” and “Respond” appear and are struck through."
+        },
+        {
+          "at": 11,
+          "text": "“Build” fills the frame and a five-layer stack assembles: Interface (React / Next.js), APIs (NestJS / FastAPI), Agents (LangGraph / RAG), Data (PostgreSQL / Redis), Cloud (Docker / Kubernetes / AWS)."
+        },
+        {
+          "at": 18.5,
+          "text": "Project frames branch out of the stack: TIBYN (“aquaculture SaaS · live”), MOViD Studio (“agentic video production”) and AI Agents (“multi-agent · RAG · tool calling”)."
+        },
+        {
+          "at": 23.5,
+          "text": "A framed portrait in a warmly lit room, then the name card: “Islam Abdelhady — AI Engineer · Technical Lead — Building what comes next.”"
+        }
+      ],
+      "verification": {
+        "status": "placeholder",
+        "source": "Local machine transcription (Whisper small) of the owner-supplied reel, checked against its on-screen text",
+        "note": "Owner to confirm the narration wording, the spelling of the name (the reel's own card reads “Abdelhady”) and the on-screen claims quoted in the visual description."
+      }
+    },
+    "verification": {
+      "status": "owner_verified",
+      "source": "Owner-supplied video, provided for this site on 2026-11-01"
+    }
+  }
+}

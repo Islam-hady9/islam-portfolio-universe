@@ -1,0 +1,63 @@
+{
+  "name": "Islam Abd-Elhady",
+  "displayName": "ISLAM ABD-ELHADY",
+  "portfolioIdentity": "THE INTELLIGENCE UNIVERSE",
+  "roleLabel": "AI FULL-STACK ENGINEER",
+  "headlineLines": ["ISLAM", "ABD-ELHADY"],
+  "proposition": "Architecting AI Products, Systems, and Experiences.",
+  "heroStatement": "I build intelligent systems across AI, backend, product, and infrastructure — transforming complex ideas into production-ready experiences.",
+  "extendedStatement": "I design and build intelligent systems across AI, backend, product, and infrastructure — turning complex ideas into production-ready experiences.",
+  "verification": {
+    "status": "owner_verified",
+    "source": "IU-MASTER-001 §1.1 Brand and §5 S1 (owner-authored brief, verbatim)"
+  },
+  "identity": {
+    "eyebrow": "MY IDENTITY",
+    "statement": "I don't just work with AI. I build intelligent products, engineer scalable systems, and ship production-grade experiences.",
+    "highlights": ["intelligent products", "scalable systems", "production-grade experiences"],
+    "verification": {
+      "status": "owner_verified",
+      "source": "IU-MASTER-001 §5 S2 (exact statement)"
+    }
+  },
+  "pillars": [
+    {
+      "id": "ai-systems",
+      "title": "AI Systems",
+      "description": "Design, build, and deploy AI-powered systems that solve real problems.",
+      "icon": "layers",
+      "verification": {
+        "status": "placeholder",
+        "source": "Title: IU-MASTER-001 §5 S2. Description: approved reference design copy.",
+        "note": "Owner to confirm description wording."
+      }
+    },
+    {
+      "id": "product-engineering",
+      "title": "Product Engineering",
+      "description": "Turn ideas into valuable, usable, and scalable products.",
+      "icon": "cube",
+      "verification": {
+        "status": "placeholder",
+        "source": "Title: IU-MASTER-001 §5 S2. Description: approved reference design copy.",
+        "note": "Owner to confirm description wording."
+      }
+    },
+    {
+      "id": "production-delivery",
+      "title": "Production Delivery",
+      "description": "Ship reliable, secure, and high-performance experiences.",
+      "icon": "rocket",
+      "verification": {
+        "status": "placeholder",
+        "source": "Title: IU-MASTER-001 §5 S2. Description: approved reference design copy.",
+        "note": "Owner to confirm description wording."
+      }
+    }
+  ],
+  "seo": {
+    "title": "Islam Abd-Elhady — AI Full-Stack Engineer",
+    "description": "The Intelligence Universe: an interactive portfolio by Islam Abd-Elhady, AI Full-Stack Engineer — architecting AI products, systems, and experiences.",
+    "keywords": ["AI Full-Stack Engineer", "AI products", "LLM systems", "Next.js", "FastAPI", "portfolio"]
+  }
+}

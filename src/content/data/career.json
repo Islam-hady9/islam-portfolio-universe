@@ -1,0 +1,126 @@
+{
+  "intro": "From foundations to building real-world intelligent systems.",
+  "sampleNotice": "Sample journey — milestones are illustrative placeholders. The verified timeline, organisations and dates will come from the owner's CV.",
+  "entries": [
+    {
+      "id": "foundations",
+      "phase": "Foundations",
+      "title": "Education & Foundations",
+      "organization": null,
+      "period": null,
+      "summary": "Sample milestone — academic and technical foundations. Details arrive with the CV.",
+      "icon": "grad-cap",
+      "current": false,
+      "href": null,
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
+    },
+    {
+      "id": "early-experience",
+      "phase": "First Steps",
+      "title": "Early Professional Experience",
+      "organization": null,
+      "period": null,
+      "summary": "Sample milestone — first professional engineering experience. Details arrive with the CV.",
+      "icon": "code",
+      "current": false,
+      "href": null,
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
+    },
+    {
+      "id": "product-development",
+      "phase": "Building",
+      "title": "Product & Development",
+      "organization": null,
+      "period": null,
+      "summary": "Sample milestone — building and shipping product features. Details arrive with the CV.",
+      "icon": "cube",
+      "current": false,
+      "href": null,
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
+    },
+    {
+      "id": "digital-solutions",
+      "phase": "Impact",
+      "title": "Impact & Digital Solutions",
+      "organization": null,
+      "period": null,
+      "summary": "Sample milestone — digital solutions work. Details arrive with the CV.",
+      "icon": "globe",
+      "current": false,
+      "href": null,
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
+    },
+    {
+      "id": "engineering-depth",
+      "phase": "Depth",
+      "title": "Software & Product Engineering",
+      "organization": null,
+      "period": null,
+      "summary": "Sample milestone — deeper software and product engineering. Details arrive with the CV.",
+      "icon": "layers",
+      "current": false,
+      "href": null,
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
+    },
+    {
+      "id": "delivery",
+      "phase": "Delivery",
+      "title": "Product Development & Delivery",
+      "organization": null,
+      "period": null,
+      "summary": "Sample milestone — end-to-end delivery. Details arrive with the CV.",
+      "icon": "rocket",
+      "current": false,
+      "href": null,
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
+    },
+    {
+      "id": "scale",
+      "phase": "Scale",
+      "title": "System Building & Scaling",
+      "organization": null,
+      "period": null,
+      "summary": "Sample milestone — building and scaling systems. Details arrive with the CV.",
+      "icon": "network",
+      "current": false,
+      "href": null,
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
+    },
+    {
+      "id": "ai-products",
+      "phase": "Now",
+      "title": "AI Products",
+      "organization": null,
+      "period": null,
+      "summary": "Sample milestone — current focus on AI products. Details arrive with the CV.",
+      "icon": "sparkle",
+      "current": true,
+      "href": null,
+      "verification": {
+        "status": "placeholder",
+        "source": "Engineering placeholder (spec §4.2 sample milestone)"
+      }
+    }
+  ]
+}

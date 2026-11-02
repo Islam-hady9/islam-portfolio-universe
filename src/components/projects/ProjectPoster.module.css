@@ -1,0 +1,164 @@
+.poster {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #070a0e;
+}
+
+.img,
+.art {
+  position: absolute;
+  inset: -4%;
+  width: 108%;
+  height: 108%;
+  object-fit: cover;
+  transform: translate3d(calc(var(--px, 0) * -10px), calc(var(--py, 0) * -8px), 0) scale(1.02);
+  transition: transform 600ms var(--ease-out);
+}
+
+.layerA,
+.layerB,
+.layerC {
+  position: absolute;
+  inset: 0;
+}
+
+/* TIBYN — moonlit aquaculture, teal water, pen rings */
+.tibyn .art {
+  background:
+    radial-gradient(40% 25% at 70% 18%, rgb(210 240 245 / 0.35), transparent 70%),
+    linear-gradient(180deg, #0b1820 0%, #10303a 42%, #0d3a40 52%, #082228 100%);
+}
+.tibyn .layerA {
+  background: linear-gradient(180deg, transparent 32%, rgb(5 12 16 / 0.95) 32.5%, transparent 48%);
+  clip-path: polygon(
+    0 48%,
+    8% 34%,
+    18% 40%,
+    30% 26%,
+    42% 38%,
+    55% 30%,
+    68% 42%,
+    80% 28%,
+    92% 38%,
+    100% 33%,
+    100% 48%
+  );
+  background: #071116;
+}
+.tibyn .layerB {
+  background:
+    radial-gradient(ellipse 22% 7% at 30% 72%, transparent 70%, rgb(170 225 230 / 0.55) 74%, transparent 80%),
+    radial-gradient(ellipse 16% 5% at 66% 64%, transparent 70%, rgb(170 225 230 / 0.45) 74%, transparent 80%),
+    radial-gradient(
+      ellipse 10% 3.2% at 48% 56%,
+      transparent 68%,
+      rgb(170 225 230 / 0.4) 74%,
+      transparent 82%
+    ),
+    radial-gradient(ellipse 8% 2.6% at 82% 54%, transparent 68%, rgb(170 225 230 / 0.35) 74%, transparent 82%);
+}
+.tibyn .layerC {
+  background: repeating-linear-gradient(180deg, transparent 0 9px, rgb(var(--cyan-rgb) / 0.05) 9px 10px);
+  mask-image: linear-gradient(180deg, transparent 50%, #000 70%);
+}
+
+/* MOViD — cinematic multi-screen theatre, violet */
+.movid .art {
+  background:
+    radial-gradient(30% 30% at 50% 45%, rgb(var(--violet-rgb) / 0.45), transparent 70%),
+    linear-gradient(180deg, #0c0b1a 0%, #141233 55%, #07070d 100%);
+}
+.movid .layerA {
+  inset: 16% 6% 34% 6%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 2%, #07070d 2% 3%),
+    repeating-linear-gradient(180deg, transparent 0 31%, #07070d 31% 34.5%),
+    linear-gradient(120deg, #2a3a6a, #6a4ab0 40%, #1c2a4a 60%, #4a6aa0);
+  border-radius: 6px;
+  opacity: 0.85;
+  transform: perspective(300px) rotateX(4deg);
+}
+.movid .layerB {
+  inset: 36% 44% 46% 44%;
+  background: #c7bfff;
+  clip-path: polygon(20% 0, 100% 50%, 20% 100%);
+  filter: drop-shadow(0 0 10px rgb(var(--violet-rgb)));
+}
+.movid .layerC {
+  inset: 52% 47.5% 14% 47.5%;
+  background: #030305;
+  border-radius: 40% 40% 4px 4px;
+}
+
+/* ATS Matching — layered glass panels + data threads, cyan */
+.ats .art {
+  background:
+    radial-gradient(40% 40% at 55% 50%, rgb(var(--cyan-rgb) / 0.28), transparent 70%),
+    linear-gradient(180deg, #071318 0%, #0b2028 60%, #050b0e 100%);
+}
+.ats .layerA {
+  inset: 22% 30% 30% 18%;
+  border: 1px solid rgb(var(--cyan-rgb) / 0.6);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgb(var(--cyan-rgb) / 0.18), rgb(var(--cyan-rgb) / 0.04));
+  box-shadow:
+    24px -14px 0 -1px rgb(8 20 26 / 0.9),
+    24px -14px 0 0 rgb(var(--cyan-rgb) / 0.45),
+    48px -28px 0 -1px rgb(8 20 26 / 0.9),
+    48px -28px 0 0 rgb(var(--cyan-rgb) / 0.3);
+}
+.ats .layerB {
+  inset: 32% 54% 46% 24%;
+  background:
+    radial-gradient(circle at 30% 40%, rgb(var(--cyan-rgb) / 0.8) 0 16%, transparent 17%),
+    linear-gradient(rgb(var(--cyan-rgb) / 0.5), rgb(var(--cyan-rgb) / 0.5)) 60% 30% / 40% 3px no-repeat,
+    linear-gradient(rgb(var(--cyan-rgb) / 0.35), rgb(var(--cyan-rgb) / 0.35)) 60% 50% / 30% 3px no-repeat;
+}
+.ats .layerC {
+  background: radial-gradient(
+    ellipse 60% 12% at 50% 82%,
+    transparent 60%,
+    rgb(var(--cyan-rgb) / 0.5) 62%,
+    transparent 66%
+  );
+}
+
+/* LifeAtlas — constellation over wireframe mountains, violet-mint */
+.lifeatlas .art {
+  background:
+    radial-gradient(
+      14% 14% at 56% 40%,
+      rgb(220 210 255 / 0.9),
+      rgb(var(--violet-rgb) / 0.4) 40%,
+      transparent 70%
+    ),
+    linear-gradient(180deg, #08101a 0%, #0b1a22 60%, #061014 100%);
+}
+.lifeatlas .layerA {
+  clip-path: polygon(
+    0 80%,
+    14% 58%,
+    26% 70%,
+    40% 44%,
+    56% 38%,
+    70% 56%,
+    84% 46%,
+    100% 62%,
+    100% 100%,
+    0 100%
+  );
+  background:
+    repeating-linear-gradient(170deg, transparent 0 7px, rgb(var(--mint-rgb) / 0.32) 7px 8px),
+    repeating-linear-gradient(80deg, transparent 0 11px, rgb(var(--mint-rgb) / 0.18) 11px 12px),
+    linear-gradient(180deg, rgb(var(--mint-rgb) / 0.12), rgb(6 16 20 / 0.9));
+}
+.lifeatlas .layerB {
+  background:
+    radial-gradient(circle at 18% 64%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 34% 52%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 46% 46%, #fff 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 70% 50%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 86% 42%, #fff 0 1px, transparent 2px);
+  filter: drop-shadow(0 0 3px var(--mint));
+}

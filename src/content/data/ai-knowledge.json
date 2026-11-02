@@ -1,0 +1,75 @@
+{
+  "$comment": "Explicit allowlist of public content the portfolio assistant may state as fact (PIE spec §5). Default deny: a source not listed here, or listed with approvedForAi false, is never compiled. Approval is separate from verification — a source must ALSO be owner_verified/public_verified and publicly displayed. Wildcards ('project.*') apply to every record of a collection; an exact entry wins over a wildcard.",
+  "approvals": [
+    {
+      "source": "profile.role",
+      "approvedForAi": true,
+      "note": "site.json name, role and proposition (owner brief)"
+    },
+    {
+      "source": "profile.statement",
+      "approvedForAi": true,
+      "note": "site.json hero statement (owner brief)"
+    },
+    {
+      "source": "profile.identity",
+      "approvedForAi": true,
+      "note": "site.json identity statement (owner brief)"
+    },
+    { "source": "profile.portfolio", "approvedForAi": true, "note": "home.json universe copy (owner brief)" },
+    {
+      "source": "profile.capabilities-heading",
+      "approvedForAi": true,
+      "note": "home.json capabilities heading only"
+    },
+    {
+      "source": "profile.journey-heading",
+      "approvedForAi": true,
+      "note": "home.json experience heading only"
+    },
+    { "source": "contact.invitation", "approvedForAi": true, "note": "home.json contact copy (owner brief)" },
+    { "source": "contact.email", "approvedForAi": true, "note": "contact.json public email (owner CV link)" },
+    { "source": "contact.linkedin", "approvedForAi": true, "note": "social.json LinkedIn (owner CV link)" },
+    { "source": "contact.github", "approvedForAi": true, "note": "social.json GitHub (owner CV link)" },
+    {
+      "source": "contact.resume",
+      "approvedForAi": true,
+      "note": "Résumé PDF availability only — never its contents"
+    },
+    {
+      "source": "media.reel",
+      "approvedForAi": true,
+      "note": "That the intro reel exists and where to play it — never its transcript"
+    },
+    {
+      "source": "site.assistant",
+      "approvedForAi": true,
+      "note": "How this assistant works (site behaviour, covered by tests)"
+    },
+    {
+      "source": "site.content-status",
+      "approvedForAi": true,
+      "note": "Which sections still await verification (computed from content)"
+    },
+    { "source": "project.*", "approvedForAi": false, "note": "Project summaries are placeholders" },
+    { "source": "case-study.*", "approvedForAi": false, "note": "Case studies are placeholders" },
+    { "source": "capability.*", "approvedForAi": false, "note": "Capability descriptions are placeholders" },
+    { "source": "career.*", "approvedForAi": false, "note": "Journey entries are samples" },
+    { "source": "principle.*", "approvedForAi": false, "note": "Principle descriptions are placeholders" },
+    {
+      "source": "media.transcript",
+      "approvedForAi": false,
+      "note": "Reel narration awaits owner confirmation"
+    },
+    {
+      "source": "private.*",
+      "approvedForAi": false,
+      "note": "Unrendered registry (temporary CV links, phone)"
+    }
+  ],
+  "verification": {
+    "status": "placeholder",
+    "source": "Engineering default (2026-11-02): only owner-verified copy already public on the site, plus facts about the assistant itself",
+    "note": "Owner to confirm every approval before a public release (set to owner_verified)."
+  }
+}

@@ -1,0 +1,410 @@
+{
+  "method": "window.__IU__.frame() at each matched capture (scripts/qa/fidelity-v3.mjs), before = adcd4ab build, after = V3 build",
+  "rows": [
+    {
+      "name": "Projects station",
+      "draw": [
+        32,
+        32
+      ],
+      "tris": [
+        3001,
+        3001
+      ],
+      "points": [
+        59300,
+        59300
+      ],
+      "programs": [
+        53,
+        62
+      ],
+      "geometries": [
+        63,
+        63
+      ],
+      "textures": [
+        21,
+        21
+      ]
+    },
+    {
+      "name": "+ TIBYN card live",
+      "draw": [
+        42,
+        46
+      ],
+      "tris": [
+        14377,
+        32515
+      ],
+      "points": [
+        59300,
+        59300
+      ],
+      "programs": [
+        54,
+        63
+      ],
+      "geometries": [
+        73,
+        77
+      ],
+      "textures": [
+        22,
+        23
+      ]
+    },
+    {
+      "name": "+ MOViD card live",
+      "draw": [
+        40,
+        40
+      ],
+      "tris": [
+        4091,
+        5095
+      ],
+      "points": [
+        59300,
+        59300
+      ],
+      "programs": [
+        54,
+        63
+      ],
+      "geometries": [
+        79,
+        83
+      ],
+      "textures": [
+        23,
+        24
+      ]
+    },
+    {
+      "name": "+ ATS card live",
+      "draw": [
+        42,
+        41
+      ],
+      "tris": [
+        3017,
+        5703
+      ],
+      "points": [
+        59326,
+        59326
+      ],
+      "programs": [
+        54,
+        63
+      ],
+      "geometries": [
+        88,
+        91
+      ],
+      "textures": [
+        24,
+        25
+      ]
+    },
+    {
+      "name": "+ LifeAtlas card live",
+      "draw": [
+        38,
+        38
+      ],
+      "tris": [
+        31005,
+        31245
+      ],
+      "points": [
+        59911,
+        59911
+      ],
+      "programs": [
+        54,
+        63
+      ],
+      "geometries": [
+        92,
+        96
+      ],
+      "textures": [
+        24,
+        25
+      ]
+    },
+    {
+      "name": "Ask My AI (portal)",
+      "draw": [
+        26,
+        33
+      ],
+      "tris": [
+        46205,
+        76909
+      ],
+      "points": [
+        5900,
+        6280
+      ],
+      "programs": [
+        54,
+        63
+      ],
+      "geometries": [
+        98,
+        108
+      ],
+      "textures": [
+        23,
+        24
+      ]
+    },
+    {
+      "name": "Philosophy",
+      "draw": [
+        22,
+        22
+      ],
+      "tris": [
+        2993,
+        2993
+      ],
+      "points": [
+        7300,
+        7300
+      ],
+      "programs": [
+        54,
+        63
+      ],
+      "geometries": [
+        98,
+        108
+      ],
+      "textures": [
+        21,
+        22
+      ]
+    },
+    {
+      "name": "Projects listing",
+      "draw": [
+        24,
+        24
+      ],
+      "tris": [
+        20749,
+        20749
+      ],
+      "points": [
+        6180,
+        6180
+      ],
+      "programs": [
+        32,
+        35
+      ],
+      "geometries": [
+        31,
+        31
+      ],
+      "textures": [
+        21,
+        21
+      ]
+    },
+    {
+      "name": "Case TIBYN",
+      "draw": [
+        34,
+        38
+      ],
+      "tris": [
+        32125,
+        50263
+      ],
+      "points": [
+        6180,
+        6180
+      ],
+      "programs": [
+        33,
+        36
+      ],
+      "geometries": [
+        41,
+        45
+      ],
+      "textures": [
+        22,
+        23
+      ]
+    },
+    {
+      "name": "Case MOViD",
+      "draw": [
+        32,
+        32
+      ],
+      "tris": [
+        21839,
+        22843
+      ],
+      "points": [
+        6180,
+        6180
+      ],
+      "programs": [
+        33,
+        36
+      ],
+      "geometries": [
+        38,
+        38
+      ],
+      "textures": [
+        22,
+        22
+      ]
+    },
+    {
+      "name": "Case ATS",
+      "draw": [
+        34,
+        33
+      ],
+      "tris": [
+        20765,
+        23451
+      ],
+      "points": [
+        6206,
+        6206
+      ],
+      "programs": [
+        33,
+        36
+      ],
+      "geometries": [
+        41,
+        40
+      ],
+      "textures": [
+        22,
+        22
+      ]
+    },
+    {
+      "name": "Case LifeAtlas",
+      "draw": [
+        30,
+        30
+      ],
+      "tris": [
+        48753,
+        48993
+      ],
+      "points": [
+        6791,
+        6791
+      ],
+      "programs": [
+        33,
+        36
+      ],
+      "geometries": [
+        36,
+        37
+      ],
+      "textures": [
+        22,
+        22
+      ]
+    },
+    {
+      "name": "Mobile projects (balanced)",
+      "draw": [
+        35,
+        35
+      ],
+      "tris": [
+        7419,
+        7419
+      ],
+      "points": [
+        29680,
+        29680
+      ],
+      "programs": [
+        49,
+        58
+      ],
+      "geometries": [
+        59,
+        59
+      ],
+      "textures": [
+        21,
+        21
+      ]
+    },
+    {
+      "name": "Mobile Ask My AI (balanced)",
+      "draw": [
+        26,
+        33
+      ],
+      "tris": [
+        24221,
+        54925
+      ],
+      "points": [
+        3500,
+        3720
+      ],
+      "programs": [
+        49,
+        58
+      ],
+      "geometries": [
+        65,
+        71
+      ],
+      "textures": [
+        21,
+        21
+      ]
+    },
+    {
+      "name": "Mobile case MOViD (balanced)",
+      "draw": [
+        30,
+        30
+      ],
+      "tris": [
+        4563,
+        5567
+      ],
+      "points": [
+        3620,
+        3620
+      ],
+      "programs": [
+        33,
+        36
+      ],
+      "geometries": [
+        36,
+        36
+      ],
+      "textures": [
+        22,
+        22
+      ]
+    }
+  ]
+}

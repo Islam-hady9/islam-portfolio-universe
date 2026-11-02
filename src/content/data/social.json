@@ -1,0 +1,26 @@
+[
+  {
+    "id": "linkedin",
+    "label": "LinkedIn",
+    "url": "https://linkedin.com/in/islam-abd-elhady-323523211",
+    "icon": "linkedin",
+    "unavailableMessage": "LinkedIn profile link will be added after the profile review.",
+    "verification": {
+      "status": "owner_verified",
+      "source": "Owner's CV, Islam_Abdelhady_CV.pdf (sha256 244673cb…689d8), page 1 link annotation",
+      "note": "Temporary CV supplied 2026-11-02; re-confirm when the CV is replaced."
+    }
+  },
+  {
+    "id": "github",
+    "label": "GitHub",
+    "url": "https://github.com/Islam-hady9",
+    "icon": "github",
+    "unavailableMessage": "GitHub profile link will be added after the profile review.",
+    "verification": {
+      "status": "owner_verified",
+      "source": "Owner's CV, Islam_Abdelhady_CV.pdf (sha256 244673cb…689d8), page 1 link annotation (matches this repository's git remote)",
+      "note": "Temporary CV supplied 2026-11-02; re-confirm when the CV is replaced."
+    }
+  }
+]

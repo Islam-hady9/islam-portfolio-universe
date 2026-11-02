@@ -1,0 +1,50 @@
+.hero {
+  position: relative;
+  padding: calc(var(--header-h) + clamp(3rem, 8vw, 6.5rem)) 0 clamp(2.5rem, 5vw, 4rem);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem;
+  align-items: end;
+}
+
+.title {
+  font-size: var(--fs-title-lg);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.038em;
+  max-width: 18ch;
+}
+
+.title:focus {
+  outline: none;
+}
+
+.lead {
+  margin-top: 1.25rem;
+  max-width: 40rem;
+  font-size: var(--fs-lead);
+  color: var(--text-secondary);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 2rem;
+}
+
+.aside {
+  justify-self: end;
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .aside {
+    justify-self: start;
+  }
+}

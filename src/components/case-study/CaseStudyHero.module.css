@@ -1,0 +1,110 @@
+.hero {
+  --accent: var(--cyan);
+  position: relative;
+  min-height: max(560px, 78svh);
+  display: flex;
+  align-items: flex-end;
+  padding: calc(var(--header-h) + 3rem) 0 clamp(2.5rem, 5vw, 4rem);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.hero[data-accent='violet'] {
+  --accent: var(--violet);
+}
+
+.art {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+}
+
+/* While the live world renders behind the transparent art window, hide the poster. */
+:global(html[data-webgl='ready']) .art[data-portal-live] > * {
+  opacity: 0;
+}
+
+.art > * {
+  transition: opacity 600ms var(--ease-out);
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgb(6 7 10 / 0.82) 0%, rgb(6 7 10 / 0.45) 45%, transparent 75%),
+    linear-gradient(180deg, rgb(6 7 10 / 0.5) 0%, transparent 30%, transparent 60%, var(--bg-void) 100%);
+}
+
+.inner {
+  position: relative;
+}
+
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1.5rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.crumbs li + li::before {
+  content: '/';
+  margin-right: 6px;
+  color: var(--graphite);
+}
+
+.crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--text-secondary);
+}
+
+.crumbs a:hover {
+  color: var(--text-primary);
+}
+
+.category {
+  font-family: var(--font-mono-stack);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.22em;
+  color: var(--text-secondary);
+}
+
+.title {
+  margin-top: 0.75rem;
+  font-size: clamp(2.8rem, 6vw, 6rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.title:focus {
+  outline: none;
+}
+
+.tagline {
+  margin-top: 0.75rem;
+  font-family: var(--font-display-stack);
+  font-size: var(--fs-subhead);
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.pitch {
+  margin-top: 0.75rem;
+  max-width: 38rem;
+  color: var(--text-secondary);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 1.4rem;
+}

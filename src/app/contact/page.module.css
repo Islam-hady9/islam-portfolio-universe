@@ -1,0 +1,81 @@
+.section {
+  padding-bottom: var(--section-pad);
+}
+
+.h2 {
+  font-size: var(--fs-title);
+  margin-bottom: 1.5rem;
+}
+
+.channels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.channel {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  padding: 1.25rem 1.4rem;
+  border-radius: var(--r-lg);
+  border: 1px solid transparent; /* .glass--card paints the frame */
+  --g-a: 0.7;
+}
+
+.channelIcon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid var(--line-strong);
+  color: var(--mint);
+}
+
+.channelBody {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
+}
+
+.channelTitle {
+  font-size: 1.1rem;
+}
+
+.channelLink {
+  color: var(--mint);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.muted {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.facts {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 2rem;
+}
+
+@media (max-width: 767px) {
+  .channels {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.resumeActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

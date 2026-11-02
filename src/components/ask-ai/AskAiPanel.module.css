@@ -1,0 +1,617 @@
+.panel {
+  position: relative;
+  padding: clamp(1rem, 1.6vw, 1.4rem);
+  border-radius: var(--r-xl);
+  /* Instrument housing from the shared glass system (.glass--panel, mint). */
+  border: 1px solid transparent;
+  --g-a: 0.76;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.9rem;
+}
+
+.status {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 6px 6px 6px 16px;
+  border-radius: 16px;
+  /* Recessed well (.glass--inset) — the one field on the panel. */
+  border: 1px solid transparent;
+  --g-stroke: rgb(var(--silver-rgb) / 0.16);
+  --g-a: 0.6;
+  transition: box-shadow var(--d-glow) var(--ease-out);
+}
+
+.form:focus-within {
+  --g-stroke: rgb(var(--mint-rgb) / 0.55);
+  --g-drop:
+    inset 0 1px 3px rgb(0 0 0 / 0.45), 0 0 0 4px rgb(var(--mint-rgb) / 0.09),
+    0 0 34px -14px rgb(var(--mint-rgb) / 0.45);
+}
+
+.spark {
+  flex: none;
+  color: var(--mint);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.92rem;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.send {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgb(var(--mint-rgb) / 0.45);
+  background: linear-gradient(180deg, rgb(var(--mint-rgb) / 0.2), rgb(var(--mint-rgb) / 0.08));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    0 6px 18px -10px rgb(var(--mint-rgb) / 0.6);
+  color: var(--mint);
+  cursor: pointer;
+  transition:
+    background-color var(--d-hover) var(--ease-out),
+    box-shadow var(--d-glow) var(--ease-out),
+    transform var(--d-hover) var(--ease-out),
+    opacity var(--d-hover) var(--ease-out);
+}
+
+.send:hover:not(:disabled) {
+  background: linear-gradient(180deg, rgb(var(--mint-rgb) / 0.3), rgb(var(--mint-rgb) / 0.14));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.16),
+    0 8px 24px -10px rgb(var(--mint-rgb) / 0.75);
+}
+
+.send:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 0.9rem;
+}
+
+.prompt {
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: var(--r-pill);
+  /* Suggested questions are chips (.glass--chip) that light up in the panel's accent. */
+  border: 1px solid transparent;
+  --g-accent-rgb: var(--mint-rgb);
+  --g-stroke: rgb(var(--silver-rgb) / 0.16);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    color var(--d-hover) var(--ease-out),
+    box-shadow var(--d-glow) var(--ease-out),
+    transform var(--d-hover) var(--ease-out);
+}
+
+.prompt:hover:not(:disabled) {
+  color: var(--text-primary);
+  --g-stroke: rgb(var(--mint-rgb) / 0.42);
+  --g-tint: 0.14;
+  --g-drop: 0 0 22px -10px rgb(var(--mint-rgb) / 0.55);
+}
+
+.prompt:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.prompt:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.output {
+  margin-top: 1rem;
+  min-height: 6.5rem;
+}
+
+.empty {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding: 0.75rem 0.25rem 0;
+}
+
+.answer {
+  padding: 1rem 1.1rem;
+  border-radius: var(--r-md);
+  /* Answer card (.glass--inset): violet for Smart answers, cyan for generated ones. */
+  border: 1px solid transparent;
+  --g-accent-rgb: var(--violet-rgb);
+  --g-tint: 0.09;
+  --g-a: 0.46;
+  --g-stroke: rgb(var(--violet-rgb) / 0.26);
+  --g-edge: rgb(255 255 255 / 0.06);
+}
+
+html[data-motion='full'] .answer {
+  animation: answer-in var(--d-fade) var(--ease-out) both;
+}
+
+@keyframes answer-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.question {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.answerHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.answerLabel {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.answerText {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.sources {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0.75rem;
+}
+
+.sources ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sourcesLabel {
+  font-family: var(--font-mono-stack);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.source {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  --g-stroke: rgb(var(--silver-rgb) / 0.17);
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  transition:
+    color var(--d-hover) var(--ease-out),
+    box-shadow var(--d-glow) var(--ease-out);
+}
+
+a.source:hover {
+  color: var(--text-primary);
+  --g-accent-rgb: var(--mint-rgb);
+  --g-stroke: rgb(var(--mint-rgb) / 0.45);
+  --g-tint: 0.12;
+}
+
+.disclaimer {
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* ───────────── Portfolio Intelligence Engine: modes, Local AI, conversation ───────────── */
+
+.modeBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 0.6rem;
+}
+
+.modeTitle {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.modeTitle span {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.notice {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 0.9rem;
+}
+
+.ghost {
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  --g-stroke: rgb(var(--cyan-rgb) / 0.34);
+  --g-tint: 0.09;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    color var(--d-hover) var(--ease-out),
+    box-shadow var(--d-glow) var(--ease-out),
+    transform var(--d-hover) var(--ease-out);
+}
+
+.ghost:hover:not(:disabled) {
+  color: var(--text-primary);
+  --g-stroke: rgb(var(--cyan-rgb) / 0.62);
+  --g-tint: 0.16;
+  --g-drop: 0 0 24px -12px rgb(var(--cyan-rgb) / 0.6);
+}
+
+.ghost:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.ghost:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.primary {
+  --g-accent-rgb: var(--mint-rgb);
+  --g-stroke: rgb(var(--mint-rgb) / 0.55);
+  --g-tint: 0.2;
+  color: var(--text-primary);
+}
+
+.primary:hover:not(:disabled) {
+  --g-stroke: rgb(var(--mint-rgb) / 0.75);
+  --g-tint: 0.28;
+  --g-drop: 0 0 26px -10px rgb(var(--mint-rgb) / 0.65);
+}
+
+.localCard {
+  margin-bottom: 0.9rem;
+  padding: 0.9rem 1rem;
+  border-radius: var(--r-md);
+  /* Local AI sub-panel (.glass--inset, cyan). */
+  border: 1px solid transparent;
+  --g-accent-rgb: var(--cyan-rgb);
+  --g-stroke: rgb(var(--cyan-rgb) / 0.26);
+  --g-tint: 0.08;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.localCard h3 {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.localCard ul {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.4rem 0 0.75rem;
+  padding-left: 1.1rem;
+  list-style: disc;
+}
+
+.localCard p + p {
+  margin-top: 0.4rem;
+}
+
+.warn {
+  color: #e9c27d;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 0.6rem;
+}
+
+.meter {
+  width: 100%;
+  height: 6px;
+  margin: 0.55rem 0 0.25rem;
+  appearance: none;
+  border: 0;
+  border-radius: var(--r-pill);
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.08);
+}
+
+.meter::-webkit-progress-bar {
+  background: rgb(255 255 255 / 0.08);
+}
+
+.meter::-webkit-progress-value {
+  background: linear-gradient(90deg, var(--cyan), var(--mint));
+}
+
+.meter::-moz-progress-bar {
+  background: linear-gradient(90deg, var(--cyan), var(--mint));
+}
+
+.meta {
+  font-family: var(--font-mono-stack);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.conversation {
+  display: grid;
+  gap: 0.75rem;
+  max-height: min(52svh, 30rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--silver-rgb) / 0.22) transparent;
+  /* Long conversations fade out at the scroll edges instead of being cut by a hard line. The
+     fade sits in a 10px band offset by an equal negative margin: at rest no content is faded
+     and the layout is unchanged. */
+  padding: 10px 0;
+  margin-block: -10px;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0,
+    #000 10px,
+    #000 calc(100% - 10px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(180deg, transparent 0, #000 10px, #000 calc(100% - 10px), transparent 100%);
+}
+
+.answer[data-mode='local'] {
+  --g-accent-rgb: var(--cyan-rgb);
+  --g-stroke: rgb(var(--cyan-rgb) / 0.3);
+}
+
+/* Pending / streaming: a slow light sweep over the status label (motion-enabled only). */
+html[data-motion='full'] .answer[data-turn-state='pending'] .answerLabel {
+  background: linear-gradient(90deg, var(--text-muted) 0%, var(--text-primary) 45%, var(--text-muted) 70%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: label-sweep 1.8s var(--ease-in-out) infinite;
+}
+
+@keyframes label-sweep {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -120% 0;
+  }
+}
+
+.answerText p + p {
+  margin-top: 0.55rem;
+}
+
+.answerText[dir='rtl'] {
+  text-align: right;
+}
+
+.cite {
+  margin: 0 1px;
+  font-family: var(--font-mono-stack);
+  font-size: 0.62rem;
+  color: var(--cyan);
+}
+
+.streaming {
+  white-space: pre-wrap;
+}
+
+html[data-motion='full'] .streaming::after {
+  content: '';
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.12em;
+  background: var(--cyan);
+  animation: caret 900ms steps(2) infinite;
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.noticeLine {
+  margin-top: 0.6rem;
+  padding-left: 10px;
+  border-left: 2px solid rgb(233 194 125 / 0.55);
+  font-size: 0.72rem;
+  color: #e9c27d;
+}
+
+.nextSteps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 0.6rem;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0.75rem;
+}
+
+.textButton {
+  min-height: 40px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.74rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.textButton:hover {
+  color: var(--text-primary);
+}
+
+@media (max-width: 767px) {
+  .input {
+    /* 16 px stops iOS from zooming the page when the keyboard opens. */
+    font-size: 16px;
+  }
+  .conversation {
+    max-height: none;
+  }
+}
+
+.models {
+  display: grid;
+  gap: 6px;
+  margin: 0.2rem 0 0.6rem;
+  border: 0;
+  padding: 0;
+}
+
+.model {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  min-height: 44px;
+  padding: 8px 10px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line-strong);
+  background: rgb(6 7 10 / 0.35);
+  cursor: pointer;
+}
+
+.model[data-selected='true'] {
+  border-color: rgb(var(--mint-rgb) / 0.5);
+  background: rgb(var(--mint-rgb) / 0.08);
+}
+
+.model input {
+  margin-top: 3px;
+  accent-color: var(--mint);
+}
+
+.model strong {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+}
+
+.modelSummary {
+  display: block;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+/* ── AI Presence V1: the same panel inside the global drawer ──
+   The drawer is the housing, so the panel drops its own glass frame and becomes a chat
+   column: mode bar, field and suggestions stay put; the conversation takes the remaining
+   height and scrolls (newest turn brought into view). */
+:global([data-ai-host='drawer']) {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+:global([data-ai-host='drawer']) .panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+:global([data-ai-host='drawer']) .output {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 12rem;
+}
+
+:global([data-ai-host='drawer']) .conversation {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+}

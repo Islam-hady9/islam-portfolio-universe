@@ -1,0 +1,38 @@
+.slot {
+  display: grid;
+}
+
+/* Grid items default to their min-content width: without this, the panel's widest row would
+   push the section past a 320 px screen. */
+.host,
+.away {
+  min-width: 0;
+}
+
+/* Reserve the panel's space until the shared assistant is placed here (no jump on arrival). */
+.host:not(:has([data-ai-host] > *)) {
+  min-height: 34rem;
+}
+
+.slot:has(.away) .host {
+  min-height: 0;
+}
+
+/* While the conversation is shown in the drawer, the section keeps its shape. */
+.away {
+  min-height: var(--ai-reserve, auto);
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  border-radius: var(--r-xl);
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-size: 0.86rem;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .host:not(:has([data-ai-host] > *)) {
+    min-height: 30rem;
+  }
+}
