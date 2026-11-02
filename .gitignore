@@ -27,6 +27,9 @@ next-env.d.ts
 .env.*
 !.env.example
 
+# Vercel CLI project link (created by `vercel link` / `vercel pull`; holds local project settings)
+.vercel
+
 # misc
 .DS_Store
 *.pem

@@ -1,0 +1,56 @@
+# Continuous integration for pushes to main and pull requests targeting main.
+# Deployments are NOT done here: Vercel's GitHub integration builds and deploys on its own,
+# in parallel with this workflow (see docs/VERCEL-DEPLOYMENT.md to make a failing CI block it).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  # Superseded pull-request runs are cancelled; every commit on main keeps its own result.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  validate:
+    name: Typecheck, lint, unit tests, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js (version from package.json "engines")
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: package.json
+          cache: npm
+
+      - name: Install dependencies (from package-lock.json)
+        run: npm ci
+
+      # A fresh clone has no next-env.d.ts or route types yet (both are generated and git-ignored);
+      # `next typegen` creates them without a full build so `tsc` sees Next's types.
+      - name: Generate Next.js types
+        run: npx next typegen
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit and component tests
+        run: npm test
+
+      # Default content mode (DEMO_CONTENT): the same build Vercel runs without extra variables.
+      - name: Production build
+        run: npm run build
