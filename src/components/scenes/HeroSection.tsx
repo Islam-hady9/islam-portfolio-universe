@@ -2,6 +2,8 @@ import type { ReactNode } from 'react';
 import type { HomeCopy, SiteIdentity } from '@/content/schema';
 import type { ResumeDocument } from '@/lib/resume';
 import { ButtonLink } from '@/components/ui/Button';
+import { HeroAssistantEntry } from '@/components/assistant/HeroAssistantEntry';
+import { HERO_SUGGESTIONS } from '@/components/ask-ai/suggestions';
 import { routes } from '@/lib/routes';
 import { SceneArt } from './SceneArt';
 import styles from './HeroSection.module.css';
@@ -106,6 +108,10 @@ export function HeroSection({
               {reel}
             </div>
           ) : null}
+          {/* AI Presence V1: hero discovery of the global assistant (joins the entrance cascade). */}
+          <div className={styles.reel} style={{ ['--d' as string]: 1060 }}>
+            <HeroAssistantEntry suggestions={HERO_SUGGESTIONS} />
+          </div>
           {resume ? null : (
             <p id="hero-cv-note" className="sr-only">
               {copy.ctaResumeDeferredNote}
