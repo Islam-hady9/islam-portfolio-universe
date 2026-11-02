@@ -50,7 +50,7 @@ This feature does not change the existing launch blockers and adds two of its ow
 | `0247bd2` feat(ai): approved knowledge manifest and Smart Mode engine | compiler, approvals file, manifest route, Smart engine, golden sets, unit tests, dependencies. **Note:** this commit also carries the removal of the old demo panel files (`AssistantPanel.tsx`, its test, the stylesheet move) that had been staged earlier; the intermediate tree at this commit does not build on its own (the old section still imports the panel) — it builds from `dcd7883` on. History was not rewritten to fix this. |
 | `1197605` feat(ai): opt-in Local AI runtime in a Web Worker | catalog, protocol, worker, client, capability, cache, prompt, verifier, orchestration, Web Lock, CSP, unit tests |
 | `dcd7883` feat(ask-ai): Smart Mode and Local AI in the Ask My AI section | panel, Local AI card, answer card, reducer, 3D render hold, `/about` honesty fix, component/unit/E2E/GPU tests |
-| docs commit | this folder, evidence, evaluation/benchmark tooling, decisions D-45…D-47, acceptance-matrix and release-readiness notes |
+| `0f80072` docs(ai): Portfolio Intelligence Engine evaluation, benchmarks and closure | this folder, evidence, evaluation/benchmark tooling, decisions D-45…D-47, acceptance-matrix and release-readiness notes (+ a follow-up docs commit with final references) |
 
 Not committed (git-ignored): model weights and browser profiles (`.evidence-tmp/ai-gpu-profile`, ~1.5 GB, kept so `npm run test:e2e:gpu -- -g "Local AI"` does not re-download — delete it freely), raw evaluation logs, Lighthouse reports. The spike profiles (2.6 GB) and the baseline build copy were deleted.
 

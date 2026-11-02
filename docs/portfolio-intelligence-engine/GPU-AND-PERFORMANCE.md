@@ -56,6 +56,8 @@ Zero model bytes and no worker chunk before consent are asserted by `tests/e2e/a
 
 Median difference **−1.7 % idle, −1.7 % while asking** — under the 5 % target and inside the per-round spread (±4 fps). Same draw calls and shader programs: the feature adds nothing to the 3D scene. Evidence: `evidence/fps-ab.json`.
 
+Corroboration of the contention: the existing GPU suite's frame-rate profile, re-run at the end of this phase, recorded 58–60 fps per station with **identical draw calls, triangles and programs** to the committed Polish V2 profile (117–136 fps, measured on a free GPU). That contended profile was not committed over `docs/evidence/fps-profile.json`; its diff is kept in `.evidence-tmp/ai/fps-profile-contended.diff`.
+
 ## 5. Local AI on the GPU — install, memory, 3D coexistence, stress
 
 `scripts/ai/bench-local.mjs` (production build, real GPU, model already cached in the git-ignored profile; GPU memory = Windows "GPU Process Memory → Shared Usage" of the browser's processes, the integrated GPU's equivalent of VRAM; heap = page `performance.memory`). Qwen2.5-1.5B (preselected). The owner's Chrome used 4–99 % of the same GPU during this run.
