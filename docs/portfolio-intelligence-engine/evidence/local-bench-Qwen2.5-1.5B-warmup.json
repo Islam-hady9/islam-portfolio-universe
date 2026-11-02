@@ -1,0 +1,149 @@
+{
+  "model": "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
+  "label": "warmup",
+  "base": "http://localhost:3310",
+  "date": "2026-11-02T11:56:52.500Z",
+  "gpu": {
+    "beforeLocal": {
+      "processes": 9,
+      "sharedBytes": 366440448,
+      "dedicatedBytes": 0
+    },
+    "ready": {
+      "processes": 8,
+      "sharedBytes": 1823506432,
+      "dedicatedBytes": 0
+    },
+    "afterAnswers": {
+      "processes": 8,
+      "sharedBytes": 1822449664,
+      "dedicatedBytes": 0
+    },
+    "afterBack": {
+      "processes": 8,
+      "sharedBytes": 302837760,
+      "dedicatedBytes": 0
+    }
+  },
+  "heap": {
+    "beforeLocal": 32609882,
+    "ready": 24478299,
+    "afterBack": 26010130
+  },
+  "stages": {
+    "consentShown": null,
+    "accepted": null,
+    "downloading": null,
+    "initializing": 761,
+    "ready": 37499,
+    "holdDuringInit": true
+  },
+  "answers": [
+    {
+      "question": "What does Islam work on?",
+      "wallMs": 8710,
+      "mode": "local",
+      "attempts": [
+        {
+          "ok": true,
+          "promptTokens": 283,
+          "completionTokens": 21,
+          "ttftMs": 6077,
+          "totalMs": 8521,
+          "decodeTokPerS": 8.219628472682288,
+          "prefillTokPerS": 46.65732421069986
+        }
+      ],
+      "holdDuring": true,
+      "gpuDuring": {
+        "processes": 8,
+        "sharedBytes": 1836654592,
+        "dedicatedBytes": 0
+      },
+      "holdAfter": false
+    },
+    {
+      "question": "How does this assistant work?",
+      "wallMs": 10985,
+      "mode": "local",
+      "attempts": [
+        {
+          "ok": true,
+          "promptTokens": 308,
+          "completionTokens": 46,
+          "ttftMs": 6286,
+          "totalMs": 10915,
+          "decodeTokPerS": 9.760329682215504,
+          "prefillTokPerS": 49.00400941892922
+        }
+      ],
+      "holdDuring": true,
+      "gpuDuring": {
+        "processes": 8,
+        "sharedBytes": 1845698560,
+        "dedicatedBytes": 0
+      },
+      "holdAfter": false
+    },
+    {
+      "question": "What is his email?",
+      "wallMs": 7075,
+      "mode": "local",
+      "attempts": [
+        {
+          "ok": true,
+          "promptTokens": 256,
+          "completionTokens": 20,
+          "ttftMs": 5150,
+          "totalMs": 7004,
+          "decodeTokPerS": 10.288622948778576,
+          "prefillTokPerS": 49.71356442373046
+        }
+      ],
+      "holdDuring": true,
+      "gpuDuring": {
+        "processes": 8,
+        "sharedBytes": 1856172032,
+        "dedicatedBytes": 0
+      },
+      "holdAfter": false
+    }
+  ],
+  "cycles": [
+    {
+      "cycle": 1,
+      "readyMs": 35369,
+      "mode": "local",
+      "ttftMs": 6787,
+      "holdAfter": false,
+      "webgl": "ready",
+      "gpuAfterBack": 303136768,
+      "heap": 25208309
+    },
+    {
+      "cycle": 2,
+      "readyMs": 11634,
+      "mode": "smart",
+      "ttftMs": 8831,
+      "holdAfter": false,
+      "webgl": "ready",
+      "gpuAfterBack": 295141376,
+      "heap": 26802654
+    },
+    {
+      "cycle": 3,
+      "readyMs": 9861,
+      "mode": "local",
+      "ttftMs": 7042,
+      "holdAfter": false,
+      "webgl": "ready",
+      "gpuAfterBack": 296681472,
+      "heap": 26321058
+    }
+  ],
+  "bytesByHost": {
+    "localhost:3310": 240426
+  },
+  "errors": [],
+  "webglAtEnd": "ready"
+}

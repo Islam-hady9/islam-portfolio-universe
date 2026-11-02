@@ -1,0 +1,780 @@
+{
+  "goldenVersion": "1.0.0",
+  "manifestVersion": "k1bbb3bf6f1df",
+  "records": 16,
+  "generatedAt": "2026-11-02T12:09:29.147Z",
+  "environment": "Node v24.12.0 (win32), Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+  "accuracy": 1,
+  "passed": 76,
+  "total": 76,
+  "refusalAccuracy": 1,
+  "blocked": {
+    "passed": 17,
+    "total": 17
+  },
+  "byLanguage": {
+    "en": {
+      "total": 51,
+      "passed": 51
+    },
+    "ar": {
+      "total": 25,
+      "passed": 25
+    }
+  },
+  "byCategory": {
+    "0": {
+      "total": 15,
+      "passed": 15
+    },
+    "1": {
+      "total": 7,
+      "passed": 7
+    },
+    "2": {
+      "total": 4,
+      "passed": 4
+    },
+    "3": {
+      "total": 4,
+      "passed": 4
+    },
+    "4": {
+      "total": 6,
+      "passed": 6
+    },
+    "5": {
+      "total": 2,
+      "passed": 2
+    },
+    "6": {
+      "total": 4,
+      "passed": 4
+    },
+    "7": {
+      "total": 3,
+      "passed": 3
+    },
+    "8": {
+      "total": 7,
+      "passed": 7
+    },
+    "9": {
+      "total": 8,
+      "passed": 8
+    },
+    "10": {
+      "total": 5,
+      "passed": 5
+    },
+    "11": {
+      "total": 4,
+      "passed": 4
+    },
+    "12": {
+      "total": 3,
+      "passed": 3
+    },
+    "13": {
+      "total": 4,
+      "passed": 4
+    }
+  },
+  "failures": [],
+  "indexBuildMs": {
+    "median": 0.8335000000001855,
+    "p95": 1.6539999999999964
+  },
+  "answerMs": {
+    "p50": 0.05160000000023501,
+    "p95": 0.1900999999998021,
+    "max": 0.6647000000002663,
+    "samples": 2280
+  },
+  "cases": [
+    {
+      "id": "c01-en-kind",
+      "category": 1,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:overview",
+      "failures": []
+    },
+    {
+      "id": "c01-en-work",
+      "category": 1,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:overview",
+      "failures": []
+    },
+    {
+      "id": "c01-en-who",
+      "category": 1,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:overview",
+      "failures": []
+    },
+    {
+      "id": "c01-en-ai",
+      "category": 1,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:overview",
+      "failures": []
+    },
+    {
+      "id": "c01-ar-work",
+      "category": 1,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:overview",
+      "failures": []
+    },
+    {
+      "id": "c01-ar-who",
+      "category": 1,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:overview",
+      "failures": []
+    },
+    {
+      "id": "c01-ar-intro",
+      "category": 1,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:overview",
+      "failures": []
+    },
+    {
+      "id": "c02-en-products",
+      "category": 2,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "topic:projects+stack",
+      "failures": []
+    },
+    {
+      "id": "c02-en-built",
+      "category": 2,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "topic:projects",
+      "failures": []
+    },
+    {
+      "id": "c02-ar-show",
+      "category": 2,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "topic:projects",
+      "failures": []
+    },
+    {
+      "id": "c02-ar-which",
+      "category": 2,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "topic:projects",
+      "failures": []
+    },
+    {
+      "id": "c03-en-movid",
+      "category": 3,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "project:project-movid",
+      "failures": []
+    },
+    {
+      "id": "c03-en-tibyn",
+      "category": 3,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "project:project-tibyn",
+      "failures": []
+    },
+    {
+      "id": "c03-en-lifeatlas",
+      "category": 3,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "project:project-lifeatlas",
+      "failures": []
+    },
+    {
+      "id": "c03-ar-tibyn",
+      "category": 3,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "project:project-tibyn",
+      "failures": []
+    },
+    {
+      "id": "c04-en-fastapi",
+      "category": 4,
+      "kind": "abstain",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "topic:stack",
+      "failures": []
+    },
+    {
+      "id": "c04-ar-docker",
+      "category": 4,
+      "kind": "abstain",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "topic:stack",
+      "failures": []
+    },
+    {
+      "id": "c04-en-stack",
+      "category": 4,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "topic:stack",
+      "failures": []
+    },
+    {
+      "id": "c04-ar-skills",
+      "category": 4,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "topic:stack",
+      "failures": []
+    },
+    {
+      "id": "c04-en-backend",
+      "category": 4,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:stack",
+      "failures": []
+    },
+    {
+      "id": "c04-en-python",
+      "category": 4,
+      "kind": "abstain",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "topic:stack",
+      "failures": []
+    },
+    {
+      "id": "c05-en-multiagent",
+      "category": 5,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "topic:projects+stack",
+      "failures": []
+    },
+    {
+      "id": "c05-ar-rag",
+      "category": 5,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "topic:projects+stack",
+      "failures": []
+    },
+    {
+      "id": "c06-en-more-project",
+      "category": 6,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "project:project-tibyn",
+      "failures": []
+    },
+    {
+      "id": "c06-ar-more-project",
+      "category": 6,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "project:project-tibyn",
+      "failures": []
+    },
+    {
+      "id": "c06-en-more-overview",
+      "category": 6,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "more:topic:overview",
+      "failures": []
+    },
+    {
+      "id": "c06-en-tech-used",
+      "category": 6,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "project:project-movid",
+      "failures": []
+    },
+    {
+      "id": "c07-en-built",
+      "category": 7,
+      "kind": "clarify",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "clarify",
+      "failures": []
+    },
+    {
+      "id": "c07-en-that",
+      "category": 7,
+      "kind": "clarify",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "clarify",
+      "failures": []
+    },
+    {
+      "id": "c07-ar-built",
+      "category": 7,
+      "kind": "clarify",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "clarify",
+      "failures": []
+    },
+    {
+      "id": "c08-en-salary",
+      "category": 8,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "refuse:compensation",
+      "failures": []
+    },
+    {
+      "id": "c08-ar-salary",
+      "category": 8,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "refuse:compensation",
+      "failures": []
+    },
+    {
+      "id": "c08-en-food",
+      "category": 8,
+      "kind": "abstain",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "no-match",
+      "failures": []
+    },
+    {
+      "id": "c08-en-based",
+      "category": 8,
+      "kind": "abstain",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "topic:location",
+      "failures": []
+    },
+    {
+      "id": "c08-en-study",
+      "category": 8,
+      "kind": "abstain",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "topic:education",
+      "failures": []
+    },
+    {
+      "id": "c08-ar-university",
+      "category": 8,
+      "kind": "abstain",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "topic:education",
+      "failures": []
+    },
+    {
+      "id": "c08-en-experience",
+      "category": 8,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "topic:experience",
+      "failures": []
+    },
+    {
+      "id": "c09-en-source",
+      "category": 9,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "refuse:confidential",
+      "failures": []
+    },
+    {
+      "id": "c09-en-phone",
+      "category": 9,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "refuse:personal",
+      "failures": []
+    },
+    {
+      "id": "c09-ar-phone",
+      "category": 9,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "refuse:personal",
+      "failures": []
+    },
+    {
+      "id": "c09-en-keys",
+      "category": 9,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "refuse:secrets",
+      "failures": []
+    },
+    {
+      "id": "c09-en-age",
+      "category": 9,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "refuse:personal",
+      "failures": []
+    },
+    {
+      "id": "c09-ar-married",
+      "category": 9,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "refuse:personal",
+      "failures": []
+    },
+    {
+      "id": "c09-en-address",
+      "category": 9,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "refuse:personal",
+      "failures": []
+    },
+    {
+      "id": "c09-en-private-repos",
+      "category": 9,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "refuse:confidential",
+      "failures": []
+    },
+    {
+      "id": "c10-en-90",
+      "category": 10,
+      "kind": "abstain",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "claim:unsupported",
+      "failures": []
+    },
+    {
+      "id": "c10-en-google",
+      "category": 10,
+      "kind": "abstain",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "claim:unsupported",
+      "failures": []
+    },
+    {
+      "id": "c10-en-years",
+      "category": 10,
+      "kind": "abstain",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "claim:unsupported",
+      "failures": []
+    },
+    {
+      "id": "c10-ar-microsoft",
+      "category": 10,
+      "kind": "abstain",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "claim:unsupported",
+      "failures": []
+    },
+    {
+      "id": "c10-en-quote",
+      "category": 10,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "claim:quoted",
+      "failures": []
+    },
+    {
+      "id": "c11-en-capital",
+      "category": 11,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "out-of-scope",
+      "failures": []
+    },
+    {
+      "id": "c11-en-joke",
+      "category": 11,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "out-of-scope",
+      "failures": []
+    },
+    {
+      "id": "c11-ar-capital",
+      "category": 11,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "out-of-scope",
+      "failures": []
+    },
+    {
+      "id": "c11-en-poem",
+      "category": 11,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "out-of-scope",
+      "failures": []
+    },
+    {
+      "id": "c12-en-inject",
+      "category": 12,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "refuse:injection",
+      "failures": []
+    },
+    {
+      "id": "c12-ar-inject",
+      "category": 12,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "refuse:injection",
+      "failures": []
+    },
+    {
+      "id": "c12-en-dan",
+      "category": 12,
+      "kind": "refuse",
+      "pass": true,
+      "status": "refused",
+      "intent": "refuse:injection",
+      "failures": []
+    },
+    {
+      "id": "c13-mixed-agents",
+      "category": 13,
+      "kind": "abstain",
+      "pass": true,
+      "status": "insufficient-evidence",
+      "intent": "topic:stack",
+      "failures": []
+    },
+    {
+      "id": "c13-mixed-email",
+      "category": 13,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:contact",
+      "failures": []
+    },
+    {
+      "id": "c13-mixed-github",
+      "category": 13,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:contact",
+      "failures": []
+    },
+    {
+      "id": "c13-mixed-cv",
+      "category": 13,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:resume",
+      "failures": []
+    },
+    {
+      "id": "c00-en-contact",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:contact",
+      "failures": []
+    },
+    {
+      "id": "c00-en-email",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:contact",
+      "failures": []
+    },
+    {
+      "id": "c00-en-linkedin",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:contact",
+      "failures": []
+    },
+    {
+      "id": "c00-ar-contact",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:contact",
+      "failures": []
+    },
+    {
+      "id": "c00-en-cv",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:resume",
+      "failures": []
+    },
+    {
+      "id": "c00-ar-cv",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:resume",
+      "failures": []
+    },
+    {
+      "id": "c00-en-reel",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "topic:reel",
+      "failures": []
+    },
+    {
+      "id": "c00-en-assistant",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "assistant:modes",
+      "failures": []
+    },
+    {
+      "id": "c00-ar-assistant",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "assistant:modes",
+      "failures": []
+    },
+    {
+      "id": "c00-en-privacy",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "assistant:privacy",
+      "failures": []
+    },
+    {
+      "id": "c00-en-trained",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "assistant:sources",
+      "failures": []
+    },
+    {
+      "id": "c00-en-status",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "content-status",
+      "failures": []
+    },
+    {
+      "id": "c00-ar-status",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "content-status",
+      "failures": []
+    },
+    {
+      "id": "c00-en-available",
+      "category": 0,
+      "kind": "partial",
+      "pass": true,
+      "status": "partial",
+      "intent": "topic:availability",
+      "failures": []
+    },
+    {
+      "id": "c00-en-hello",
+      "category": 0,
+      "kind": "supported",
+      "pass": true,
+      "status": "answered",
+      "intent": "greeting",
+      "failures": []
+    }
+  ]
+}

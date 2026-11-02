@@ -2,6 +2,8 @@
 
 Spec §13.3 / §14. Branch `feat/intelligence-universe`, 2026-11-01. Evidence: `docs/test-report.md`, `docs/acceptance-matrix.md`, `docs/evidence/`.
 
+> **Update — Portfolio Intelligence Engine (2026-11-02):** Ask My AI is now a real, private assistant: Smart Mode (default, instant, source-cited answers from verified + approved content only, EN/AR) and opt-in Local AI (a small open-weights model running on the visitor's GPU after explicit consent, verified against the same sources, falling back to Smart Mode). No cloud inference or API keys. Public-launch verdict unchanged. See [`docs/portfolio-intelligence-engine/CLOSURE-REPORT.md`](portfolio-intelligence-engine/CLOSURE-REPORT.md).
+>
 > **Update — Temporary CV & verified links (2026-11-02):** the owner's CV PDF is downloadable and viewable (byte-identical, checksum-tested) and LinkedIn, GitHub and email are live and owner-verified; the phone stays unpublished; CV projects and certificates are registered, not shown. Content freeze held. Full CV population is still pending. See [`docs/cv-links-integration/README.md`](cv-links-integration/README.md).
 >
 > **Update — Personal Media Integration (2026-11-01):** the owner's portrait and intro reel are integrated (identity band, hero chip, /about, accessible reel player); verdict unchanged. Two new `placeholder` records (reel transcript, AI disclosure) await the owner's confirmation before any public build. A pre-existing defect found here — a WebGL renderer failure replaced the whole page with the global error screen — is fixed (`CanvasBoundary`). See [`docs/personal-media-integration/README.md`](personal-media-integration/README.md).
