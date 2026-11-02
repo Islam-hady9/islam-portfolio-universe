@@ -1,5 +1,15 @@
+import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
 import { ROUTES, gotoHome, scrollThrough } from './helpers';
+
+const json = (file: string) => JSON.parse(readFileSync(file, 'utf8'));
+const contact = json('src/content/data/contact.json') as {
+  email: string | null;
+  resume: { url: string | null };
+};
+const profiles = (json('src/content/data/social.json') as { id: string; url: string | null }[])
+  .map((s) => s.url)
+  .filter((u): u is string => u !== null);
 
 /**
  * IU-006 (every CTA truthful), IU-007 (no invented CV facts), IU-008 (AI preview cannot
@@ -18,7 +28,12 @@ test.describe('truthfulness audit', () => {
     const external: string[] = [];
     for (const [href, from] of seen) {
       expect(href, `empty/placeholder href on ${from}`).not.toMatch(/^(#?|javascript:.*)$/);
-      expect(href, `fabricated contact link on ${from}`).not.toMatch(/^(mailto:|tel:)/);
+      // The phone number is never published; email only as the owner-verified address.
+      expect(href, `phone link on ${from}`).not.toMatch(/^tel:/);
+      if (href.startsWith('mailto:')) {
+        expect(href, `unverified email on ${from}`).toBe(`mailto:${contact.email}`);
+        continue;
+      }
       if (/^https?:\/\//.test(href)) {
         external.push(href);
         continue;
@@ -29,8 +44,8 @@ test.describe('truthfulness audit', () => {
       expect(res.status(), `${href} (from ${from})`).toBeLessThan(400);
       if (hash) expect(await res.text(), `anchor #${hash} missing on ${target}`).toContain(`id="${hash}"`);
     }
-    // Only owner-related profile links are external (GitHub, derived from the repo remote).
-    for (const e of external) expect(new URL(e).hostname).toBe('github.com');
+    // The only external links are the owner's verified profiles (LinkedIn, GitHub).
+    for (const e of external) expect(profiles, e).toContain(e);
   });
 
   test('assistant is clearly a demo and never calls a backend', async ({ page }) => {
@@ -94,13 +109,18 @@ test.describe('truthfulness audit', () => {
     await expect(page.getByTestId('pending-count')).not.toHaveText('0');
   });
 
-  test('contact page never invents email/phone and resume is gated', async ({ page }) => {
+  test('contact page publishes only owner-verified channels, never a phone; one canonical resume', async ({
+    page,
+  }) => {
     await page.goto('/contact');
-    await expect(page.getByTestId('channel-email')).toContainText('Direct contact details will be published');
-    await expect(page.locator('a[href^="mailto:"], a[href^="tel:"]')).toHaveCount(0);
-    const linkedin = page.getByTestId('channel-linkedin');
-    await expect(linkedin).toContainText('Pending review');
+    const email = page.getByTestId('channel-email').getByRole('link', { name: contact.email! });
+    await expect(email).toHaveAttribute('href', `mailto:${contact.email}`);
+    await expect(page.locator('a[href^="mailto:"]')).toHaveCount(1);
+    await expect(page.locator('a[href^="tel:"]')).toHaveCount(0);
+    await expect(page.getByTestId('channel-linkedin')).not.toContainText('Pending review');
     await page.goto('/resume');
-    await expect(page.locator('a[href$=".pdf"]')).toHaveCount(0);
+    const pdfs = await page.$$eval('a[href$=".pdf"]', (as) => as.map((a) => a.getAttribute('href')));
+    expect(pdfs.length).toBeGreaterThan(0);
+    expect(new Set(pdfs)).toEqual(new Set([contact.resume.url]));
   });
 });

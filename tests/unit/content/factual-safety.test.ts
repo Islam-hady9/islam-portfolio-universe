@@ -96,17 +96,42 @@ describe('social links', () => {
     }
   });
 
-  it('keeps the repository-derived GitHub URL flagged as a placeholder with a note until the owner confirms it', () => {
+  it('publishes the GitHub profile only as a flagged placeholder or as an owner-verified, sourced link', () => {
     const github = content.social.find((s) => s.id === 'github');
     if (!github?.url) return;
     expect(new URL(github.url).hostname).toBe('github.com');
-    expect(github.verification.status).toBe('placeholder');
-    expect(github.verification.note?.trim()).toBeTruthy();
+    if (isPlaceholder(github)) expect(github.verification.note?.trim()).toBeTruthy();
+    else expect(github.verification.source).toMatch(/CV|owner/i);
   });
 
   it('explains every missing link', () => {
     for (const link of content.social.filter((s) => s.url === null)) {
       expect(link.unavailableMessage.trim().length).toBeGreaterThan(0);
+    }
+  });
+});
+
+describe('phone number', () => {
+  it('is never published: no tel: link or number in any rendered content file', () => {
+    const { verifiedLinks, ...rendered } = content;
+    const text = JSON.stringify(rendered);
+    expect(text).not.toMatch(/tel:/i);
+    const digits = verifiedLinks.phone?.href.replace(/\D/g, '').slice(-9);
+    if (digits) expect(text.replace(/\D/g, ' ')).not.toContain(digits);
+  });
+
+  it('stays out of the site until the owner authorises showing it', () => {
+    expect(content.verifiedLinks.phone?.publicDisplay ?? false).toBe(false);
+  });
+});
+
+describe('verified links registry', () => {
+  it('never assigns a repository to a different project', () => {
+    for (const r of content.verifiedLinks.repositories) {
+      if (r.matchedProject === null) continue;
+      const project = content.projects.find((p) => p.slug === r.matchedProject);
+      expect(project, r.id).toBeDefined();
+      expect(r.title.toLowerCase()).toContain(project!.title.toLowerCase());
     }
   });
 });

@@ -6,12 +6,20 @@ import { getSocialLinks } from '@/content';
 import type { SocialLink } from '@/content/schema';
 
 const github = getSocialLinks().find((s) => s.id === 'github')!;
-const linkedin = getSocialLinks().find((s) => s.id === 'linkedin')!;
+const shippedLinkedin = getSocialLinks().find((s) => s.id === 'linkedin')!;
+// The component's other states, built from the shipped records.
+const pendingGithub: SocialLink = {
+  ...github,
+  verification: { ...github.verification, status: 'placeholder' },
+};
+const linkedin: SocialLink = { ...shippedLinkedin, url: null };
 
 describe('SocialAction with a configured URL', () => {
-  it('fixtures: GitHub has a URL and LinkedIn does not', () => {
-    expect(github.url).not.toBeNull();
-    expect(linkedin.url).toBeNull();
+  it('fixtures: both profiles are configured and owner-verified from the CV', () => {
+    expect(github.url).toBe('https://github.com/Islam-hady9');
+    expect(shippedLinkedin.url).toBe('https://linkedin.com/in/islam-abd-elhady-323523211');
+    expect(github.verification.status).toBe('owner_verified');
+    expect(shippedLinkedin.verification.status).toBe('owner_verified');
   });
 
   it('renders an external link that opens in a new tab', () => {
@@ -26,8 +34,7 @@ describe('SocialAction with a configured URL', () => {
   });
 
   it('discloses to screen readers that an unverified link is pending confirmation', () => {
-    render(<SocialAction link={github} />);
-    expect(github.verification.status).toBe('placeholder');
+    render(<SocialAction link={pendingGithub} />);
     expect(screen.getByText('Link pending owner confirmation.')).toHaveClass('sr-only');
   });
 

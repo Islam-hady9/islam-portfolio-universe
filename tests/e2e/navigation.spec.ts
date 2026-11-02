@@ -34,12 +34,16 @@ test.describe('home & navigation (IU-002, IU-006)', () => {
     await expect(page).toHaveURL(/\/projects$/);
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Worlds');
 
+    // "Download CV" now downloads the canonical PDF (download itself: resume.spec.ts); the
+    // contact section's Resume action leads to the /resume page.
     await gotoHome(page);
     const resume = page.locator('[data-action="hero-resume"]');
-    await expect(resume).toContainText('Soon');
-    await resume.click();
+    await expect(resume).not.toContainText('Soon');
+    await expect(resume).toHaveAttribute('href', '/resume/Islam_Abdelhady_CV.pdf');
+    await expect(resume).toHaveAttribute('download', 'Islam_Abdelhady_CV.pdf');
+    await page.locator('[data-action="contact-resume"]').click();
     await expect(page).toHaveURL(/\/resume$/);
-    await expect(page.getByText('Resume will be available after final profile review.')).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Download the resume');
   });
 
   test('header navigation reaches every destination', async ({ page }) => {
