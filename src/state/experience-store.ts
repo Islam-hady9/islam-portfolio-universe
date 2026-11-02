@@ -43,6 +43,8 @@ interface ExperienceState {
    * way (frames still render on scroll), leaving the GPU to the model. Released afterwards.
    */
   aiRenderHold: boolean;
+  /** The global AI drawer covers the world (AI Presence V1): continuous rendering pauses. */
+  assistantOpen: boolean;
   /**
    * Increments once per completed assistant answer. The portal answers with a single restrained
    * light pulse — never per token, and only after any render hold is released.
@@ -62,6 +64,7 @@ interface ExperienceState {
   setPortal: (p: PortalTransition | null) => void;
   setMediaOverlay: (open: boolean) => void;
   setAiRenderHold: (hold: boolean) => void;
+  setAssistantOpen: (open: boolean) => void;
   signalAssistant: () => void;
   setSceneStates: (s: Record<string, SceneState>) => void;
 }
@@ -82,6 +85,7 @@ export const useExperience = create<ExperienceState>((set) => ({
   portal: null,
   mediaOverlay: false,
   aiRenderHold: false,
+  assistantOpen: false,
   assistantSignal: 0,
   sceneStates: {},
   setQualityPreference: (qualityPreference) => set({ qualityPreference }),
@@ -98,6 +102,7 @@ export const useExperience = create<ExperienceState>((set) => ({
   setPortal: (portal) => set({ portal }),
   setMediaOverlay: (mediaOverlay) => set({ mediaOverlay }),
   setAiRenderHold: (aiRenderHold) => set({ aiRenderHold }),
+  setAssistantOpen: (assistantOpen) => set({ assistantOpen }),
   signalAssistant: () => set((s) => ({ assistantSignal: s.assistantSignal + 1 })),
   setSceneStates: (sceneStates) => set({ sceneStates }),
 }));

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useId, useReducer, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import type { SmartEngine } from '@/lib/portfolio-ai/smart/engine';
 import type { LocalAiClient } from '@/lib/portfolio-ai/local/client';
 import type { ModelEntry } from '@/lib/portfolio-ai/local/catalog';
@@ -9,11 +10,14 @@ import type { TabLock } from '@/lib/portfolio-ai/local/tab-lock';
 import { Icon } from '@/components/ui/Icon';
 import { StatusTag } from '@/components/ui/StatusTag';
 import { useExperience } from '@/state/experience-store';
+import { useAssistant } from '@/state/assistant-store';
 import { AnswerCard } from './AnswerCard';
 import { LocalAiCard } from './LocalAiCard';
-import { DEFAULT_SUGGESTIONS, FALLBACK_NOTICE, LOCAL, UI } from './copy';
+import { FALLBACK_NOTICE, LOCAL, UI } from './copy';
 import { outcomeDisplay, safeHistory, smartDisplay } from './display';
 import { initialState, reducer, uiState, type AskState } from './state';
+import { presenceOf } from './presence';
+import { suggestionsFor, type SuggestionMap } from './suggestions';
 import styles from './AskAiPanel.module.css';
 
 /** Arabic Local AI output cannot be verified against the English corpus yet (MODEL-EVALUATION.md). */
@@ -57,14 +61,26 @@ interface LocalRuntime {
 
 /**
  * Ask My AI — one assistant, two engines (PIE spec §0). Smart Mode is the default and loads
- * lazily (index + manifest only when the section nears the viewport or the visitor interacts).
+ * lazily (index + manifest only when the panel nears the viewport or the visitor interacts).
  * Local AI is opt-in: capability check → consent → download/initialize in a worker → streamed,
  * verified answers, with Smart Mode always available. Nothing typed leaves the browser.
+ *
+ * AI Presence V1: exactly one instance exists (AssistantRoot), shown in the Ask My AI section
+ * or the global drawer, so every access point shares this conversation, mode and model.
  */
-export function AskAiPanel({ manifestVersion }: { manifestVersion: string }) {
+export function AskAiPanel({
+  manifestVersion,
+  suggestionMap,
+}: {
+  manifestVersion: string;
+  /** Route → grounded suggested questions (built at build time from approved content). */
+  suggestionMap?: SuggestionMap;
+}) {
   const uid = useId();
+  const pathname = usePathname();
   const rootRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const conversationRef = useRef<HTMLDivElement>(null);
   const [state, dispatch] = useReducer(reducer, initialState);
   const stateRef = useRef<AskState>(state);
   useEffect(() => {
@@ -398,13 +414,41 @@ export function AskAiPanel({ manifestVersion }: { manifestVersion: string }) {
     localRef.current?.client.cancel();
   }, []);
 
+  // ── AI Presence: questions queued by the hero, the orb's drawer or a suggestion ──
+  const pending = useAssistant((s) => s.pending);
+  useEffect(() => {
+    if (!pending) return;
+    const text = useAssistant.getState().takePending(pending.id);
+    if (!text) return; // already taken (e.g. a Strict Mode re-run)
+    // A turn is running: keep the question in the box rather than starting a second one.
+    if (busy.current) setDraft(text);
+    else void ask(text);
+  }, [pending, ask]);
+
+  // Compact status for the orb — changes only on state transitions (never per token).
+  useEffect(() => {
+    useAssistant.getState().setPresence(presenceOf(state));
+  }, [state]);
+  useEffect(() => () => useAssistant.getState().setPresence({ phase: 'idle', progress: null }), []);
+
+  // New turn, and again when it is answered → its start in view inside the conversation
+  // (never scrolls the page).
+  const turnCount = state.turns.length;
+  const lastTurnState = state.turns.at(-1)?.state;
+  useEffect(() => {
+    const el = conversationRef.current;
+    const newest = el?.lastElementChild;
+    if (!el || !newest || turnCount === 0) return;
+    el.scrollTop += newest.getBoundingClientRect().top - el.getBoundingClientRect().top;
+  }, [turnCount, lastTurnState]);
+
   const ui = uiState(state);
   const generating = state.local === 'generating';
   const localActive = state.mode === 'local';
   const last = state.turns.at(-1);
   const suggestions = last?.answer?.suggestedQuestions?.length
     ? last.answer.suggestedQuestions
-    : DEFAULT_SUGGESTIONS;
+    : suggestionsFor(suggestionMap, pathname);
   const offerLocal =
     state.local === 'off' ||
     state.local === 'unavailable' ||
@@ -489,6 +533,7 @@ export function AskAiPanel({ manifestVersion }: { manifestVersion: string }) {
           autoComplete="off"
           enterKeyHint="send"
           dir="auto"
+          data-assistant-input=""
         />
         {generating ? (
           <button
@@ -527,7 +572,7 @@ export function AskAiPanel({ manifestVersion }: { manifestVersion: string }) {
         {state.turns.length === 0 ? (
           <p className={styles.empty}>{state.smart === 'error' ? UI.indexError : UI.empty}</p>
         ) : (
-          <div className={styles.conversation} data-testid="ask-ai-conversation">
+          <div ref={conversationRef} className={styles.conversation} data-testid="ask-ai-conversation">
             {state.turns.map((t) => (
               <AnswerCard key={t.id} turn={t} reducedMotion={reducedMotion} />
             ))}

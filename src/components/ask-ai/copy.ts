@@ -122,10 +122,3 @@ export const LOCAL_DISCLAIMER = {
   en: 'Generated on your device by a small language model from the sources below. It can make mistakes — check the sources.',
   ar: 'وُلّدت هذه الإجابة على جهازك بواسطة نموذج لغوي صغير اعتماداً على المصادر أدناه، وقد تحتوي على أخطاء — راجع المصادر.',
 };
-
-export const DEFAULT_SUGGESTIONS = [
-  'What does Islam work on?',
-  'Which projects can I explore?',
-  'How can I contact him?',
-  'How does this assistant work?',
-];

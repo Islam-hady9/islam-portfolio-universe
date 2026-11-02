@@ -3,7 +3,10 @@ import type { ReactNode } from 'react';
 import { fontBody, fontDisplay, fontMono } from './fonts';
 import { BOOT_SCRIPT } from '@/lib/boot-script';
 import { baseMetadata, jsonLdString, personJsonLd } from '@/lib/seo';
-import { getSite } from '@/content';
+import { content, getProjects, getSite } from '@/content';
+import { compileKnowledge } from '@/lib/portfolio-ai/knowledge/compiler';
+import { buildSuggestionMap } from '@/components/ask-ai/suggestions';
+import { AssistantRoot } from '@/components/assistant/AssistantRoot';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { AppRuntime } from '@/components/layout/AppRuntime';
@@ -23,6 +26,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const site = getSite();
+  // AI Presence V1: one assistant for every route. Both values are computed at build time from
+  // approved content (the manifest version for cache-busting, grounded per-route suggestions).
+  const manifestVersion = compileKnowledge(content).manifest.version;
+  const suggestionMap = buildSuggestionMap(getProjects().map((p) => ({ slug: p.slug, title: p.title })));
   return (
     <html
       lang="en"
@@ -42,6 +49,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </a>
         <ExperienceRoot />
         <Header displayName={site.displayName} roleLabel={site.roleLabel} />
+        <AssistantRoot manifestVersion={manifestVersion} suggestionMap={suggestionMap} />
         <main id="main" tabIndex={-1}>
           {children}
         </main>

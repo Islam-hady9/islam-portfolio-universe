@@ -576,3 +576,42 @@ html[data-motion='full'] .streaming::after {
   font-size: 0.74rem;
   color: var(--text-muted);
 }
+
+/* ── AI Presence V1: the same panel inside the global drawer ──
+   The drawer is the housing, so the panel drops its own glass frame and becomes a chat
+   column: mode bar, field and suggestions stay put; the conversation takes the remaining
+   height and scrolls (newest turn brought into view). */
+:global([data-ai-host='drawer']) {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+:global([data-ai-host='drawer']) .panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+:global([data-ai-host='drawer']) .output {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 12rem;
+}
+
+:global([data-ai-host='drawer']) .conversation {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+}

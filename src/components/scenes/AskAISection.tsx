@@ -1,22 +1,17 @@
 import type { HomeCopy } from '@/content/schema';
 import { Eyebrow } from '@/components/ui/SectionHeading';
 import { StatusTag } from '@/components/ui/StatusTag';
-import { AskAiPanel } from '@/components/ask-ai/AskAiPanel';
+import { AssistantSlot } from '@/components/assistant/AssistantSlot';
 import { SceneArt } from './SceneArt';
 import styles from './AskAISection.module.css';
 
 /**
  * S8 — Ask My AI: explorer before a monumental portal (3D) + the Portfolio Intelligence Engine
  * (Smart Mode by default, opt-in Local AI). The section copy comes from home.json unchanged; the
- * former "concept preview" status line is replaced by the live mode status.
+ * former "concept preview" status line is replaced by the live mode status. AI Presence V1: the
+ * panel is the site-wide assistant instance, shown here through AssistantSlot.
  */
-export function AskAISection({
-  copy,
-  manifestVersion,
-}: {
-  copy: HomeCopy['assistant'];
-  manifestVersion: string;
-}) {
+export function AskAISection({ copy }: { copy: HomeCopy['assistant'] }) {
   return (
     <section id="ask-ai" data-section="ask-ai" className={styles.section} aria-labelledby="ask-ai-title">
       <SceneArt scene="portal" label={copy.artDescription} className={styles.art} />
@@ -38,7 +33,7 @@ export function AskAISection({
           </p>
         </div>
         <div className={styles.panel} data-reveal="fade">
-          <AskAiPanel manifestVersion={manifestVersion} />
+          <AssistantSlot />
         </div>
       </div>
     </section>
