@@ -40,10 +40,11 @@ Useful URL flags: `?quality=ultra|balanced|lite|static` (force a tier), `?intro=
 | `npm run content:gate [-- --strict]`                                              | Lists records still pending verification; fails in `VERIFIED_PUBLIC` mode                                       |
 | `npm run capture:posters -- <url> [--only=journey]` then `npm run capture:encode` | Re-render fallback posters from the live scenes                                                                 |
 | `npm run media:process`                                                           | Owner portrait + intro reel (`media-src/`, git-ignored) → `public/media/**` + `src/assets/media.json`           |
+| `npm run resume:import -- <file.pdf>`                                             | Copy the owner's résumé PDF byte-for-byte to `public/resume/` and record its checksum                           |
 | `npm run qa:stations -- <url> <out> --gpu` / `npm run qa:record -- <url>`         | Station screenshots / motion recordings on the GPU                                                              |
 | `npm run check`                                                                   | typecheck + lint + test + build                                                                                 |
 
-More QA tools: `scripts/qa/transitions.mjs` (3D between stations), `scripts/qa/core-evidence.mjs` (hero core close-ups + motion strip), `scripts/qa/soak.mjs` (long-session memory + scroll/route stress), `scripts/perf/long-tasks.mjs` (load-time main-thread blocking), `scripts/perf/gl-stalls.mjs` (per-program shader-compile stalls), `scripts/perf/cpu-profile.mjs` (main-thread CPU profile), `scripts/qa/montage.py` (evidence contact sheets), `scripts/qa/media-evidence.mjs` (portrait + reel player evidence and checks). `npm run perf:lighthouse -- <url> --runs=3` keeps the median run; `--only=<profiles>` and `--out=<dir>` run comparisons without touching committed evidence (`mobile-static-about` is opt-in).
+More QA tools: `scripts/qa/transitions.mjs` (3D between stations), `scripts/qa/core-evidence.mjs` (hero core close-ups + motion strip), `scripts/qa/soak.mjs` (long-session memory + scroll/route stress), `scripts/perf/long-tasks.mjs` (load-time main-thread blocking), `scripts/perf/gl-stalls.mjs` (per-program shader-compile stalls), `scripts/perf/cpu-profile.mjs` (main-thread CPU profile), `scripts/qa/montage.py` (evidence contact sheets), `scripts/qa/media-evidence.mjs` (portrait + reel player evidence and checks), `scripts/qa/content-snapshot.mjs` (rendered text/links/images of every route, `--diff` for content-freeze checks). `npm run perf:lighthouse -- <url> --runs=3` keeps the median run; `--only=<profiles>` and `--out=<dir>` run comparisons without touching committed evidence (`mobile-static-about` is opt-in).
 
 ## Architecture
 
@@ -78,6 +79,7 @@ docs/               plan, decisions, acceptance matrix, test report, readiness, 
 - [`docs/content-population.md`](docs/content-population.md) — CV/content hand-off guide
 - [`docs/asset-manifest.md`](docs/asset-manifest.md) — asset provenance and licences
 - [`docs/personal-media-integration/`](docs/personal-media-integration/README.md) — portrait + intro reel: placement, handling, measured impact, tests
+- [`docs/cv-links-integration/`](docs/cv-links-integration/README.md) — temporary CV PDF + verified links (content freeze)
 
 The authoritative product spec and approved visual reference live in `docs/intelligence_universe_master/`.
 

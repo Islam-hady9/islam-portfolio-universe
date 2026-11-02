@@ -16,7 +16,8 @@ All content is JSON in `src/content/data/`, validated by zod (`src/content/schem
 | `career.json` | `Career` — journey milestones | **Sample** milestones only (no organisations/dates) |
 | `capabilities.json`, `philosophy.json` | groups / principles | Titles & skills from the brief; descriptions `placeholder` |
 | `profile-extras.json` | education, research, achievements | Empty (nothing shown until verified) |
-| `social.json`, `contact.json` | links, email, availability, resume URL | LinkedIn/email/resume `null`; GitHub derived from the repo remote (`placeholder`) |
+| `social.json`, `contact.json` | links, email, availability, resume URL | LinkedIn, GitHub, email and the résumé PDF are `owner_verified` from the temporary CV (2026-11-02); availability, location and response note still `null` |
+| `verified-links.json` | registry: CV project repositories, certificate links, phone (`publicDisplay: false`) | **Not rendered** — exact links extracted from the CV for this phase; no repository matches an existing project |
 | `assistant.json` | sample prompts + knowledge entries for the demo | Composed from the fixtures above |
 | `attributions.json` | asset provenance | Complete |
 | `media.json` | `MediaContent` — portrait description, reel labels, transcript cues + on-screen description, AI-provenance flag | Portrait and reel `owner_verified` (owner-supplied files); **transcript and AI disclosure `placeholder`** until confirmed (see below) |
@@ -38,6 +39,11 @@ Every record carries `verification: { status, source, note? }` with `status` ∈
    Update `tests/unit/content/factual-safety.test.ts` where a rule was intentionally about sample data (e.g. career entries will now have organisations).
 6. **Regenerate posters/OG** if names changed; re-run E2E (`npx playwright test`) to catch layout regressions from longer text.
 7. **Publish** only with explicit approval: `NEXT_PUBLIC_CONTENT_MODE=VERIFIED_PUBLIC` and `NEXT_PUBLIC_SITE_URL=https://…`. The build **fails** if any placeholder remains (`src/content/gate.ts`), and only then are pages indexable (robots, sitemap, canonical, JSON-LD `sameAs`).
+
+## Résumé PDF (temporary CV integrated 2026-11-02)
+- Replace it with `npm run resume:import -- <file.pdf>` (byte-for-byte copy + checksum → `public/resume/Islam_Abdelhady_CV.pdf`, `src/assets/resume.json`); every résumé action reads that one document. Then `npm test` (the provenance test checks the new file's links against `social.json`, `contact.json` and `verified-links.json`).
+- The CV text is **not** a content source yet: experience, skills, projects, education and certificates in it were deliberately not copied into the site. Use `verified-links.json` for their exact URLs when this phase populates them.
+- The demo assistant's `kb-contact` answer still describes contact details as pending — update it with the other content.
 
 ## Personal media (portrait + intro reel)
 - **To confirm** in `media.json`, then set each `verification.status` to `owner_verified`:
