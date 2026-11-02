@@ -104,6 +104,33 @@ test.describe('webgl experience (GPU)', () => {
     await expect(page).toHaveURL(/#contact$/, { timeout: 6000 });
   });
 
+  test('a runtime tier change keeps the portal housing intact (V3)', async ({ page }) => {
+    // The governor can change the tier without remounting the canvas; the instanced housing
+    // must keep its 24 distinct segment angles (regression: they once collapsed to one angle).
+    await page.goto('/?intro=0&quality=ultra&debug=1');
+    await expect
+      .poll(() => page.evaluate(() => window.__IU__?.state().webgl), { timeout: 30_000 })
+      .toBe('ready');
+    await scrollToSection(page, 'ask-ai');
+    await page.waitForTimeout(1500);
+    const angles = () =>
+      page.evaluate(() => {
+        const debug = (window as unknown as { __IU_DEBUG__?: { scene: import('three').Scene } }).__IU_DEBUG__;
+        const mesh = debug?.scene.getObjectByName('portal-housing') as
+          import('three').InstancedMesh | undefined;
+        if (!mesh) return null;
+        const a = mesh.instanceMatrix.array;
+        return [0, 6, 12, 18].map((i) => Math.round(Math.atan2(a[i * 16 + 1]!, a[i * 16]!) * 1000) / 1000);
+      });
+    const before = await angles();
+    expect(before).not.toBeNull();
+    expect(new Set(before).size).toBe(4);
+    await page.evaluate(() => window.__IU__?.state().setTier('balanced', 'e2e tier change'));
+    await expect.poll(() => page.evaluate(() => window.__IU__?.state().tier)).toBe('balanced');
+    await page.waitForTimeout(1500);
+    expect(await angles()).toEqual(before);
+  });
+
   test('project portal goes live on hover and transitions into the case study', async ({ page }) => {
     await gotoHome(page, 'quality=ultra');
     await expect

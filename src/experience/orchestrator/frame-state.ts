@@ -46,6 +46,9 @@ export const frame = {
   approach: { weight: 0, x: 0, y: 0, z: 0 },
   /** Core emitter energy (written by OrbitalCore, read by WorldLights). */
   coreEnergy: 0,
+  /** Portal energy: presence × breathing × pulses (written by RingPortal; read by lights,
+   *  the terrain spill and the explorer's rim). */
+  portalEnergy: 0,
   portal: null as PortalTransitionState | null,
   stats: { fps: 60, frameMs: 16.7, samples: 0 },
 };

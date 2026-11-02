@@ -24,7 +24,9 @@ export function WorldLights() {
       const p = home
         ? Math.max(frame.presence[7] ?? 0, (frame.presence[6] ?? 0) * 0.3, (frame.presence[8] ?? 0) * 0.3)
         : 0;
-      portal.current.intensity = 90 * p;
+      // Breathes and pulses with the portal (RingPortal writes frame.portalEnergy).
+      const e = frame.presence[7] ? frame.portalEnergy / Math.max(0.001, frame.presence[7]) : 1;
+      portal.current.intensity = 82 * p * Math.min(1.6, Math.max(0.85, e));
     }
   });
 

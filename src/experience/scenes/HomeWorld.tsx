@@ -173,14 +173,26 @@ export function HomeWorld({ cfg, pixelRatio }: { cfg: TierConfig; pixelRatio: nu
       {/* S8 ask-ai: explorer before the portal */}
       <StationGate from={6.3} to={7.8} ground="portal">
         <group position={p.center}>
-          <RingPortal radius={p.radius} stationIndex={7} intensity={0.62} />
+          <RingPortal
+            radius={p.radius}
+            stationIndex={7}
+            intensity={0.62}
+            layers={2 + cfg.coreDetail}
+            particles={Math.round(cfg.dust * 0.2) + 100}
+            pixelRatio={pixelRatio}
+          />
         </group>
-        <Explorer position={[p.center[0] + 0.7, p.groundY + p.plateauHeight, p.center[2] + 5.4]} scale={1} />
+        <Explorer
+          position={[p.center[0] + 0.7, p.groundY + p.plateauHeight, p.center[2] + 5.4]}
+          scale={1}
+          lightFrom={[p.center[0], p.center[1], p.center[2] + 2.5]}
+        />
         <Terrain
           shape={shapes.portal}
           position={[p.center[0] + 1.6, p.groundY, p.center[2] - 8]}
           rimStrength={0.7}
           rimColor="#5fd3ef"
+          spill
         />
         <Dust
           count={Math.round(cfg.dust * 0.5)}
