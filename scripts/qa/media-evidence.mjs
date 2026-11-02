@@ -97,19 +97,35 @@ for (const profile of profiles) {
   const opener = page.locator('[data-action="identity-reel"]');
   if (profile.name === 'mobile') await opener.tap();
   else await opener.click();
-  await page.waitForFunction(() => document.querySelector('dialog')?.open === true, null, { timeout: 10000 });
-  await page.waitForFunction(() => (document.querySelector('dialog video')?.currentTime ?? 0) > 3.6, null, {
-    timeout: 20000,
-  });
+  await page.waitForFunction(
+    () => document.querySelector('dialog:not([data-assistant-drawer])')?.open === true,
+    null,
+    { timeout: 10000 },
+  );
+  await page.waitForFunction(
+    () => (document.querySelector('dialog:not([data-assistant-drawer]) video')?.currentTime ?? 0) > 3.6,
+    null,
+    {
+      timeout: 20000,
+    },
+  );
   // Captions default to on; turn them on only if a stored preference switched them off.
-  if ((await page.locator('dialog button[aria-label="Captions"]').getAttribute('aria-pressed')) !== 'true') {
+  if (
+    (await page
+      .locator('dialog:not([data-assistant-drawer]) button[aria-label="Captions"]')
+      .getAttribute('aria-pressed')) !== 'true'
+  ) {
     await page.keyboard.press('c');
   }
-  await page.waitForFunction(() => (document.querySelector('dialog video')?.currentTime ?? 0) > 4.6, null, {
-    timeout: 20000,
-  });
+  await page.waitForFunction(
+    () => (document.querySelector('dialog:not([data-assistant-drawer]) video')?.currentTime ?? 0) > 4.6,
+    null,
+    {
+      timeout: 20000,
+    },
+  );
   r.player = await page.evaluate(() => {
-    const v = document.querySelector('dialog video');
+    const v = document.querySelector('dialog:not([data-assistant-drawer]) video');
     return {
       currentSrc: v.currentSrc.replace(location.origin, ''),
       paused: v.paused,
@@ -119,34 +135,43 @@ for (const profile of profiles) {
       focus: document.activeElement?.getAttribute('aria-label') ?? document.activeElement?.tagName,
       overflow: document.documentElement.style.overflow,
       worldPaused: window.__IU__?.state?.().mediaOverlay ?? null,
-      caption: document.querySelector('dialog [data-captions]')?.textContent ?? null,
+      caption:
+        document.querySelector('dialog:not([data-assistant-drawer]) [data-captions]')?.textContent ?? null,
     };
   });
   await page.screenshot({ path: join(outDir, `reel-${profile.name}.png`) });
   if (profile.name === 'desktop') {
-    await page.locator('dialog summary').click();
+    await page.locator('dialog:not([data-assistant-drawer]) summary').click();
     await settle(page, 600);
     await page.screenshot({ path: join(outDir, `reel-transcript-${profile.name}.png`) });
-    await page.locator('dialog summary').click();
+    await page.locator('dialog:not([data-assistant-drawer]) summary').click();
   }
 
   // The closing name card.
   await page.evaluate(() => {
-    const v = document.querySelector('dialog video');
+    const v = document.querySelector('dialog:not([data-assistant-drawer]) video');
     v.currentTime = 30.4;
   });
-  await page.waitForFunction(() => (document.querySelector('dialog video')?.currentTime ?? 0) > 31.2, null, {
-    timeout: 15000,
-  });
+  await page.waitForFunction(
+    () => (document.querySelector('dialog:not([data-assistant-drawer]) video')?.currentTime ?? 0) > 31.2,
+    null,
+    {
+      timeout: 15000,
+    },
+  );
   await page.screenshot({ path: join(outDir, `reel-end-${profile.name}.png`) });
 
   // Close with Escape: focus must return to the trigger, scrolling must be restored.
   await page.keyboard.press('Escape');
-  await page.waitForFunction(() => document.querySelector('dialog')?.open === false, null, { timeout: 5000 });
+  await page.waitForFunction(
+    () => document.querySelector('dialog:not([data-assistant-drawer])')?.open === false,
+    null,
+    { timeout: 5000 },
+  );
   r.afterClose = await page.evaluate(() => ({
     focus: document.activeElement?.getAttribute('data-action'),
     overflow: document.documentElement.style.overflow,
-    paused: document.querySelector('dialog video')?.paused,
+    paused: document.querySelector('dialog:not([data-assistant-drawer]) video')?.paused,
   }));
 
   // About page hero portrait.
